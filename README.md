@@ -1,24 +1,27 @@
 # conda-bootstrapper
 
+<https://github.com/MarximusMaximus/conda-bootstrapper>
+
 by Marximus Maximus (<https://marximus.com>)
 
 Helper tools for setting up conda environments for projects. Supports poetry and pip for extra environment config, as well as custom post-setup steps.
 
 ## Features
 
-- setup.sh - Automatically downloads and installs/updates to latest miniforge, sets up/updates project env.
-- activate.sh - Activates conda environment for project.
-- run.sh - Runs command within conda environment for project.
+- `setup.sh` - Automatically downloads and installs/updates to latest miniforge, sets up/updates project env.
+- `activate.sh` - Activates conda environment for project.
+- `run.sh` - Runs command within conda environment for project. (Will try default commands if first arg is not a path to an executable file.)
 - Python File Preamble - Automatically activates conda env when attempting to run python script directly.
-- conda-bootstrapper-update.sh - Updates stub files within your project to latest versions
+- `conda-bootstrapper-update.sh` - Updates stub files within your project to latest versions
+- `post-setup.sh` - Any additional commands to run after main environment setup provided by conda, pip, or poetry.
 
 Additional Files:
 
-- conda-environment.yaml - the conda environment definition for your project, default starting file is included
-- pip-requirements.txt (optional) - pip requirements to install (example provided)
-- pip-constraints.txt (optional) - pip constraints to be used with pip-requirements.txt (example provided)
-- pip-uninstall.txt (optional) - pip packages to uninstall list (explicitly remove old packages you no longer use) (example provided)
-- pyproject.toml w/ `[tool.poetry]` line (optional) - poetry data & requirements that will be installed (takes precedence over pip) (example provided)
+- `conda-environment.yml` - the conda environment definition for your project, default starting file is included
+- `pip-requirements.txt` (optional) - pip requirements to install (example provided)
+- `pip-constraints.txt` (optional) - pip constraints to be used with pip-requirements.txt (example provided)
+- `pip-uninstall.txt` (optional) - pip packages to uninstall list (explicitly remove old packages you no longer use) (example provided)
+- `pyproject.toml` w/ `[tool.poetry]` line (optional) - poetry data & requirements that will be installed (takes precedence over pip) (example provided)
 
 ## Usage (user of your project)
 
@@ -48,7 +51,7 @@ Additional Files:
    1. NOTE: If using `poetry`, remember to run `poetry update` if you want your dependencies' pinned versions updated!
 2. Run `setup.sh` to create environment.
 
-## Deployment
+### Raw Deployments (i.e. Direct To Metal)
 
 1. Clone or otherwise acquire your project to its destination.
 2. Run `setup.sh --deploy` to create environment.
@@ -56,11 +59,16 @@ Additional Files:
 
 ## Bug Reports / Feature Requests
 
+Please submit bug reports and feature requests to:
+<https://github.com/MarximusMaximus/conda-bootstrapper/issues>
 
 ## Development & Contribution
 
+Pull Requests will be reviewed at:
+<https://github.com/MarximusMaximus/conda-bootstrapper/pulls>
+
 ## Like My Work & Want To Support It?
 
-Main Website: <https://marximus.com>
-Patreon (On Going Support): <https://www.patreon.com/marximus>
-Ko-fi (One Time Tip): <https://ko-fi.com/marximusmaximus>
+- Main Website: <https://marximus.com>
+- Patreon (On Going Support): <https://www.patreon.com/marximus>
+- Ko-fi (One Time Tip): <https://ko-fi.com/marximusmaximus>
