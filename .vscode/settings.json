@@ -1,0 +1,98 @@
+{
+  "cSpell.words": [
+    "bootstrapper",
+    "conda",
+    "Marximus",
+    "Maximus",
+    "miniforge",
+    "pyproject",
+    "uninstallation"
+  ],
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.associations": {
+      "LICENSE": "plaintext",
+      "setup.cfg": "ini",
+      ".coveragerc": "ini",
+  },
+  "editor.insertSpaces": true,
+  "editor.showFoldingControls": "always",
+  "editor.tabSize": 4,
+  "python.defaultInterpreterPath": "/opt/conda/miniforge/bin/python",
+  "python.disableInstallationCheck": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "shell-syntax.defaultShell": "sh",
+  "better-comments.highlightPlainText": true,
+  "better-comments.tags": [
+      {
+          "tag": "NOTE:",
+          "color": "#98C379",
+          "strikethrough": false,
+          "underline": false,
+          "backgroundColor": "transparent",
+          "bold": false,
+          "italic": false
+      },
+      {
+          "tag": "WARNING:",
+          "color": "#FF2D00",
+          "strikethrough": false,
+          "underline": false,
+          "backgroundColor": "transparent",
+          "bold": true,
+          "italic": false
+      },
+      {
+          "tag": "HACK:",
+          "color": "#FF2D00",
+          "strikethrough": false,
+          "underline": false,
+          "backgroundColor": "transparent",
+          "bold": false,
+          "italic": false
+      },
+      {
+        "tag": "QUESTION:",
+        "color": "#3498DB",
+        "strikethrough": false,
+        "underline": false,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      },
+      {
+        "tag": "TODO:",
+        "color": "#FF8C00",
+        "strikethrough": false,
+        "underline": false,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      },
+      {
+        "tag": "shellcheck",
+        "color": "#666666",
+        "strikethrough": false,
+        "underline": false,
+        "backgroundColor": "transparent",
+        "bold": false,
+        "italic": false
+      }
+  ],
+  "coverage-gutters.showLineCoverage": true,
+  "coverage-gutters.showRulerCoverage": true,
+  "koverage.coverageFileNames": [
+      "lcov.info",
+      "cov.xml",
+      "coverage.xml",
+      "jacoco.xml"
+  ],
+  "koverage.sufficientCoverageThreshold": 100,
+  "koverage.coverageFilePaths": [
+      ".",
+      "coverage"
+  ],
+  "livePreview.defaultPreviewPath": "/htmlcov/index.html"
+}

@@ -1,0 +1,270 @@
+# NOTE: Project specific overries are at end of file
+
+################################################################################
+#region OSes
+
+#===============================================================================
+#region Linux
+
+
+
+#endregion Linux
+#===============================================================================
+
+#===============================================================================
+#region macOS
+
+# macOS Finder files
+.DS_Store
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+#endregion macOS
+#===============================================================================
+
+#===============================================================================
+#region Windows
+
+# thumbnail dbs
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+#endregion Windows
+#===============================================================================
+
+#endregion OSes
+################################################################################
+
+################################################################################
+#region Languages
+
+#===============================================================================
+#region C/C++
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+*.slo
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Static Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.lai
+
+# Shared/Dynamic Libraries
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+# *.exe
+# *.out
+# *.app
+# *.i*86
+# *.x86_64
+# *.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+#endregion C/C++
+#===============================================================================
+
+#===============================================================================
+#region Node.js
+
+node_modules/
+
+#endregion Node.js
+#===============================================================================
+
+#===============================================================================
+#region Python
+
+# Python bytecode files
+__pycache__/
+*.py[cod]
+#*$py.class
+
+# pytest cache
+.pytest_cache/
+
+# egg and build related
+*.egg-info/
+.eggs/
+
+# tox cache
+.tox
+
+#endregion Python
+#===============================================================================
+
+#endregion Languages
+################################################################################
+
+################################################################################
+#region Editors/IDEs
+
+#===============================================================================
+#region Jetbrains
+
+.idea/**/workspace.xml
+
+#endregion Jetbrains
+#===============================================================================
+
+#===============================================================================
+#region SublimeText
+
+*.sublime-workspace
+
+#endregion SublimeText
+#===============================================================================
+
+#===============================================================================
+#region VSCode
+
+
+
+#endregion VSCode
+#===============================================================================
+
+#===============================================================================
+#region Xcode
+
+DerivedData/
+
+xcuserdata/
+
+#endregion Xcode
+#===============================================================================
+
+#endregion Editors/IDEs
+################################################################################
+
+################################################################################
+#region Misc
+
+# ! private data
+local.*
+*.local
+.netrc
+
+# backup files
+*.old
+*.old.*
+
+# binary files
+*.zip
+*.tar.gz
+*.dmg
+*.img
+
+# build folders
+build/
+dist/
+
+# generic caches
+.cache
+cache/
+
+# coverage data
+.coverage
+htmlcov/
+coverage.json
+coverage.xml
+coverage.html
+
+# runtime files
+*.pid
+*.lock
+
+# logs
+log
+log.tar
+log.tar.gz
+log/
+logs/
+log.txt
+log[-_]*.txt
+*.txt.tar
+*.txt.tar.gz
+*.log
+*.log.tar
+*.log.tar.gz
+
+# private keys
+*.ppk
+id_rsa
+*[-_]id_rsa
+*.key
+*.token
+symmetric_key
+asymmetric_key
+symmetric_token
+asymmetric_token
+*.kerberos
+*.keytab
+*.keyfile
+keytab
+keyfile
+tokenfile
+*.tokenfile
+
+# temp files
+*~
+tmp/
+temp/
+*.tmp
+~$*
+
+#endregion Misc
+################################################################################
+
+################################################################################
+#region Project Specific
+
+
+
+#endregion Project Specific
+################################################################################
