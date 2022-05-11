@@ -126,12 +126,15 @@ __pycache__/
 *.py[cod]
 #*$py.class
 
-# pytest cache
-.pytest_cache/
-
-# egg and build related
+# build and egg related
 *.egg-info/
 .eggs/
+
+# mypy cache
+.mypy_cache/
+
+# pytest cache
+.pytest_cache/
 
 # tox cache
 .tox
@@ -210,10 +213,17 @@ cache/
 
 # coverage data
 .coverage
+.coverage*
 htmlcov/
 coverage.json
 coverage.xml
 coverage.html
+
+# test & other report data
+.reports/
+
+# codeql
+.codeql/
 
 # runtime files
 *.pid

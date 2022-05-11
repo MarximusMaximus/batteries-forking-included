@@ -1,0 +1,10 @@
+# line length
+MD013: false
+# shell command no output
+MD014: false
+# multiple top level headings
+MD025: false
+# start ordered list with specific number
+MD029: false
+# inline html
+MD033: false

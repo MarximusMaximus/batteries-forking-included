@@ -8,16 +8,16 @@ Helper tools for setting up conda environments for projects. Supports poetry and
 
 ## Features
 
-- `setup.sh` - Automatically downloads and installs/updates to latest miniforge, sets up/updates project env.
+- `bootstrap.sh` - Automatically downloads and installs/updates to latest miniforge, sets up/updates project env.
 - `activate.sh` - Activates conda environment for project.
-- `run.sh` - Runs command within conda environment for project. (Will try default commands if first arg is not a path to an executable file.)
+- `run.sh` - Runs command within conda environment for project. (Will try default command if first arg is not a path to an executable file.)
 - Python File Preamble - Automatically activates conda env when attempting to run python script directly.
 - `conda-bootstrapper-update.sh` - Updates stub files within your project to latest versions
-- `post-setup.sh` - Any additional commands to run after main environment setup provided by conda, pip, or poetry.
+- `post-bootstrap.sh` - Any additional commands to run after main environment setup provided by conda, pip, or poetry.
 
 Additional Files:
 
-- `conda-environment.yml` - the conda environment definition for your project, default starting file is included
+- `conda-environment.yml` - (required) the conda environment definition for your project, default starting file is included
 - `pip-requirements.txt` (optional) - pip requirements to install (example provided)
 - `pip-constraints.txt` (optional) - pip constraints to be used with pip-requirements.txt (example provided)
 - `pip-uninstall.txt` (optional) - pip packages to uninstall list (explicitly remove old packages you no longer use) (example provided)
@@ -26,36 +26,46 @@ Additional Files:
 ## Usage (user of your project)
 
 1. User clones or otherwise acquires your project.
-2. User runs `setup.sh` from within your project.
+2. User runs `bootstrap.sh` from within your project.
 3. User runs either `run.sh` or your custom entry points to your project.
 
 ## Usage (developer of your project)
 
-### Initial Setup
+### Initial Addition To Project
 
 1. Copy latest `conda-bootstrapper-update.sh` to your project root.
 2. Run `conda-bootstrapper-update.sh` from within your project root.
-3. Select options (if presented; settings may be detected from existing files).
+   1. `cd YOUR_PROJECT_ROOT_FOLDER`
+   2. `./conda-bootstrapper-update.sh`
+3. Select options as presented.
 4. (Optional) Modify `conda-environment.yml` and `pip-*.txt` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
-5. Run `setup.sh` to create environment.
+5. Run `bootstrap.sh` to create environment.
+
+### Initial Setup for New Developer
+
+1. Copy latest `conda-bootstrapper-update.sh` to your project root.
+2. Run `conda-bootstrapper-update.sh` from within your project root.
+   1. `cd YOUR_PROJECT_ROOT_FOLDER`
+   2. `./conda-bootstrapper-update.sh --yes`
+3. Run `bootstrap.sh` to create environment.
 
 ### Update conda-bootstrapper Stubs
 
 1. Run `conda-bootstrapper-update.sh` from within your project root.
 2. Select options (if presented).
-3. Run `setup.sh` to update environment.
+3. Run `bootstrap.sh` to update environment.
 
 ### Update Project Environment
 
 1. (Optional) Modify `conda-environment.yaml` and `pip-*` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
    1. NOTE: If using `poetry`, remember to run `poetry update` if you want your dependencies' pinned versions updated!
-2. Run `setup.sh` to create environment.
+2. Run `bootstrap.sh` to create environment.
 
 ### Raw Deployments (i.e. Direct To Metal)
 
 1. Clone or otherwise acquire your project to its destination.
-2. Run `setup.sh --deploy` to create environment.
-3. Setup your favorite supervisor software to run `run.sh`.
+2. Run `bootstrap.sh --deploy` to create environment.
+3. Setup your favorite supervisor software to run `run.sh` with a current working directory of your project root.
 
 ## Bug Reports / Feature Requests
 
