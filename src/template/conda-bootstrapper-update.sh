@@ -640,8 +640,12 @@ log_ultradebug() {
                     exit 0
                 fi
 
+                ahead_by="$(git rev-list --left-right --count origin/main..."$(git branch --show-current)" | awk '{print $2}')"
                 is_dirty="$(git status --porcelain --untracked-files=all)"
-                if [ "${is_dirty}" = "" ]; then
+                if \
+                    [ "${is_dirty}" = "" ] ||
+                    [ "${ahead_by}" -eq 0 ]
+                then
                     # not dirty
                     git fetch
                     ret=$?
