@@ -242,32 +242,32 @@ log_ultradebug() {
             log_info "Safely removing '%s'" "${path_to_remove}"
 
             if \
-                [ "${path_to_remove}" = "/" ] ||
-                [ "${path_to_remove}" = "${HOME}" ] ||
-                [ "${path_to_remove}" = "${TMPDIR}" ] ||
-                [ "${path_to_remove}" = "/Applications" ] ||
-                [ "${path_to_remove}" = "/bin" ] ||
-                [ "${path_to_remove}" = "/boot" ] ||
-                [ "${path_to_remove}" = "/cores" ] ||
-                [ "${path_to_remove}" = "/dev" ] ||
-                [ "${path_to_remove}" = "/etc" ] ||
-                [ "${path_to_remove}" = "/home" ] ||
-                [ "${path_to_remove}" = "/lib" ] ||
-                [ "${path_to_remove}" = "/Library" ] ||
-                [ "${path_to_remove}" = "/local" ] ||
-                [ "${path_to_remove}" = "/media" ] ||
-                [ "${path_to_remove}" = "/mnt" ] ||
-                [ "${path_to_remove}" = "/opt" ] ||
-                [ "${path_to_remove}" = "/private" ] ||
-                [ "${path_to_remove}" = "/proc" ] ||
-                [ "${path_to_remove}" = "/sbin" ] ||
-                [ "${path_to_remove}" = "/srv" ] ||
-                [ "${path_to_remove}" = "/System" ] ||
-                [ "${path_to_remove}" = "/Users" ] ||
-                [ "${path_to_remove}" = "/usr" ] ||
-                [ "${path_to_remove}" = "/var" ] ||
-                [ "${path_to_remove}" = "/Volumes" ] ||
-                [ "${path_to_remove}" = "" ]
+                [ "${path_to_remove}" != "/" ] &&
+                [ "${path_to_remove}" != "${HOME}" ] &&
+                [ "${path_to_remove}" != "${TMPDIR}" ] &&
+                [ "${path_to_remove}" != "/Applications" ] &&
+                [ "${path_to_remove}" != "/bin" ] &&
+                [ "${path_to_remove}" != "/boot" ] &&
+                [ "${path_to_remove}" != "/cores" ] &&
+                [ "${path_to_remove}" != "/dev" ] &&
+                [ "${path_to_remove}" != "/etc" ] &&
+                [ "${path_to_remove}" != "/home" ] &&
+                [ "${path_to_remove}" != "/lib" ] &&
+                [ "${path_to_remove}" != "/Library" ] &&
+                [ "${path_to_remove}" != "/local" ] &&
+                [ "${path_to_remove}" != "/media" ] &&
+                [ "${path_to_remove}" != "/mnt" ] &&
+                [ "${path_to_remove}" != "/opt" ] &&
+                [ "${path_to_remove}" != "/private" ] &&
+                [ "${path_to_remove}" != "/proc" ] &&
+                [ "${path_to_remove}" != "/sbin" ] &&
+                [ "${path_to_remove}" != "/srv" ] &&
+                [ "${path_to_remove}" != "/System" ] &&
+                [ "${path_to_remove}" != "/Users" ] &&
+                [ "${path_to_remove}" != "/usr" ] &&
+                [ "${path_to_remove}" != "/var" ] &&
+                [ "${path_to_remove}" != "/Volumes" ] &&
+                [ "${path_to_remove}" != "" ]
             then
                 rm -rf "${path_to_remove}"
                 ret=$?
@@ -709,7 +709,7 @@ log_ultradebug() {
                 exit $ret
             fi
 
-            cp "${CONDA_BOOTSTRAPPER_FULLPATH}/src/template/*" "${my_tempdir}/template/"
+            cp "${CONDA_BOOTSTRAPPER_FULLPATH}/src/template"/* "${my_tempdir}/template/"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "failed to copy files from '%s' to '%s'" "${CONDA_BOOTSTRAPPER_FULLPATH}/src/template/*" "${my_tempdir}/template/"
@@ -814,13 +814,25 @@ log_ultradebug() {
                         continue
                     fi
 
-                    is_file_same "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
-                    ret=$?
-                    if [ $ret -gt 2 ]; then
-                        exit $ret
-                    elif [ $ret -eq 1 ]; then
+                    needs_copy=false
+
+                    if [ ! -f "${MY_DIR_FULLPATH}/${filename}" ]; then
+                        needs_copy=true
+                    fi
+
+                    if [ "${needs_copy}" = false ]; then
+                        is_file_same "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+                        ret=$?
+                        if [ $ret -gt 2 ]; then
+                            exit $ret
+                        elif [ $ret -eq 1 ]; then
+                            needs_copy=true
+                        fi
+                    fi
+
+                    if [ "${needs_copy}" = true ]; then
                         # file is different, needs to be updated
-                        log_info "${filename} changed, copying"
+                        log_info "${filename} needs to be copied, copying"
 
                         safe_rm "${MY_DIR_FULLPATH}/${filename}"
                         ret=$?
@@ -833,9 +845,6 @@ log_ultradebug() {
                             log_fatal "failed to copy '%s' to '%s'" "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
                             exit "${RET_ERROR_COPY_FAILED}"
                         fi
-                    else
-                        # file is same, skip
-                        continue
                     fi
                 done
             fi
