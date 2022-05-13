@@ -72,7 +72,7 @@ MY_DIR_FULLPATH="$(dirname -- "$(rreadlink "$0")")"
 export MY_DIR_FULLPATH
 MY_DIR_BASENAME="$(basename -- "${MY_DIR_FULLPATH}")"
 export MY_DIR_BASENAME
-CONDA_BOOTSTRAPPER_FULLPATH="${MY_DIR_FULLPATH}/.."
+CONDA_BOOTSTRAPPER_FULLPATH="${MY_DIR_FULLPATH}/../conda-bootstrapper"
 export CONDA_BOOTSTRAPPER_FULLPATH
 
 #endregion Self Referentials
@@ -149,9 +149,9 @@ log_ultradebug() {
     ############################################################################
     #region Includes
 
-    if [ -d "${CONDA_BOOTSTRAPPER_FULLPATH}" ]; then
+    if [ -f "${CONDA_BOOTSTRAPPER_FULLPATH}/src/constants.sh" ]; then
         # shellcheck disable=SC1091
-        . "${CONDA_BOOTSTRAPPER_FULLPATH}"/src/constants.sh
+        . "${CONDA_BOOTSTRAPPER_FULLPATH}/src/constants.sh"
     fi
 
     #endregion Includes
@@ -221,6 +221,8 @@ log_ultradebug() {
 
         path_to_cd="$1"
 
+        log_info "Changing current directory to '%s'" "${path_to_cd}"
+
         # shellcheck disable=SC2164
         cd "${path_to_cd}"
         ret=$?
@@ -234,6 +236,8 @@ log_ultradebug() {
         (
             path_to_remove="$1"
             print_rm_error_message="$2"
+
+            log_info "Safely removing '%s'" "${path_to_remove}"
 
             if \
                 [ "${path_to_remove}" = "/" ] ||
@@ -285,6 +289,8 @@ log_ultradebug() {
         (
             path_to_remove="$1"
 
+            log_info "Ensuring does not exist: '%s'" "${path_to_remove}"
+
             if \
                 [ -f "${path_to_remove}" ] ||
                 [ -d "${path_to_remove}" ]
@@ -298,6 +304,8 @@ log_ultradebug() {
 
     check_tools() {
         # intentionally no local scope because modifying globals
+
+        log_info "Checking tools"
 
         if [ "$(command -v git)" != "" ]; then
             git_exists=true
@@ -363,6 +371,10 @@ log_ultradebug() {
 
     create_dir() {
         (
+            destdir="$1"
+
+            log_info "Creating directory '%s'" "${destdir}"
+
             ensure_does_not_exist "${destdir}"
             ret=$?
             if [ $ret -ne 0 ]; then
@@ -379,8 +391,24 @@ log_ultradebug() {
         )
     }
 
+    ensure_dir() {
+        (
+            destdir="$1"
+
+            log_info "Ensuring directory exists: '%s'" "${destdir}"
+
+            if [ ! -d "${destdir}" ]; then
+                create_dir "${destdir}"
+                ret=$?
+                exit $ret
+            fi
+        )
+    }
+
     create_my_tempdir() {
         # intentionally no local scope b/c modifying a global
+
+        log_info "Creating temporary directory"
 
         my_tempdir=$(mktemp -d -t conda-bootstrapper-update.XXXXXXXX)
         ret=$?
@@ -389,7 +417,7 @@ log_ultradebug() {
             return "${RET_ERROR_FAILED_TO_GET_my_tempdir}"
         fi
 
-        create_dir "${my_tempdir}"
+        ensure_dir "${my_tempdir}"
         if [ $ret -ne 0 ]; then
             return $ret
         fi
@@ -404,9 +432,11 @@ log_ultradebug() {
             directory="$3"
 
             if [ "${tar_exists}" = true ]; then
+                log_info "Downloading as tarball via curl: '%s'" "${repo_url}"
                 curl -L "${repo_url}/tarball" --output "${directory}/${file_basename}.tar.gz"
                 ret=$?
             elif [ "${unzip_exists}" = true ]; then
+                log_info "Downloading as zipball via curl: '%s'" "${repo_url}"
                 curl -L "${repo_url}/zipball" --output "${directory}/${file_basename}.zip"
                 ret=$?
             else  # pragma: no branch
@@ -428,9 +458,11 @@ log_ultradebug() {
             directory="$3"
 
             if [ "${tar_exists}" = true ]; then
+                log_info "Downloading as tarball via wget: '%s'" "${repo_url}"
                 wget "${repo_url}/tarball" -O "${directory}/${file_basename}.tar.gz"
                 ret=$?
             elif [ "${unzip_exists}" = true ]; then
+                log_info "Downloading as zipball via wget: '%s'" "${repo_url}"
                 wget "${repo_url}/zipball" -O "${directory}/${file_basename}.zip"
                 ret=$?
             else  # pragma: no branch
@@ -450,6 +482,8 @@ log_ultradebug() {
             file=$1
             dest=$2
 
+            log_info "Extracting tarball '%s' to '%s'" "${file}" "${dest}"
+
             _dest=""
             if [ "${dest}" != "" ]; then
                 _dest=" -C "
@@ -468,6 +502,8 @@ log_ultradebug() {
         (
             file=$1
             dest=$2
+
+            log_info "Extracting zipball '%s' to '%s'" "${file}" "${dest}"
 
             create_dir "${my_tempdir}/extracted"
             ret=$?
@@ -544,6 +580,8 @@ log_ultradebug() {
 
     ensure_conda_bootstrapper() {
         (
+            log_info "Ensuring conda-bootstrapper exists"
+
             if [ ! -d "${CONDA_BOOTSTRAPPER_FULLPATH}" ]; then
                 # conda-bootstrapper missing, let's download it
                 # shellcheck disable=SC2164
@@ -584,6 +622,8 @@ log_ultradebug() {
 
     update_condabootstrapper() {
         (
+            log_info "Updating conda-bootstrapper"
+
             if [ "${git_exists}" = true ]; then
                 # shellcheck disable=SC2164
                 cd "${CONDA_BOOTSTRAPPER_FULLPATH}"
@@ -655,6 +695,8 @@ log_ultradebug() {
 
     copy_temporary_template_files() {
         (
+            log_info "Creating a copy of template files"
+
             create_dir "${my_tempdir}/template"
             ret=$?
             if [ $ret -ne 0 ]; then
@@ -677,6 +719,8 @@ log_ultradebug() {
         (
             left_file="$1"
             right_file="$2"
+
+            log_info "Comparing '%s' and '%s'" "${left_file}" "${right_file}"
 
             if [ "${diff_exists}" = true ]; then
                 diff "${left_file}" "${right_file}"
@@ -712,8 +756,6 @@ log_ultradebug() {
     }
 
     compare_and_update_files() {
-        # TODO: compare template files to current project's files & print if different
-        # TODO: update files
         (
             # this file gets edited by users, we don't want it to get tested
             safe_rm "${my_tempdir}/template/post-boostrap.sh"
@@ -727,6 +769,8 @@ log_ultradebug() {
             if [ $ret -gt 2 ]; then
                 exit $ret
             elif [ $ret -eq 1 ]; then
+                log_info "conda-bootstrapper-update.sh changed, copying and re-running"
+
                 # we need to update ourself, and then call ourself again
                 safe_rm "${MY_DIR_FULLPATH}/conda-bootstrapper-update.sh"
                 ret=$?
@@ -770,6 +814,8 @@ log_ultradebug() {
                         exit $ret
                     elif [ $ret -eq 1 ]; then
                         # file is different, needs to be updated
+                        log_info "${filename} changed, copying"
+
                         safe_rm "${MY_DIR_FULLPATH}/${filename}"
                         ret=$?
                         if [ $ret -ne 0 ]; then
