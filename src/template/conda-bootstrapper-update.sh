@@ -200,6 +200,8 @@ log_ultradebug() {
         log_ultradebug "SET_OMEGA_DEBUG was '%s', setting OMEGA_DEBUG to same and exporting it." "${SET_OMEGA_DEBUG}"
     fi
 
+    verbosity=99
+
     git_exists=false; export git_exists
     curl_exists=false; export curl_exists
     wget_exists=false; export wget_exists
@@ -640,10 +642,10 @@ log_ultradebug() {
                     exit 0
                 fi
 
-                ahead_by="$(git rev-list --left-right --count origin/main..."$(git branch --show-current)" | awk '{print $2}')"
+                ahead_by="$(git rev-list --left-right --count origin/main...main | awk '{print $2}')"
                 is_dirty="$(git status --porcelain --untracked-files=all)"
                 if \
-                    [ "${is_dirty}" = "" ] ||
+                    [ "${is_dirty}" = "" ] &&
                     [ "${ahead_by}" -eq 0 ]
                 then
                     # not dirty
