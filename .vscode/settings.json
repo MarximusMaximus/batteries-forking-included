@@ -280,5 +280,10 @@
       "--show-column-numbers",
       "--no-pretty",
       "--strict"
-  ],
+],
+"workbench.colorCustomizations": {
+    "activityBar.background": "#1F312F",
+    "titleBar.activeBackground": "#2B4542",
+    "titleBar.activeForeground": "#F8FBFB"
+},
 }
