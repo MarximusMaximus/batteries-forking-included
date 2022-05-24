@@ -535,6 +535,159 @@ array_for_each() {
 #endregion Arrays
 #===============================================================================
 
+ensure_cd() {
+    # intentionally no local scope so that the cd command takes effect
+
+    path_to_cd="$1"
+
+    log_info "Changing current directory to '%s'" "${path_to_cd}"
+
+    # shellcheck disable=SC2164
+    cd "${path_to_cd}"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        log_fatal "Could not cd into '%s'" "${path_to_cd}"
+        return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
+    fi
+}
+
+safe_rm() {
+    (
+        path_to_remove="$1"
+        print_rm_error_message="$2"
+
+        log_info "Safely removing '%s'" "${path_to_remove}"
+
+        if \
+            [ "${path_to_remove}" != "/" ] &&
+            [ "${path_to_remove}" != "${HOME}" ] &&
+            [ "${path_to_remove}" != "${TMPDIR}" ] &&
+            [ "${path_to_remove}" != "/Applications" ] &&
+            [ "${path_to_remove}" != "/bin" ] &&
+            [ "${path_to_remove}" != "/boot" ] &&
+            [ "${path_to_remove}" != "/cores" ] &&
+            [ "${path_to_remove}" != "/dev" ] &&
+            [ "${path_to_remove}" != "/etc" ] &&
+            [ "${path_to_remove}" != "/home" ] &&
+            [ "${path_to_remove}" != "/lib" ] &&
+            [ "${path_to_remove}" != "/Library" ] &&
+            [ "${path_to_remove}" != "/local" ] &&
+            [ "${path_to_remove}" != "/media" ] &&
+            [ "${path_to_remove}" != "/mnt" ] &&
+            [ "${path_to_remove}" != "/opt" ] &&
+            [ "${path_to_remove}" != "/private" ] &&
+            [ "${path_to_remove}" != "/proc" ] &&
+            [ "${path_to_remove}" != "/sbin" ] &&
+            [ "${path_to_remove}" != "/srv" ] &&
+            [ "${path_to_remove}" != "/System" ] &&
+            [ "${path_to_remove}" != "/Users" ] &&
+            [ "${path_to_remove}" != "/usr" ] &&
+            [ "${path_to_remove}" != "/var" ] &&
+            [ "${path_to_remove}" != "/Volumes" ] &&
+            [ "${path_to_remove}" != "" ]
+        then
+            rm -rf "${path_to_remove}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                if \
+                    [ "${print_rm_error_message}" = "" ] ||
+                    [ "${print_rm_error_message}" = true ]
+                then
+                    log_error "failed to rm '%s'" "${path_to_remove}"
+                fi
+                exit "${RET_ERROR_RM_FAILED}"
+            fi
+        else
+            log_fatal "unsafe rm path '%s'" "${path_to_remove}"
+            exit "${RET_ERROR_UNSAFE_RM_PATH}"
+        fi
+    )
+}
+
+ensure_does_not_exist() {
+    (
+        path_to_remove="$1"
+
+        log_info "Ensuring does not exist: '%s'" "${path_to_remove}"
+
+        if \
+            [ -f "${path_to_remove}" ] ||
+            [ -d "${path_to_remove}" ]
+        then
+            safe_rm "${path_to_remove}"
+            ret=$?
+            exit $ret
+        fi
+    )
+}
+
+create_dir() {
+    (
+        destdir="$1"
+
+        log_info "Creating directory '%s'" "${destdir}"
+
+        ensure_does_not_exist "${destdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to remove path '%s'" "${destdir}"
+            exit $ret
+        fi
+
+        mkdir -p "${destdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to create directory '%s'" "${destdir}"
+            exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
+        fi
+    )
+}
+
+ensure_dir() {
+    (
+        destdir="$1"
+
+        log_info "Ensuring directory exists: '%s'" "${destdir}"
+
+        if [ ! -d "${destdir}" ]; then
+            create_dir "${destdir}"
+            ret=$?
+            exit $ret
+        fi
+    )
+}
+
+create_my_tempdir() {
+    my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        log_fatal "failed to get temporary directory"
+        return "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+    fi
+    command echo "${my_tempdir}"
+    return "${RET_SUCCESS}"
+}
+
+ensure_my_tempdir() {
+    # intentionally no local scope b/c modifying a global
+
+    log_info "Creating temporary directory"
+
+    if [ "${my_tempdir}" = "" ]; then
+        my_tempdir="$(create_my_tempdir)"
+        if [ $ret -ne 0 ]; then
+            return $ret
+        fi
+    fi
+
+    ensure_dir "${my_tempdir}"
+    if [ $ret -ne 0 ]; then
+        return $ret
+    fi
+
+    export my_tempdir
+}
+
 #===============================================================================
 #region source check
 
@@ -693,6 +846,10 @@ project_dir=""; export project_dir
 project_base_name=""; export project_base_name
 dev_mode=false; export dev_mode
 deploy_mode=false; export deploy_mode
+
+if [ "${my_tempdir:-}" = "" ]; then
+    my_tempdir=""; export my_tempdir
+fi
 
 #endregion Public Globals
 #===============================================================================
@@ -1023,6 +1180,98 @@ parse_args() {
 }
 
 #-------------------------------------------------------------------------------
+ensure_conda() {
+    (
+        log_header "Checking For Conda..."
+
+        if [ ! -f "${CONDA_BASE_DIR_FULLPATH}/etc/profile.d/conda.sh" ]; then
+            log_footer "Conda Not Found."
+
+            log_header "Installing Conda..."
+
+            curl_exists=false
+            if [ "$(command -v curl)" != "" ]; then
+                curl_exists=true
+            fi
+            export curl_exists
+
+            wget_exists=false
+            if [ "$(command -v wget)" != "" ]; then
+                wget_exists=true
+            fi
+            export wget_exists
+
+            if \
+                [ "${curl_exists}" = false ] &&
+                [ "${wget_exists}" = false ]
+            then
+                log_fatal "conda missing and no way to download available (no curl, no wget)"
+                exit "${RET_ERROR_TOOL_MISSING}"
+            fi
+
+            ensure_my_tempdir
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            ensure_dir "${my_tempdir}/downloads"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            file_to_download="Miniforge3-${CONDA_FORGE_PLATFORM}-${CONDA_FORGE_ARCH}.${CONDA_FORGE_EXT}"
+            URL="https://github.com/conda-forge/miniforge/releases/latest/download/${file_to_download}"
+
+            if [ "${curl_exists}" = true ]; then
+                log_info "Using curl to download: ${URL}"
+                curl -L "${URL}" --fail --output "${my_tempdir}/downloads/${file_to_download}"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    log_fatal "failed to download ${URL} (curl)"
+                    exit "${RET_ERROR_DOWNLOAD_FAILED}"
+                fi
+            elif [ "${wget_exists}" = true ]; then
+                log_info "Using wget to download: ${URL}"
+                wget "${URL}" -O "${my_tempdir}/downloads/${file_to_download}"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    log_fatal "failed to download ${URL} (wget)"
+                    exit "${RET_ERROR_DOWNLOAD_FAILED}"
+                fi
+            fi
+            chmod +x "${my_tempdir}/downloads/${file_to_download}"
+
+            dirname_CONDA_INSTALL_PATH="$(dirname "${CONDA_INSTALL_PATH}")"
+            if [ ! -d "${dirname_CONDA_INSTALL_PATH}" ]; then
+                log_console "${ANSI_BELL}${ANSI_WARNING} '${dirname_CONDA_INSTALL_PATH}' doesn't exist, we need sudo to create it, either enter your password below OR exit this script (CTRL+C multiple times) and run the following commands and rerun this script.${ANSI_RESET}\nsudo mkdir \"${dirname_CONDA_INSTALL_PATH}\"\nsudo chown \"${REAL_USER}\":\"${DEFAULT_ADMIN_GROUP}\" \"${dirname_CONDA_INSTALL_PATH}\"\nsudo -k"
+                sudo mkdir "${dirname_CONDA_INSTALL_PATH}"
+                sudo chown "${REAL_USER}":"${DEFAULT_ADMIN_GROUP}" "${dirname_CONDA_INSTALL_PATH}"
+                sudo -k
+            fi
+
+            log_info "Installing Conda with PREFIX='${CONDA_INSTALL_PATH}'"
+
+            "${my_tempdir}/downloads/${file_to_download}" -b -f -p "${CONDA_INSTALL_PATH}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                log_fatal "Failed to install Conda."
+                exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
+            else
+                log_footer "Conda Install Completed."
+                exit "${RET_SUCCESS}"
+            fi
+        else
+            log_footer "Conda Found."
+            exit "${RET_SUCCESS}"
+        fi
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
 conda_init () {
     # intentionally no local scope so it modify globals
 
@@ -1336,7 +1585,10 @@ conda_bootstrapper () {
             exit $ret
         fi
 
-        # TODO: install conda if it does not exist
+        ensure_conda
+        if [ $ret -ne 0 ]; then
+            exit $ret
+        fi
 
         conda_init
         ret=$?

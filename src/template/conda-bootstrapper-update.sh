@@ -487,6 +487,159 @@ array_for_each() {
 #endregion Arrays
 #===============================================================================
 
+ensure_cd() {
+    # intentionally no local scope so that the cd command takes effect
+
+    path_to_cd="$1"
+
+    log_info "Changing current directory to '%s'" "${path_to_cd}"
+
+    # shellcheck disable=SC2164
+    cd "${path_to_cd}"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        log_fatal "Could not cd into '%s'" "${path_to_cd}"
+        return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
+    fi
+}
+
+safe_rm() {
+    (
+        path_to_remove="$1"
+        print_rm_error_message="$2"
+
+        log_info "Safely removing '%s'" "${path_to_remove}"
+
+        if \
+            [ "${path_to_remove}" != "/" ] &&
+            [ "${path_to_remove}" != "${HOME}" ] &&
+            [ "${path_to_remove}" != "${TMPDIR}" ] &&
+            [ "${path_to_remove}" != "/Applications" ] &&
+            [ "${path_to_remove}" != "/bin" ] &&
+            [ "${path_to_remove}" != "/boot" ] &&
+            [ "${path_to_remove}" != "/cores" ] &&
+            [ "${path_to_remove}" != "/dev" ] &&
+            [ "${path_to_remove}" != "/etc" ] &&
+            [ "${path_to_remove}" != "/home" ] &&
+            [ "${path_to_remove}" != "/lib" ] &&
+            [ "${path_to_remove}" != "/Library" ] &&
+            [ "${path_to_remove}" != "/local" ] &&
+            [ "${path_to_remove}" != "/media" ] &&
+            [ "${path_to_remove}" != "/mnt" ] &&
+            [ "${path_to_remove}" != "/opt" ] &&
+            [ "${path_to_remove}" != "/private" ] &&
+            [ "${path_to_remove}" != "/proc" ] &&
+            [ "${path_to_remove}" != "/sbin" ] &&
+            [ "${path_to_remove}" != "/srv" ] &&
+            [ "${path_to_remove}" != "/System" ] &&
+            [ "${path_to_remove}" != "/Users" ] &&
+            [ "${path_to_remove}" != "/usr" ] &&
+            [ "${path_to_remove}" != "/var" ] &&
+            [ "${path_to_remove}" != "/Volumes" ] &&
+            [ "${path_to_remove}" != "" ]
+        then
+            rm -rf "${path_to_remove}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                if \
+                    [ "${print_rm_error_message}" = "" ] ||
+                    [ "${print_rm_error_message}" = true ]
+                then
+                    log_error "failed to rm '%s'" "${path_to_remove}"
+                fi
+                exit "${RET_ERROR_RM_FAILED}"
+            fi
+        else
+            log_fatal "unsafe rm path '%s'" "${path_to_remove}"
+            exit "${RET_ERROR_UNSAFE_RM_PATH}"
+        fi
+    )
+}
+
+ensure_does_not_exist() {
+    (
+        path_to_remove="$1"
+
+        log_info "Ensuring does not exist: '%s'" "${path_to_remove}"
+
+        if \
+            [ -f "${path_to_remove}" ] ||
+            [ -d "${path_to_remove}" ]
+        then
+            safe_rm "${path_to_remove}"
+            ret=$?
+            exit $ret
+        fi
+    )
+}
+
+create_dir() {
+    (
+        destdir="$1"
+
+        log_info "Creating directory '%s'" "${destdir}"
+
+        ensure_does_not_exist "${destdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to remove path '%s'" "${destdir}"
+            exit $ret
+        fi
+
+        mkdir -p "${destdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to create directory '%s'" "${destdir}"
+            exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
+        fi
+    )
+}
+
+ensure_dir() {
+    (
+        destdir="$1"
+
+        log_info "Ensuring directory exists: '%s'" "${destdir}"
+
+        if [ ! -d "${destdir}" ]; then
+            create_dir "${destdir}"
+            ret=$?
+            exit $ret
+        fi
+    )
+}
+
+create_my_tempdir() {
+    my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        log_fatal "failed to get temporary directory"
+        return "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+    fi
+    command echo "${my_tempdir}"
+    return "${RET_SUCCESS}"
+}
+
+ensure_my_tempdir() {
+    # intentionally no local scope b/c modifying a global
+
+    log_info "Creating temporary directory"
+
+    if [ "${my_tempdir}" = "" ]; then
+        my_tempdir="$(create_my_tempdir)"
+        if [ $ret -ne 0 ]; then
+            return $ret
+        fi
+    fi
+
+    ensure_dir "${my_tempdir}"
+    if [ $ret -ne 0 ]; then
+        return $ret
+    fi
+
+    export my_tempdir
+}
+
 #===============================================================================
 #region source check
 
@@ -675,92 +828,6 @@ fi
 #===============================================================================
 #region Public Functions
 
-ensure_cd() {
-    # intentionally no local scope so that the cd command takes effect
-
-    path_to_cd="$1"
-
-    log_info "Changing current directory to '%s'" "${path_to_cd}"
-
-    # shellcheck disable=SC2164
-    cd "${path_to_cd}"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "Could not cd into '%s'" "${path_to_cd}"
-        return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
-    fi
-}
-
-safe_rm() {
-    (
-        path_to_remove="$1"
-        print_rm_error_message="$2"
-
-        log_info "Safely removing '%s'" "${path_to_remove}"
-
-        if \
-            [ "${path_to_remove}" != "/" ] &&
-            [ "${path_to_remove}" != "${HOME}" ] &&
-            [ "${path_to_remove}" != "${TMPDIR}" ] &&
-            [ "${path_to_remove}" != "/Applications" ] &&
-            [ "${path_to_remove}" != "/bin" ] &&
-            [ "${path_to_remove}" != "/boot" ] &&
-            [ "${path_to_remove}" != "/cores" ] &&
-            [ "${path_to_remove}" != "/dev" ] &&
-            [ "${path_to_remove}" != "/etc" ] &&
-            [ "${path_to_remove}" != "/home" ] &&
-            [ "${path_to_remove}" != "/lib" ] &&
-            [ "${path_to_remove}" != "/Library" ] &&
-            [ "${path_to_remove}" != "/local" ] &&
-            [ "${path_to_remove}" != "/media" ] &&
-            [ "${path_to_remove}" != "/mnt" ] &&
-            [ "${path_to_remove}" != "/opt" ] &&
-            [ "${path_to_remove}" != "/private" ] &&
-            [ "${path_to_remove}" != "/proc" ] &&
-            [ "${path_to_remove}" != "/sbin" ] &&
-            [ "${path_to_remove}" != "/srv" ] &&
-            [ "${path_to_remove}" != "/System" ] &&
-            [ "${path_to_remove}" != "/Users" ] &&
-            [ "${path_to_remove}" != "/usr" ] &&
-            [ "${path_to_remove}" != "/var" ] &&
-            [ "${path_to_remove}" != "/Volumes" ] &&
-            [ "${path_to_remove}" != "" ]
-        then
-            rm -rf "${path_to_remove}"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                if \
-                    [ "${print_rm_error_message}" = "" ] ||
-                    [ "${print_rm_error_message}" = true ]
-                then
-                    log_error "failed to rm '%s'" "${path_to_remove}"
-                fi
-                exit "${RET_ERROR_RM_FAILED}"
-            fi
-        else
-            log_fatal "unsafe rm path '%s'" "${path_to_remove}"
-            exit "${RET_ERROR_UNSAFE_RM_PATH}"
-        fi
-    )
-}
-
-ensure_does_not_exist() {
-    (
-        path_to_remove="$1"
-
-        log_info "Ensuring does not exist: '%s'" "${path_to_remove}"
-
-        if \
-            [ -f "${path_to_remove}" ] ||
-            [ -d "${path_to_remove}" ]
-        then
-            safe_rm "${path_to_remove}"
-            ret=$?
-            exit $ret
-        fi
-    )
-}
-
 check_tools() {
     # intentionally no local scope because modifying globals
 
@@ -828,63 +895,7 @@ check_tools() {
     fi
 }
 
-create_dir() {
-    (
-        destdir="$1"
-
-        log_info "Creating directory '%s'" "${destdir}"
-
-        ensure_does_not_exist "${destdir}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to remove path '%s'" "${destdir}"
-            exit $ret
-        fi
-
-        mkdir -p "${destdir}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to create directory '%s'" "${destdir}"
-            exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
-        fi
-    )
-}
-
-ensure_dir() {
-    (
-        destdir="$1"
-
-        log_info "Ensuring directory exists: '%s'" "${destdir}"
-
-        if [ ! -d "${destdir}" ]; then
-            create_dir "${destdir}"
-            ret=$?
-            exit $ret
-        fi
-    )
-}
-
-create_my_tempdir() {
-    # intentionally no local scope b/c modifying a global
-
-    log_info "Creating temporary directory"
-
-    my_tempdir=$(mktemp -d -t conda-bootstrapper-update.XXXXXXXX)
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "failed to get temporary directory"
-        return "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
-    fi
-
-    ensure_dir "${my_tempdir}"
-    if [ $ret -ne 0 ]; then
-        return $ret
-    fi
-
-    export my_tempdir
-}
-
-download_via_curl() {
+download_and_extract_via_curl() {
     (
         repo_url=$1
         file_basename=$2
@@ -910,7 +921,7 @@ download_via_curl() {
     )
 }
 
-download_via_wget() {
+download_and_extract_via_wget() {
     (
         repo_url=$1
         file_basename=$2
@@ -1000,13 +1011,13 @@ download_and_extract() {
         destdir="$3"
 
         if [ "${curl_exists}" = true ]; then
-            download_via_curl "${repo_url}" "${file_basename}" "${my_tempdir}"
+            download_and_extract_via_curl "${repo_url}" "${file_basename}" "${my_tempdir}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
             fi
         elif [ "${wget_exists}" = true ]; then
-            download_via_wget "${repo_url}" "${file_basename}" "${my_tempdir}"
+            download_and_extract_via_wget "${repo_url}" "${file_basename}" "${my_tempdir}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
@@ -1377,7 +1388,7 @@ compare_and_update_files() {
                 return $ret
             fi
 
-            create_my_tempdir
+            ensure_my_tempdir
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret

@@ -487,6 +487,159 @@ array_for_each() {
 #endregion Arrays
 #===============================================================================
 
+ensure_cd() {
+    # intentionally no local scope so that the cd command takes effect
+
+    path_to_cd="$1"
+
+    log_info "Changing current directory to '%s'" "${path_to_cd}"
+
+    # shellcheck disable=SC2164
+    cd "${path_to_cd}"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        log_fatal "Could not cd into '%s'" "${path_to_cd}"
+        return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
+    fi
+}
+
+safe_rm() {
+    (
+        path_to_remove="$1"
+        print_rm_error_message="$2"
+
+        log_info "Safely removing '%s'" "${path_to_remove}"
+
+        if \
+            [ "${path_to_remove}" != "/" ] &&
+            [ "${path_to_remove}" != "${HOME}" ] &&
+            [ "${path_to_remove}" != "${TMPDIR}" ] &&
+            [ "${path_to_remove}" != "/Applications" ] &&
+            [ "${path_to_remove}" != "/bin" ] &&
+            [ "${path_to_remove}" != "/boot" ] &&
+            [ "${path_to_remove}" != "/cores" ] &&
+            [ "${path_to_remove}" != "/dev" ] &&
+            [ "${path_to_remove}" != "/etc" ] &&
+            [ "${path_to_remove}" != "/home" ] &&
+            [ "${path_to_remove}" != "/lib" ] &&
+            [ "${path_to_remove}" != "/Library" ] &&
+            [ "${path_to_remove}" != "/local" ] &&
+            [ "${path_to_remove}" != "/media" ] &&
+            [ "${path_to_remove}" != "/mnt" ] &&
+            [ "${path_to_remove}" != "/opt" ] &&
+            [ "${path_to_remove}" != "/private" ] &&
+            [ "${path_to_remove}" != "/proc" ] &&
+            [ "${path_to_remove}" != "/sbin" ] &&
+            [ "${path_to_remove}" != "/srv" ] &&
+            [ "${path_to_remove}" != "/System" ] &&
+            [ "${path_to_remove}" != "/Users" ] &&
+            [ "${path_to_remove}" != "/usr" ] &&
+            [ "${path_to_remove}" != "/var" ] &&
+            [ "${path_to_remove}" != "/Volumes" ] &&
+            [ "${path_to_remove}" != "" ]
+        then
+            rm -rf "${path_to_remove}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                if \
+                    [ "${print_rm_error_message}" = "" ] ||
+                    [ "${print_rm_error_message}" = true ]
+                then
+                    log_error "failed to rm '%s'" "${path_to_remove}"
+                fi
+                exit "${RET_ERROR_RM_FAILED}"
+            fi
+        else
+            log_fatal "unsafe rm path '%s'" "${path_to_remove}"
+            exit "${RET_ERROR_UNSAFE_RM_PATH}"
+        fi
+    )
+}
+
+ensure_does_not_exist() {
+    (
+        path_to_remove="$1"
+
+        log_info "Ensuring does not exist: '%s'" "${path_to_remove}"
+
+        if \
+            [ -f "${path_to_remove}" ] ||
+            [ -d "${path_to_remove}" ]
+        then
+            safe_rm "${path_to_remove}"
+            ret=$?
+            exit $ret
+        fi
+    )
+}
+
+create_dir() {
+    (
+        destdir="$1"
+
+        log_info "Creating directory '%s'" "${destdir}"
+
+        ensure_does_not_exist "${destdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to remove path '%s'" "${destdir}"
+            exit $ret
+        fi
+
+        mkdir -p "${destdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to create directory '%s'" "${destdir}"
+            exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
+        fi
+    )
+}
+
+ensure_dir() {
+    (
+        destdir="$1"
+
+        log_info "Ensuring directory exists: '%s'" "${destdir}"
+
+        if [ ! -d "${destdir}" ]; then
+            create_dir "${destdir}"
+            ret=$?
+            exit $ret
+        fi
+    )
+}
+
+create_my_tempdir() {
+    my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        log_fatal "failed to get temporary directory"
+        return "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+    fi
+    command echo "${my_tempdir}"
+    return "${RET_SUCCESS}"
+}
+
+ensure_my_tempdir() {
+    # intentionally no local scope b/c modifying a global
+
+    log_info "Creating temporary directory"
+
+    if [ "${my_tempdir}" = "" ]; then
+        my_tempdir="$(create_my_tempdir)"
+        if [ $ret -ne 0 ]; then
+            return $ret
+        fi
+    fi
+
+    ensure_dir "${my_tempdir}"
+    if [ $ret -ne 0 ]; then
+        return $ret
+    fi
+
+    export my_tempdir
+}
+
 #===============================================================================
 #region source check
 
@@ -733,20 +886,69 @@ DATETIME_STAMP_FORMAT="+%Y-%m-%d %H:%M:%S"
 #===============================================================================
 #region Platform Constants
 
-PLATFORM=$(uname)
+PLATFORM="$(uname)"
 export PLATFORM
-REAL_PLATFORM=${REAL_PLATFORM:-${PLATFORM}}
+REAL_PLATFORM="${REAL_PLATFORM:-${PLATFORM}}"
 export REAL_PLATFORM
+
+ARCH="$(uname -m)"
+export ARCH
+REAL_ARCH="${REAL_ARCH:-${ARCH}}"
+export REAL_ARCH
+
+CONDA_FORGE_PLATFORM="UNKNOWN"
+CONDA_FORGE_ARCH="UNKNOWN"
+CONDA_FORGE_EXT="sh"
+
+DEFAULT_ADMIN_GROUP="staff"
 
 if [ "${REAL_PLATFORM}" = "Darwin" ]; then
     date() {
         command date -j "$@"
     }
+
+    CONDA_FORGE_PLATFORM="MacOSX"
+    DEFAULT_ADMIN_GROUP="staff"
 elif [ "${REAL_PLATFORM}" = "Linux" ]; then
     date() {
         command date "$@"
     }
+
+    CONDA_FORGE_PLATFORM="Linux"
+    DEFAULT_ADMIN_GROUP="wheel"
 fi
+
+case "${REAL_ARCH}" in
+    i386)
+        CONDA_FORGE_ARCH="x86_64"
+        ;;
+    i486)
+        CONDA_FORGE_ARCH="x86_64"
+        ;;
+    amd64)
+        CONDA_FORGE_ARCH="x86_64"
+        ;;
+    x86_64)
+        CONDA_FORGE_ARCH="x86_64"
+        ;;
+    aarch64)
+        CONDA_FORGE_ARCH="aarch64"
+        ;;
+    arm)
+        if [ "${REAL_PLATFORM}" = "Darwin" ]; then
+            CONDA_FORGE_ARCH="arm64"
+        elif [ "${REAL_PLATFORM}" = "Linux" ]; then
+            CONDA_FORGE_ARCH="aarch64"
+        fi
+        ;;
+    arm64)
+        if [ "${REAL_PLATFORM}" = "Darwin" ]; then
+            CONDA_FORGE_ARCH="arm64"
+        elif [ "${REAL_PLATFORM}" = "Linux" ]; then
+            CONDA_FORGE_ARCH="aarch64"
+        fi
+        ;;
+esac
 
 PLATFORM_IS_WSL=false
 if [ "$(uname -a | grep '\(microsoft\|Microsoft\|WSL\)')" != "" ]; then
@@ -1087,34 +1289,30 @@ log_success() {
 
 #-------------------------------------------------------------------------------
 log_fatal() {
-    # NOTE: outside the local scope to modify global var
-    LOG_FATAL_COUNT=$((LOG_FATAL_COUNT + 1)); export LOG_FATAL_COUNT
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message=$(format_log_message "${ANSI_FATAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)
         >&2 command printf -- "${message%EOL}"
         >>"${FULL_LOG}" command printf -- "${message%EOL}"
-        >>"${ERROR_LOG}" command printf -- "${message%EOL}"
+        >>"${FATAL_LOG}" command printf -- "${message%EOL}"
+        >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
     )
 }
 
 #-------------------------------------------------------------------------------
 log_error() {
-    # NOTE: outside the local scope to modify global var
-    LOG_ERROR_COUNT=$((LOG_ERROR_COUNT + 1)); export LOG_ERROR_COUNT
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message=$(format_log_message "${ANSI_ERROR}ERROR: " "${ANSI_RESET}" "$@"; command echo EOL)
         >&2 command printf -- "${message%EOL}"
         >>"${FULL_LOG}" command printf -- "${message%EOL}"
         >>"${ERROR_LOG}" command printf -- "${message%EOL}"
+        >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
     )
 }
 
 #-------------------------------------------------------------------------------
 log_warning() {
-    # NOTE: outside the local scope to modify global var
-    LOG_WARNING_COUNT=$((LOG_WARNING_COUNT + 1)); export LOG_WARNING_COUNT
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message=$(format_log_message "${ANSI_WARNING}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)
@@ -1260,13 +1458,13 @@ echo() {
 #-------------------------------------------------------------------------------
 report_errors() {
     (
-        if [ "$(wc -c <"${ERROR_LOG}")" -gt 0 ]; then
+        if [ "$(wc -c <"${ERROR_AND_FATAL_LOG}")" -gt 0 ]; then
             message="${ANSI_COLOR_ERROR}The following errors occurred:${ANSI_RESET}\n"
             >&2 command printf -- "${message}"
             >>"${FULL_LOG}" command printf -- "${message}"
 
-            >&2 command sed 's/^/\t/' "${ERROR_LOG}"
-            >>"${FULL_LOG}" command sed 's/^/\t/' "${ERROR_LOG}"
+            >&2 command sed 's/^/\t/' "${ERROR_AND_FATAL_LOG}"
+            >>"${FULL_LOG}" command sed 's/^/\t/' "${ERROR_AND_FATAL_LOG}"
         fi
     )
 }
@@ -1291,6 +1489,10 @@ report_final_status() {
         ret=$1
         shift
         message="$(command printf -- "$@"; command echo EOL)"
+
+        LOG_FATAL_COUNT="$(wc -l <"${FATAL_LOG}")"
+        LOG_ERROR_COUNT="$(wc -l <"${ERROR_LOG}")"
+        LOG_WARNING_COUNT="$(wc -l <"${WARNING_LOG}")"
 
         # fixup return code in case it is wrong
         if [ "$ret" -eq 0 ]; then
@@ -1392,10 +1594,20 @@ if [ "${CONSTANTS_TEMP_DIR}" = "" ]; then
     export CONSTANTS_TEMP_DIR
     mkdir -p "${CONSTANTS_TEMP_DIR}"
 fi
+if [ "${FATAL_LOG}" = "" ]; then
+    FATAL_LOG="${CONSTANTS_TEMP_DIR}"/fatal_only.txt
+    export FATAL_LOG
+    command printf '' >"${FATAL_LOG}"
+fi
 if [ "${ERROR_LOG}" = "" ]; then
     ERROR_LOG="${CONSTANTS_TEMP_DIR}"/errors_only.txt
     export ERROR_LOG
     command printf '' >"${ERROR_LOG}"
+fi
+if [ "${ERROR_AND_FATAL_LOG}" = "" ]; then
+    ERROR_AND_FATAL_LOG="${CONSTANTS_TEMP_DIR}"/errors_and_fatals_only.txt
+    export ERROR_AND_FATAL_LOG
+    command printf '' >"${ERROR_AND_FATAL_LOG}"
 fi
 if [ "${WARNING_LOG}" = "" ]; then
     WARNING_LOG="${CONSTANTS_TEMP_DIR}"/warnings_only.txt
@@ -1406,16 +1618,6 @@ if [ "${FULL_LOG}" = "" ]; then
     FULL_LOG="${CONSTANTS_TEMP_DIR}"/log.txt
     export FULL_LOG
     command printf '' >"${FULL_LOG}"
-fi
-
-if [ "${LOG_FATAL_COUNT}" = "" ]; then
-    LOG_FATAL_COUNT=0; export LOG_FATAL_COUNT
-fi
-if [ "${LOG_ERROR_COUNT}" = "" ]; then
-    LOG_ERROR_COUNT=0; export LOG_ERROR_COUNT
-fi
-if [ "${LOG_WARNING_COUNT}" = "" ]; then
-    LOG_WARNING_COUNT=0; export LOG_WARNING_COUNT
 fi
 
 #endregion Logging Helpers
