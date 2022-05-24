@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 # shellcheck disable=SC2034
 
-
 ################################################################################
 #region Preamble
 
@@ -111,7 +110,7 @@ fi
 
 #-------------------------------------------------------------------------------
 rreadlink() {
-    ( # Execute the function in a *subshell* to localize variables and the effect of `cd`.
+    ( # Execute the function in a *subshell* to localize variables and the effect of 'cd'.
 
         target=$1
         fname=
@@ -119,28 +118,28 @@ rreadlink() {
         CDPATH=
 
         # Try to make the execution environment as predictable as possible:
-        # All commands below are invoked via `command`, so we must make sure that `command`
+        # All commands below are invoked via 'command', so we must make sure that 'command'
         # itself is not redefined as an alias or shell function.
         # (NOTE: that command is too inconsistent across shells, so we don't use it.)
-        # `command` is a *builtin* in bash, dash, ksh, zsh, and some platforms do not even have
+        # 'command' is a *builtin* in bash, dash, ksh, zsh, and some platforms do not even have
         # an external utility version of it (e.g, Ubuntu).
-        # `command` bypasses aliases and shell functions and also finds builtins
+        # 'command' bypasses aliases and shell functions and also finds builtins
         # in bash, dash, and ksh. In zsh, option POSIX_BUILTINS must be turned on for that
         # to happen.
         { \unalias command; \unset -f command; } >/dev/null 2>&1
         # shellcheck disable=SC2034
-        [ -n "$ZSH_VERSION" ] && options[POSIX_BUILTINS]=on # make zsh find *builtins* with `command` too.
+        [ -n "$ZSH_VERSION" ] && options[POSIX_BUILTINS]=on # make zsh find *builtins* with 'command' too.
 
         while :; do # Resolve potential symlinks until the ultimate target is found.
                 [ -L "$target" ] || [ -e "$target" ] || { command printf '%s\n' "ERROR: '$target' does not exist." >&2; return 1; }
                 # shellcheck disable=SC2164
                 command cd "$(command dirname -- "$target")" # Change to target dir; necessary for correct resolution of target path.
                 fname=$(command basename -- "$target") # Extract filename.
-                [ "$fname" = '/' ] && fname='' # WARNING: curiously, `basename /` returns '/'
+                [ "$fname" = '/' ] && fname='' # WARNING: curiously, 'basename /' returns '/'
                 if [ -L "$fname" ]; then
                     # Extract [next] target path, which may be defined
                     # relative to the symlink's own directory.
-                    # NOTE: We parse `ls -l` output to find the symlink target
+                    # NOTE: We parse 'ls -l' output to find the symlink target
                     # NOTE:     which is the only POSIX-compliant, albeit somewhat fragile, way.
                     target=$(command ls -l "$fname")
                     target=${target#* -> }
@@ -270,9 +269,9 @@ if [ "$ZSH_VERSION" != "" ]; then
     setopt sh_word_split
 fi
 
-_ARRAY__SEP="$(printf "\t")"; export _ARRAY__SEP
+_ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
 #                           x12345678x
-_ARRAY__SEP__ESCAPED="$(printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
+_ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
 #-------------------------------------------------------------------------------
 _array_escape() {
@@ -288,6 +287,7 @@ _array_unescape() {
     command printf "$(command echo "$1" | sed 's/\\\\/\\/g' | sed "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
 }
 
+#-------------------------------------------------------------------------------
 _array_fix_index() {
     __ARRAY__ARRAY_FIX_INDEX__LENGTH="$(array_get_length "$1")"
 
@@ -298,13 +298,15 @@ _array_fix_index() {
         # __ARRAY__ARRAY_FIX_INDEX__INDEX="$(( __ARRAY__ARRAY_FIX_INDEX__INDEX + 1 ))"
     fi
 
-    printf "%d" "${__ARRAY__ARRAY_FIX_INDEX__INDEX}"
+    command printf "%d" "${__ARRAY__ARRAY_FIX_INDEX__INDEX}"
 }
 
+#-------------------------------------------------------------------------------
 array_init() {
     eval "$1=\"\""
 }
 
+#-------------------------------------------------------------------------------
 array_append() {
     __ARRAY__ARRAY_APPEND__TEMP_VALUE=$(_array_escape "$2")
     __ARRAY__ARRAY_APPEND__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
@@ -316,22 +318,27 @@ array_append() {
     fi
 }
 
+#-------------------------------------------------------------------------------
 array_append_back() {
     array_append "$1" "$2"
 }
 
+#-------------------------------------------------------------------------------
 array_append_front() {
     array_insert_index "$1" 0 "$2"
 }
 
+#-------------------------------------------------------------------------------
 array_get_first() {
     array_get_index "$1" 0
 }
 
+#-------------------------------------------------------------------------------
 array_get_last() {
     array_get_index "$1" -1
 }
 
+#-------------------------------------------------------------------------------
 array_copy() {
     __ARRAY__ARRAY_COPY__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
 
@@ -346,14 +353,17 @@ array_copy() {
     IFS="$OIFS"
 }
 
+#-------------------------------------------------------------------------------
 array_remove_first() {
     array_remove_index "$1" 0
 }
 
+#-------------------------------------------------------------------------------
 array_remove_last() {
     array_remove_index "$1" -1
 }
 
+#-------------------------------------------------------------------------------
 array_insert_index() {
     array_copy "$1" __ARRAY__ARRAY_INSERT_INDEX__TEMP_ARRAY
 
@@ -390,6 +400,7 @@ array_insert_index() {
     IFS="$OIFS"
 }
 
+#-------------------------------------------------------------------------------
 array_remove_index() {
     array_copy "$1" __ARRAY__ARRAY_REMOVE_INDEX__TEMP_ARRAY
 
@@ -412,6 +423,7 @@ array_remove_index() {
     IFS="$OIFS"
 }
 
+#-------------------------------------------------------------------------------
 array_get_length() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
@@ -421,9 +433,10 @@ array_get_length() {
         __ARRAY__ARRAY_GET_LENGTH__COUNT=$(( __ARRAY__ARRAY_GET_LENGTH__COUNT + 1 ))
     done
     IFS="$OIFS"
-    printf "%d" "${__ARRAY__ARRAY_GET_LENGTH__COUNT}"
+    command echo "${__ARRAY__ARRAY_GET_LENGTH__COUNT}"
 }
 
+#-------------------------------------------------------------------------------
 array_get_index() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
@@ -459,6 +472,7 @@ array_get_index() {
 # array_for_each the_array_name my_func
 ## NOTE: no $ on 'the_array_name' nor 'my_func'
 
+#-------------------------------------------------------------------------------
 array_for_each() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
@@ -492,7 +506,7 @@ elif [ -n "$KSH_VERSION" ]; then
 elif [ -n "$BASH_VERSION" ]; then
     (return 0 2>/dev/null) && _THIS_FILE_WAS_SOURCED=1
 else # All other shells: examine $0 for known shell binary filenames
-    # Detects `sh` and `dash`; add additional shell filenames as needed.
+    # Detects 'sh' and 'dash'; add additional shell filenames as needed.
     case ${0##*/} in sh|dash) _THIS_FILE_WAS_SOURCED=1;; esac
 fi
 array_append WAS_SOURCED "${_THIS_FILE_WAS_SOURCED}"
@@ -767,6 +781,10 @@ get_ansi_code()
         if [ "${ending}" = "" ]; then
             ending="${ANSI_CODE_END}"
         fi
+        tput_colors="$(tput colors >/dev/null 2>&1)"
+        if [ "${tput_colors}" = "" ]; then
+            tput_colors=16
+        fi
         # shellcheck disable=SC2154 # because "colorize_output" may or may not exist
         if [ "$(command echo "${TERM}" | grep 'mono')" != "" ] ||
             [ "$(tput colors)" -lt 16 ] ||
@@ -963,9 +981,52 @@ set_ansi_code_constants
 #region Logging Helpers
 
 #-------------------------------------------------------------------------------
+
+is_integer()
+{
+    case "${1#[+-]}"  in
+        *[!0123456789]*)
+            command echo "1"
+            return 1
+            ;;
+        '')
+            command echo "1"
+            return 1
+            ;;
+        *)
+            command echo "0"
+            return 0
+            ;;
+    esac
+    command echo "1"
+    return 1
+}
+
+#-------------------------------------------------------------------------------
 get_datetime_stamp()
 {
     date "${DATETIME_STAMP_FORMAT}"
+}
+
+#-------------------------------------------------------------------------------
+get_my_true_basename() {
+    (
+        last_was_sourced="$(array_get_last WAS_SOURCED)"
+        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
+        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
+            if [ "${last_was_sourced}" -eq 0 ]; then
+                command echo "${MY_BASENAME}"
+            else
+                if [ "$(array_get_length SOURCED_BASENAME)" -gt 0 ]; then
+                    command echo "$(array_get_last SOURCED_BASENAME)"
+                else
+                    command echo "UNKNOWN"
+                fi
+            fi
+        else
+            command echo "${MY_BASENAME}"
+        fi
+    )
 }
 
 #-------------------------------------------------------------------------------
