@@ -7,7 +7,7 @@
 #===============================================================================
 #region Fallbacks
 
-type CONDA_BOOTSTRAPPER_CONSTANTS_LOADED >/dev/null 2>&1
+type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
 ret=$?
 if [ $ret -ne 0 ]; then
 
@@ -747,8 +747,8 @@ if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
     export MY_DIR_FULLPATH
     MY_DIR_BASENAME="$(basename -- "${MY_DIR_FULLPATH}")"
     export MY_DIR_BASENAME
-    CONDA_BOOTSTRAPPER_FULLPATH="${MY_DIR_FULLPATH}/../conda-bootstrapper"
-    export CONDA_BOOTSTRAPPER_FULLPATH
+    BATTERIES_FORKING_INCLUDED_FULLPATH="${MY_DIR_FULLPATH}/../batteries-forking-included"
+    export BATTERIES_FORKING_INCLUDED_FULLPATH
 
     #endregion Self Referentials
     #===========================================================================
@@ -839,7 +839,7 @@ fi
 #===============================================================================
 #region Create Fence
 
-CONDA_BOOTSTRAPPER_CONSTANTS_LOADED() { true; }
+BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED() { true; }
 
 #endregion Create Fence
 #===============================================================================

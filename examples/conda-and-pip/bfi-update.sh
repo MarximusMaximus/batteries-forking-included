@@ -1,0 +1,1 @@
+../../src/template/bfi-update.sh

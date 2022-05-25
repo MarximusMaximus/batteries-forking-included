@@ -1,6 +1,6 @@
-# conda-bootstrapper
+# batteries-forking-included
 
-<https://github.com/MarximusMaximus/conda-bootstrapper>
+<https://github.com/MarximusMaximus/batteries-forking-included>
 
 by Marximus Maximus (<https://marximus.com>)
 
@@ -12,7 +12,7 @@ Helper tools for setting up conda environments for projects. Supports poetry and
 - `activate.sh` - Activates conda environment for project.
 - `run.sh` - Runs command within conda environment for project. (Will try default command if first arg is not a path to an executable file.)
 - Python File Preamble - Automatically activates conda env when attempting to run python script directly.
-- `conda-bootstrapper-update.sh` - Updates stub files within your project to latest versions
+- `bfi-update.sh` - Updates stub files within your project to latest versions
 - `post-bootstrap.sh` - Any additional commands to run after main environment setup provided by conda, pip, or poetry.
 
 Additional Files:
@@ -33,25 +33,25 @@ Additional Files:
 
 ### Initial Addition To Project
 
-1. Copy latest `conda-bootstrapper-update.sh` to your project root.
-2. Run `conda-bootstrapper-update.sh` from within your project root.
+1. Copy latest `bfi-update.sh` to your project root.
+2. Run `bfi-update.sh` from within your project root.
    1. `cd YOUR_PROJECT_ROOT_FOLDER`
-   2. `./conda-bootstrapper-update.sh`
+   2. `./bfi-update.sh`
 3. Select options as presented.
 4. (Optional) Modify `conda-environment.yml` and `pip-*.txt` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
 5. Run `bootstrap.sh` to create environment.
 
 ### Initial Setup for New Developer
 
-1. Copy latest `conda-bootstrapper-update.sh` to your project root.
-2. Run `conda-bootstrapper-update.sh` from within your project root.
+1. Copy latest `bfi-update.sh` to your project root.
+2. Run `bfi-update.sh` from within your project root.
    1. `cd YOUR_PROJECT_ROOT_FOLDER`
-   2. `./conda-bootstrapper-update.sh --yes`
+   2. `./bfi-update.sh --yes`
 3. Run `bootstrap.sh` to create environment.
 
-### Update conda-bootstrapper Stubs
+### Update batteries-forking-included Stubs
 
-1. Run `conda-bootstrapper-update.sh` from within your project root.
+1. Run `bfi-update.sh` from within your project root.
 2. Select options (if presented).
 3. Run `bootstrap.sh` to update environment.
 
@@ -70,12 +70,12 @@ Additional Files:
 ## Bug Reports / Feature Requests
 
 Please submit bug reports and feature requests to:
-<https://github.com/MarximusMaximus/conda-bootstrapper/issues>
+<https://github.com/MarximusMaximus/batteries-forking-included/issues>
 
 ## Development & Contribution
 
 Pull Requests will be reviewed at:
-<https://github.com/MarximusMaximus/conda-bootstrapper/pulls>
+<https://github.com/MarximusMaximus/batteries-forking-included/pulls>
 
 ## Like My Work & Want To Support It?
 

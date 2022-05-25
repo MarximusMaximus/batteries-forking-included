@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# NOTE: see usage from conda-bootstrapper.sh for command line arguments
+# NOTE: see usage from batteries-forking-included.sh for command line arguments
 
 ################################################################################
 #region Preamble
@@ -8,7 +8,7 @@
 #===============================================================================
 #region Fallbacks
 
-type CONDA_BOOTSTRAPPER_CONSTANTS_LOADED >/dev/null 2>&1
+type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
 ret=$?
 if [ $ret -ne 0 ]; then
 
@@ -748,8 +748,8 @@ if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
     export MY_DIR_FULLPATH
     MY_DIR_BASENAME="$(basename -- "${MY_DIR_FULLPATH}")"
     export MY_DIR_BASENAME
-    CONDA_BOOTSTRAPPER_FULLPATH="${MY_DIR_FULLPATH}/../conda-bootstrapper"
-    export CONDA_BOOTSTRAPPER_FULLPATH
+    BATTERIES_FORKING_INCLUDED_FULLPATH="${MY_DIR_FULLPATH}/../batteries-forking-included"
+    export BATTERIES_FORKING_INCLUDED_FULLPATH
 
     #endregion Self Referentials
     #===========================================================================
@@ -839,9 +839,9 @@ fi
     #region Includes
 
     # NOTE: do not check if failed b/c it might not exist yet
-    include "${CONDA_BOOTSTRAPPER_FULLPATH}/src/constants.sh"
+    include "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/constants.sh"
 
-    ensure_include "${MY_DIR_FULLPATH}/conda-bootstrapper-update.sh"
+    ensure_include "${MY_DIR_FULLPATH}/bfi-update.sh"
 
     #endregion Includes
     ############################################################################
@@ -888,7 +888,7 @@ fi
                 exit $ret
             fi
 
-            ensure_conda_bootstrapper
+            ensure_batteries_forking_included
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
@@ -896,13 +896,13 @@ fi
 
             # re-include constants.sh if the fence value is missing,
             # in case file didn't exist earlier
-            type CONDA_BOOTSTRAPPER_CONSTANTS_LOADED >/dev/null 2>&1
+            type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
             ret=$?
             if [ $ret -ne 0 ]; then
-                ensure_include "${CONDA_BOOTSTRAPPER_FULLPATH}/src/constants.sh"
+                ensure_include "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/constants.sh"
             fi
 
-            update_condabootstrapper
+            update_update_batteries_forking_included
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
@@ -915,14 +915,14 @@ fi
             fi
 
             # shellcheck disable=SC1091
-            . "${CONDA_BOOTSTRAPPER_FULLPATH}"/src/conda-bootstrapper.sh
+            . "${BATTERIES_FORKING_INCLUDED_FULLPATH}"/src/batteries-forking-included.sh
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "Failed to source '%s'" "${CONDA_BOOTSTRAPPER_FULLPATH}"/src/conda-bootstrapper.sh
+                log_fatal "Failed to source '%s'" "${BATTERIES_FORKING_INCLUDED_FULLPATH}"/src/batteries-forking-included.sh
                 exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
             fi
 
-            conda_bootstrapper --project-dir="${MY_DIR_FULLPATH}" "$@"
+            batteries_forking_included --project-dir="${MY_DIR_FULLPATH}" "$@"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 usage_text=$(cat<<EOF
 Usage:
-    conda-bootstrapper.sh [flags|options]
+    bfi-update.sh [flags|options]
 
 Global Flags:
     -h, -?, --help, --usage
@@ -22,22 +22,13 @@ Global Flags:
                         NOTE: purples are never used to begin with
                         WARNING: pip, poetry, and other helpers may not abide
     +C, --no-alt-color  do not use alternate colorized output
-    -d, --dev, --developer
-                        install as developer (include development dependencies)
-    +d, --no-dev, --no-develeoper
-                        do not install as developer
-    -D, --deploy, --deployment
-                        install as a deployment
-    +D, --no-deploy, --no-deployment
-                        do not install as a deployment
+
+    -r, --report        display report at end of run
+                        default: true
+    +r, --no-report     do NOT display report at end of run
 
 Global Options:
-    -p PROJECT_DIR, --project-dir PROJECT_DIR
-                        override to use specified project dir
-                        default: current working directory of invocation
-    -P PROJECT_BASE_NAME, --project-base-name PROJECT_BASE_NAME
-                        override to use specified project base name
-                        default: basename of PROJECT_DIR
+    NONE
 
 Positional Arguments:
     NONE
@@ -48,14 +39,13 @@ EOF
 )
 export usage_text
 
-
 ################################################################################
 #region Preamble
 
 #===============================================================================
 #region Fallbacks
 
-type CONDA_BOOTSTRAPPER_CONSTANTS_LOADED >/dev/null 2>&1
+type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
 ret=$?
 if [ $ret -ne 0 ]; then
 
@@ -782,7 +772,6 @@ export WAS_SOURCED
 #endregion source check
 #===============================================================================
 
-
 if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
     #===========================================================================
     #region Self Referentials
@@ -795,8 +784,8 @@ if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
     export MY_DIR_FULLPATH
     MY_DIR_BASENAME="$(basename -- "${MY_DIR_FULLPATH}")"
     export MY_DIR_BASENAME
-    CONDA_BOOTSTRAPPER_FULLPATH="${MY_DIR_FULLPATH}/../conda-bootstrapper"
-    export CONDA_BOOTSTRAPPER_FULLPATH
+    BATTERIES_FORKING_INCLUDED_FULLPATH="${MY_DIR_FULLPATH}/../batteries-forking-included"
+    export BATTERIES_FORKING_INCLUDED_FULLPATH
 
     #endregion Self Referentials
     #===========================================================================
@@ -885,19 +874,40 @@ fi
 #region Public *
 
 #===============================================================================
+#region Additional Fallbacks
+
+RET_ERROR_GIT_CLONE_FAILED=162; export RET_ERROR_GIT_CLONE_FAILED
+RET_ERROR_GIT_FETCH_FAILED=163; export RET_ERROR_GIT_FETCH_FAILED
+RET_ERROR_GIT_RESET_FAILED=164; export RET_ERROR_GIT_RESET_FAILED
+RET_ERROR_RM_FAILED=165; export RET_ERROR_RM_FAILED
+RET_ERROR_COPY_FAILED=166; export RET_ERROR_COPY_FAILED
+RET_ERROR_UNSAFE_RM_PATH=167; export RET_ERROR_UNSAFE_RM_PATH
+RET_ERROR_CHANGE_DIRECTORY_FAILED=168; export RET_ERROR_CHANGE_DIRECTORY_FAILED
+RET_ERROR_MOVE_FAILED=169; export RET_ERROR_MOVE_FAILED
+RET_ERROR_TOOL_MISSING=170; export RET_ERROR_TOOL_MISSING
+RET_ERROR_FAILED_TO_GET_TEMP_DIR=171; export RET_ERROR_FAILED_TO_GET_TEMP_DIR
+RET_ERROR_DOWNLOAD_FAILED=172; export RET_ERROR_DOWNLOAD_FAILED
+RET_ERROR_EXTRACTION_FAILED=173; export RET_ERROR_EXTRACTION_FAILED
+RET_ERROR_CREATE_DIRECTORY_FAILED=174; export RET_ERROR_CREATE_DIRECTORY_FAILED
+
+#endregion Additional Fallbacks
+#===============================================================================
+
+#===============================================================================
 #region Includes
 
-ensure_include "${CONDA_BOOTSTRAPPER_FULLPATH}"/src/constants.sh
+include "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/constants.sh"
 
 #endregion Includes
 #===============================================================================
 
 #===============================================================================
-#region Return Codes
+#region Public Constants
 
+GITHUB_REPO_USER=MarximusMaximus
+GITHUB_REPO_NAME=batteries-forking-included
 
-
-#endregion Return Codes
+#endregion Public Constants
 #===============================================================================
 
 #===============================================================================
@@ -912,10 +922,15 @@ if [ "${my_tempdir:-}" = "" ]; then
     my_tempdir=""; export my_tempdir
 fi
 
-project_dir=""; export project_dir
-project_base_name=""; export project_base_name
-dev_mode=false; export dev_mode
-deploy_mode=false; export deploy_mode
+git_exists=false; export git_exists
+curl_exists=false; export curl_exists
+wget_exists=false; export wget_exists
+tar_exists=false; export tar_exists
+unzip_exists=false; export unzip_exists
+diff_exists=false; export diff_exists
+md5_exists=false; export md5_exists
+
+print_report=true; export print_report
 
 #endregion Public Globals
 #===============================================================================
@@ -933,13 +948,7 @@ usage() {
 
 #-------------------------------------------------------------------------------
 parse_args() {
-    log_ultradebug "conda-bootstrapper.sh::parse_args called with '%s'" "$*"
-
-    # temporarily just assign these to best guesses
-    project_dir="$(pwd)"
-    project_base_name="$(basename -- "${project_dir}")"
-
-    project_base_name_temp=""
+    log_ultradebug "$(get_my_real_basename)::parse_args called with '%s'" "$*"
 
     temp_verbosity="${verbosity}"
     alt_color=false
@@ -947,7 +956,7 @@ parse_args() {
     positional_arg_index=0
 
     while true; do
-        log_ultradebug "conda-bootstrapper.sh::parse_args::while; \$1='%s'; \$*='%s'" "$1" "$*"
+        log_ultradebug "$(get_my_real_basename)::parse_args::while; \$1='%s'; \$*='%s'" "$1" "$*"
 
         if [ $# -le 0 ]; then
             break
@@ -955,137 +964,75 @@ parse_args() {
 
         case "$1" in
             -h|-\?|--help|--usage)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found usage arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found usage arg"
                 print_usage=true
                 ;;
 
             -q|--quiet)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found quiet arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found quiet arg"
                 quiet=true
                 ;;
             +q|--no-quiet)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found no-quiet arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-quiet arg"
                 quiet=false
                 ;;
 
             -v|--verbose)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found verbose arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found verbose arg"
                 temp_verbosity=$((temp_verbosity + 1))
                 ;;
             +v|--no-verbose)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found no-verbose arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-verbose arg"
                 temp_verbosity=$((temp_verbosity - 1))
                 ;;
 
             --)     # stop processing args
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found -- arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found -- arg"
                 shift
                 break
                 ;;
 
             -c|--color)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found color arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found color arg"
                 colorized_output=true
                 ;;
             +c|--no-color)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found no-color arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-color arg"
                 colorized_output=false
                 ;;
 
             -C|--alt-color)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found alt-color arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found alt-color arg"
                 alt_color=true
                 ;;
             +C|--no-alt-color)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found no-alt-color arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-alt-color arg"
                 alt_color=false
                 ;;
 
-            -d|--dev|--developer)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found dev arg"
-                dev_mode=true
+            -r|--report)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found report arg"
+                print_report=true
                 ;;
-            +d|--no-dev|--no-developer)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found no-dev arg"
-                dev_mode=false
+            +r|--no-report)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-report arg"
+                print_report=false
                 ;;
-
-            -D|--deploy|--deployment)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found deploy arg"
-                deploy_mode=true
-                ;;
-            +D|--no-deploy|--no-deployment)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found no-deploy arg"
-                deploy_mode=false
-                ;;
-
-            -p|--project-dir)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found project-dir arg"
-                if [ -n "$2" ]; then
-                    project_dir="$2"
-                    log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t\t project_dir=%s" "${project_dir}"
-                    shift
-                else
-                    usage
-                    log_error "\"--project-dir\" requires a non-empty option argument."
-                    exit "${RET_ERROR_INVALID_ARGUMENT}"
-                fi
-                ;;
-            --project-dir=?*)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found project-dir=* arg"
-                project_dir="$1"
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t\t project_dir=%s" "${project_dir}"
-                project_dir="$(command echo "${project_dir}" | cut -c 15-)"
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t\t project_dir=%s" "${project_dir}"
-                ;;
-            --project-dir=)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found project-dir= arg"
-                usage
-                log_error "\"--project-dir\" requires a non-empty option argument."
-                exit "${RET_ERROR_INVALID_ARGUMENT}"
-                ;;
-
-            -P|--project-base-name)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found project-base-name arg"
-                if [ -n "$2" ]; then
-                    project_base_name_temp="$2"
-                    log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
-                    shift
-                else
-                    usage
-                    log_error "\"--project-base-name\" requires a non-empty option argument."
-                    exit "${RET_ERROR_INVALID_ARGUMENT}"
-                fi
-                ;;
-            --project-base-name=?*)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found project-base-name=* arg"
-                project_base_name_temp="$1"
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
-                project_base_name_temp="$(echo "${project_base_name_temp}" | cut -c 21-)"
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
-                ;;
-            --project-base-name=)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found project-base-name= arg"
-                usage
-                log_error "\"--project-base-name\" requires a non-empty option argument."
-                exit "${RET_ERROR_INVALID_ARGUMENT}"
-                ;;
-
 
             --?*)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found unknown arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found unknown arg"
                 log_warning " Unknown option (ignored): %s" "$1" >&2
                 ;;
 
             -?*)    # positive flags
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found positive flags arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found positive flags arg"
                 arg_remain="$1"
 
                 while true; do
                     arg_remain="$(command echo "${arg_remain}" | cut -c 2-)"
                     arg_char="$(command echo "${arg_remain}" | cut -c 1-1)"
 
-                    log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
+                    log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
 
                     if [ "${arg_char}" = "" ]; then
                         break
@@ -1093,21 +1040,21 @@ parse_args() {
 
                     case "${arg_char}" in
                         h|\?)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found usage flag"
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found usage flag"
                             print_usage=true
                             ;;
                         # p is not a valid flag b/c it takes a value
                         q)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found quiet flag"
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found quiet flag"
                             quiet=true
                             ;;
                         v)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found verbose flag"
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found verbose flag"
                             temp_verbosity=$((temp_verbosity + 1)) # Each -v argument adds 1 to verbosity.
                             ;;
 
                         c)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found color flag"
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found color flag"
                             colorized_output=true
                             ;;
 
@@ -1116,14 +1063,9 @@ parse_args() {
                             alt_color=true
                             ;;
 
-                        d)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found dev flag"
-                            dev_mode=true;
-                            ;;
-
-                        D)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found deploy flag"
-                            deploy_mode=true;
+                        r)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found report flag"
+                            print_report=true
                             ;;
 
                         *)
@@ -1135,14 +1077,14 @@ parse_args() {
                 ;;
 
             +?*)    # negative flags
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found negative flags arg"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found negative flags arg"
                 arg_remain="$1"
 
                 while true; do
                     arg_remain="$(command echo "${arg_remain}" | cut -c 2-)"
                     arg_char="$(command echo "${arg_remain}" | cut -c 1-1)"
 
-                    log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
+                    log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
 
                     if [ "${arg_char}" = "" ]; then
                         break
@@ -1150,22 +1092,22 @@ parse_args() {
 
                     case "${arg_char}" in
                         h|\?)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(+);\t found usage flag"
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found usage flag"
                             print_usage=true
                             ;;
                         # p is not a valid flag b/c it takes a value
                         q)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(+);\t found no-quiet flag"
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-quiet flag"
                             quiet=false
                             ;;
                         v)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found verbose flag"
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found verbose flag"
                             temp_verbosity=$((temp_verbosity - 1))
                             ;;
 
                         c)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(+);\t found no-color flag"
-                            colorized_output=false;
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-color flag"
+                            colorized_output=false
                             ;;
 
                         C)
@@ -1173,14 +1115,9 @@ parse_args() {
                             alt_color=false
                             ;;
 
-                        d)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(+);\t found no-dev flag"
-                            dev_mode=false;
-                            ;;
-
-                        D)
-                            log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(+);\t found no-deploy flag"
-                            deploy_mode=false;
+                        r)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-report flag"
+                            print_report=false
                             ;;
 
                         *)
@@ -1192,7 +1129,7 @@ parse_args() {
                 ;;
 
             *)
-                log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found positional arg #%d '%s'" "${positional_arg_index}" "$1"
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found positional arg #%d '%s'" "${positional_arg_index}" "$1"
 
                 case "${positional_arg_index}" in
                     # 0)
@@ -1228,6 +1165,8 @@ parse_args() {
     export quiet
     export print_usage
 
+    export print_report
+
     # recalculate "constant" values
     set_calculated_constants
     set_ansi_code_constants
@@ -1237,20 +1176,7 @@ parse_args() {
     log_superdebug "quiet=%s" "${quiet}"
     log_superdebug "print_usage=%s" "${print_usage}"
 
-    export project_dir
-    if [ "${project_base_name_temp}" = "" ]; then
-        project_base_name="$(basename -- "${project_dir}")"
-    else
-        project_base_name="${project_base_name_temp}"
-    fi
-    export project_base_name
-    export dev_mode
-    export deploy_mode
-
-    log_superdebug "project_dir=%s" "${project_dir}"
-    log_superdebug "project_base_name=%s" "${project_base_name}"
-    log_superdebug "dev_mode=%s" "${dev_mode}"
-    log_superdebug "deploy_mode=%s" "${deploy_mode}"
+    log_superdebug "print_report=%s" "${print_report}"
 
     if [ "${print_usage}" = true ]; then
         usage
@@ -1261,269 +1187,375 @@ parse_args() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_conda() {
+check_tools() {
+    # intentionally no local scope because modifying globals
+
+    log_info "Checking tools"
+
+    if [ "$(command -v git)" != "" ]; then
+        git_exists=true
+    fi
+    export git_exists
+
+    if [ "$(command -v curl)" != "" ]; then
+        curl_exists=true
+    fi
+    export curl_exists
+
+    if [ "$(command -v wget)" != "" ]; then
+        wget_exists=true
+    fi
+    export wget_exists
+
+    if [ "$(command -v tar)" != "" ]; then
+        tar_exists=true
+    fi
+    export tar_exists
+
+    if [ "$(command -v unzip)" != "" ]; then
+        unzip_exists=true
+    fi
+    export unzip_exists
+
+    if [ "$(command -v diff)" != "" ]; then
+        diff_exists=true
+    fi
+    export diff_exists
+
+    if [ "$(command -v md5)" != "" ]; then
+        md5_exists=true
+    fi
+    export md5_exists
+
+    if \
+        [ "${git_exists}" = false ] &&
+        [ "${curl_exists}" = false ] &&
+        [ "${wget_exists}" = false ]
+    then
+        log_fatal "batteries-forking-included missing and no way to download available (no git, no curl, no wget)"
+        return "${RET_ERROR_TOOL_MISSING}"
+    fi
+
+    if \
+        [ "${git_exists}" = false ] &&  # we only need to extract if git isn't available
+        [ "${tar_exists}" = false ] &&
+        [ "${unzip_exists}" = false ]
+    then
+        log_fatal "batteries-forking-included missing and no way to extract from compressed file available (no tar, no unzip)"
+        return "${RET_ERROR_TOOL_MISSING}"
+    fi
+
+    if \
+        [ "${diff_exists}" = false ] &&
+        [ "${md5_exists}" = false ]
+    then
+        log_fatal "no way to comapre files (no diff, no md5)"
+        return "${RET_ERROR_TOOL_MISSING}"
+    fi
+
+    return "${RET_SUCCESS}"
+}
+
+#-------------------------------------------------------------------------------
+download_and_extract_via_curl() {
     (
-        log_header "Checking For Conda..."
+        repo_url=$1
+        file_basename=$2
+        directory="$3"
 
-        if [ ! -f "${CONDA_BASE_DIR_FULLPATH}/etc/profile.d/conda.sh" ]; then
-            log_footer "Conda Not Found."
+        if [ "${tar_exists}" = true ]; then
+            log_info "Downloading as tarball via curl: '%s'" "${repo_url}"
+            curl -L "${repo_url}/tarball" --output "${directory}/${file_basename}.tar.gz"
+            ret=$?
+        elif [ "${unzip_exists}" = true ]; then
+            log_info "Downloading as zipball via curl: '%s'" "${repo_url}"
+            curl -L "${repo_url}/zipball" --output "${directory}/${file_basename}.zip"
+            ret=$?
+        else  # pragma: no branch
+            # NOTE: it /shouldn't/ be possible to get here
+            log_fatal "No way to extract from compressed file available (no tar, no unzip)"
+            exit "${RET_ERROR_TOOL_MISSING}"
+        fi
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to download ${file_basename} compressed file (curl)"
+            exit "${RET_ERROR_DOWNLOAD_FAILED}"
+        fi
 
-            log_header "Installing Conda..."
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
 
-            curl_exists=false
-            if [ "$(command -v curl)" != "" ]; then
-                curl_exists=true
+#-------------------------------------------------------------------------------
+download_and_extract_via_wget() {
+    (
+        repo_url=$1
+        file_basename=$2
+        directory="$3"
+
+        if [ "${tar_exists}" = true ]; then
+            log_info "Downloading as tarball via wget: '%s'" "${repo_url}"
+            wget "${repo_url}/tarball" -O "${directory}/${file_basename}.tar.gz"
+            ret=$?
+        elif [ "${unzip_exists}" = true ]; then
+            log_info "Downloading as zipball via wget: '%s'" "${repo_url}"
+            wget "${repo_url}/zipball" -O "${directory}/${file_basename}.zip"
+            ret=$?
+        else  # pragma: no branch
+            # NOTE: it /shouldn't/ be possible to get here
+            log_fatal "No way to extract from compressed file available (no tar, no unzip)"
+            exit "${RET_ERROR_TOOL_MISSING}"
+        fi
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to download ${file_basename} compressed file (wget)"
+            exit "${RET_ERROR_DOWNLOAD_FAILED}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+extract_tarball() {
+    (
+        file=$1
+        dest=$2
+
+        log_info "Extracting tarball '%s' to '%s'" "${file}" "${dest}"
+
+        _dest=""
+        if [ "${dest}" != "" ]; then
+            _dest=" -C "
+        fi
+
+        tar -xzf "${file}" --strip=1"${_dest}""${dest}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to extract ${file} compressed file (tar)"
+            exit "${RET_ERROR_EXTRACTION_FAILED}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+extract_zipball() {
+    (
+        file=$1
+        dest=$2
+
+        log_info "Extracting zipball '%s' to '%s'" "${file}" "${dest}"
+
+        create_dir "${my_tempdir}/extracted"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            exit $ret
+        fi
+
+        unzip -d "${my_tempdir}/extracted" "${file}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to extract  ${file} compressed file (unzip)"
+            exit "${RET_ERROR_EXTRACTION_FAILED}"
+        fi
+
+        mv "${my_tempdir}/extracted/*/*" "${dest}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to move extracted files into place from temporary directory"
+            exit "${RET_ERROR_MOVE_FAILED}"
+        fi
+
+        mv "${my_tempdir}/extracted/*/.*" "${dest}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to move extracted files dotfiles into place from temporary directory"
+            exit "${RET_ERROR_MOVE_FAILED}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+download_and_extract() {
+    (
+        repo_url=$1
+        file_basename=$2
+        destdir="$3"
+
+        if [ "${curl_exists}" = true ]; then
+            download_and_extract_via_curl "${repo_url}" "${file_basename}" "${my_tempdir}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
             fi
-            export curl_exists
-
-            wget_exists=false
-            if [ "$(command -v wget)" != "" ]; then
-                wget_exists=true
+        elif [ "${wget_exists}" = true ]; then
+            download_and_extract_via_wget "${repo_url}" "${file_basename}" "${my_tempdir}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
             fi
-            export wget_exists
+        fi
 
-            if \
-                [ "${curl_exists}" = false ] &&
-                [ "${wget_exists}" = false ]
+        create_dir "${destdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            exit $ret
+        fi
+
+        if [ "${tar_exists}" = true ]; then
+            extract_tarball "${my_tempdir}/${file_basename}.tar.gz" "${destdir}"
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+        elif [ "${unzip_exists}" = true ]; then
+            extract_zipball "${my_tempdir}/${file_basename}.tar.gz" "${destdir}"
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+        else  # pragma: no branch
+            # NOTE: it /shouldn't/ be possible to get here
+            log_fatal "No way to extract from compressed file available (no tar, no unzip)"
+            exit "${RET_ERROR_TOOL_MISSING}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+ensure_batteries_forking_included() {
+    (
+        log_info "Ensuring batteries-forking-included exists"
+
+        if \
+            [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}" ] ||
+            [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}/.git" ] ||
+            [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src" ] ||
+            [ ! -f "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/batteries-forking-included.sh" ]
+        then
+            # batteries-forking-included missing, let's download it
+            ensure_cd "${BATTERIES_FORKING_INCLUDED_FULLPATH}/.."
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            if [ "${git_exists}" = true ]; then
+                git clone "https://github.com/${GITHUB_REPO_USER}/${GITHUB_REPO_NAME}.git"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    log_fatal "failed to clone https://github.com/${GITHUB_REPO_USER}/${GITHUB_REPO_NAME}.git"
+                    exit "${RET_ERROR_GIT_CLONE_FAILED}"
+                fi
+            elif \
+                [ "${curl_exists}" = true ] ||
+                [ "${wget_exists}" = true ]
             then
-                log_fatal "conda missing and no way to download available (no curl, no wget)"
+                download_and_extract "https://api.github.com/repos/${GITHUB_REPO_USER}/${GITHUB_REPO_NAME}" "${GITHUB_REPO_NAME}" "${BATTERIES_FORKING_INCLUDED_FULLPATH}"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    exit $ret
+                fi
+
+                # create download timestamp
+                touch "${BATTERIES_FORKING_INCLUDED_FULLPATH}"/LAST_DOWNLOADED
+            else # pragma: no branch
+                # NOTE: it /shouldn't/ be possible to get here
+                log_fatal "no way to download available (no git, no curl, no wget)"
                 exit "${RET_ERROR_TOOL_MISSING}"
             fi
+        fi
 
-            ensure_my_tempdir
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+update_update_batteries_forking_included() {
+    (
+        log_info "Updating batteries-forking-included"
+
+        if [ "${git_exists}" = true ]; then
+            ensure_cd "${BATTERIES_FORKING_INCLUDED_FULLPATH}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
             fi
 
-            ensure_dir "${my_tempdir}/downloads"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                exit $ret
-            fi
-
-            file_to_download="Miniforge3-${CONDA_FORGE_PLATFORM}-${CONDA_FORGE_ARCH}.${CONDA_FORGE_EXT}"
-            URL="https://github.com/conda-forge/miniforge/releases/latest/download/${file_to_download}"
-
-            if [ "${curl_exists}" = true ]; then
-                log_info "Using curl to download: ${URL}"
-                curl -L "${URL}" --fail --output "${my_tempdir}/downloads/${file_to_download}"
-                ret=$?
-                if [ $ret -ne 0 ]; then
-                    log_fatal "failed to download ${URL} (curl)"
-                    exit "${RET_ERROR_DOWNLOAD_FAILED}"
-                fi
-            elif [ "${wget_exists}" = true ]; then
-                log_info "Using wget to download: ${URL}"
-                wget "${URL}" -O "${my_tempdir}/downloads/${file_to_download}"
-                ret=$?
-                if [ $ret -ne 0 ]; then
-                    log_fatal "failed to download ${URL} (wget)"
-                    exit "${RET_ERROR_DOWNLOAD_FAILED}"
-                fi
-            fi
-            chmod +x "${my_tempdir}/downloads/${file_to_download}"
-
-            dirname_CONDA_INSTALL_PATH="$(dirname "${CONDA_INSTALL_PATH}")"
-            if [ ! -d "${dirname_CONDA_INSTALL_PATH}" ]; then
-                log_console "${ANSI_BELL}${ANSI_WARNING} '${dirname_CONDA_INSTALL_PATH}' doesn't exist, we need sudo to create it, either enter your password below OR exit this script (CTRL+C multiple times) and run the following commands and rerun this script.${ANSI_RESET}\nsudo mkdir \"${dirname_CONDA_INSTALL_PATH}\"\nsudo chown \"${REAL_USER}\":\"${DEFAULT_ADMIN_GROUP}\" \"${dirname_CONDA_INSTALL_PATH}\"\nsudo -k"
-                sudo mkdir "${dirname_CONDA_INSTALL_PATH}"
-                sudo chown "${REAL_USER}":"${DEFAULT_ADMIN_GROUP}" "${dirname_CONDA_INSTALL_PATH}"
-                sudo -k
-            fi
-
-            log_info "Installing Conda with PREFIX='${CONDA_INSTALL_PATH}'"
-
-            "${my_tempdir}/downloads/${file_to_download}" -b -f -p "${CONDA_INSTALL_PATH}"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                log_fatal "Failed to install Conda."
-                exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
-            else
-                log_footer "Conda Install Completed."
+            current_branch="$(git rev-parse --abbrev-ref HEAD)"
+            if [ "${current_branch}" != "main" ]; then
+                log_warning "batteries-forking-included's current branch is not main"
+                # this is fine, so just bail early
                 exit "${RET_SUCCESS}"
             fi
-        else
-            log_footer "Conda Found."
-            exit "${RET_SUCCESS}"
-        fi
-    )
-    ret=$?
-    return $ret
-}
 
-#-------------------------------------------------------------------------------
-conda_update_base()
-{
-    log_header "Updating Base Conda Environment..."
-
-    conda activate base
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "'conda activate base' exited with error code: %d" "$ret"
-        return "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
-    fi
-
-    conda update -n base --all -v -y --prune
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "'conda update -n base' exited with error code: %d" "$ret"
-        return "${RET_ERROR_CONDA_INSTALL_FAILED}"
-    fi
-
-    log_footer "Base Conda Environment Updated."
-
-    return "${RET_SUCCESS}"
-}
-
-#-------------------------------------------------------------------------------
-conda_setup_env()
-{
-    (
-        log_header "Looking for %s Conda Environment..." "${project_base_name}"
-
-        found_env=$(conda env list | awk -v project_base_name="${project_base_name}" '{if ($1 == project_base_name) print $1}')
-
-        if [ "${found_env}" = "" ]; then
-            log_footer "%s Conda Environment not found." "${project_base_name}"
-        else
-            log_footer "%s Conda Environment found." "${project_base_name}"
-        fi
-
-        if [ "${found_env}" = "" ]; then
-            log_header "Installing %s Conda Environment..." "${project_base_name}"
-
-            conda env create --name "${project_base_name}" --file ./conda-environment.yml -v
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                log_fatal "'conda create --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
-                exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
-            fi
-
-            log_header "%s Conda Environment Installed." "${project_base_name}"
-        else
-            log_header "Updating %s Conda Environment..." "${project_base_name}"
-
-            conda env update --name "${project_base_name}" --file ./conda-environment.yml --prune -v
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                log_fatal "'conda update --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
-                exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
-            fi
-
-            log_header "%s Conda Environment Updated." "${project_base_name}"
-        fi
-
-        exit "${RET_SUCCESS}"
-    )
-    ret=$?
-    return $ret
-}
-
-#-------------------------------------------------------------------------------
-conda_activate_env() {
-    log_header "Activating %s Conda Environment..." "${project_base_name}"
-
-    conda activate "${project_base_name}"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "'conda activate \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
-        return "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
-    fi
-
-    log_header "%s Conda Environment Activated." "${project_base_name}"
-
-    return "${RET_SUCCESS}"
-}
-
-#-------------------------------------------------------------------------------
-poetry_install() {
-    (
-        log_header "Checking for Poetry Settings..."
-
-        poetry_found="$(grep '\[tool.poetry\]' pyproject.toml)"
-
-        if [ "${poetry_found}" != "" ]; then
-            log_footer "Poetry Settings Found."
-        else
-            log_footer "Poetry Settings Not Found. Skipping."
-        fi
-
-        if [ "${poetry_found}" != "" ]; then
-            log_header "Running 'poetry install'..."
-
-            poetry_verbosity=""
-            if [ "${verbosity}" -ge 1 ]; then
-                poetry_verbosity="-"
-                for _i in $(seq 1 "${verbosity}"); do
-                    poetry_verbosity="${poetry_verbosity}v"
-                done
-            fi
-
-            poetry_quiet=""
-            if [ "${quiet}" = true ]; then
-                poetry_quiet="--quiet"
-            fi
-
-            poetry_ansi="--ansi"
-            if [ "${colorized_output}" = false ]; then
-                poetry_ansi="--no-ansi"
-            fi
-
-            poetry_no_dev=""
-            if [ "${dev_mode}" = false ]; then
-                poetry_no_dev="--no-dev"
-            fi
-
-            poetry_args="${poetry_ansi} ${poetry_verbosity} ${poetry_quiet} ${poetry_no_dev}"
-
-            log_debug "poetry install args: ${poetry_args}"
-
-            poetry install "${poetry_args}"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                log_fatal "'poetry install' exited with error code: %d" "$ret"
-                exit "${RET_ERROR_POETRY_INSTALL_FAILED}"
-            fi
-
-            log_header "'poetry install' Completed."
-        fi
-
-        exit "${RET_SUCCESS}"
-    )
-    ret=$?
-    return $ret
-}
-
-#-------------------------------------------------------------------------------
-pip_uninstall() {
-    (
-        log_header "Checking for pip-uninstall.txt..."
-
-        if [ -f ./pip-uninstall.txt ]; then
-            log_footer "pip-uninstall.txt Found."
-
-            log_header "Checking pip-uninstall.txt size..."
-
-            uninstall_size="$(wc -c <"pip-uninstall.txt")"
-            if [ "${uninstall_size}" -ne 0 ]; then
-                log_footer "pip-uninstall.txt Not Empty."
-
-                log_header "Running 'pip uninstall'..."
-
-                pip uninstall --yes --no-input --verbose --requirement pip-uninstall.txt
+            ahead_by="$(git rev-list --left-right --count origin/main...main | awk '{print $2}')"
+            is_dirty="$(git status --porcelain --untracked-files=all)"
+            if \
+                [ "${is_dirty}" = "" ] &&
+                [ "${ahead_by}" -eq 0 ]
+            then
+                # not dirty
+                git fetch
                 ret=$?
                 if [ $ret -ne 0 ]; then
-                    log_fatal "'pip uninstall' exited with error code: %d" "$ret"
-                    exit "${RET_ERROR_PIP_UNINSTALL_FAILED}"
+                    log_fatal "git fetch failed"
+                    exit "${RET_ERROR_GIT_FETCH_FAILED}"
                 fi
 
-                log_footer "'pip uninstall' Completed."
+                git reset --hard origin/main
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    log_fatal "git reset failed"
+                    exit "${RET_ERROR_GIT_RESET_FAILED}"
+                fi
             else
-                log_footer "pip-uninstall.txt Empty. Skipping."
+                log_warning "batteries-forking-included has local changes"
+                # this is fine, so just bail early
+                exit "${RET_SUCCESS}"
             fi
-        else
-            log_footer "pip-uninstall.txt Not Found. Skipping."
+        elif \
+            [ "${curl_exists}" = true ] ||
+            [ "${wget_exists}" = true ]
+        then
+            # shellcheck disable=SC2012
+            is_dirty="$(ls -lt | head -2 | tail -1 | grep -v "LAST_DOWNLOADED")"
+
+            if [ "${is_dirty}" = "" ]; then
+                safe_rm "${BATTERIES_FORKING_INCLUDED_FULLPATH}"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    exit $ret
+                fi
+
+                download_and_extract "https://api.github.com/repos/${GITHUB_REPO_USER}/${GITHUB_REPO_NAME}" "${GITHUB_REPO_NAME}" "${BATTERIES_FORKING_INCLUDED_FULLPATH}"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    exit $ret
+                fi
+            else
+                log_warning "batteries-forking-included has local changes"
+                # this is fine, so just bail early
+                exit "${RET_SUCCESS}"
+            fi
+        else # pragma: no branch
+            # NOTE: it /shouldn't/ be possible to get here
+            log_fatal "no way to download available (no git, no curl, no wget)"
+            exit "${RET_ERROR_TOOL_MISSING}"
         fi
 
         exit "${RET_SUCCESS}"
@@ -1533,171 +1565,181 @@ pip_uninstall() {
 }
 
 #-------------------------------------------------------------------------------
-pip_install() {
+copy_temporary_template_files() {
     (
-        pip_requirements_found=false
+        log_info "Creating a copy of template files"
 
-        if [ "${dev_mode}" = "true" ]; then
-            log_header "Running in dev mode, checking for pip-requirements-dev.txt..."
-            if [ -f ./pip-requirements-dev.txt ]; then
-                log_footer "pip-requirements-dev.txt Found."
-                pip_requirements_found=true
-            else
-                log_footer "pip-requirements-dev.txt Not Found."
-            fi
+        create_dir "${my_tempdir}/template"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            exit $ret
         fi
 
-        if [ "${pip_requirements_found}" = false ]; then
-            log_header "Checking for pip-requirements.txt..."
-            if [ -f ./pip-requirements-dev.txt ]; then
-                log_footer "pip-requirements.txt Found."
-            else
-                log_footer "pip-requirements-dev.txt Not Found. Skipping pip install."
-            fi
+        cp "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template"/* "${my_tempdir}/template/"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to copy files from '%s' to '%s'" "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template/*" "${my_tempdir}/template/"
+            exit "${RET_ERROR_COPY_FAILED}"
         fi
+    )
+    ret=$?
+    return $ret
+}
 
-        if [ "${pip_requirements_found}" = true ]; then
-            ret="${RET_ERROR_UNKNOWN}"
+#-------------------------------------------------------------------------------
+is_file_same() {
+    # exit code 0 == same
+    # exit code 1 == different
+    # exit code 2 == there was an error
+    (
+        left_file="$1"
+        right_file="$2"
 
-            if \
-                [ "${dev_mode}" = "true" ] &&
-                [ -f ./pip-requirements-dev.txt ]
-            then
-                log_header "Running 'pip install' using 'pip-requirements-dev.txt'..."
-                pip install --upgrade --no-input --verbose --requirement pip-requirements-dev.txt
-                ret=$?
-            elif [ -f ./pip-requirements.txt ]; then
-                log_header "Running 'pip install' using 'pip-requirements.txt'..."
-                pip install --upgrade --no-input --verbose --requirement pip-requirements.txt
-                ret=$?
+        log_info "Comparing '%s' and '%s'" "${left_file}" "${right_file}"
+
+        if [ "${diff_exists}" = true ]; then
+            diff "${left_file}" "${right_file}"
+            ret=$?
+            if [ $ret -gt 2 ]; then
+                exit 2
             fi
-
+            exit $ret
+        elif [ "${md5_exists}" = true ]; then
+            left_md5="$(md5 -q "${left_file}")"
+            ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "'pip install' exited with error code: %d" "$ret"
-                exit "${RET_ERROR_PIP_INSTALL_FAILED}"
+                exit 2
             fi
 
-            log_footer "'pip install' Completed."
+            right_md5="$(md5 -q "${right_file}")"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit 2
+            fi
+
+            if [ "${left_md5}" = "${right_md5}" ]; then
+                exit 0
+            else
+                exit 1
+            fi
+        else  # pragma: no branch
+            # NOTE: it /shouldn't/ be possible to get here
+            log_fatal "no way to comapre files (no diff, no md5)"
+            exit "${RET_ERROR_TOOL_MISSING}"
         fi
-
-        exit "${RET_SUCCESS}"
     )
     ret=$?
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-run_post_bootstrap_script() {
-    log_header "Running 'post-bootstrap.sh'"
-
-    # be sure to run in post-setup in it's own subshell
-    # (the default script also does this itself, but we can't trust that
-    #   to still exist after user edits)
-    (
-        ensure_include "${project_dir}"/post-bootstrap.sh
-        post_bootstrap
-        ret=$?
-        exit $ret
-    )
-    ret=$?
-
-    if [ $ret -ne 0 ]; then
-        log_fatal "'post-bootstrap.sh' exited with error code: %d" "$ret"
-    else
-        log_footer "'post-bootstrap.sh' Completed."
-    fi
-
     return $ret
 }
 
 #-------------------------------------------------------------------------------
-conda_bootstrapper () {
-    log_ultradebug "conda-bootstrapper.sh::conda_bootstrapper called with '%s'" "$*"
-
-    parse_args "$@"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        return $ret
-    fi
-
-    # # bail early before actually doing anything
-    # return 0
-
+compare_and_update_files() {
     (
-        ensure_cd "${project_dir}"
+        # this file gets edited by users, we don't want it to get tested
+        safe_rm "${my_tempdir}/template/post-bootstrap.sh"
         ret=$?
         if [ $ret -ne 0 ]; then
             exit $ret
         fi
 
-        ensure_conda
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
-
-        conda_init
+        is_file_same "${my_tempdir}/template/bfi-update.sh" "${MY_DIR_FULLPATH}/bfi-update.sh"
         ret=$?
-        if [ $ret -ne 0 ]; then
+        if [ $ret -gt 2 ]; then
             exit $ret
-        fi
+        elif [ $ret -eq 1 ]; then
+            log_info "bfi-update.sh changed, copying and re-running"
 
-        conda_full_deactivate
-        ret=$?
-        if [ $ret -ne 0 ]; then
+            # we need to update ourself, and then call ourself again
+            safe_rm "${MY_DIR_FULLPATH}/bfi-update.sh"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+
+            mv "${my_tempdir}/template/bfi-update.sh" "${MY_DIR_FULLPATH}/bfi-update.sh"
+            if [ $ret -ne 0 ]; then
+                log_fatal "failed to copy '%s' to '%s'" "${my_tempdir}/template/bfi-update.sh" "${MY_DIR_FULLPATH}/bfi-update.sh"
+                exit "${RET_ERROR_COPY_FAILED}"
+            fi
+
+            log_info "bfi-update.sh copied successfully"
+
+            log_info "re-running command as '%s %s'" "${MY_DIR_FULLPATH}/bfi-update.sh" "$*"
+
+            # call ourselves again
+            "${MY_DIR_FULLPATH}/bfi-update.sh" "$@" --no-report
+            ret=$?
             exit $ret
+        else
+            log_info "bfi-update.sh did not change"
+
+            # we need to remove the temporary template version of ourself,
+            # so that we can just iterate the rest of the files
+            safe_rm "${my_tempdir}/template/bfi-update.sh"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            ensure_cd "${my_tempdir}/template"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            for filename in *; do
+                if [ ! -f "${filename}" ]; then
+                    continue
+                fi
+
+                needs_copy=false
+
+                if [ ! -f "${MY_DIR_FULLPATH}/${filename}" ]; then
+                    needs_copy=true
+                fi
+
+                if [ "${needs_copy}" = false ]; then
+                    is_file_same "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+                    ret=$?
+                    if [ $ret -gt 2 ]; then
+                        exit $ret
+                    elif [ $ret -eq 1 ]; then
+                        needs_copy=true
+                    else
+                        log_info "${filename} did not change"
+                    fi
+                fi
+
+                if [ "${needs_copy}" = true ]; then
+                    # file is different, needs to be updated
+                    log_info "${filename} needs to be copied, copying"
+
+                    safe_rm "${MY_DIR_FULLPATH}/${filename}"
+                    ret=$?
+                    if [ $ret -ne 0 ]; then
+                        exit $ret
+                    fi
+
+                    mv "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+                    if [ $ret -ne 0 ]; then
+                        log_fatal "failed to copy '%s' to '%s'" "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+                        exit "${RET_ERROR_COPY_FAILED}"
+                    fi
+
+                    log_info "${filename} copied successfully"
+                fi
+            done
         fi
-
-        conda_update_base
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
-
-        # poetry show | awk '{if ($1 !~ /six|packaging|pyparsing/ ) {print "pypi::" $1}}' >"$CONDA_PREFIX"/conda-meta/pinned
-
-        conda_setup_env
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
-
-        conda_activate_env
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
-
-        poetry_install
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
-
-        pip_uninstall
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
-
-        pip_install
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
-
-        run_post_bootstrap_script
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
-
-        exit "${RET_SUCCESS}"
     )
     ret=$?
     return $ret
 }
 
 #endregion Public Functions
+#===============================================================================
+
+#endregion Public *
 ################################################################################
 
 (
@@ -1731,6 +1773,10 @@ conda_bootstrapper () {
         log_ultradebug "%s: SET_OMEGA_DEBUG was '%s', setting OMEGA_DEBUG to same and exporting it." "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
     fi
 
+    if [ "${verbosity}" = "" ]; then
+        verbosity=99; export verbosity
+    fi
+
     #endregion Private Globals
     #===========================================================================
 
@@ -1739,17 +1785,79 @@ conda_bootstrapper () {
 
     #---------------------------------------------------------------------------
     __main() {
-        log_fatal "${MY_BASENAME} must be sourced"
-        return "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"
-    }
+        log_ultradebug "${MY_BASENAME} called with '%s'" "$*"
 
-    #---------------------------------------------------------------------------
-    __sourced_main() {
-        return "${RET_SUCCESS}"
+        parse_args "$@"
+        ret=$?
+        if [ $ret -ne 0 ];then
+            return $ret
+        fi
+
+        (
+            check_tools
+            ret=$?
+            if [ $ret -ne 0 ];then
+                exit $ret
+            fi
+
+            ensure_my_tempdir
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            ensure_batteries_forking_included
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            # re-include constants.sh if the fence value is missing,
+            # in case file didn't exist earlier
+            type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                ensure_include "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/constants.sh"
+            fi
+
+            update_update_batteries_forking_included
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            ensure_cd "${MY_DIR_FULLPATH}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            copy_temporary_template_files
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            compare_and_update_files "$@"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        ret=$?
+        report_all $ret "${print_report}" "${MY_BASENAME}"
+        ret=$?
+        return $ret
     }
 
     #endregion Private Functions
     #===========================================================================
+
+    __sourced_main() {
+        return "${RET_SUCCESS}"
+    }
 
     #endregion Private *
     ############################################################################
