@@ -277,13 +277,13 @@ if [ "$ZSH_VERSION" != "" ]; then
 fi
 
 _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
-#                           x12345678x
+#                                      x12345678x
 _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
 #-------------------------------------------------------------------------------
 _array_escape() {
-    #                                      x1234x                               x12x1234567890123456x
-    command echo "$1" | sed "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" | sed 's/\\/\\\\\\\\\\\\\\\\/g'
+    #                                        x1234x                                  x12x1234567890123456x
+    command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
 }
 
 #-------------------------------------------------------------------------------
@@ -291,7 +291,7 @@ _array_unescape() {
     # NOTE: This doesn't look like the inverse of what _array_escape does, but
     #   it works correctly
     #                                           x1234x12x           x12345678x
-    command printf "$(command echo "$1" | sed 's/\\\\/\\/g' | sed "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
+    command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
 }
 
 #-------------------------------------------------------------------------------
@@ -494,22 +494,24 @@ array_for_each() {
 #endregion Arrays
 #===============================================================================
 
+#===============================================================================
+#region Helper Functions
+
+#-------------------------------------------------------------------------------
 ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
-
-    path_to_cd="$1"
-
-    log_info "Changing current directory to '%s'" "${path_to_cd}"
+    log_info "Changing current directory to '%s'" "$1"
 
     # shellcheck disable=SC2164
-    cd "${path_to_cd}"
+    cd "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
-        log_fatal "Could not cd into '%s'" "${path_to_cd}"
+        log_fatal "Could not cd into '%s'" "$1"
         return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
     fi
 }
 
+#-------------------------------------------------------------------------------
 safe_rm() {
     (
         path_to_remove="$1"
@@ -561,8 +563,11 @@ safe_rm() {
             exit "${RET_ERROR_UNSAFE_RM_PATH}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_does_not_exist() {
     (
         path_to_remove="$1"
@@ -578,8 +583,11 @@ ensure_does_not_exist() {
             exit $ret
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 create_dir() {
     (
         destdir="$1"
@@ -600,8 +608,11 @@ create_dir() {
             exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_dir() {
     (
         destdir="$1"
@@ -614,8 +625,11 @@ ensure_dir() {
             exit $ret
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 create_my_tempdir() {
     my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
     ret=$?
@@ -627,6 +641,7 @@ create_my_tempdir() {
     return "${RET_SUCCESS}"
 }
 
+#-------------------------------------------------------------------------------
 ensure_my_tempdir() {
     # intentionally no local scope b/c modifying a global
 
@@ -645,7 +660,58 @@ ensure_my_tempdir() {
     fi
 
     export my_tempdir
+
+    return "${RET_SUCCESS}"
 }
+
+#-------------------------------------------------------------------------------
+is_integer()
+{
+    case "${1#[+-]}"  in
+        *[!0123456789]*)
+            command echo "1"
+            return 1
+            ;;
+        '')
+            command echo "1"
+            return 1
+            ;;
+        *)
+            command echo "0"
+            return 0
+            ;;
+    esac
+    command echo "1"
+    return 1
+}
+
+#-------------------------------------------------------------------------------
+get_my_real_basename() {
+    (
+        last_was_sourced="$(array_get_last WAS_SOURCED)"
+        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
+        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
+            if [ "${last_was_sourced}" -eq 0 ]; then
+                command echo "${MY_BASENAME}"
+            else
+                if [ "$(array_get_length SOURCED_BASENAME)" -gt 0 ]; then
+                    command echo "$(array_get_last SOURCED_BASENAME)"
+                else
+                    command echo "UNKNOWN"
+                fi
+            fi
+        else
+            command echo "${MY_BASENAME}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#endregion Helper Functions
+#===============================================================================
 
 #===============================================================================
 #region source check

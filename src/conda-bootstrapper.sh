@@ -318,13 +318,13 @@ if [ "$ZSH_VERSION" != "" ]; then
 fi
 
 _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
-#                           x12345678x
+#                                      x12345678x
 _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
 #-------------------------------------------------------------------------------
 _array_escape() {
-    #                                      x1234x                               x12x1234567890123456x
-    command echo "$1" | sed "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" | sed 's/\\/\\\\\\\\\\\\\\\\/g'
+    #                                        x1234x                                  x12x1234567890123456x
+    command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
 }
 
 #-------------------------------------------------------------------------------
@@ -332,7 +332,7 @@ _array_unescape() {
     # NOTE: This doesn't look like the inverse of what _array_escape does, but
     #   it works correctly
     #                                           x1234x12x           x12345678x
-    command printf "$(command echo "$1" | sed 's/\\\\/\\/g' | sed "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
+    command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
 }
 
 #-------------------------------------------------------------------------------
@@ -535,22 +535,24 @@ array_for_each() {
 #endregion Arrays
 #===============================================================================
 
+#===============================================================================
+#region Helper Functions
+
+#-------------------------------------------------------------------------------
 ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
-
-    path_to_cd="$1"
-
-    log_info "Changing current directory to '%s'" "${path_to_cd}"
+    log_info "Changing current directory to '%s'" "$1"
 
     # shellcheck disable=SC2164
-    cd "${path_to_cd}"
+    cd "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
-        log_fatal "Could not cd into '%s'" "${path_to_cd}"
+        log_fatal "Could not cd into '%s'" "$1"
         return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
     fi
 }
 
+#-------------------------------------------------------------------------------
 safe_rm() {
     (
         path_to_remove="$1"
@@ -602,8 +604,11 @@ safe_rm() {
             exit "${RET_ERROR_UNSAFE_RM_PATH}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_does_not_exist() {
     (
         path_to_remove="$1"
@@ -619,8 +624,11 @@ ensure_does_not_exist() {
             exit $ret
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 create_dir() {
     (
         destdir="$1"
@@ -641,8 +649,11 @@ create_dir() {
             exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_dir() {
     (
         destdir="$1"
@@ -655,8 +666,11 @@ ensure_dir() {
             exit $ret
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 create_my_tempdir() {
     my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
     ret=$?
@@ -668,6 +682,7 @@ create_my_tempdir() {
     return "${RET_SUCCESS}"
 }
 
+#-------------------------------------------------------------------------------
 ensure_my_tempdir() {
     # intentionally no local scope b/c modifying a global
 
@@ -686,7 +701,58 @@ ensure_my_tempdir() {
     fi
 
     export my_tempdir
+
+    return "${RET_SUCCESS}"
 }
+
+#-------------------------------------------------------------------------------
+is_integer()
+{
+    case "${1#[+-]}"  in
+        *[!0123456789]*)
+            command echo "1"
+            return 1
+            ;;
+        '')
+            command echo "1"
+            return 1
+            ;;
+        *)
+            command echo "0"
+            return 0
+            ;;
+    esac
+    command echo "1"
+    return 1
+}
+
+#-------------------------------------------------------------------------------
+get_my_real_basename() {
+    (
+        last_was_sourced="$(array_get_last WAS_SOURCED)"
+        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
+        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
+            if [ "${last_was_sourced}" -eq 0 ]; then
+                command echo "${MY_BASENAME}"
+            else
+                if [ "$(array_get_length SOURCED_BASENAME)" -gt 0 ]; then
+                    command echo "$(array_get_last SOURCED_BASENAME)"
+                else
+                    command echo "UNKNOWN"
+                fi
+            fi
+        else
+            command echo "${MY_BASENAME}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#endregion Helper Functions
+#===============================================================================
 
 #===============================================================================
 #region source check
@@ -842,14 +908,14 @@ colorized_output=true; export colorized_output
 verbosity=1; export verbosity
 quiet=false; export quiet
 
+if [ "${my_tempdir:-}" = "" ]; then
+    my_tempdir=""; export my_tempdir
+fi
+
 project_dir=""; export project_dir
 project_base_name=""; export project_base_name
 dev_mode=false; export dev_mode
 deploy_mode=false; export deploy_mode
-
-if [ "${my_tempdir:-}" = "" ]; then
-    my_tempdir=""; export my_tempdir
-fi
 
 #endregion Public Globals
 #===============================================================================
@@ -869,15 +935,16 @@ usage() {
 parse_args() {
     log_ultradebug "conda-bootstrapper.sh::parse_args called with '%s'" "$*"
 
-    # temporarily just assign these
+    # temporarily just assign these to best guesses
     project_dir="$(pwd)"
     project_base_name="$(basename -- "${project_dir}")"
 
-    positional_arg_index=0
+    project_base_name_temp=""
 
+    temp_verbosity="${verbosity}"
     alt_color=false
 
-    project_base_name_temp=""
+    positional_arg_index=0
 
     while true; do
         log_ultradebug "conda-bootstrapper.sh::parse_args::while; \$1='%s'; \$*='%s'" "$1" "$*"
@@ -903,11 +970,11 @@ parse_args() {
 
             -v|--verbose)
                 log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found verbose arg"
-                verbosity=$((verbosity + 1))
+                temp_verbosity=$((temp_verbosity + 1))
                 ;;
             +v|--no-verbose)
                 log_ultradebug "conda-bootstrapper.sh::parse_args::while;\t found no-verbose arg"
-                verbosity=$((verbosity - 1))
+                temp_verbosity=$((temp_verbosity - 1))
                 ;;
 
             --)     # stop processing args
@@ -1036,12 +1103,17 @@ parse_args() {
                             ;;
                         v)
                             log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found verbose flag"
-                            verbosity=$((verbosity + 1)) # Each -v argument adds 1 to verbosity.
+                            temp_verbosity=$((temp_verbosity + 1)) # Each -v argument adds 1 to verbosity.
                             ;;
 
                         c)
                             log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found color flag"
                             colorized_output=true
+                            ;;
+
+                        C)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found alt-color flag"
+                            alt_color=true
                             ;;
 
                         d)
@@ -1088,12 +1160,17 @@ parse_args() {
                             ;;
                         v)
                             log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(-);\t found verbose flag"
-                            verbosity=$((verbosity - 1))
+                            temp_verbosity=$((temp_verbosity - 1))
                             ;;
 
                         c)
                             log_ultradebug "conda-bootstrapper.sh::parse_args::while::while(+);\t found no-color flag"
                             colorized_output=false;
+                            ;;
+
+                        C)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-alt-color flag"
+                            alt_color=false
                             ;;
 
                         d)
@@ -1140,15 +1217,25 @@ parse_args() {
     #     exec 3>&1
     # fi
 
+    verbosity="${temp_verbosity}"
+
     if [ "${alt_color}" = true ]; then
         colorized_output=alt
     fi
-
 
     export colorized_output
     export verbosity
     export quiet
     export print_usage
+
+    # recalculate "constant" values
+    set_calculated_constants
+    set_ansi_code_constants
+
+    log_superdebug "colorized_output=%s" "${colorized_output}"
+    log_superdebug "verbosity=%d" "${verbosity}"
+    log_superdebug "quiet=%s" "${quiet}"
+    log_superdebug "print_usage=%s" "${print_usage}"
 
     export project_dir
     if [ "${project_base_name_temp}" = "" ]; then
@@ -1160,14 +1247,6 @@ parse_args() {
     export dev_mode
     export deploy_mode
 
-    # recalculate "constant" values
-    set_calculated_constants
-    set_ansi_code_constants
-
-    log_superdebug "colorized_output=%s" "${colorized_output}"
-    log_superdebug "verbosity=%d" "${verbosity}"
-    log_superdebug "quiet=%s" "${quiet}"
-    log_superdebug "print_usage=%s" "${print_usage}"
     log_superdebug "project_dir=%s" "${project_dir}"
     log_superdebug "project_base_name=%s" "${project_base_name}"
     log_superdebug "dev_mode=%s" "${dev_mode}"
@@ -1175,8 +1254,10 @@ parse_args() {
 
     if [ "${print_usage}" = true ]; then
         usage
-        exit "${RET_ERROR_USAGE_PRINTED}"
+        return "${RET_ERROR_USAGE_PRINTED}"
     fi
+
+    return "${RET_SUCCESS}"
 }
 
 #-------------------------------------------------------------------------------
@@ -1269,47 +1350,6 @@ ensure_conda() {
     )
     ret=$?
     return $ret
-}
-
-#-------------------------------------------------------------------------------
-conda_init () {
-    # intentionally no local scope so it modify globals
-
-    log_header "Initializing Conda..."
-
-    # shellcheck disable=SC1091
-    . "${CONDA_BASE_DIR_FULLPATH}/etc/profile.d/conda.sh"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "'. conda.sh' failed with error code: %d" "$ret"
-        return "${RET_ERROR_CONDA_INIT_FAILED}"
-    fi
-    PATH="${CONDA_BASE_DIR_FULLPATH}/bin:$PATH"
-    export PATH
-
-    log_footer "Conda Initialized."
-
-    return "${RET_SUCCESS}"
-}
-
-#-------------------------------------------------------------------------------
-conda_full_deactivate () {
-    # intentionally no local scope so it modify globals
-
-    log_header "Deactivating Current Conda Environments..."
-
-    while [ "${CONDA_SHLVL}" -gt 0 ]; do
-        conda deactivate
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "'conda deactivate' exited with error code: %d" "$ret"
-            return "${RET_ERROR_CONDA_DEACTIVATE_FAILED}"
-        fi
-    done
-
-    log_footer "Conda Environments Deactivated."
-
-    return "${RET_SUCCESS}"
 }
 
 #-------------------------------------------------------------------------------
@@ -1575,7 +1615,12 @@ conda_bootstrapper () {
     log_ultradebug "conda-bootstrapper.sh::conda_bootstrapper called with '%s'" "$*"
 
     parse_args "$@"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        return $ret
+    fi
 
+    # # bail early before actually doing anything
     # return 0
 
     (
@@ -1679,11 +1724,11 @@ conda_bootstrapper () {
     #region Private Globals
 
     if [ "${OMEGA_DEBUG}" = "all" ]; then
-        log_ultradebug "%s: OMEGA_DEBUG was already 'all', ignoring value of SET_OMEGA_DEBUG ('%s')" "$(get_my_true_basename)" "${SET_OMEGA_DEBUG}"
+        log_ultradebug "%s: OMEGA_DEBUG was already 'all', ignoring value of SET_OMEGA_DEBUG ('%s')" "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
     else
         OMEGA_DEBUG="${SET_OMEGA_DEBUG}"
         export OMEGA_DEBUG
-        log_ultradebug "%s: SET_OMEGA_DEBUG was '%s', setting OMEGA_DEBUG to same and exporting it." "$(get_my_true_basename)" "${SET_OMEGA_DEBUG}"
+        log_ultradebug "%s: SET_OMEGA_DEBUG was '%s', setting OMEGA_DEBUG to same and exporting it." "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
     fi
 
     #endregion Private Globals

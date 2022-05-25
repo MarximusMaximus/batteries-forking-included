@@ -270,13 +270,13 @@ if [ "$ZSH_VERSION" != "" ]; then
 fi
 
 _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
-#                           x12345678x
+#                                      x12345678x
 _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
 #-------------------------------------------------------------------------------
 _array_escape() {
-    #                                      x1234x                               x12x1234567890123456x
-    command echo "$1" | sed "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" | sed 's/\\/\\\\\\\\\\\\\\\\/g'
+    #                                        x1234x                                  x12x1234567890123456x
+    command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
 }
 
 #-------------------------------------------------------------------------------
@@ -284,7 +284,7 @@ _array_unescape() {
     # NOTE: This doesn't look like the inverse of what _array_escape does, but
     #   it works correctly
     #                                           x1234x12x           x12345678x
-    command printf "$(command echo "$1" | sed 's/\\\\/\\/g' | sed "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
+    command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
 }
 
 #-------------------------------------------------------------------------------
@@ -487,22 +487,24 @@ array_for_each() {
 #endregion Arrays
 #===============================================================================
 
+#===============================================================================
+#region Helper Functions
+
+#-------------------------------------------------------------------------------
 ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
-
-    path_to_cd="$1"
-
-    log_info "Changing current directory to '%s'" "${path_to_cd}"
+    log_info "Changing current directory to '%s'" "$1"
 
     # shellcheck disable=SC2164
-    cd "${path_to_cd}"
+    cd "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
-        log_fatal "Could not cd into '%s'" "${path_to_cd}"
+        log_fatal "Could not cd into '%s'" "$1"
         return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
     fi
 }
 
+#-------------------------------------------------------------------------------
 safe_rm() {
     (
         path_to_remove="$1"
@@ -554,8 +556,11 @@ safe_rm() {
             exit "${RET_ERROR_UNSAFE_RM_PATH}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_does_not_exist() {
     (
         path_to_remove="$1"
@@ -571,8 +576,11 @@ ensure_does_not_exist() {
             exit $ret
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 create_dir() {
     (
         destdir="$1"
@@ -593,8 +601,11 @@ create_dir() {
             exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_dir() {
     (
         destdir="$1"
@@ -607,8 +618,11 @@ ensure_dir() {
             exit $ret
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 create_my_tempdir() {
     my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
     ret=$?
@@ -620,6 +634,7 @@ create_my_tempdir() {
     return "${RET_SUCCESS}"
 }
 
+#-------------------------------------------------------------------------------
 ensure_my_tempdir() {
     # intentionally no local scope b/c modifying a global
 
@@ -638,7 +653,58 @@ ensure_my_tempdir() {
     fi
 
     export my_tempdir
+
+    return "${RET_SUCCESS}"
 }
+
+#-------------------------------------------------------------------------------
+is_integer()
+{
+    case "${1#[+-]}"  in
+        *[!0123456789]*)
+            command echo "1"
+            return 1
+            ;;
+        '')
+            command echo "1"
+            return 1
+            ;;
+        *)
+            command echo "0"
+            return 0
+            ;;
+    esac
+    command echo "1"
+    return 1
+}
+
+#-------------------------------------------------------------------------------
+get_my_real_basename() {
+    (
+        last_was_sourced="$(array_get_last WAS_SOURCED)"
+        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
+        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
+            if [ "${last_was_sourced}" -eq 0 ]; then
+                command echo "${MY_BASENAME}"
+            else
+                if [ "$(array_get_length SOURCED_BASENAME)" -gt 0 ]; then
+                    command echo "$(array_get_last SOURCED_BASENAME)"
+                else
+                    command echo "UNKNOWN"
+                fi
+            fi
+        else
+            command echo "${MY_BASENAME}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#endregion Helper Functions
+#===============================================================================
 
 #===============================================================================
 #region source check
@@ -1183,52 +1249,9 @@ set_ansi_code_constants
 #region Logging Helpers
 
 #-------------------------------------------------------------------------------
-
-is_integer()
-{
-    case "${1#[+-]}"  in
-        *[!0123456789]*)
-            command echo "1"
-            return 1
-            ;;
-        '')
-            command echo "1"
-            return 1
-            ;;
-        *)
-            command echo "0"
-            return 0
-            ;;
-    esac
-    command echo "1"
-    return 1
-}
-
-#-------------------------------------------------------------------------------
 get_datetime_stamp()
 {
     date "${DATETIME_STAMP_FORMAT}"
-}
-
-#-------------------------------------------------------------------------------
-get_my_true_basename() {
-    (
-        last_was_sourced="$(array_get_last WAS_SOURCED)"
-        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
-        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
-            if [ "${last_was_sourced}" -eq 0 ]; then
-                command echo "${MY_BASENAME}"
-            else
-                if [ "$(array_get_length SOURCED_BASENAME)" -gt 0 ]; then
-                    command echo "$(array_get_last SOURCED_BASENAME)"
-                else
-                    command echo "UNKNOWN"
-                fi
-            fi
-        else
-            command echo "${MY_BASENAME}"
-        fi
-    )
 }
 
 #-------------------------------------------------------------------------------
@@ -1292,7 +1315,15 @@ log_fatal() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message=$(format_log_message "${ANSI_FATAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)
-        >&2 command printf -- "${message%EOL}"
+
+        if \
+            [ "${verbosity:-0}" -ge -1 ] ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            >&2 command printf -- "${message%EOL}"
+        fi
+
         >>"${FULL_LOG}" command printf -- "${message%EOL}"
         >>"${FATAL_LOG}" command printf -- "${message%EOL}"
         >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
@@ -1304,7 +1335,15 @@ log_error() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message=$(format_log_message "${ANSI_ERROR}ERROR: " "${ANSI_RESET}" "$@"; command echo EOL)
-        >&2 command printf -- "${message%EOL}"
+
+        if \
+            [ "${verbosity:-0}" -ge -10 ] ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            >&2 command printf -- "${message%EOL}"
+        fi
+
         >>"${FULL_LOG}" command printf -- "${message%EOL}"
         >>"${ERROR_LOG}" command printf -- "${message%EOL}"
         >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
@@ -1316,7 +1355,15 @@ log_warning() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message=$(format_log_message "${ANSI_WARNING}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)
-        >&2 command printf -- "${message%EOL}"
+
+        if \
+            [ "${verbosity:-0}" -ge -5 ] ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            >&2 command printf -- "${message%EOL}"
+        fi
+
         >>"${FULL_LOG}" command printf -- "${message%EOL}"
         >>"${WARNING_LOG}" command printf -- "${message%EOL}"
     )
@@ -1458,13 +1505,18 @@ echo() {
 #-------------------------------------------------------------------------------
 report_errors() {
     (
-        if [ "$(wc -c <"${ERROR_AND_FATAL_LOG}")" -gt 0 ]; then
-            message="${ANSI_COLOR_ERROR}The following errors occurred:${ANSI_RESET}\n"
-            >&2 command printf -- "${message}"
-            >>"${FULL_LOG}" command printf -- "${message}"
+        should_print="$1"
+        if [ "${should_print}" = true ]; then
+            if [ "$(wc -c <"${ERROR_AND_FATAL_LOG}")" -gt 0 ]; then
+                message="${ANSI_COLOR_ERROR}The following errors occurred:${ANSI_RESET}\n"
+                >&2 command printf -- "${message}"
+                >>"${FULL_LOG}" command printf -- "${message}"
 
-            >&2 command sed 's/^/\t/' "${ERROR_AND_FATAL_LOG}"
-            >>"${FULL_LOG}" command sed 's/^/\t/' "${ERROR_AND_FATAL_LOG}"
+                >&2 command sed 's/^/\t/' "${ERROR_AND_FATAL_LOG}"
+                >>"${FULL_LOG}" command sed 's/^/\t/' "${ERROR_AND_FATAL_LOG}"
+            fi
+        else
+            log_ultradebug "Skipping Error Report b/c should_print is '%s'." "${should_print}"
         fi
     )
 }
@@ -1472,13 +1524,18 @@ report_errors() {
 #-------------------------------------------------------------------------------
 report_warnings() {
     (
-        if [ "$(wc -c <"${WARNING_LOG}")" -gt 0 ]; then
-            message="${ANSI_COLOR_WARNING}The following warnings occurred:${ANSI_RESET}\n"
-            >&2 command printf -- "${message}"
-            >>"${FULL_LOG}" command printf "${message}"
+        should_print="$1"
+        if [ "${should_print}" = true ]; then
+            if [ "$(wc -c <"${WARNING_LOG}")" -gt 0 ]; then
+                message="${ANSI_COLOR_WARNING}The following warnings occurred:${ANSI_RESET}\n"
+                >&2 command printf -- "${message}"
+                >>"${FULL_LOG}" command printf "${message}"
 
-            >&2 sed 's/^/\t/' "${WARNING_LOG}"
-            >>"${FULL_LOG}" sed 's/^/\t/' "${WARNING_LOG}"
+                >&2 sed 's/^/\t/' "${WARNING_LOG}"
+                >>"${FULL_LOG}" sed 's/^/\t/' "${WARNING_LOG}"
+            fi
+        else
+            log_ultradebug "Skipping Warning Report b/c should_print is '%s'." "${should_print}"
         fi
     )
 }
@@ -1486,8 +1543,9 @@ report_warnings() {
 #-------------------------------------------------------------------------------
 report_final_status() {
     (
-        ret=$1
-        shift
+        ret="$1"
+        should_print="$2"
+        shift 2
         message="$(command printf -- "$@"; command echo EOL)"
 
         LOG_FATAL_COUNT="$(wc -l <"${FATAL_LOG}")"
@@ -1509,68 +1567,72 @@ report_final_status() {
             fi
         fi
 
-        fatal_text=""
-        plural=""
-        if [ ${LOG_FATAL_COUNT} -gt 1 ]; then
-            plural="s"
-        fi
-        if [ ${LOG_FATAL_COUNT} -gt 0 ]; then
-            fatal_text="$(command printf "%d Fatal Error%s" "${LOG_FATAL_COUNT}" "${plural}")"
-        fi
+        if [ "${should_print}" = true ]; then
+            fatal_text=""
+            plural=""
+            if [ ${LOG_FATAL_COUNT} -gt 1 ]; then
+                plural="s"
+            fi
+            if [ ${LOG_FATAL_COUNT} -gt 0 ]; then
+                fatal_text="$(command printf "%d Fatal Error%s" "${LOG_FATAL_COUNT}" "${plural}")"
+            fi
 
-        error_text=""
-        plural=""
-        if [ ${LOG_ERROR_COUNT} -gt 1 ]; then
-            plural="s"
-        fi
-        if [ ${LOG_ERROR_COUNT} -gt 0 ]; then
-            error_text="$(command printf "%d Error%s" "${LOG_ERROR_COUNT}" "${plural}")"
-        fi
+            error_text=""
+            plural=""
+            if [ ${LOG_ERROR_COUNT} -gt 1 ]; then
+                plural="s"
+            fi
+            if [ ${LOG_ERROR_COUNT} -gt 0 ]; then
+                error_text="$(command printf "%d Error%s" "${LOG_ERROR_COUNT}" "${plural}")"
+            fi
 
-        warning_text=""
-        plural=""
-        if [ ${LOG_WARNING_COUNT} -gt 1 ]; then
-            plural="s"
-        fi
-        if [ ${LOG_WARNING_COUNT} -gt 0 ]; then
-            warning_text="$(command printf "%d Warning%s" "${LOG_WARNING_COUNT}" "${plural}")"
-        fi
+            warning_text=""
+            plural=""
+            if [ ${LOG_WARNING_COUNT} -gt 1 ]; then
+                plural="s"
+            fi
+            if [ ${LOG_WARNING_COUNT} -gt 0 ]; then
+                warning_text="$(command printf "%d Warning%s" "${LOG_WARNING_COUNT}" "${plural}")"
+            fi
 
-        before_error_text=""
-        before_warning_text=""
-        if \
-            [ ${LOG_FATAL_COUNT} -gt 0 ] &&
-            [ ${LOG_ERROR_COUNT} -gt 0 ] &&
-            [ ${LOG_WARNING_COUNT} -gt 0 ]
-        then
-            before_error_text=", "
-            before_warning_text=", and "
-        elif \
-            [ ${LOG_FATAL_COUNT} -gt 0 ] &&
-            [ ${LOG_WARNING_COUNT} -gt 0 ]
-        then
-            before_warning_text=" and "
-        elif \
-            [ ${LOG_FATAL_COUNT} -gt 0 ] &&
-            [ ${LOG_ERROR_COUNT} -gt 0 ]
-        then
-            before_error_text=" and "
-        elif \
-            [ ${LOG_ERROR_COUNT} -gt 0 ] &&
-            [ ${LOG_WARNING_COUNT} -gt 0 ]
-        then
-            before_warning_text=" and "
-        fi
+            before_error_text=""
+            before_warning_text=""
+            if \
+                [ ${LOG_FATAL_COUNT} -gt 0 ] &&
+                [ ${LOG_ERROR_COUNT} -gt 0 ] &&
+                [ ${LOG_WARNING_COUNT} -gt 0 ]
+            then
+                before_error_text=", "
+                before_warning_text=", and "
+            elif \
+                [ ${LOG_FATAL_COUNT} -gt 0 ] &&
+                [ ${LOG_WARNING_COUNT} -gt 0 ]
+            then
+                before_warning_text=" and "
+            elif \
+                [ ${LOG_FATAL_COUNT} -gt 0 ] &&
+                [ ${LOG_ERROR_COUNT} -gt 0 ]
+            then
+                before_error_text=" and "
+            elif \
+                [ ${LOG_ERROR_COUNT} -gt 0 ] &&
+                [ ${LOG_WARNING_COUNT} -gt 0 ]
+            then
+                before_warning_text=" and "
+            fi
 
-        log_info "%s exiting with return code: %d" "${message%EOL}"  "$ret"
-        if [ "$ret" -eq 0 ]; then
-            log_success_final "%s Completed Successfully." "${message%EOL}"
-        elif [ ${LOG_FATAL_COUNT} -gt 0 ]; then
-            log_fatal "%s Had %s%s%s%s%s." "${message%EOL}" "${fatal_text}" "${before_error_text}" "${error_text}" "${before_warning_text}" "${warning_text}"
-        elif [ ${LOG_ERROR_COUNT} -gt 0 ]; then
-            log_error "%s Had %s%s%s." "${message%EOL}" "${error_text}" "${before_warning_text}" "${warning_text}"
-        elif [ ${LOG_WARNING_COUNT} -gt 0 ]; then
-            log_warning "%s Had %s." "${message%EOL}" "${warning_text}"
+            log_info "%s exiting with return code: %d" "${message%EOL}"  "$ret"
+            if [ "$ret" -eq 0 ]; then
+                log_success_final "%s Completed Successfully." "${message%EOL}"
+            elif [ ${LOG_FATAL_COUNT} -gt 0 ]; then
+                log_fatal "%s Had %s%s%s%s%s." "${message%EOL}" "${fatal_text}" "${before_error_text}" "${error_text}" "${before_warning_text}" "${warning_text}"
+            elif [ ${LOG_ERROR_COUNT} -gt 0 ]; then
+                log_error "%s Had %s%s%s." "${message%EOL}" "${error_text}" "${before_warning_text}" "${warning_text}"
+            elif [ ${LOG_WARNING_COUNT} -gt 0 ]; then
+                log_warning "%s Had %s." "${message%EOL}" "${warning_text}"
+            fi
+        else
+            log_ultradebug "Skipping Final Report b/c should_print is '%s'." "${should_print}"
         fi
 
         exit "$ret"
@@ -1580,9 +1642,16 @@ report_final_status() {
 #-------------------------------------------------------------------------------
 report_all() {
     (
-        report_warnings
-        report_errors
-        >&2 command printf "Fully detailed log is available at '%s'\n" "${FULL_LOG}"
+        # input_ret="$1"
+        should_print="$2"
+
+        report_warnings "${should_print}"
+        report_errors "${should_print}"
+        if [ "${should_print}" = true ]; then
+            >&2 command printf "Fully detailed log is available at '%s'\n" "${FULL_LOG}"
+        else
+            log_ultradebug "Skipping Full Log path b/c should_print is '%s'." "${should_print}"
+        fi
         report_final_status "$@"
         ret=$?
         exit $ret
@@ -1621,6 +1690,53 @@ if [ "${FULL_LOG}" = "" ]; then
 fi
 
 #endregion Logging Helpers
+#===============================================================================
+
+#===============================================================================
+#region Conda Helpers
+
+#-------------------------------------------------------------------------------
+conda_init () {
+    # intentionally no local scope so it modify globals
+
+    log_header "Initializing Conda..."
+
+    # shellcheck disable=SC1091
+    . "${CONDA_BASE_DIR_FULLPATH}/etc/profile.d/conda.sh"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        log_fatal "'. conda.sh' failed with error code: %d" "$ret"
+        return "${RET_ERROR_CONDA_INIT_FAILED}"
+    fi
+    PATH="${CONDA_BASE_DIR_FULLPATH}/bin:$PATH"
+    export PATH
+
+    log_footer "Conda Initialized."
+
+    return "${RET_SUCCESS}"
+}
+
+#-------------------------------------------------------------------------------
+conda_full_deactivate () {
+    # intentionally no local scope so it modify globals
+
+    log_header "Deactivating Current Conda Environments..."
+
+    while [ "${CONDA_SHLVL}" -gt 0 ]; do
+        conda deactivate
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "'conda deactivate' exited with error code: %d" "$ret"
+            return "${RET_ERROR_CONDA_DEACTIVATE_FAILED}"
+        fi
+    done
+
+    log_footer "Conda Environments Deactivated."
+
+    return "${RET_SUCCESS}"
+}
+
+#endregion Conda Helpers
 #===============================================================================
 
 #endregion Public *

@@ -1,5 +1,43 @@
 #!/usr/bin/env sh
+usage_text=$(cat<<EOF
+Usage:
+    conda-bootstrapper-update.sh [flags|options]
 
+Global Flags:
+    -h, -?, --help, --usage
+                        display this message
+    -q, --quiet         forcibly reduce output to minimal
+    +q, --no-quiet      do not forcibly reduce output to minimal
+    -v, --verbose       increase output verbosity by one level
+                        may be specified multiple times
+                        default: 1
+    +v, --no-verbose    reduce output verbosity by one level
+                        may be specified multiple times
+    -c, --color         use colorized output
+                        default: use color
+    +c, --no-color      do not use colorized output
+    -C, --alt-color     use alternate colorized output
+                        [accessibility]
+                        greens will become blues
+                        NOTE: purples are never used to begin with
+                        WARNING: pip, poetry, and other helpers may not abide
+    +C, --no-alt-color  do not use alternate colorized output
+
+    -r, --report        display report at end of run
+                        default: true
+    +r, --no-report     do NOT display report at end of run
+
+Global Options:
+    NONE
+
+Positional Arguments:
+    NONE
+
+Subcommands:
+    NONE
+EOF
+)
+export usage_text
 
 ################################################################################
 #region Preamble
@@ -270,13 +308,13 @@ if [ "$ZSH_VERSION" != "" ]; then
 fi
 
 _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
-#                           x12345678x
+#                                      x12345678x
 _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
 #-------------------------------------------------------------------------------
 _array_escape() {
-    #                                      x1234x                               x12x1234567890123456x
-    command echo "$1" | sed "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" | sed 's/\\/\\\\\\\\\\\\\\\\/g'
+    #                                        x1234x                                  x12x1234567890123456x
+    command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
 }
 
 #-------------------------------------------------------------------------------
@@ -284,7 +322,7 @@ _array_unescape() {
     # NOTE: This doesn't look like the inverse of what _array_escape does, but
     #   it works correctly
     #                                           x1234x12x           x12345678x
-    command printf "$(command echo "$1" | sed 's/\\\\/\\/g' | sed "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
+    command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
 }
 
 #-------------------------------------------------------------------------------
@@ -487,22 +525,24 @@ array_for_each() {
 #endregion Arrays
 #===============================================================================
 
+#===============================================================================
+#region Helper Functions
+
+#-------------------------------------------------------------------------------
 ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
-
-    path_to_cd="$1"
-
-    log_info "Changing current directory to '%s'" "${path_to_cd}"
+    log_info "Changing current directory to '%s'" "$1"
 
     # shellcheck disable=SC2164
-    cd "${path_to_cd}"
+    cd "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
-        log_fatal "Could not cd into '%s'" "${path_to_cd}"
+        log_fatal "Could not cd into '%s'" "$1"
         return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
     fi
 }
 
+#-------------------------------------------------------------------------------
 safe_rm() {
     (
         path_to_remove="$1"
@@ -554,8 +594,11 @@ safe_rm() {
             exit "${RET_ERROR_UNSAFE_RM_PATH}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_does_not_exist() {
     (
         path_to_remove="$1"
@@ -571,8 +614,11 @@ ensure_does_not_exist() {
             exit $ret
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 create_dir() {
     (
         destdir="$1"
@@ -593,8 +639,11 @@ create_dir() {
             exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_dir() {
     (
         destdir="$1"
@@ -607,8 +656,11 @@ ensure_dir() {
             exit $ret
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 create_my_tempdir() {
     my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
     ret=$?
@@ -620,6 +672,7 @@ create_my_tempdir() {
     return "${RET_SUCCESS}"
 }
 
+#-------------------------------------------------------------------------------
 ensure_my_tempdir() {
     # intentionally no local scope b/c modifying a global
 
@@ -638,7 +691,58 @@ ensure_my_tempdir() {
     fi
 
     export my_tempdir
+
+    return "${RET_SUCCESS}"
 }
+
+#-------------------------------------------------------------------------------
+is_integer()
+{
+    case "${1#[+-]}"  in
+        *[!0123456789]*)
+            command echo "1"
+            return 1
+            ;;
+        '')
+            command echo "1"
+            return 1
+            ;;
+        *)
+            command echo "0"
+            return 0
+            ;;
+    esac
+    command echo "1"
+    return 1
+}
+
+#-------------------------------------------------------------------------------
+get_my_real_basename() {
+    (
+        last_was_sourced="$(array_get_last WAS_SOURCED)"
+        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
+        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
+            if [ "${last_was_sourced}" -eq 0 ]; then
+                command echo "${MY_BASENAME}"
+            else
+                if [ "$(array_get_length SOURCED_BASENAME)" -gt 0 ]; then
+                    command echo "$(array_get_last SOURCED_BASENAME)"
+                else
+                    command echo "UNKNOWN"
+                fi
+            fi
+        else
+            command echo "${MY_BASENAME}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#endregion Helper Functions
+#===============================================================================
 
 #===============================================================================
 #region source check
@@ -810,6 +914,15 @@ GITHUB_REPO_NAME=conda-bootstrapper
 #===============================================================================
 #region Public Globals
 
+print_usage=false; export print_usage
+colorized_output=true; export colorized_output
+verbosity=1; export verbosity
+quiet=false; export quiet
+
+if [ "${my_tempdir:-}" = "" ]; then
+    my_tempdir=""; export my_tempdir
+fi
+
 git_exists=false; export git_exists
 curl_exists=false; export curl_exists
 wget_exists=false; export wget_exists
@@ -818,9 +931,7 @@ unzip_exists=false; export unzip_exists
 diff_exists=false; export diff_exists
 md5_exists=false; export md5_exists
 
-if [ "${my_tempdir:-}" = "" ]; then
-    my_tempdir=""; export my_tempdir
-fi
+print_report=true; export print_report
 
 #endregion Public Globals
 #===============================================================================
@@ -828,6 +939,255 @@ fi
 #===============================================================================
 #region Public Functions
 
+#-------------------------------------------------------------------------------
+usage() {
+    # we do not use 'command' here b/c we want this to get output to the log file
+    # but we don't use a log_* function b/c we don't want the console output to
+    # have a timestamp just hanging out b/c it looks ugly
+    printf "%s\n" "${usage_text}"
+}
+
+#-------------------------------------------------------------------------------
+parse_args() {
+    log_ultradebug "$(get_my_real_basename)::parse_args called with '%s'" "$*"
+
+    temp_verbosity="${verbosity}"
+    alt_color=false
+
+    positional_arg_index=0
+
+    while true; do
+        log_ultradebug "$(get_my_real_basename)::parse_args::while; \$1='%s'; \$*='%s'" "$1" "$*"
+
+        if [ $# -le 0 ]; then
+            break
+        fi
+
+        case "$1" in
+            -h|-\?|--help|--usage)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found usage arg"
+                print_usage=true
+                ;;
+
+            -q|--quiet)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found quiet arg"
+                quiet=true
+                ;;
+            +q|--no-quiet)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-quiet arg"
+                quiet=false
+                ;;
+
+            -v|--verbose)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found verbose arg"
+                temp_verbosity=$((temp_verbosity + 1))
+                ;;
+            +v|--no-verbose)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-verbose arg"
+                temp_verbosity=$((temp_verbosity - 1))
+                ;;
+
+            --)     # stop processing args
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found -- arg"
+                shift
+                break
+                ;;
+
+            -c|--color)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found color arg"
+                colorized_output=true
+                ;;
+            +c|--no-color)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-color arg"
+                colorized_output=false
+                ;;
+
+            -C|--alt-color)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found alt-color arg"
+                alt_color=true
+                ;;
+            +C|--no-alt-color)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-alt-color arg"
+                alt_color=false
+                ;;
+
+            -r|--report)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found report arg"
+                print_report=true
+                ;;
+            +r|--no-report)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-report arg"
+                print_report=false
+                ;;
+
+            --?*)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found unknown arg"
+                log_warning " Unknown option (ignored): %s" "$1" >&2
+                ;;
+
+            -?*)    # positive flags
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found positive flags arg"
+                arg_remain="$1"
+
+                while true; do
+                    arg_remain="$(command echo "${arg_remain}" | cut -c 2-)"
+                    arg_char="$(command echo "${arg_remain}" | cut -c 1-1)"
+
+                    log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
+
+                    if [ "${arg_char}" = "" ]; then
+                        break
+                    fi
+
+                    case "${arg_char}" in
+                        h|\?)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found usage flag"
+                            print_usage=true
+                            ;;
+                        # p is not a valid flag b/c it takes a value
+                        q)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found quiet flag"
+                            quiet=true
+                            ;;
+                        v)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found verbose flag"
+                            temp_verbosity=$((temp_verbosity + 1)) # Each -v argument adds 1 to verbosity.
+                            ;;
+
+                        c)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found color flag"
+                            colorized_output=true
+                            ;;
+
+                        C)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found alt-color flag"
+                            alt_color=true
+                            ;;
+
+                        r)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found report flag"
+                            print_report=true
+                            ;;
+
+                        *)
+                            log_warning "Unknown flag (ignored): %s" "${arg_char}"
+                            ;;
+                    esac
+
+                done
+                ;;
+
+            +?*)    # negative flags
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found negative flags arg"
+                arg_remain="$1"
+
+                while true; do
+                    arg_remain="$(command echo "${arg_remain}" | cut -c 2-)"
+                    arg_char="$(command echo "${arg_remain}" | cut -c 1-1)"
+
+                    log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
+
+                    if [ "${arg_char}" = "" ]; then
+                        break
+                    fi
+
+                    case "${arg_char}" in
+                        h|\?)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found usage flag"
+                            print_usage=true
+                            ;;
+                        # p is not a valid flag b/c it takes a value
+                        q)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-quiet flag"
+                            quiet=false
+                            ;;
+                        v)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found verbose flag"
+                            temp_verbosity=$((temp_verbosity - 1))
+                            ;;
+
+                        c)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-color flag"
+                            colorized_output=false
+                            ;;
+
+                        C)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-alt-color flag"
+                            alt_color=false
+                            ;;
+
+                        r)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-report flag"
+                            print_report=false
+                            ;;
+
+                        *)
+                            log_warning "Unknown flag (ignored): %s" "${arg_char}"
+                            ;;
+                    esac
+
+                done
+                ;;
+
+            *)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found positional arg #%d '%s'" "${positional_arg_index}" "$1"
+
+                case "${positional_arg_index}" in
+                    # 0)
+                    #     ;;
+                    # 1)
+                    #     ;;
+                    *)
+                        log_warning "Extra positional arg (ignored): %s" "$1"
+                        ;;
+                esac
+
+                positional_arg_index=$((positional_arg_index + 1))
+                ;;
+        esac
+        shift
+    done
+
+    # # if --file was provided, open it for writing, else duplicate stdout
+    # if [ -n "$file" ]; then
+    #     exec 3> "$file"
+    # else
+    #     exec 3>&1
+    # fi
+
+    verbosity="${temp_verbosity}"
+
+    if [ "${alt_color}" = true ]; then
+        colorized_output=alt
+    fi
+
+    export colorized_output
+    export verbosity
+    export quiet
+    export print_usage
+
+    export print_report
+
+    # recalculate "constant" values
+    set_calculated_constants
+    set_ansi_code_constants
+
+    log_superdebug "colorized_output=%s" "${colorized_output}"
+    log_superdebug "verbosity=%d" "${verbosity}"
+    log_superdebug "quiet=%s" "${quiet}"
+    log_superdebug "print_usage=%s" "${print_usage}"
+
+    log_superdebug "print_report=%s" "${print_report}"
+
+    if [ "${print_usage}" = true ]; then
+        usage
+        return "${RET_ERROR_USAGE_PRINTED}"
+    fi
+
+    return "${RET_SUCCESS}"
+}
+
+#-------------------------------------------------------------------------------
 check_tools() {
     # intentionally no local scope because modifying globals
 
@@ -893,8 +1253,11 @@ check_tools() {
         log_fatal "no way to comapre files (no diff, no md5)"
         return "${RET_ERROR_TOOL_MISSING}"
     fi
+
+    return "${RET_SUCCESS}"
 }
 
+#-------------------------------------------------------------------------------
 download_and_extract_via_curl() {
     (
         repo_url=$1
@@ -918,9 +1281,14 @@ download_and_extract_via_curl() {
             log_fatal "failed to download ${file_basename} compressed file (curl)"
             exit "${RET_ERROR_DOWNLOAD_FAILED}"
         fi
+
+        exit "${RET_SUCCESS}"
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 download_and_extract_via_wget() {
     (
         repo_url=$1
@@ -944,9 +1312,14 @@ download_and_extract_via_wget() {
             log_fatal "failed to download ${file_basename} compressed file (wget)"
             exit "${RET_ERROR_DOWNLOAD_FAILED}"
         fi
+
+        exit "${RET_SUCCESS}"
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 extract_tarball() {
     (
         file=$1
@@ -965,9 +1338,14 @@ extract_tarball() {
             log_fatal "failed to extract ${file} compressed file (tar)"
             exit "${RET_ERROR_EXTRACTION_FAILED}"
         fi
+
+        exit "${RET_SUCCESS}"
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 extract_zipball() {
     (
         file=$1
@@ -1001,9 +1379,14 @@ extract_zipball() {
             log_fatal "failed to move extracted files dotfiles into place from temporary directory"
             exit "${RET_ERROR_MOVE_FAILED}"
         fi
+
+        exit "${RET_SUCCESS}"
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 download_and_extract() {
     (
         repo_url=$1
@@ -1045,21 +1428,29 @@ download_and_extract() {
             log_fatal "No way to extract from compressed file available (no tar, no unzip)"
             exit "${RET_ERROR_TOOL_MISSING}"
         fi
+
+        exit "${RET_SUCCESS}"
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 ensure_conda_bootstrapper() {
     (
         log_info "Ensuring conda-bootstrapper exists"
 
-        if [ ! -d "${CONDA_BOOTSTRAPPER_FULLPATH}" ]; then
+        if \
+            [ ! -d "${CONDA_BOOTSTRAPPER_FULLPATH}" ] ||
+            [ ! -d "${CONDA_BOOTSTRAPPER_FULLPATH}/.git" ] ||
+            [ ! -d "${CONDA_BOOTSTRAPPER_FULLPATH}/src" ] ||
+            [ ! -f "${CONDA_BOOTSTRAPPER_FULLPATH}/src/conda-bootstrapper.sh" ]
+        then
             # conda-bootstrapper missing, let's download it
-            # shellcheck disable=SC2164
-            cd "${CONDA_BOOTSTRAPPER_FULLPATH}/.."
+            ensure_cd "${CONDA_BOOTSTRAPPER_FULLPATH}/.."
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "failed to cd into '%s'" "${CONDA_BOOTSTRAPPER_FULLPATH}/.."
-                exit "${RET_ERROR_CHANGE_DIRECTORY_FAILED}"
+                exit $ret
             fi
 
             if [ "${git_exists}" = true ]; then
@@ -1087,27 +1478,30 @@ ensure_conda_bootstrapper() {
                 exit "${RET_ERROR_TOOL_MISSING}"
             fi
         fi
+
+        exit "${RET_SUCCESS}"
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 update_condabootstrapper() {
     (
         log_info "Updating conda-bootstrapper"
 
         if [ "${git_exists}" = true ]; then
-            # shellcheck disable=SC2164
-            cd "${CONDA_BOOTSTRAPPER_FULLPATH}"
+            ensure_cd "${CONDA_BOOTSTRAPPER_FULLPATH}"
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "failed to cd into '%s'" "${CONDA_BOOTSTRAPPER_FULLPATH}"
-                exit "${RET_ERROR_CHANGE_DIRECTORY_FAILED}"
+                exit $ret
             fi
 
             current_branch="$(git rev-parse --abbrev-ref HEAD)"
             if [ "${current_branch}" != "main" ]; then
                 log_warning "conda-bootstrapper's current branch is not main"
                 # this is fine, so just bail early
-                exit 0
+                exit "${RET_SUCCESS}"
             fi
 
             ahead_by="$(git rev-list --left-right --count origin/main...main | awk '{print $2}')"
@@ -1133,7 +1527,7 @@ update_condabootstrapper() {
             else
                 log_warning "conda-bootstrapper has local changes"
                 # this is fine, so just bail early
-                exit 0
+                exit "${RET_SUCCESS}"
             fi
         elif \
             [ "${curl_exists}" = true ] ||
@@ -1157,16 +1551,21 @@ update_condabootstrapper() {
             else
                 log_warning "conda-bootstrapper has local changes"
                 # this is fine, so just bail early
-                exit 0
+                exit "${RET_SUCCESS}"
             fi
         else # pragma: no branch
             # NOTE: it /shouldn't/ be possible to get here
             log_fatal "no way to download available (no git, no curl, no wget)"
             exit "${RET_ERROR_TOOL_MISSING}"
         fi
+
+        exit "${RET_SUCCESS}"
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 copy_temporary_template_files() {
     (
         log_info "Creating a copy of template files"
@@ -1184,8 +1583,11 @@ copy_temporary_template_files() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 is_file_same() {
     # exit code 0 == same
     # exit code 1 == different
@@ -1227,8 +1629,11 @@ is_file_same() {
             exit "${RET_ERROR_TOOL_MISSING}"
         fi
     )
+    ret=$?
+    return $ret
 }
 
+#-------------------------------------------------------------------------------
 compare_and_update_files() {
     (
         # this file gets edited by users, we don't want it to get tested
@@ -1264,7 +1669,7 @@ compare_and_update_files() {
             log_info "re-running command as '%s %s'" "${MY_DIR_FULLPATH}/conda-bootstrapper-update.sh" "$*"
 
             # call ourselves again
-            "${MY_DIR_FULLPATH}/conda-bootstrapper-update.sh" "$@"
+            "${MY_DIR_FULLPATH}/conda-bootstrapper-update.sh" "$@" --no-report
             ret=$?
             exit $ret
         else
@@ -1328,6 +1733,8 @@ compare_and_update_files() {
             done
         fi
     )
+    ret=$?
+    return $ret
 }
 
 #endregion Public Functions
@@ -1343,7 +1750,7 @@ compare_and_update_files() {
     #===========================================================================
     #region Private Constants
 
-    SET_OMEGA_DEBUG=true
+    SET_OMEGA_DEBUG=false
 
     #endregion Constants
     #===========================================================================
@@ -1360,11 +1767,11 @@ compare_and_update_files() {
     #region Private Globals
 
     if [ "${OMEGA_DEBUG}" = "all" ]; then
-        log_ultradebug "%s: OMEGA_DEBUG was already 'all', ignoring value of SET_OMEGA_DEBUG ('%s')" "$(get_my_true_basename)" "${SET_OMEGA_DEBUG}"
+        log_ultradebug "%s: OMEGA_DEBUG was already 'all', ignoring value of SET_OMEGA_DEBUG ('%s')" "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
     else
         OMEGA_DEBUG="${SET_OMEGA_DEBUG}"
         export OMEGA_DEBUG
-        log_ultradebug "%s: SET_OMEGA_DEBUG was '%s', setting OMEGA_DEBUG to same and exporting it." "$(get_my_true_basename)" "${SET_OMEGA_DEBUG}"
+        log_ultradebug "%s: SET_OMEGA_DEBUG was '%s', setting OMEGA_DEBUG to same and exporting it." "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
     fi
 
     if [ "${verbosity}" = "" ]; then
@@ -1381,11 +1788,17 @@ compare_and_update_files() {
     __main() {
         log_ultradebug "${MY_BASENAME} called with '%s'" "$*"
 
+        parse_args "$@"
+        ret=$?
+        if [ $ret -ne 0 ];then
+            return $ret
+        fi
+
         (
             check_tools
             ret=$?
             if [ $ret -ne 0 ];then
-                return $ret
+                exit $ret
             fi
 
             ensure_my_tempdir
@@ -1435,7 +1848,7 @@ compare_and_update_files() {
             exit "${RET_SUCCESS}"
         )
         ret=$?
-        report_all $ret "${MY_BASENAME}"
+        report_all $ret "${print_report}" "${MY_BASENAME}"
         ret=$?
         return $ret
     }
