@@ -1688,7 +1688,7 @@ is_file_same() {
         log_debug "Comparing '%s' and '%s'" "${left_file}" "${right_file}"
 
         if [ "${diff_exists}" = true ]; then
-            diff "${left_file}" "${right_file}"
+            diff "${left_file}" "${right_file}" >/dev/null
             ret=$?
             if [ $ret -gt 2 ]; then
                 exit 2
