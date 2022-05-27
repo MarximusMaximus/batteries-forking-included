@@ -30,23 +30,23 @@ if [ $ret -ne 0 ]; then
 
     #-------------------------------------------------------------------------------
     log_fatal() {
-        >&2 command printf "FATAL: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "FATAL: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
     log_error() {
-        >&2 command printf "ERROR: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "ERROR: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
     log_warning() {
-        >&2 command printf "WARNING: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "WARNING: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
@@ -56,9 +56,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "INFO: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "INFO: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
 
     }
@@ -70,9 +70,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "DEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "DEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 
@@ -83,9 +83,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "SUPERDEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "SUPERDEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 
@@ -96,9 +96,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "ULTRADEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "ULTRADEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 fi
@@ -945,7 +945,7 @@ fi
     #region Private Functions
 
     __main () {
-        command echo "OMEGA_DEBUG=${OMEGA_DEBUG}"
+        # command echo "OMEGA_DEBUG=${OMEGA_DEBUG}"
         log_ultradebug "${MY_BASENAME} called with '%s'" "$*"
 
         (
@@ -1004,7 +1004,7 @@ fi
             exit "${RET_SUCCESS}"
         )
         ret=$?
-        report_all $ret "${MY_BASENAME}"
+        report_all $ret "${print_report}" "${MY_BASENAME}"
         ret=$?
         return $ret
     }

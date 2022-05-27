@@ -22,7 +22,6 @@ Global Flags:
                         NOTE: purples are never used to begin with
                         WARNING: pip, poetry, and other helpers may not abide
     +C, --no-alt-color  do not use alternate colorized output
-
     -r, --report        display report at end of run
                         default: true
     +r, --no-report     do NOT display report at end of run
@@ -67,23 +66,23 @@ if [ $ret -ne 0 ]; then
 
     #-------------------------------------------------------------------------------
     log_fatal() {
-        >&2 command printf "FATAL: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "FATAL: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
     log_error() {
-        >&2 command printf "ERROR: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "ERROR: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
     log_warning() {
-        >&2 command printf "WARNING: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "WARNING: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
@@ -93,9 +92,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "INFO: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "INFO: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
 
     }
@@ -107,9 +106,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "DEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "DEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 
@@ -120,9 +119,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "SUPERDEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "SUPERDEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 
@@ -133,9 +132,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "ULTRADEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "ULTRADEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 fi
@@ -991,6 +990,7 @@ print_usage=false; export print_usage
 colorized_output=true; export colorized_output
 verbosity=1; export verbosity
 quiet=false; export quiet
+print_report=true; export print_report
 
 if [ "${my_tempdir:-}" = "" ]; then
     my_tempdir=""; export my_tempdir
@@ -1004,7 +1004,6 @@ unzip_exists=false; export unzip_exists
 diff_exists=false; export diff_exists
 md5_exists=false; export md5_exists
 
-print_report=true; export print_report
 
 #endregion Public Globals
 #===============================================================================
@@ -1238,7 +1237,6 @@ parse_args() {
     export verbosity
     export quiet
     export print_usage
-
     export print_report
 
     # recalculate "constant" values
@@ -1249,7 +1247,6 @@ parse_args() {
     log_debug "verbosity=%d" "${verbosity}"
     log_debug "quiet=%s" "${quiet}"
     log_debug "print_usage=%s" "${print_usage}"
-
     log_debug "print_report=%s" "${print_report}"
 
     if [ "${print_usage}" = true ]; then
@@ -1748,16 +1745,16 @@ compare_and_update_files() {
                 exit "${RET_ERROR_COPY_FAILED}"
             fi
 
-            log_info "bfi-update.sh copied successfully"
+            log_success "bfi-update.sh copied successfully"
 
-            log_info "re-running command as '%s %s'" "${MY_DIR_FULLPATH}/bfi-update.sh" "$*" --no-report
+            log_info_important "re-running command as '%s %s'" "${MY_DIR_FULLPATH}/bfi-update.sh" "$* --no-report"
 
             # call ourselves again
             "${MY_DIR_FULLPATH}/bfi-update.sh" "$@" --no-report
             ret=$?
             exit $ret
         else
-            log_info "bfi-update.sh did not change"
+            log_success "bfi-update.sh did not change"
 
             # we need to remove the temporary template version of ourself,
             # so that we can just iterate the rest of the files
@@ -1803,7 +1800,7 @@ compare_and_update_files() {
                 elif [ $ret -eq 1 ]; then
                     needs_copy=true
                 else
-                    log_info "post-bootstrap.sh did not change."
+                    log_success "post-bootstrap.sh did not change."
                 fi
             fi
             # update if necessary
@@ -1828,7 +1825,7 @@ compare_and_update_files() {
                     exit "${RET_ERROR_MOVE_FAILED}"
                 fi
 
-                log_info "post-bootstrap.sh updated successfully."
+                log_success "post-bootstrap.sh updated successfully."
             fi
             # delete template post-boostrap.sh so that it doesn't get processed
             # in the loop later
@@ -1861,7 +1858,7 @@ compare_and_update_files() {
                     elif [ $ret -eq 1 ]; then
                         needs_copy=true
                     else
-                        log_info "${filename} did not change."
+                        log_success "${filename} did not change."
                     fi
                 fi
 
@@ -1880,7 +1877,7 @@ compare_and_update_files() {
                         exit "${RET_ERROR_MOVE_FAILED}"
                     fi
 
-                    log_info "${filename} updated successfully."
+                    log_success "${filename} updated successfully."
                 fi
             done
         fi

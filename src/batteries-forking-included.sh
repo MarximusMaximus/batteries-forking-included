@@ -22,6 +22,9 @@ Global Flags:
                         NOTE: purples are never used to begin with
                         WARNING: pip, poetry, and other helpers may not abide
     +C, --no-alt-color  do not use alternate colorized output
+    -r, --report        display report at end of run
+                        default: true
+    +r, --no-report     do NOT display report at end of run
     -d, --dev, --developer
                         install as developer (include development dependencies)
     +d, --no-dev, --no-develeoper
@@ -76,23 +79,23 @@ if [ $ret -ne 0 ]; then
 
     #-------------------------------------------------------------------------------
     log_fatal() {
-        >&2 command printf "FATAL: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "FATAL: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
     log_error() {
-        >&2 command printf "ERROR: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "ERROR: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
     log_warning() {
-        >&2 command printf "WARNING: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "WARNING: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
@@ -102,9 +105,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "INFO: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "INFO: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
 
     }
@@ -116,9 +119,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "DEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "DEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 
@@ -129,9 +132,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "SUPERDEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "SUPERDEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 
@@ -142,9 +145,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "ULTRADEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "ULTRADEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 fi
@@ -979,6 +982,7 @@ print_usage=false; export print_usage
 colorized_output=true; export colorized_output
 verbosity=1; export verbosity
 quiet=false; export quiet
+print_report=true; export print_report
 
 if [ "${my_tempdir:-}" = "" ]; then
     my_tempdir=""; export my_tempdir
@@ -1073,6 +1077,15 @@ parse_args() {
                 alt_color=false
                 ;;
 
+            -r|--report)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found report arg"
+                print_report=true
+                ;;
+            +r|--no-report)
+                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found no-report arg"
+                print_report=false
+                ;;
+
             -d|--dev|--developer)
                 log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found dev arg"
                 dev_mode=true
@@ -1133,7 +1146,7 @@ parse_args() {
                 log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found project-base-name=* arg"
                 project_base_name_temp="$1"
                 log_ultradebug "$(get_my_real_basename)::parse_args::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
-                project_base_name_temp="$(echo "${project_base_name_temp}" | cut -c 21-)"
+                project_base_name_temp="$(command echo "${project_base_name_temp}" | cut -c 21-)"
                 log_ultradebug "$(get_my_real_basename)::parse_args::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
                 ;;
             --project-base-name=)
@@ -1186,6 +1199,11 @@ parse_args() {
                         C)
                             log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found alt-color flag"
                             alt_color=true
+                            ;;
+
+                        r)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-);\t found report flag"
+                            print_report=true
                             ;;
 
                         d)
@@ -1245,6 +1263,11 @@ parse_args() {
                             alt_color=false
                             ;;
 
+                        r)
+                            log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-report flag"
+                            print_report=false
+                            ;;
+
                         d)
                             log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+);\t found no-dev flag"
                             dev_mode=false;
@@ -1299,6 +1322,7 @@ parse_args() {
     export verbosity
     export quiet
     export print_usage
+    export print_report
 
     # recalculate "constant" values
     set_calculated_constants
@@ -1308,6 +1332,7 @@ parse_args() {
     log_debug "verbosity=%d" "${verbosity}"
     log_debug "quiet=%s" "${quiet}"
     log_debug "print_usage=%s" "${print_usage}"
+    log_debug "print_report=%s" "${print_report}"
 
     export project_dir
     if [ "${project_base_name_temp}" = "" ]; then
@@ -1472,7 +1497,7 @@ conda_setup_env()
                 exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
             fi
 
-            log_header "%s Conda Environment Installed." "${project_base_name}"
+            log_footer "%s Conda Environment Installed." "${project_base_name}"
         else
             log_header "Updating %s Conda Environment..." "${project_base_name}"
 
@@ -1483,7 +1508,7 @@ conda_setup_env()
                 exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
             fi
 
-            log_header "%s Conda Environment Updated." "${project_base_name}"
+            log_footer "%s Conda Environment Updated." "${project_base_name}"
         fi
 
         exit "${RET_SUCCESS}"
@@ -1503,7 +1528,7 @@ conda_activate_env() {
         return "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
     fi
 
-    log_header "%s Conda Environment Activated." "${project_base_name}"
+    log_footer "%s Conda Environment Activated." "${project_base_name}"
 
     return "${RET_SUCCESS}"
 }

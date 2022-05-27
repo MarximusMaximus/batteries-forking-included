@@ -29,23 +29,23 @@ if [ $ret -ne 0 ]; then
 
     #-------------------------------------------------------------------------------
     log_fatal() {
-        >&2 command printf "FATAL: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "FATAL: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
     log_error() {
-        >&2 command printf "ERROR: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "ERROR: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
     log_warning() {
-        >&2 command printf "WARNING: "
-        >&2 command printf "$@"
-        >&2 command printf "\n"
+        >&2 command printf -- "WARNING: "
+        >&2 command printf -- "$@"
+        >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
@@ -55,9 +55,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "INFO: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "INFO: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
 
     }
@@ -69,9 +69,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "DEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "DEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 
@@ -82,9 +82,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "SUPERDEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "SUPERDEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 
@@ -95,9 +95,9 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            command printf "ULTRADEBUG: "
-            command printf "$@"
-            command printf "\n"
+            command printf -- "ULTRADEBUG: "
+            command printf -- "$@"
+            command printf -- "\n"
         fi
     }
 fi
@@ -1307,6 +1307,7 @@ set_ansi_code_constants() {
     ANSI_FATAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 "; export ANSI_FATAL
     ANSI_ERROR="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ "; export ANSI_ERROR
     ANSI_WARNING="${ANSI_COLOR_WARNING}⚠️ "; export ANSI_WARNING
+    ANSI_IMPORTANT="${ANSI_COLOR_WARNING}"; export ANSI_WARNING
     ANSI_HEADER="${ANSI_COLOR_HEADER}"; export ANSI_HEADER
     ANSI_FOOTER="${ANSI_COLOR_FOOTER}"; export ANSI_FOOTER
     ANSI_INFO="${ANSI_COLOR_INFO}"; export ANSI_INFO
@@ -1484,6 +1485,24 @@ log_footer() {
         message="$(format_log_message "${ANSI_FOOTER}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            command printf -- "${message%EOL}"
+        fi
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
+    )
+}
+
+#-------------------------------------------------------------------------------
+log_info_important() {
+    (
+        # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
+        message="$(format_log_message "${ANSI_IMPORTANT}INFO: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        if \
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1727,8 +1746,8 @@ report_final_status() {
                 before_warning_text=" and "
             fi
 
-            command printf "\n"
-            >>"${FULL_LOG}" command printf "\n"
+            command printf -- "\n"
+            >>"${FULL_LOG}" command printf -- "\n"
 
             log_info "%s exiting with return code: %d" "${message%EOL}"  "$ret"
             if [ "$ret" -eq 0 ]; then
