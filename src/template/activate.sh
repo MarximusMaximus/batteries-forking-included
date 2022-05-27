@@ -492,7 +492,7 @@ array_for_each() {
 #-------------------------------------------------------------------------------
 ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
-    log_info "Changing current directory to '%s'" "$1"
+    log_superdebug "Changing current directory to '%s'" "$1"
 
     # shellcheck disable=SC2164
     cd "$1"
@@ -509,7 +509,7 @@ safe_rm() {
         path_to_remove="$1"
         print_rm_error_message="$2"
 
-        log_info "Safely removing '%s'" "${path_to_remove}"
+        log_superdebug "Safely removing '%s'" "${path_to_remove}"
 
         if \
             [ "${path_to_remove}" != "/" ] &&
@@ -564,7 +564,7 @@ ensure_does_not_exist() {
     (
         path_to_remove="$1"
 
-        log_info "Ensuring does not exist: '%s'" "${path_to_remove}"
+        log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
 
         if \
             [ -f "${path_to_remove}" ] ||
@@ -584,14 +584,14 @@ create_dir() {
     (
         destdir="$1"
 
-        log_info "Creating directory '%s'" "${destdir}"
-
         ensure_does_not_exist "${destdir}"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to remove path '%s'" "${destdir}"
             exit $ret
         fi
+
+        log_superdebug "Creating directory '%s'" "${destdir}"
 
         mkdir -p "${destdir}"
         ret=$?
@@ -609,7 +609,7 @@ ensure_dir() {
     (
         destdir="$1"
 
-        log_info "Ensuring directory exists: '%s'" "${destdir}"
+        log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
 
         if [ ! -d "${destdir}" ]; then
             create_dir "${destdir}"
@@ -622,31 +622,47 @@ ensure_dir() {
 }
 
 #-------------------------------------------------------------------------------
+get_datetime_stamp_human_formatted()
+{
+    date "${DATETIME_STAMP_HUMAN_FORMAT}"
+}
+
+#-------------------------------------------------------------------------------
+get_datetime_stamp_filename_formatted()
+{
+    date "${DATETIME_STAMP_FILENAME_FORMAT}"
+}
+
+#-------------------------------------------------------------------------------
 create_my_tempdir() {
-    my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
+    (
+        the_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}-$(get_datetime_stamp_filename_formatted)")
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to get temporary directory"
+            exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+        fi
+        command echo "${the_tempdir}"
+        exit "${RET_SUCCESS}"
+    )
     ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "failed to get temporary directory"
-        return "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
-    fi
-    command echo "${my_tempdir}"
-    return "${RET_SUCCESS}"
+    return $ret
 }
 
 #-------------------------------------------------------------------------------
 ensure_my_tempdir() {
     # intentionally no local scope b/c modifying a global
 
-    log_info "Creating temporary directory"
-
     if [ "${my_tempdir}" = "" ]; then
         my_tempdir="$(create_my_tempdir)"
+        ret=$?
         if [ $ret -ne 0 ]; then
             return $ret
         fi
     fi
 
     ensure_dir "${my_tempdir}"
+    ret=$?
     if [ $ret -ne 0 ]; then
         return $ret
     fi
@@ -654,6 +670,63 @@ ensure_my_tempdir() {
     export my_tempdir
 
     return "${RET_SUCCESS}"
+}
+
+#-------------------------------------------------------------------------------
+move_file() {
+    (
+        source_filepath="$1"
+        dest_filepath="$2"
+
+        log_superdebug "Copying file '${source_filepath}' to '${dest_filepath}'"
+
+        mv "${source_filepath}" "${dest_filepath}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to move file from '%s' to '%s'" "${source_filepath}" "${dest_filepath}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+copy_file() {
+    (
+        source_filepath="$1"
+        dest="$2"
+
+        log_superdebug "Copying file '${source_filepath}' to '${dest}'"
+
+        cp "${source_filepath}" "${dest}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to copy file from '%s' to '%s'" "${source_filepath}" "${dest}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+copy_dir() {
+    (
+        source_dir="$1"
+        dest_dir="$2"
+
+        log_superdebug "Copying all files from '${source_dir}' to '${dest_dir}'"
+
+        cp -r "${source_dir}"/. "${dest_dir}/"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to copy files from '%s' to '%s'" "${source_dir}" "${dest_dir}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
 }
 
 #-------------------------------------------------------------------------------

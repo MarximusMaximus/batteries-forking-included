@@ -493,7 +493,7 @@ array_for_each() {
 #-------------------------------------------------------------------------------
 ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
-    log_info "Changing current directory to '%s'" "$1"
+    log_superdebug "Changing current directory to '%s'" "$1"
 
     # shellcheck disable=SC2164
     cd "$1"
@@ -510,7 +510,7 @@ safe_rm() {
         path_to_remove="$1"
         print_rm_error_message="$2"
 
-        log_info "Safely removing '%s'" "${path_to_remove}"
+        log_superdebug "Safely removing '%s'" "${path_to_remove}"
 
         if \
             [ "${path_to_remove}" != "/" ] &&
@@ -565,7 +565,7 @@ ensure_does_not_exist() {
     (
         path_to_remove="$1"
 
-        log_info "Ensuring does not exist: '%s'" "${path_to_remove}"
+        log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
 
         if \
             [ -f "${path_to_remove}" ] ||
@@ -585,14 +585,14 @@ create_dir() {
     (
         destdir="$1"
 
-        log_info "Creating directory '%s'" "${destdir}"
-
         ensure_does_not_exist "${destdir}"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to remove path '%s'" "${destdir}"
             exit $ret
         fi
+
+        log_superdebug "Creating directory '%s'" "${destdir}"
 
         mkdir -p "${destdir}"
         ret=$?
@@ -610,7 +610,7 @@ ensure_dir() {
     (
         destdir="$1"
 
-        log_info "Ensuring directory exists: '%s'" "${destdir}"
+        log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
 
         if [ ! -d "${destdir}" ]; then
             create_dir "${destdir}"
@@ -623,31 +623,47 @@ ensure_dir() {
 }
 
 #-------------------------------------------------------------------------------
+get_datetime_stamp_human_formatted()
+{
+    date "${DATETIME_STAMP_HUMAN_FORMAT}"
+}
+
+#-------------------------------------------------------------------------------
+get_datetime_stamp_filename_formatted()
+{
+    date "${DATETIME_STAMP_FILENAME_FORMAT}"
+}
+
+#-------------------------------------------------------------------------------
 create_my_tempdir() {
-    my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
+    (
+        the_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}-$(get_datetime_stamp_filename_formatted)")
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to get temporary directory"
+            exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+        fi
+        command echo "${the_tempdir}"
+        exit "${RET_SUCCESS}"
+    )
     ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "failed to get temporary directory"
-        return "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
-    fi
-    command echo "${my_tempdir}"
-    return "${RET_SUCCESS}"
+    return $ret
 }
 
 #-------------------------------------------------------------------------------
 ensure_my_tempdir() {
     # intentionally no local scope b/c modifying a global
 
-    log_info "Creating temporary directory"
-
     if [ "${my_tempdir}" = "" ]; then
         my_tempdir="$(create_my_tempdir)"
+        ret=$?
         if [ $ret -ne 0 ]; then
             return $ret
         fi
     fi
 
     ensure_dir "${my_tempdir}"
+    ret=$?
     if [ $ret -ne 0 ]; then
         return $ret
     fi
@@ -655,6 +671,63 @@ ensure_my_tempdir() {
     export my_tempdir
 
     return "${RET_SUCCESS}"
+}
+
+#-------------------------------------------------------------------------------
+move_file() {
+    (
+        source_filepath="$1"
+        dest_filepath="$2"
+
+        log_superdebug "Copying file '${source_filepath}' to '${dest_filepath}'"
+
+        mv "${source_filepath}" "${dest_filepath}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to move file from '%s' to '%s'" "${source_filepath}" "${dest_filepath}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+copy_file() {
+    (
+        source_filepath="$1"
+        dest="$2"
+
+        log_superdebug "Copying file '${source_filepath}' to '${dest}'"
+
+        cp "${source_filepath}" "${dest}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to copy file from '%s' to '%s'" "${source_filepath}" "${dest}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+copy_dir() {
+    (
+        source_dir="$1"
+        dest_dir="$2"
+
+        log_superdebug "Copying all files from '${source_dir}' to '${dest_dir}'"
+
+        cp -r "${source_dir}"/. "${dest_dir}/"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to copy files from '%s' to '%s'" "${source_dir}" "${dest_dir}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
 }
 
 #-------------------------------------------------------------------------------
@@ -944,7 +1017,8 @@ RET_ERROR_UNKNOWN_NEG1=-1; export RET_ERROR_UNKNOWN_NEG1
 #region Constants
 
 CONDA_INSTALL_PATH="/opt/conda/miniforge"
-DATETIME_STAMP_FORMAT="+%Y-%m-%d %H:%M:%S"
+DATETIME_STAMP_HUMAN_FORMAT="+%Y-%m-%d %H:%M:%S"
+DATETIME_STAMP_FILENAME_FORMAT="+%Y%m%dT%H%M%S"
 
 #endregion Constants
 #===============================================================================
@@ -1249,12 +1323,6 @@ set_ansi_code_constants
 #region Logging Helpers
 
 #-------------------------------------------------------------------------------
-get_datetime_stamp()
-{
-    date "${DATETIME_STAMP_FORMAT}"
-}
-
-#-------------------------------------------------------------------------------
 format_log_message()
 {
     (
@@ -1264,7 +1332,7 @@ format_log_message()
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         inner_text="$(command printf -- "$@"; command echo EOL)"
-        command printf -- "%s %s%s%s\n" "$(get_datetime_stamp)" "${prefix}" "${inner_text%EOL}" "${suffix}"
+        command printf -- "%s %s%s%s\n" "$(get_datetime_stamp_human_formatted)" "${prefix}" "${inner_text%EOL}" "${suffix}"
     )
 }
 
@@ -1282,7 +1350,7 @@ log_console()
 log_success_final() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_SUCCESS_FINAL}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_SUCCESS_FINAL}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             [ "${quiet:-}" != true ]||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1290,7 +1358,9 @@ log_success_final() {
         then
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1298,7 +1368,7 @@ log_success_final() {
 log_success() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_SUCCESS}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_SUCCESS}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             [ "${quiet:-}" != true ]||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1306,7 +1376,9 @@ log_success() {
         then
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1314,7 +1386,7 @@ log_success() {
 log_fatal() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_FATAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_FATAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             [ "${verbosity:-0}" -ge -1 ] ||
@@ -1324,9 +1396,15 @@ log_fatal() {
             >&2 command printf -- "${message%EOL}"
         fi
 
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
-        >>"${FATAL_LOG}" command printf -- "${message%EOL}"
-        >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${FATAL_LOG}" != "" ]; then
+            >>"${FATAL_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${ERROR_AND_FATAL_LOG}" != "" ]; then
+            >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1334,7 +1412,7 @@ log_fatal() {
 log_error() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_ERROR}ERROR: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_ERROR}ERROR: " "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             [ "${verbosity:-0}" -ge -10 ] ||
@@ -1344,9 +1422,15 @@ log_error() {
             >&2 command printf -- "${message%EOL}"
         fi
 
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
-        >>"${ERROR_LOG}" command printf -- "${message%EOL}"
-        >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${ERROR_LOG}" != "" ]; then
+            >>"${ERROR_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${ERROR_AND_FATAL_LOG}" != "" ]; then
+            >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1354,7 +1438,7 @@ log_error() {
 log_warning() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_WARNING}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_WARNING}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             [ "${verbosity:-0}" -ge -5 ] ||
@@ -1364,8 +1448,12 @@ log_warning() {
             >&2 command printf -- "${message%EOL}"
         fi
 
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
-        >>"${WARNING_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${WARNING_LOG}" != "" ]; then
+            >>"${WARNING_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1373,15 +1461,19 @@ log_warning() {
 log_header() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_HEADER}" "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_HEADER}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
+            command printf -- "\n"
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "\n"
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1389,7 +1481,7 @@ log_header() {
 log_footer() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_FOOTER}" "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_FOOTER}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1397,7 +1489,9 @@ log_footer() {
         then
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1405,7 +1499,7 @@ log_footer() {
 log_info() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_INFO}INFO: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_INFO}INFO: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1413,7 +1507,9 @@ log_info() {
         then
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1421,7 +1517,7 @@ log_info() {
 log_info_noprefix() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1429,7 +1525,9 @@ log_info_noprefix() {
         then
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1437,7 +1535,7 @@ log_info_noprefix() {
 log_debug() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_DEBUG}DEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_DEBUG}DEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1445,7 +1543,9 @@ log_debug() {
         then
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1453,7 +1553,7 @@ log_debug() {
 log_superdebug() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_SUPERDEBUG}SUPERDEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_SUPERDEBUG}SUPERDEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1461,7 +1561,9 @@ log_superdebug() {
         then
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1469,7 +1571,7 @@ log_superdebug() {
 log_ultradebug() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_ULTRADEBUG}ULTRADEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)
+        message="$(format_log_message "${ANSI_ULTRADEBUG}ULTRADEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1477,7 +1579,9 @@ log_ultradebug() {
         then
             command printf -- "${message%EOL}"
         fi
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1485,8 +1589,10 @@ log_ultradebug() {
 log_file() {
     (
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message=$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)
-        >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        message="$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)"
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
     )
 }
 
@@ -1554,15 +1660,15 @@ report_final_status() {
 
         # fixup return code in case it is wrong
         if [ "$ret" -eq 0 ]; then
-            if [ ${LOG_FATAL_COUNT} -gt 0 ]; then
-                ret=${RET_ERROR_UNKNOWN}
-            elif [ ${LOG_ERROR_COUNT} -gt 0 ]; then
-                ret=${RET_ERROR_UNKNOWN}
-            elif [ ${LOG_WARNING_COUNT} -gt 0 ]; then
-                if [ ${LOG_WARNING_COUNT} -gt 1 ]; then
-                    ret=${RET_WARNING_MULTIPLE}
+            if [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
+                ret="${RET_ERROR_UNKNOWN}"
+            elif [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
+                ret="${RET_ERROR_UNKNOWN}"
+            elif [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
+                if [ "${LOG_WARNING_COUNT}" -gt 1 ]; then
+                    ret="${RET_WARNING_MULTIPLE}"
                 else
-                    ret=${RET_WARNING_UNKNOWN}
+                    ret="${RET_WARNING_UNKNOWN}"
                 fi
             fi
         fi
@@ -1570,65 +1676,68 @@ report_final_status() {
         if [ "${should_print}" = true ]; then
             fatal_text=""
             plural=""
-            if [ ${LOG_FATAL_COUNT} -gt 1 ]; then
+            if [ "${LOG_FATAL_COUNT}" -gt 1 ]; then
                 plural="s"
             fi
-            if [ ${LOG_FATAL_COUNT} -gt 0 ]; then
+            if [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
                 fatal_text="$(command printf "%d Fatal Error%s" "${LOG_FATAL_COUNT}" "${plural}")"
             fi
 
             error_text=""
             plural=""
-            if [ ${LOG_ERROR_COUNT} -gt 1 ]; then
+            if [ "${LOG_ERROR_COUNT}" -gt 1 ]; then
                 plural="s"
             fi
-            if [ ${LOG_ERROR_COUNT} -gt 0 ]; then
+            if [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
                 error_text="$(command printf "%d Error%s" "${LOG_ERROR_COUNT}" "${plural}")"
             fi
 
             warning_text=""
             plural=""
-            if [ ${LOG_WARNING_COUNT} -gt 1 ]; then
+            if [ "${LOG_WARNING_COUNT}" -gt 1 ]; then
                 plural="s"
             fi
-            if [ ${LOG_WARNING_COUNT} -gt 0 ]; then
+            if [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
                 warning_text="$(command printf "%d Warning%s" "${LOG_WARNING_COUNT}" "${plural}")"
             fi
 
             before_error_text=""
             before_warning_text=""
             if \
-                [ ${LOG_FATAL_COUNT} -gt 0 ] &&
-                [ ${LOG_ERROR_COUNT} -gt 0 ] &&
-                [ ${LOG_WARNING_COUNT} -gt 0 ]
+                [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
+                [ "${LOG_ERROR_COUNT}" -gt 0 ] &&
+                [ "${LOG_WARNING_COUNT}" -gt 0 ]
             then
                 before_error_text=", "
                 before_warning_text=", and "
             elif \
-                [ ${LOG_FATAL_COUNT} -gt 0 ] &&
-                [ ${LOG_WARNING_COUNT} -gt 0 ]
+                [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
+                [ "${LOG_WARNING_COUNT}" -gt 0 ]
             then
                 before_warning_text=" and "
             elif \
-                [ ${LOG_FATAL_COUNT} -gt 0 ] &&
-                [ ${LOG_ERROR_COUNT} -gt 0 ]
+                [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
+                [ "${LOG_ERROR_COUNT}" -gt 0 ]
             then
                 before_error_text=" and "
             elif \
-                [ ${LOG_ERROR_COUNT} -gt 0 ] &&
-                [ ${LOG_WARNING_COUNT} -gt 0 ]
+                [ "${LOG_ERROR_COUNT}" -gt 0 ] &&
+                [ "${LOG_WARNING_COUNT}" -gt 0 ]
             then
                 before_warning_text=" and "
             fi
 
+            command printf "\n"
+            >>"${FULL_LOG}" command printf "\n"
+
             log_info "%s exiting with return code: %d" "${message%EOL}"  "$ret"
             if [ "$ret" -eq 0 ]; then
                 log_success_final "%s Completed Successfully." "${message%EOL}"
-            elif [ ${LOG_FATAL_COUNT} -gt 0 ]; then
+            elif [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
                 log_fatal "%s Had %s%s%s%s%s." "${message%EOL}" "${fatal_text}" "${before_error_text}" "${error_text}" "${before_warning_text}" "${warning_text}"
-            elif [ ${LOG_ERROR_COUNT} -gt 0 ]; then
+            elif [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
                 log_error "%s Had %s%s%s." "${message%EOL}" "${error_text}" "${before_warning_text}" "${warning_text}"
-            elif [ ${LOG_WARNING_COUNT} -gt 0 ]; then
+            elif [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
                 log_warning "%s Had %s." "${message%EOL}" "${warning_text}"
             fi
         else
@@ -1645,6 +1754,12 @@ report_all() {
         # input_ret="$1"
         should_print="$2"
 
+        if [ "${should_print}" = true ]; then
+            log_header "Report:"
+        else
+            log_ultradebug "Skipping Report header b/c should_print is '%s'." "${should_print}"
+        fi
+
         report_warnings "${should_print}"
         report_errors "${should_print}"
         if [ "${should_print}" = true ]; then
@@ -1658,33 +1773,48 @@ report_all() {
     )
 }
 
+#-------------------------------------------------------------------------------
 if [ "${CONSTANTS_TEMP_DIR}" = "" ]; then
-    CONSTANTS_TEMP_DIR=$(mktemp -d -t constants.sh-XXXXXXXX)
+    ensure_my_tempdir
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        exit $ret
+    fi
+
+    CONSTANTS_TEMP_DIR="${my_tempdir}"
     export CONSTANTS_TEMP_DIR
-    mkdir -p "${CONSTANTS_TEMP_DIR}"
+
+    CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_DIR}"/log
+
+    ensure_dir "${CONSTANTS_TEMP_LOG_DIR}"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        exit $ret
+    fi
+    export CONSTANTS_TEMP_LOG_DIR
 fi
 if [ "${FATAL_LOG}" = "" ]; then
-    FATAL_LOG="${CONSTANTS_TEMP_DIR}"/fatal_only.txt
+    FATAL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/fatal_only.txt
     export FATAL_LOG
     command printf '' >"${FATAL_LOG}"
 fi
 if [ "${ERROR_LOG}" = "" ]; then
-    ERROR_LOG="${CONSTANTS_TEMP_DIR}"/errors_only.txt
+    ERROR_LOG="${CONSTANTS_TEMP_LOG_DIR}"/errors_only.txt
     export ERROR_LOG
     command printf '' >"${ERROR_LOG}"
 fi
 if [ "${ERROR_AND_FATAL_LOG}" = "" ]; then
-    ERROR_AND_FATAL_LOG="${CONSTANTS_TEMP_DIR}"/errors_and_fatals_only.txt
+    ERROR_AND_FATAL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/errors_and_fatals_only.txt
     export ERROR_AND_FATAL_LOG
     command printf '' >"${ERROR_AND_FATAL_LOG}"
 fi
 if [ "${WARNING_LOG}" = "" ]; then
-    WARNING_LOG="${CONSTANTS_TEMP_DIR}"/warnings_only.txt
+    WARNING_LOG="${CONSTANTS_TEMP_LOG_DIR}"/warnings_only.txt
     export WARNING_LOG
     command printf '' >"${WARNING_LOG}"
 fi
 if [ "${FULL_LOG}" = "" ]; then
-    FULL_LOG="${CONSTANTS_TEMP_DIR}"/log.txt
+    FULL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/log.txt
     export FULL_LOG
     command printf '' >"${FULL_LOG}"
 fi

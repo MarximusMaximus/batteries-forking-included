@@ -531,7 +531,7 @@ array_for_each() {
 #-------------------------------------------------------------------------------
 ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
-    log_info "Changing current directory to '%s'" "$1"
+    log_superdebug "Changing current directory to '%s'" "$1"
 
     # shellcheck disable=SC2164
     cd "$1"
@@ -548,7 +548,7 @@ safe_rm() {
         path_to_remove="$1"
         print_rm_error_message="$2"
 
-        log_info "Safely removing '%s'" "${path_to_remove}"
+        log_superdebug "Safely removing '%s'" "${path_to_remove}"
 
         if \
             [ "${path_to_remove}" != "/" ] &&
@@ -603,7 +603,7 @@ ensure_does_not_exist() {
     (
         path_to_remove="$1"
 
-        log_info "Ensuring does not exist: '%s'" "${path_to_remove}"
+        log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
 
         if \
             [ -f "${path_to_remove}" ] ||
@@ -623,14 +623,14 @@ create_dir() {
     (
         destdir="$1"
 
-        log_info "Creating directory '%s'" "${destdir}"
-
         ensure_does_not_exist "${destdir}"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to remove path '%s'" "${destdir}"
             exit $ret
         fi
+
+        log_superdebug "Creating directory '%s'" "${destdir}"
 
         mkdir -p "${destdir}"
         ret=$?
@@ -648,7 +648,7 @@ ensure_dir() {
     (
         destdir="$1"
 
-        log_info "Ensuring directory exists: '%s'" "${destdir}"
+        log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
 
         if [ ! -d "${destdir}" ]; then
             create_dir "${destdir}"
@@ -661,31 +661,47 @@ ensure_dir() {
 }
 
 #-------------------------------------------------------------------------------
+get_datetime_stamp_human_formatted()
+{
+    date "${DATETIME_STAMP_HUMAN_FORMAT}"
+}
+
+#-------------------------------------------------------------------------------
+get_datetime_stamp_filename_formatted()
+{
+    date "${DATETIME_STAMP_FILENAME_FORMAT}"
+}
+
+#-------------------------------------------------------------------------------
 create_my_tempdir() {
-    my_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}".XXXXXXXX)
+    (
+        the_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}-$(get_datetime_stamp_filename_formatted)")
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "failed to get temporary directory"
+            exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+        fi
+        command echo "${the_tempdir}"
+        exit "${RET_SUCCESS}"
+    )
     ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "failed to get temporary directory"
-        return "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
-    fi
-    command echo "${my_tempdir}"
-    return "${RET_SUCCESS}"
+    return $ret
 }
 
 #-------------------------------------------------------------------------------
 ensure_my_tempdir() {
     # intentionally no local scope b/c modifying a global
 
-    log_info "Creating temporary directory"
-
     if [ "${my_tempdir}" = "" ]; then
         my_tempdir="$(create_my_tempdir)"
+        ret=$?
         if [ $ret -ne 0 ]; then
             return $ret
         fi
     fi
 
     ensure_dir "${my_tempdir}"
+    ret=$?
     if [ $ret -ne 0 ]; then
         return $ret
     fi
@@ -693,6 +709,63 @@ ensure_my_tempdir() {
     export my_tempdir
 
     return "${RET_SUCCESS}"
+}
+
+#-------------------------------------------------------------------------------
+move_file() {
+    (
+        source_filepath="$1"
+        dest_filepath="$2"
+
+        log_superdebug "Copying file '${source_filepath}' to '${dest_filepath}'"
+
+        mv "${source_filepath}" "${dest_filepath}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to move file from '%s' to '%s'" "${source_filepath}" "${dest_filepath}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+copy_file() {
+    (
+        source_filepath="$1"
+        dest="$2"
+
+        log_superdebug "Copying file '${source_filepath}' to '${dest}'"
+
+        cp "${source_filepath}" "${dest}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to copy file from '%s' to '%s'" "${source_filepath}" "${dest}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+copy_dir() {
+    (
+        source_dir="$1"
+        dest_dir="$2"
+
+        log_superdebug "Copying all files from '${source_dir}' to '${dest_dir}'"
+
+        cp -r "${source_dir}"/. "${dest_dir}/"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_debug "failed to copy files from '%s' to '%s'" "${source_dir}" "${dest_dir}"
+            exit "${RET_ERROR_COPY_FAILED}"
+        fi
+    )
+    ret=$?
+    return $ret
 }
 
 #-------------------------------------------------------------------------------
@@ -771,6 +844,7 @@ export WAS_SOURCED
 
 #endregion source check
 #===============================================================================
+
 
 if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
     #===========================================================================
@@ -1171,12 +1245,12 @@ parse_args() {
     set_calculated_constants
     set_ansi_code_constants
 
-    log_superdebug "colorized_output=%s" "${colorized_output}"
-    log_superdebug "verbosity=%d" "${verbosity}"
-    log_superdebug "quiet=%s" "${quiet}"
-    log_superdebug "print_usage=%s" "${print_usage}"
+    log_debug "colorized_output=%s" "${colorized_output}"
+    log_debug "verbosity=%d" "${verbosity}"
+    log_debug "quiet=%s" "${quiet}"
+    log_debug "print_usage=%s" "${print_usage}"
 
-    log_superdebug "print_report=%s" "${print_report}"
+    log_debug "print_report=%s" "${print_report}"
 
     if [ "${print_usage}" = true ]; then
         usage
@@ -1190,7 +1264,7 @@ parse_args() {
 check_tools() {
     # intentionally no local scope because modifying globals
 
-    log_info "Checking tools"
+    log_header "Checking tools"
 
     if [ "$(command -v git)" != "" ]; then
         git_exists=true
@@ -1252,6 +1326,8 @@ check_tools() {
         log_fatal "no way to comapre files (no diff, no md5)"
         return "${RET_ERROR_TOOL_MISSING}"
     fi
+
+    log_footer "Tools checked."
 
     return "${RET_SUCCESS}"
 }
@@ -1365,14 +1441,14 @@ extract_zipball() {
             exit "${RET_ERROR_EXTRACTION_FAILED}"
         fi
 
-        mv "${my_tempdir}/extracted/*/*" "${dest}"
+        move_file "${my_tempdir}/extracted/*/*" "${dest}"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to move extracted files into place from temporary directory"
             exit "${RET_ERROR_MOVE_FAILED}"
         fi
 
-        mv "${my_tempdir}/extracted/*/.*" "${dest}"
+        move_file "${my_tempdir}/extracted/*/.*" "${dest}"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to move extracted files dotfiles into place from temporary directory"
@@ -1437,7 +1513,7 @@ download_and_extract() {
 #-------------------------------------------------------------------------------
 ensure_batteries_forking_included() {
     (
-        log_info "Ensuring batteries-forking-included exists"
+        log_header "Ensuring batteries-forking-included exists..."
 
         if \
             [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}" ] ||
@@ -1459,6 +1535,8 @@ ensure_batteries_forking_included() {
                     log_fatal "failed to clone https://github.com/${GITHUB_REPO_USER}/${GITHUB_REPO_NAME}.git"
                     exit "${RET_ERROR_GIT_CLONE_FAILED}"
                 fi
+
+                log_footer "batteries-forking-included cloned."
             elif \
                 [ "${curl_exists}" = true ] ||
                 [ "${wget_exists}" = true ]
@@ -1471,11 +1549,15 @@ ensure_batteries_forking_included() {
 
                 # create download timestamp
                 touch "${BATTERIES_FORKING_INCLUDED_FULLPATH}"/LAST_DOWNLOADED
+
+                log_footer "batteries-forking-included downloaded."
             else # pragma: no branch
                 # NOTE: it /shouldn't/ be possible to get here
                 log_fatal "no way to download available (no git, no curl, no wget)"
                 exit "${RET_ERROR_TOOL_MISSING}"
             fi
+        else
+            log_footer "batteries-forking-included exists."
         fi
 
         exit "${RET_SUCCESS}"
@@ -1487,7 +1569,7 @@ ensure_batteries_forking_included() {
 #-------------------------------------------------------------------------------
 update_update_batteries_forking_included() {
     (
-        log_info "Updating batteries-forking-included"
+        log_header "Updating batteries-forking-included"
 
         if [ "${git_exists}" = true ]; then
             ensure_cd "${BATTERIES_FORKING_INCLUDED_FULLPATH}"
@@ -1523,6 +1605,8 @@ update_update_batteries_forking_included() {
                     log_fatal "git reset failed"
                     exit "${RET_ERROR_GIT_RESET_FAILED}"
                 fi
+
+                log_footer "batteries-forking-included updated."
             else
                 log_warning "batteries-forking-included has local changes"
                 # this is fine, so just bail early
@@ -1547,6 +1631,8 @@ update_update_batteries_forking_included() {
                 if [ $ret -ne 0 ]; then
                     exit $ret
                 fi
+
+                log_footer "batteries-forking-included updated."
             else
                 log_warning "batteries-forking-included has local changes"
                 # this is fine, so just bail early
@@ -1567,7 +1653,7 @@ update_update_batteries_forking_included() {
 #-------------------------------------------------------------------------------
 copy_temporary_template_files() {
     (
-        log_info "Creating a copy of template files"
+        log_header "Creating a copy of template files"
 
         create_dir "${my_tempdir}/template"
         ret=$?
@@ -1575,12 +1661,16 @@ copy_temporary_template_files() {
             exit $ret
         fi
 
-        cp "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template"/* "${my_tempdir}/template/"
+        log_debug "Copying files"
+
+        copy_dir "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template/" "${my_tempdir}/template/"
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "failed to copy files from '%s' to '%s'" "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template/*" "${my_tempdir}/template/"
+            log_fatal "failed to copy files from '%s' to '%s'" "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template/" "${my_tempdir}/template/"
             exit "${RET_ERROR_COPY_FAILED}"
         fi
+
+        log_footer "Copy of template files created."
     )
     ret=$?
     return $ret
@@ -1595,7 +1685,7 @@ is_file_same() {
         left_file="$1"
         right_file="$2"
 
-        log_info "Comparing '%s' and '%s'" "${left_file}" "${right_file}"
+        log_debug "Comparing '%s' and '%s'" "${left_file}" "${right_file}"
 
         if [ "${diff_exists}" = true ]; then
             diff "${left_file}" "${right_file}"
@@ -1635,12 +1725,7 @@ is_file_same() {
 #-------------------------------------------------------------------------------
 compare_and_update_files() {
     (
-        # this file gets edited by users, we don't want it to get tested
-        safe_rm "${my_tempdir}/template/post-bootstrap.sh"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            exit $ret
-        fi
+        log_header "Comparing template files to current project's files..."
 
         is_file_same "${my_tempdir}/template/bfi-update.sh" "${MY_DIR_FULLPATH}/bfi-update.sh"
         ret=$?
@@ -1657,7 +1742,7 @@ compare_and_update_files() {
             fi
 
 
-            mv "${my_tempdir}/template/bfi-update.sh" "${MY_DIR_FULLPATH}/bfi-update.sh"
+            move_file "${my_tempdir}/template/bfi-update.sh" "${MY_DIR_FULLPATH}/bfi-update.sh"
             if [ $ret -ne 0 ]; then
                 log_fatal "failed to copy '%s' to '%s'" "${my_tempdir}/template/bfi-update.sh" "${MY_DIR_FULLPATH}/bfi-update.sh"
                 exit "${RET_ERROR_COPY_FAILED}"
@@ -1665,7 +1750,7 @@ compare_and_update_files() {
 
             log_info "bfi-update.sh copied successfully"
 
-            log_info "re-running command as '%s %s'" "${MY_DIR_FULLPATH}/bfi-update.sh" "$*"
+            log_info "re-running command as '%s %s'" "${MY_DIR_FULLPATH}/bfi-update.sh" "$*" --no-report
 
             # call ourselves again
             "${MY_DIR_FULLPATH}/bfi-update.sh" "$@" --no-report
@@ -1682,6 +1767,74 @@ compare_and_update_files() {
                 exit $ret
             fi
 
+            # special handling for post-boostrap.sh b/c users edit that file
+            needs_copy=false
+            if [ ! -f "${MY_DIR_FULLPATH}/post-bootstrap.sh" ]; then
+                log_info "post-bootstrap.sh missing."
+                needs_copy=true
+            fi
+            if [ "${needs_copy}" = false ]; then
+                # split first part of template post-bootstrap.sh
+                awk '{print; if (match($0,"    \# WARNING: DO NOT EDIT ABOVE THIS LINE")) exit}' "${my_tempdir}"/template/post-bootstrap.sh >"${my_tempdir}"/template/post-bootstrap.sh-part1
+                # split middle part of project post-bootstrap.sh
+                awk -v do_print=0 '{if (match($0,"    \# WARNING: DO NOT EDIT BELOW THIS LINE")) do_print=0; if (do_print==1) print; if (match($0,"    # WARNING: DO NOT EDIT ABOVE THIS LINE")) do_print=1}' "${MY_DIR_FULLPATH}"/post-bootstrap.sh >"${my_tempdir}"/template/post-bootstrap.sh-part2
+                # split last part of template post-bootstrap.sh
+                awk -v found=0 '{if (match($0,"    \# WARNING: DO NOT EDIT BELOW THIS LINE")) found=1; if (found==1) print}' "${my_tempdir}"/template/post-bootstrap.sh >"${my_tempdir}"/template/post-bootstrap.sh-part3
+                # delete original template post-boostrap.sh
+                safe_rm "${my_tempdir}"/template/post-bootstrap.sh
+
+                # recombine three parts into new template post-boostrap.sh
+                cat "${my_tempdir}"/template/post-bootstrap.sh-part1 \
+                    "${my_tempdir}"/template/post-bootstrap.sh-part2 \
+                    "${my_tempdir}"/template/post-bootstrap.sh-part3 \
+                    >"${my_tempdir}"/template/post-bootstrap.sh
+                chmod +x "${my_tempdir}"/template/post-bootstrap.sh
+
+                # delete the three parts
+                safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part1
+                safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part2
+                safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part3
+
+                # compare
+                is_file_same "${my_tempdir}/template/post-bootstrap.sh" "${MY_DIR_FULLPATH}/post-bootstrap.sh"
+                ret=$?
+                if [ $ret -gt 2 ]; then
+                    exit $ret
+                elif [ $ret -eq 1 ]; then
+                    needs_copy=true
+                else
+                    log_info "post-bootstrap.sh did not change."
+                fi
+            fi
+            # update if necessary
+            if [ "${needs_copy}" = true ]; then
+                log_info "post-bootstrap.sh needs to be updated, updating..."
+
+                if [ -f "${MY_DIR_FULLPATH}/post-bootstrap.sh" ]; then
+                    backup_filepath="${MY_DIR_FULLPATH}/post-bootstrap.sh.$(get_datetime_stamp_filename_formatted).old"
+                    log_info "Creating backup at ${backup_filepath}"
+                    copy_file "${MY_DIR_FULLPATH}/post-bootstrap.sh" "${backup_filepath}"
+                fi
+
+                safe_rm "${MY_DIR_FULLPATH}/post-bootstrap.sh"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    exit $ret
+                fi
+
+                move_file "${my_tempdir}/template/post-bootstrap.sh" "${MY_DIR_FULLPATH}/post-bootstrap.sh"
+                if [ $ret -ne 0 ]; then
+                    log_fatal "failed to move '%s' to '%s'" "${my_tempdir}/template/post-bootstrap.sh" "${MY_DIR_FULLPATH}/post-bootstrap.sh"
+                    exit "${RET_ERROR_MOVE_FAILED}"
+                fi
+
+                log_info "post-bootstrap.sh updated successfully."
+            fi
+            # delete template post-boostrap.sh so that it doesn't get processed
+            # in the loop later
+            safe_rm "${my_tempdir}"/template/post-bootstrap.sh
+
+            # switch to the template dir so we can loop over all the remaining files
             ensure_cd "${my_tempdir}/template"
             ret=$?
             if [ $ret -ne 0 ]; then
@@ -1697,6 +1850,7 @@ compare_and_update_files() {
 
                 if [ ! -f "${MY_DIR_FULLPATH}/${filename}" ]; then
                     needs_copy=true
+                    log_info "${filename} missing."
                 fi
 
                 if [ "${needs_copy}" = false ]; then
@@ -1707,13 +1861,12 @@ compare_and_update_files() {
                     elif [ $ret -eq 1 ]; then
                         needs_copy=true
                     else
-                        log_info "${filename} did not change"
+                        log_info "${filename} did not change."
                     fi
                 fi
 
                 if [ "${needs_copy}" = true ]; then
-                    # file is different, needs to be updated
-                    log_info "${filename} needs to be copied, copying"
+                    log_info "${filename} needs to be updated, updating..."
 
                     safe_rm "${MY_DIR_FULLPATH}/${filename}"
                     ret=$?
@@ -1721,16 +1874,18 @@ compare_and_update_files() {
                         exit $ret
                     fi
 
-                    mv "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+                    move_file "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
                     if [ $ret -ne 0 ]; then
-                        log_fatal "failed to copy '%s' to '%s'" "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
-                        exit "${RET_ERROR_COPY_FAILED}"
+                        log_fatal "failed to move '%s' to '%s'" "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+                        exit "${RET_ERROR_MOVE_FAILED}"
                     fi
 
-                    log_info "${filename} copied successfully"
+                    log_info "${filename} updated successfully."
                 fi
             done
         fi
+
+        log_footer "Comparison of template files to current project's files completed."
     )
     ret=$?
     return $ret
@@ -1787,6 +1942,12 @@ compare_and_update_files() {
     __main() {
         log_ultradebug "${MY_BASENAME} called with '%s'" "$*"
 
+        ensure_my_tempdir
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            exit $ret
+        fi
+
         parse_args "$@"
         ret=$?
         if [ $ret -ne 0 ];then
@@ -1797,12 +1958,6 @@ compare_and_update_files() {
             check_tools
             ret=$?
             if [ $ret -ne 0 ];then
-                exit $ret
-            fi
-
-            ensure_my_tempdir
-            ret=$?
-            if [ $ret -ne 0 ]; then
                 exit $ret
             fi
 
@@ -1821,12 +1976,6 @@ compare_and_update_files() {
             fi
 
             update_update_batteries_forking_included
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                exit $ret
-            fi
-
-            ensure_cd "${MY_DIR_FULLPATH}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
