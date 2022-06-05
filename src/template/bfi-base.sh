@@ -1195,7 +1195,6 @@ case "${REAL_ARCH}" in
         ;;
 esac
 
-
 PLATFORM_IS_WSL=false
 if [ "$(uname -a | grep '\(microsoft\|Microsoft\|WSL\)')" != "" ]; then
     PLATFORM_IS_WSL=true
