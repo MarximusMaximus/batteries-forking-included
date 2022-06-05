@@ -203,6 +203,7 @@ require_root_user_X() {
 #===============================================================================
 #region Include Directives
 
+#-------------------------------------------------------------------------------
 include_G() {
     # intentionally no local scope so it modify globals
 
@@ -211,6 +212,7 @@ include_G() {
     return $?
 }
 
+#-------------------------------------------------------------------------------
 ensure_include_GX() {
     # intentionally no local scope so it can modify globals AND exit script
 
@@ -927,13 +929,13 @@ if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
     return "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"
 fi
 
-conda_init
+conda_init_G
 ret=$?
 if [ $ret -ne 0 ]; then
     return $ret
 fi
 
-conda_full_deactivate
+conda_full_deactivate_G
 ret=$?
 if [ $ret -ne 0 ]; then
     return $ret

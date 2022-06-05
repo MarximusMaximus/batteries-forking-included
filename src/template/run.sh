@@ -203,6 +203,7 @@ require_root_user_X() {
 #===============================================================================
 #region Include Directives
 
+#-------------------------------------------------------------------------------
 include_G() {
     # intentionally no local scope so it modify globals
 
@@ -211,6 +212,7 @@ include_G() {
     return $?
 }
 
+#-------------------------------------------------------------------------------
 ensure_include_GX() {
     # intentionally no local scope so it can modify globals AND exit script
 
@@ -916,13 +918,13 @@ fi
 
     ensure_include_GX "${MY_DIR_FULLPATH}/bfi-base.sh"
 
-    conda_init "quiet"
+    conda_init_G "quiet"
     ret=$?
     if [ $ret -ne 0 ]; then
         return $ret
     fi
 
-    conda_full_deactivate "quiet"
+    conda_full_deactivate_G "quiet"
     ret=$?
     if [ $ret -ne 0 ]; then
         return $ret

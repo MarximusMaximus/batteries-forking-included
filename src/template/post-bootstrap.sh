@@ -237,6 +237,7 @@ require_root_user_X() {
 #===============================================================================
 #region Include Directives
 
+#-------------------------------------------------------------------------------
 include_G() {
     # intentionally no local scope so it modify globals
 
@@ -245,6 +246,7 @@ include_G() {
     return $?
 }
 
+#-------------------------------------------------------------------------------
 ensure_include_GX() {
     # intentionally no local scope so it can modify globals AND exit script
 

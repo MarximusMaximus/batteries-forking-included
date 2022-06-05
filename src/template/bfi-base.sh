@@ -205,6 +205,7 @@ require_root_user_X() {
 #===============================================================================
 #region Include Directives
 
+#-------------------------------------------------------------------------------
 include_G() {
     # intentionally no local scope so it modify globals
 
@@ -213,6 +214,7 @@ include_G() {
     return $?
 }
 
+#-------------------------------------------------------------------------------
 ensure_include_GX() {
     # intentionally no local scope so it can modify globals AND exit script
 
@@ -1469,7 +1471,7 @@ LOG_LEVEL_ULTRADEBUG=4; export LOG_LEVEL_ULTRADEBUG
 # }
 
 # #-------------------------------------------------------------------------------
-# teetty() {
+# teetty_G() {
 #     _stdout=$1
 #     _stderr=$2
 #     shift 2
@@ -1485,7 +1487,7 @@ LOG_LEVEL_ULTRADEBUG=4; export LOG_LEVEL_ULTRADEBUG
 #         exit "${RET_ERROR_COULD_NOT_CREATE_TEMP_FILE}"
 #     fi
 
-#     # Produce a script that runs the command provided to teetty as
+#     # Produce a script that runs the command provided to teetty_G as
 #     # arguments and stores the status code in the temporary file
 #     esceval()
 #     {
@@ -1571,7 +1573,7 @@ cleanup_fifo() {
 }
 
 #-------------------------------------------------------------------------------
-teetty() {
+teetty_G() {
     _stdout="$1"
     _stderr="$2"
     shift 2
@@ -2146,7 +2148,7 @@ fi
 #region Conda Helpers
 
 #-------------------------------------------------------------------------------
-conda_init () {
+conda_init_G() {
     # intentionally no local scope so it modify globals
 
     if [ "$1" != "quiet" ]; then
@@ -2163,8 +2165,8 @@ conda_init () {
     PATH="${CONDA_BASE_DIR_FULLPATH}/bin:$PATH"
     export PATH
 
-    teetty "${FULL_LOG}" "${FULL_LOG}" "type conda | head -n 1"
-    teetty "${FULL_LOG}" "${FULL_LOG}" conda --version
+    teetty_G "${FULL_LOG}" "${FULL_LOG}" "type conda | head -n 1"
+    teetty_G "${FULL_LOG}" "${FULL_LOG}" conda --version
 
     if [ "$1" != "quiet" ]; then
         log_footer "Conda Initialized."
@@ -2174,7 +2176,7 @@ conda_init () {
 }
 
 #-------------------------------------------------------------------------------
-conda_full_deactivate () {
+conda_full_deactivate_G() {
     # intentionally no local scope so it modify globals
 
     if [ "$1" != "quiet" ]; then
@@ -2182,7 +2184,7 @@ conda_full_deactivate () {
     fi
 
     while [ "${CONDA_SHLVL}" -gt 0 ]; do
-        teetty "${FULL_LOG}" "${FULL_LOG}" conda deactivate
+        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda deactivate
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda deactivate' exited with error code: %d" "$ret"
@@ -2203,7 +2205,7 @@ conda_activate_env_G() {
         log_header "Activating %s Conda Environment..." "$1"
     fi
 
-    teetty "${FULL_LOG}" "${FULL_LOG}" conda activate "$1"
+    teetty_G "${FULL_LOG}" "${FULL_LOG}" conda activate "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "'conda activate \"%2\"' exited with error code: %d" "$1" "$ret"
