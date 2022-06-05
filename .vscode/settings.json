@@ -287,4 +287,8 @@
     "titleBar.activeBackground": "#2B4542",
     "titleBar.activeForeground": "#F8FBFB"
 },
+"todo-tree.filtering.excludeGlobs": [
+    "**/node_modules",
+    "**/src/template/post-bootstrap.sh"
+],
 }
