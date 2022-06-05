@@ -21,7 +21,6 @@ post_bootstrap()
 
     # WARNING: DO NOT EDIT ABOVE THIS LINE
 
-    # TODO: do additional setup/update things here; if nothing to do, just delete this line
 
     # WARNING: DO NOT EDIT BELOW THIS LINE
 
