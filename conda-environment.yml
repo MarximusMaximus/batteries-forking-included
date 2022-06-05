@@ -1,4 +1,4 @@
-name: pytest-prefer-nested-dup-tests
+name: batteries-forking-included
 channels:
   - conda-forge
 dependencies:

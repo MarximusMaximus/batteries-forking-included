@@ -1,0 +1,94 @@
+[flake8]
+    indent-size = 4
+    max-line-length = 89
+    max-doc-length = 89
+    max-complexity = 18
+    show-source = true
+    statistics = true
+    doctests = true
+    ignore =
+        # One-line docstring should fit on one line with quotes
+        # (prefer triple quotes being on own lines)
+        D200,
+        # No blank lines allowed after function docstring
+        # (classes want blank lines .: functions get blank lines too)
+        D202,
+        # 1 blank line required between summary line and description
+        # (too many false positives)
+        D205,
+        # First line should end with a period
+        # (too many false positives)
+        D400,
+        ; # closing bracket is missing indentation
+        ; E133,
+        # multiple spaces after ','
+        # (often used for readability)
+        E241,
+        # whitespace before ',', ';', or ':'
+        # (often used for readability)
+        E203,
+        # block comment should start with '# '
+        # we have region headings that are multiline that do not
+        E265,
+        # too many leading '#' for block comment
+        # (used for region markers)
+        E266,
+        ; # 'from module import *' used; unable to detect undefined names
+        ; F403,
+        # line break before binary operator
+        # (not ideal, but makes sense to use for certain frameworks)
+        W503,
+        # line break after binary operator
+        # (black will split long lines like this)
+        W504,
+    select =
+        # provided by flake8-bugbear
+        # https://github.com/PyCQA/flake8-bugbear
+        #   Various agreed upon warnings (B0)
+        #   Various controversial warnings (B9)
+        B,
+        # explicitly enable B9
+        B9,
+        # provided by flake8-commas
+        # https://github.com/PyCQA/flake8-commas
+        #   Missing Commas (C81)
+        # provided by mccabe
+        # https://github.com/PyCQA/mccabe
+        #   Max complexity exceded (C901)
+        C,
+        # provided by flake8-docstrings (pydocstyle)
+        # https://www.pydocstyle.org/en/stable/error_codes.html
+        #   Missing Docstrings (D1)
+        #   Whitespace Issues (D2)
+        #   Quotes Issues (D3)
+        #   Docstring Content Issues (D4)
+        D,
+        # provided by pycodestyle
+        # https://pycodestyle.readthedocs.io/en/latest/intro.html#error-codes
+        #   Indentation (E1)
+        #   Whitespace (E2)
+        #   Blank line (E3)
+        #   Import (E4)
+        #   Line length (E5)
+        #   Statement (E7)
+        #   Runtime (E9)
+        E,
+        # provided flake8
+        # https://flake8.pycqa.org/en/latest/user/error-codes.html
+        F,
+        # provided by flake8-mypy
+        # https://github.com/ambv/flake8-mypy
+        #   all type related errors
+        ; T4,
+        # provided by pycodestyle
+        # https://pycodestyle.readthedocs.io/en/latest/intro.html#error-codes
+        #   Indentation warning (W1)
+        #   Whitespace warning (W2)
+        #   Blank line warning (W3)
+        #   Line break warning (W5)
+        #   Deprecation warning (W6)
+        W,
+        # provided by flake8-pyi
+        # https://github.com/PyCQA/flake8-pyi
+        #   Type Hinting Errors in .pyi files (Y0)
+        Y,

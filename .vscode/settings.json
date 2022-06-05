@@ -13,6 +13,7 @@
     "cython",
     "detailyang",
     "docstrings",
+    "endregion",
     "gitlint",
     "goanpeca",
     "hackebrot",

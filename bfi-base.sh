@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
-# shellcheck disable=SC2034
+BFI_VERSION="0.1.0"
+export BFI_VERSION
 
 ################################################################################
 #region Preamble
@@ -168,7 +169,8 @@ rreadlink() {
 #===============================================================================
 #region Root User Check
 
-require_not_root_user() {
+#-------------------------------------------------------------------------------
+require_not_root_user_X() {
     # intentionally no local scope so it can exit script
 
     # shellcheck disable=SC3028
@@ -182,7 +184,8 @@ require_not_root_user() {
     fi
 }
 
-require_root_user() {
+#-------------------------------------------------------------------------------
+require_root_user_X() {
     # intentionally no local scope so it can exit script
 
     # shellcheck disable=SC3028
@@ -202,7 +205,7 @@ require_root_user() {
 #===============================================================================
 #region Include Directives
 
-include() {
+include_G() {
     # intentionally no local scope so it modify globals
 
     # shellcheck disable=SC1090
@@ -210,10 +213,10 @@ include() {
     return $?
 }
 
-ensure_include() {
+ensure_include_GX() {
     # intentionally no local scope so it can modify globals AND exit script
 
-    include "$1"
+    include_G "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "Failed to source '%s'" "$1"
@@ -651,7 +654,7 @@ create_my_tempdir() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_my_tempdir() {
+ensure_my_tempdir_G() {
     # intentionally no local scope b/c modifying a global
 
     if [ "${my_tempdir}" = "" ]; then
@@ -997,18 +1000,118 @@ RET_ERROR_FAILED_TO_GET_TEMP_DIR=171; export RET_ERROR_FAILED_TO_GET_TEMP_DIR
 RET_ERROR_DOWNLOAD_FAILED=172; export RET_ERROR_DOWNLOAD_FAILED
 RET_ERROR_EXTRACTION_FAILED=173; export RET_ERROR_EXTRACTION_FAILED
 RET_ERROR_CREATE_DIRECTORY_FAILED=174; export RET_ERROR_CREATE_DIRECTORY_FAILED
+RET_ERROR_COULD_NOT_CREATE_TEMP_FILE=178; export RET_ERROR_COULD_NOT_CREATE_TEMP_FILE
+#RET_ERROR_GET_SUBCOMMAND_RETURN_CODE_FAILED=179; export RET_ERROR_GET_SUBCOMMAND_RETURN_CODE_FAILED
+RET_ERROR_FAILED_TO_CREATE_FIFO=180; export RET_ERROR_FAILED_TO_CREATE_FIFO
+RET_ERROR_NOT_A_FILE=181; export RET_ERROR_NOT_A_FILE
+RET_ERROR_NOT_A_DIRECTORY=182; export RET_ERROR_NOT_A_DIRECTORY
+RET_ERROR_COULD_NOT_CHOWN=183; export RET_ERROR_COULD_NOT_CHOWN
+RET_ERROR_COULD_NOT_CHMOD=184; export RET_ERROR_COULD_NOT_CHMOD
 
-# Global Warnings 192-253 (61, but 2 reserved, so really 59)
+# Global Warnings 192-251 (59, but 2 specially reserved, so really 57)
 RET_WARNING_UNKNOWN=192; export RET_WARNING_UNKNOWN
 RET_WARNING_MULTIPLE=193; export RET_WARNING_MULTIPLE
+RET_WARNING_NOT_A_FILE=194; export RET_WARNING_NOT_A_FILE
+RET_WARNING_NOT_A_DIRECTORY=195; export RET_WARNING_NOT_A_DIRECTORY
 
+# Special code for a special success (for use by functions to return
+#   success + other state)
+RET_SUCCESS_SPECIAL=252; export RET_SUCCESS_SPECIAL
+
+# Special code for when Version gets printed out
+RET_SUCCESS_VERSION_PRINTED=253; export RET_SUCCESS_VERSION_PRINTED
 
 # Special code for when Usage gets printed out
-RET_ERROR_USAGE_PRINTED=254; export RET_ERROR_USAGE_PRINTED
+RET_SUCCESS_USAGE_PRINTED=254; export RET_SUCCESS_USAGE_PRINTED
 
 # Reserved b/c shell weirdness
 RET_ERROR_UNKNOWN_255=255; export RET_ERROR_UNKNOWN_255
 RET_ERROR_UNKNOWN_NEG1=-1; export RET_ERROR_UNKNOWN_NEG1
+
+# Ranges
+RET_CODE_LOCAL_ERROR_RANGE_START=1; export RET_CODE_LOCAL_ERROR_RANGE_START
+RET_CODE_LOCAL_ERROR_RANGE_END=63; export RET_CODE_LOCAL_ERROR_RANGE_END
+RET_CODE_LOCAL_WARNING_RANGE_START=64; export RET_CODE_LOCAL_WARNING_RANGE_START
+RET_CODE_LOCAL_WARNING_RANGE_END=127; export RET_CODE_LOCAL_WARNING_RANGE_END
+RET_CODE_GLOBAL_ERROR_RANGE_START=128; export RET_CODE_GLOBAL_ERROR_RANGE_START
+RET_CODE_GLOBAL_ERROR_RANGE_END=191; export RET_CODE_GLOBAL_ERROR_RANGE_END
+RET_CODE_GLOBAL_WARNING_RANGE_START=192; export RET_CODE_GLOBAL_WARNING_RANGE_START
+RET_CODE_GLOBAL_WARNING_RANGE_END=251; export RET_CODE_GLOBAL_WARNING_RANGE_END
+
+#-------------------------------------------------------------------------------
+return_code_is_error() {
+    (
+        val=$1
+        val=$(( val + 0 ))
+        if \
+            {
+                [ $val -ge "${RET_CODE_LOCAL_ERROR_RANGE_START}" ] &&
+                [ $val -le "${RET_CODE_LOCAL_ERROR_RANGE_END}" ]
+            } ||
+            {
+                [ $val -ge "${RET_CODE_GLOBAL_ERROR_RANGE_START}" ] &&
+                [ $val -le "${RET_CODE_GLOBAL_ERROR_RANGE_END}" ]
+            } ||
+            [ $val -eq "${RET_ERROR_UNKNOWN}" ] ||
+            [ $val -eq "${RET_ERROR_UNKNOWN_128}" ] ||
+            [ $val -eq "${RET_ERROR_UNKNOWN_255}" ] ||
+            [ $val -eq "${RET_ERROR_UNKNOWN_NEG1}" ] ||
+            [ $val -lt 0 ]
+        then
+            command printf "true"
+            return 0
+        else
+            command printf "false"
+            return 1
+        fi
+    )
+}
+
+#-------------------------------------------------------------------------------
+return_code_is_warning() {
+    (
+        val=$1
+        val=$(( val + 0 ))
+        if \
+            {
+                [ $val -ge "${RET_CODE_LOCAL_WARNING_RANGE_START}" ] &&
+                [ $val -le "${RET_CODE_LOCAL_WARNING_RANGE_END}" ]
+            } ||
+            {
+                [ $val -ge "${RET_CODE_GLOBAL_WARNING_RANGE_START}" ] &&
+                [ $val -le "${RET_CODE_GLOBAL_WARNING_RANGE_END}" ]
+            } ||
+            [ $val -eq "${RET_WARNING_UNKNOWN}" ] ||
+            [ $val -eq "${RET_WARNING_MULTIPLE}" ]
+        then
+            command printf "true"
+            return 0
+        else
+            command printf "false"
+            return 1
+        fi
+    )
+}
+
+#-------------------------------------------------------------------------------
+return_code_is_success() {
+    (
+        val=$1
+        val=$(( val + 0 ))
+        if \
+            [ $val -eq "${RET_SUCCESS}" ] ||
+            [ $val -eq "${RET_SUCCESS_USAGE_PRINTED}" ] ||
+            [ $val -eq "${RET_SUCCESS_VERSION_PRINTED}" ] ||
+            [ $val -eq "${RET_SUCCESS_SPECIAL}" ]
+        then
+            command printf "true"
+            return 0
+        else
+            command printf "false"
+            return 1
+        fi
+    )
+}
 
 #endregion Return Codes
 #===============================================================================
@@ -1016,9 +1119,9 @@ RET_ERROR_UNKNOWN_NEG1=-1; export RET_ERROR_UNKNOWN_NEG1
 #===============================================================================
 #region Constants
 
-CONDA_INSTALL_PATH="/opt/conda/miniforge"
-DATETIME_STAMP_HUMAN_FORMAT="+%Y-%m-%d %H:%M:%S"
-DATETIME_STAMP_FILENAME_FORMAT="+%Y%m%dT%H%M%S"
+CONDA_INSTALL_PATH="/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+DATETIME_STAMP_HUMAN_FORMAT="+%Y-%m-%d %H:%M:%S"; export DATETIME_STAMP_HUMAN_FORMAT
+DATETIME_STAMP_FILENAME_FORMAT="+%Y%m%dT%H%M%S"; export DATETIME_STAMP_FILENAME_FORMAT
 
 #endregion Constants
 #===============================================================================
@@ -1026,74 +1129,76 @@ DATETIME_STAMP_FILENAME_FORMAT="+%Y%m%dT%H%M%S"
 #===============================================================================
 #region Platform Constants
 
-PLATFORM="$(uname)"
-export PLATFORM
-REAL_PLATFORM="${REAL_PLATFORM:-${PLATFORM}}"
-export REAL_PLATFORM
+PLATFORM="$(uname)"; export PLATFORM
+REAL_PLATFORM="${REAL_PLATFORM:-${PLATFORM}}"; export REAL_PLATFORM
 
-ARCH="$(uname -m)"
-export ARCH
-REAL_ARCH="${REAL_ARCH:-${ARCH}}"
-export REAL_ARCH
+ARCH="$(uname -m)"; export ARCH
+REAL_ARCH="${REAL_ARCH:-${ARCH}}"; export REAL_ARCH
 
-CONDA_FORGE_PLATFORM="UNKNOWN"
-CONDA_FORGE_ARCH="UNKNOWN"
-CONDA_FORGE_EXT="sh"
+DEFAULT_ADMIN_GROUP="staff"; export DEFAULT_ADMIN_GROUP
 
-DEFAULT_ADMIN_GROUP="staff"
+CONDA_FORGE_PLATFORM="UNKNOWN"; export CONDA_FORGE_PLATFORM
+CONDA_FORGE_ARCH="UNKNOWN"; export CONDA_FORGE_ARCH
+CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
 
 if [ "${REAL_PLATFORM}" = "Darwin" ]; then
     date() {
         command date -j "$@"
     }
 
-    CONDA_FORGE_PLATFORM="MacOSX"
-    DEFAULT_ADMIN_GROUP="staff"
+    DEFAULT_ADMIN_GROUP="staff"; export DEFAULT_ADMIN_GROUP
+
+    CONDA_FORGE_PLATFORM="MacOSX"; export CONDA_FORGE_PLATFORM
+    CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
 elif [ "${REAL_PLATFORM}" = "Linux" ]; then
     date() {
         command date "$@"
     }
 
-    CONDA_FORGE_PLATFORM="Linux"
-    DEFAULT_ADMIN_GROUP="wheel"
+    DEFAULT_ADMIN_GROUP="wheel"; export DEFAULT_ADMIN_GROUP
+
+    CONDA_FORGE_PLATFORM="Linux"; export CONDA_FORGE_PLATFORM
+    CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
 fi
 
 case "${REAL_ARCH}" in
     i386)
-        CONDA_FORGE_ARCH="x86_64"
+        CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
         ;;
     i486)
-        CONDA_FORGE_ARCH="x86_64"
+        CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
         ;;
     amd64)
-        CONDA_FORGE_ARCH="x86_64"
+        CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
         ;;
     x86_64)
-        CONDA_FORGE_ARCH="x86_64"
+        CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
         ;;
     aarch64)
-        CONDA_FORGE_ARCH="aarch64"
+        CONDA_FORGE_ARCH="aarch64"; export CONDA_FORGE_ARCH
         ;;
     arm)
         if [ "${REAL_PLATFORM}" = "Darwin" ]; then
-            CONDA_FORGE_ARCH="arm64"
+            CONDA_FORGE_ARCH="arm64"; export CONDA_FORGE_ARCH
         elif [ "${REAL_PLATFORM}" = "Linux" ]; then
-            CONDA_FORGE_ARCH="aarch64"
+            CONDA_FORGE_ARCH="aarch64"; export CONDA_FORGE_ARCH
         fi
         ;;
     arm64)
         if [ "${REAL_PLATFORM}" = "Darwin" ]; then
-            CONDA_FORGE_ARCH="arm64"
+            CONDA_FORGE_ARCH="arm64"; export CONDA_FORGE_ARCH
         elif [ "${REAL_PLATFORM}" = "Linux" ]; then
-            CONDA_FORGE_ARCH="aarch64"
+            CONDA_FORGE_ARCH="aarch64"; export CONDA_FORGE_ARCH
         fi
         ;;
 esac
+
 
 PLATFORM_IS_WSL=false
 if [ "$(uname -a | grep '\(microsoft\|Microsoft\|WSL\)')" != "" ]; then
     PLATFORM_IS_WSL=true
 fi
+export PLATFORM_IS_WSL;
 
 #endregion Platform Constants
 #===============================================================================
@@ -1112,8 +1217,8 @@ set_calculated_constants
 #===============================================================================
 #region Colorized Output Constants & Helper Functions
 
-ANSI_CODE_START="\033["
-ANSI_CODE_END="m"
+ANSI_CODE_START="\033["; export ANSI_CODE_START
+ANSI_CODE_END="m"; export ANSI_CODE_END
 
 #-------------------------------------------------------------------------------
 get_ansi_code()
@@ -1323,6 +1428,203 @@ set_ansi_code_constants
 #===============================================================================
 #region Logging Helpers
 
+LOG_LEVEL_SUCCESS=-5; export LOG_LEVEL_SUCCESS
+LOG_LEVEL_FATAL=-4; export LOG_LEVEL_FATAL
+LOG_LEVEL_ERROR=-3; export LOG_LEVEL_ERROR
+LOG_LEVEL_WARNING=-2; export LOG_LEVEL_WARNING
+LOG_LEVEL_HEADER=-1; export LOG_LEVEL_HEADER
+LOG_LEVEL_FOOTER=0; export LOG_LEVEL_FOOTER
+LOG_LEVEL_INFO=1; export LOG_LEVEL_INFO
+LOG_LEVEL_DEBUG=2; export LOG_LEVEL_DEBUG
+LOG_LEVEL_SUPERDEBUG=3; export LOG_LEVEL_SUPERDEBUG
+LOG_LEVEL_ULTRADEBUG=4; export LOG_LEVEL_ULTRADEBUG
+
+# #-------------------------------------------------------------------------------
+# teeoutput() {
+#     _stdout=$1
+#     _stderr=$2
+#     shift 2
+
+#     # Run the script through /bin/sh with fake tty
+#     if \
+#         { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
+#         [ "${OMEGA_DEBUG:-}" = true ] ||
+#         [ "${OMEGA_DEBUG:-}" = "all" ]
+#     then
+#         {
+#             {
+#                 {
+#                     "$@"
+#                     ret=$?
+#                 } | tee -a "${_stdout}";  # capture stdout to files
+#             } 2>&1 1>&3 | tee -a "${_stderr}";  # redirect stdout to 3, redirect stderr to stdout, capture "stdout(stderr)" to files
+#         } 3>&1 1>&2  # redirect stdout(stderr) to stderr, redirect 3(stdout) to stdout
+#     else
+#         "$@" 1>>"${_stdout}" 2>>"${_stderr}"
+#         # ret=$?
+#     fi
+
+#     # Return the status code
+#     return $ret
+# }
+
+# #-------------------------------------------------------------------------------
+# teetty() {
+#     _stdout=$1
+#     _stderr=$2
+#     shift 2
+
+#     # Create a temporary file for storing the status code
+#     tmp=$(mktemp)
+#     ret=$?
+#     if \
+#         [ $ret -ne 0 ] ||
+#         [ "$tmp" = "" ] ||
+#         [ ! -f "$tmp" ]
+#     then
+#         exit "${RET_ERROR_COULD_NOT_CREATE_TEMP_FILE}"
+#     fi
+
+#     # Produce a script that runs the command provided to teetty as
+#     # arguments and stores the status code in the temporary file
+#     esceval()
+#     {
+#         command printf '%s ' "$@" | sed "s/'/'\\\\''/g"
+#     }
+#     _cmd="$(esceval "$@"); command echo \$? > $tmp"
+
+#     # Run the script through /bin/sh with fake tty
+#     if \
+#         { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
+#         [ "${OMEGA_DEBUG:-}" = true ] ||
+#         [ "${OMEGA_DEBUG:-}" = "all" ]
+#     then
+#         {
+#             {
+#                 {
+#                     if [ "$(uname)" = "Darwin" ]; then
+#                         # MacOS
+#                         script -Fq /dev/null /bin/sh -c "$_cmd"
+#                     else
+#                         script -qfc "/bin/sh -c $(esceval "$_cmd")" /dev/null
+#                     fi
+#                 } | tee -a "${_stdout}";  # capture stdout to files
+#             } 2>&1 1>&3 | tee -a "${_stderr}";  # redirect stdout to 3, redirect stderr to stdout, capture "stdout(stderr)" to files
+#         } 3>&1 1>&2  # redirect stdout(stderr) to stderr, redirect 3(stdout) to stdout
+#     else
+#         {
+#             {
+#                 {
+#                     if [ "$(uname)" = "Darwin" ]; then
+#                         # MacOS
+#                         script -Fq /dev/null /bin/sh -c "$_cmd"
+#                     else
+#                         script -qfc "/bin/sh -c $(esceval "$_cmd")" /dev/null
+#                     fi
+#                 } | cat >> "${_stdout}";  # capture stdout to files
+#             } 2>&1 1>&3 | cat >> "${_stderr}";  # redirect stdout to 3, redirect stderr to stdout, capture "stdout(stderr)" to files
+#         } 3>&1 1>&2  # redirect stdout(stderr) to stderr, redirect 3(stdout) to stdout
+#     fi
+
+#     # Ensure that the status code was written to the temporary file or
+#     # fail with status 128
+#     if [ ! -s "$tmp" ]; then
+#         return "${RET_ERROR_GET_SUBCOMMAND_RETURN_CODE_FAILED}"
+#     fi
+
+#     # Collect the status code from the temporary file
+#     ret=$(cat "$tmp")
+#     ret=$(( ret + 0 ))
+
+#     # Remove the temporary file
+#     rm -f "$tmp"
+
+#     # Return the status code
+#     return $ret
+# }
+
+#-------------------------------------------------------------------------------
+create_fifo() {
+    (
+        n=0
+        until
+            fifo=$1.$$.$n
+            mkfifo -m 600 -- "$fifo" 2> /dev/null
+        do
+            n=$((n + 1))
+            # give up after 20 attempts as it could be a permanent condition
+            # that prevents us from creating fifos. You'd need to raise that
+            # limit if you intend to create (and use at the same time)
+            # more than 20 fifos in your script
+            [ "$n" -lt 20 ] || exit "${RET_ERROR_FAILED_TO_CREATE_FIFO}"
+        done
+        command printf '%s\n' "$fifo"
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+cleanup_fifo() {
+    rm -f -- "$1"
+}
+
+#-------------------------------------------------------------------------------
+teetty() {
+    _stdout="$1"
+    _stderr="$2"
+    shift 2
+
+    _stdout_fifo="$(create_fifo "${my_tempdir}/stdout_fifo")"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        return $ret
+    fi
+    _stderr_fifo="$(create_fifo "${my_tempdir}/stderr_fifo")"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        return $ret
+    fi
+
+    if \
+        { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
+        [ "${OMEGA_DEBUG:-}" = true ] ||
+        [ "${OMEGA_DEBUG:-}" = "all" ]
+    then
+        # shellcheck disable=SC2002
+        ( cat "${_stdout_fifo}" | tee -a "${_stdout}" & )
+        _stdout_bg_task=$!
+        # shellcheck disable=SC2002
+        ( cat "${_stderr_fifo}" | tee -a "${_stderr}" & )
+        _stderr_bg_task=$!
+    else
+        # shellcheck disable=SC2002
+        ( cat "${_stdout_fifo}" >> "${_stdout}" & )
+        _stdout_bg_task=$!
+        # shellcheck disable=SC2002
+        ( cat "${_stderr_fifo}" >> "${_stderr}" & )
+        _stderr_bg_task=$!
+    fi
+
+    esceval()
+    {
+        command printf '%s ' "$@" | sed "s/'/'\\\\''/g"
+    }
+
+    eval "$(esceval "$@")" > "${_stdout_fifo}" 2> "${_stderr_fifo}"
+    ret=$?
+
+    kill -9 "${_stdout_bg_task}" 2>/dev/null
+    kill -9 "${_stderr_bg_task}" 2>/dev/null
+
+    cleanup_fifo "${_stdout_fifo}"
+    cleanup_fifo "${_stderr_fifo}"
+
+    # Return the status code
+    return $ret
+}
+
 #-------------------------------------------------------------------------------
 format_log_message()
 {
@@ -1353,7 +1655,7 @@ log_success_final() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_SUCCESS_FINAL}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            [ "${quiet:-}" != true ]||
+            [ "${quiet:-}" != true ] ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1371,7 +1673,7 @@ log_success() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_SUCCESS}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            [ "${quiet:-}" != true ]||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_SUCCESS}" ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1390,7 +1692,7 @@ log_fatal() {
         message="$(format_log_message "${ANSI_FATAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
-            [ "${verbosity:-0}" -ge -1 ] ||
+            [ "${verbosity:-0}" -ge "${LOG_LEVEL_FATAL}" ] ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1416,7 +1718,7 @@ log_error() {
         message="$(format_log_message "${ANSI_ERROR}ERROR: " "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
-            [ "${verbosity:-0}" -ge -10 ] ||
+            [ "${verbosity:-0}" -ge "${LOG_LEVEL_ERROR}" ] ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1442,7 +1744,7 @@ log_warning() {
         message="$(format_log_message "${ANSI_WARNING}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
-            [ "${verbosity:-0}" -ge -5 ] ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_WARNING}" ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1464,7 +1766,7 @@ log_header() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_HEADER}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_HEADER}" ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1484,7 +1786,7 @@ log_footer() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_FOOTER}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_FOOTER}" ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1502,7 +1804,7 @@ log_info_important() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_IMPORTANT}INFO: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1520,7 +1822,7 @@ log_info() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_INFO}INFO: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1538,7 +1840,7 @@ log_info_noprefix() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1556,7 +1858,7 @@ log_debug() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_DEBUG}DEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_DEBUG}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1574,7 +1876,7 @@ log_superdebug() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_SUPERDEBUG}SUPERDEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_SUPERDEBUG}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1592,7 +1894,7 @@ log_ultradebug() {
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_ULTRADEBUG}ULTRADEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_ULTRADEBUG}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
@@ -1746,9 +2048,6 @@ report_final_status() {
                 before_warning_text=" and "
             fi
 
-            command printf -- "\n"
-            >>"${FULL_LOG}" command printf -- "\n"
-
             log_info "%s exiting with return code: %d" "${message%EOL}"  "$ret"
             if [ "$ret" -eq 0 ]; then
                 log_success_final "%s Completed Successfully." "${message%EOL}"
@@ -1781,20 +2080,22 @@ report_all() {
 
         report_warnings "${should_print}"
         report_errors "${should_print}"
+        report_final_status "$@"
+        ret=$?
         if [ "${should_print}" = true ]; then
-            >&2 command printf "Fully detailed log is available at '%s'\n" "${FULL_LOG}"
+            message="$(command printf "Fully detailed log is available at '%s'\n" "${FULL_LOG}")"
+            >&2 command printf "${message}\n"
+            >>"${FULL_LOG}" command printf "${message}\n"
         else
             log_ultradebug "Skipping Full Log path b/c should_print is '%s'." "${should_print}"
         fi
-        report_final_status "$@"
-        ret=$?
         exit $ret
     )
 }
 
 #-------------------------------------------------------------------------------
 if [ "${CONSTANTS_TEMP_DIR}" = "" ]; then
-    ensure_my_tempdir
+    ensure_my_tempdir_G
     ret=$?
     if [ $ret -ne 0 ]; then
         exit $ret
@@ -1848,7 +2149,9 @@ fi
 conda_init () {
     # intentionally no local scope so it modify globals
 
-    log_header "Initializing Conda..."
+    if [ "$1" != "quiet" ]; then
+        log_header "Initializing Conda..."
+    fi
 
     # shellcheck disable=SC1091
     . "${CONDA_BASE_DIR_FULLPATH}/etc/profile.d/conda.sh"
@@ -1860,7 +2163,12 @@ conda_init () {
     PATH="${CONDA_BASE_DIR_FULLPATH}/bin:$PATH"
     export PATH
 
-    log_footer "Conda Initialized."
+    teetty "${FULL_LOG}" "${FULL_LOG}" "type conda | head -n 1"
+    teetty "${FULL_LOG}" "${FULL_LOG}" conda --version
+
+    if [ "$1" != "quiet" ]; then
+        log_footer "Conda Initialized."
+    fi
 
     return "${RET_SUCCESS}"
 }
@@ -1869,10 +2177,12 @@ conda_init () {
 conda_full_deactivate () {
     # intentionally no local scope so it modify globals
 
-    log_header "Deactivating Current Conda Environments..."
+    if [ "$1" != "quiet" ]; then
+        log_header "Deactivating Current Conda Environments..."
+    fi
 
     while [ "${CONDA_SHLVL}" -gt 0 ]; do
-        conda deactivate
+        teetty "${FULL_LOG}" "${FULL_LOG}" conda deactivate
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda deactivate' exited with error code: %d" "$ret"
@@ -1880,7 +2190,29 @@ conda_full_deactivate () {
         fi
     done
 
-    log_footer "Conda Environments Deactivated."
+    if [ "$1" != "quiet" ]; then
+        log_footer "Conda Environments Deactivated."
+    fi
+
+    return "${RET_SUCCESS}"
+}
+
+#-------------------------------------------------------------------------------
+conda_activate_env_G() {
+    if [ "$2" != "quiet" ]; then
+        log_header "Activating %s Conda Environment..." "$1"
+    fi
+
+    teetty "${FULL_LOG}" "${FULL_LOG}" conda activate "$1"
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        log_fatal "'conda activate \"%2\"' exited with error code: %d" "$1" "$ret"
+        return "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
+    fi
+
+    if [ "$2" != "quiet" ]; then
+        log_footer "%s Conda Environment Activated." "$1"
+    fi
 
     return "${RET_SUCCESS}"
 }
@@ -1917,8 +2249,6 @@ conda_full_deactivate () {
 
     ############################################################################
     #region Immediate
-
-    require_not_root_user
 
     if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
         __main "$@"

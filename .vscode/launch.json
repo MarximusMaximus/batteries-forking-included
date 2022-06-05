@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Debug Tests (Builtin)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "purpose": ["debug-test"],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {"PYTEST_ADDOPTS": "--no-cov"},
+        },
+        {
+            "name": "Python: Debug Test (PythonTestExplorer)",
+            "type": "python",
+            "request": "launch",
+            "purpose": ["debug-test"],
+            "justMyCode": false,
+            "env": {"PYTEST_ADDOPTS": "--no-cov"},
+        }
+    ]
+}

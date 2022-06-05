@@ -1,0 +1,85 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Clean __pycache__",
+            "type": "shell",
+            "command": "find \"${workspaceFolder}/\" \\( -name '__pycache__' -or -name '*.pyc' -or -name '*.pyo' -or -name '*.pyd' \\) -print0 | xargs -r0 rm -rf"
+        },
+        {
+            "label": "View Coverage HTML",
+            "type": "Live Preview",
+            "args": [],
+            "problemMatcher": [],
+        },
+        {
+            // That the name of task
+            "label": "flake8-whole-project",
+            // We are going to execute shell command in this task
+            "type": "shell",
+            // Actual command to execute
+            "command": "source /opt/conda/miniforge/bin/activate; conda activate ${workspaceFolderBasename}; flake8 --config=./.flake8",
+            // How command output will be presented - in overall, we want it to be silent
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": true,
+                "revealProblems": "always"
+            },
+            // Definition of problem matcher - which will translate problems reported in
+            // command line by flake8 to entries in PROBLEMS tab
+            "problemMatcher": {
+                // Name of owner which will handle found problems
+                "owner": "flake8",
+                // Name of problem matcher which will show next to problem in PROBLEMS tab
+                "source": "flake8-whole-project",
+                // How paths to files with found problems, should be interpreted by problem matcher
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    // Regular expression used to match found problems
+                    // For details, see https://regex101.com/r/JXYDAE/1
+                    "regexp": "^(.+):(\\d+):(\\d+): ((\\w)\\d+) (.+)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "code": 4,
+                    "severity": 5,
+                    "message": 6
+                }
+            }
+        },
+        {
+            "label": "mypy-whole-project",
+            "type": "shell",
+            "command": "source /opt/conda/miniforge/bin/activate; conda activate ${workspaceFolderBasename}; mypy . --show-column-numbers --show-error-codes --ignore-missing-imports",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "showReuseMessage": false,
+                "clear": true,
+                "revealProblems": "always"
+            },
+            "problemMatcher": {
+                "owner": "mypy",
+                "source": "mypy-whole-project",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    "regexp": "^([\\w.]+):(\\d+):(\\d+): (\\w+): (.+)  \\[([\\w-]+)\\]$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "code": 6,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+    ]
+}
