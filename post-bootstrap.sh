@@ -17,7 +17,7 @@ post_bootstrap()
 
     # The current working directory is your project's root dir
 
-    require_not_root_user_X
+    require_not_root_user_XY
 
     # WARNING: DO NOT EDIT ABOVE THIS LINE
 
@@ -60,6 +60,33 @@ if [ $ret -ne 0 ]; then
     fi
 
     #-------------------------------------------------------------------------------
+    date() {
+        if [ "$(uname)" = "Darwin" ]; then
+            command date -j "$@"
+        else
+            command date "$@"
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    log_console() {
+        command printf -- "$@"
+        command printf -- "\n"
+    }
+
+    #-------------------------------------------------------------------------------
+    log_success_final() {
+        log_success "$@"
+    }
+
+    #-------------------------------------------------------------------------------
+    log_success() {
+        command printf -- "SUCCESS: "
+        command printf -- "$@"
+        command printf -- "\n"
+    }
+
+    #-------------------------------------------------------------------------------
     log_fatal() {
         >&2 command printf -- "FATAL: "
         >&2 command printf -- "$@"
@@ -81,6 +108,36 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
+    log_header() {
+        if \
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            command printf -- "\n"
+            command printf -- "$@"
+            command printf -- "\n"
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    log_footer() {
+        if \
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            command printf -- "$@"
+            command printf -- "\n"
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    log_info_important() {
+        log_info "$@"
+    }
+
+    #-------------------------------------------------------------------------------
     log_info() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
@@ -91,7 +148,18 @@ if [ $ret -ne 0 ]; then
             command printf -- "$@"
             command printf -- "\n"
         fi
+    }
 
+    #-------------------------------------------------------------------------------
+    log_info_noprefix() {
+        if \
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            command printf -- "$@"
+            command printf -- "\n"
+        fi
     }
 
     #-------------------------------------------------------------------------------
@@ -132,6 +200,11 @@ if [ $ret -ne 0 ]; then
             command printf -- "\n"
         fi
     }
+
+    #-------------------------------------------------------------------------------
+    log_file() {
+        true
+    }
 fi
 
 #endregion Fallbacks
@@ -142,7 +215,12 @@ fi
 
 #-------------------------------------------------------------------------------
 rreadlink() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     ( # Execute the function in a *subshell* to localize variables and the effect of 'cd'.
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
 
         target=$1
         fname=
@@ -191,7 +269,13 @@ rreadlink() {
         else
             command printf '%s\n' "${targetDir%/}/$fname"
         fi
+
+        return 0
     )
+    ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
+    return $ret
 }
 
 #endregion RReadLink
@@ -201,7 +285,7 @@ rreadlink() {
 #region Root User Check
 
 #-------------------------------------------------------------------------------
-require_not_root_user_X() {
+require_not_root_user_XY() {
     # intentionally no local scope so it can exit script
 
     # shellcheck disable=SC3028
@@ -211,12 +295,16 @@ require_not_root_user_X() {
         else
             log_fatal "$(array_get_last SOURCED_BASENAME) should not be run as root nor with sudo"
         fi
-        exit "${RET_ERROR_USER_IS_ROOT}"
+        if [ "$(array_get_first WAS_SOURCED)" -eq 0 ]; then
+            exit "${RET_ERROR_USER_IS_ROOT}"
+        else
+            return "${RET_ERROR_USER_IS_ROOT}"
+        fi
     fi
 }
 
 #-------------------------------------------------------------------------------
-require_root_user_X() {
+require_root_user_XY() {
     # intentionally no local scope so it can exit script
 
     # shellcheck disable=SC3028
@@ -226,7 +314,11 @@ require_root_user_X() {
         else
             log_fatal "$(array_get_last SOURCED_BASENAME) MUST be run as root or with sudo"
         fi
-        exit "${RET_ERROR_USER_IS_NOT_ROOT}"
+        if [ "$(array_get_first WAS_SOURCED)" -eq 0 ]; then
+            exit "${RET_ERROR_USER_IS_NOT_ROOT}"
+        else
+            return "${RET_ERROR_USER_IS_NOT_ROOT}"
+        fi
     fi
 }
 
@@ -246,14 +338,18 @@ include_G() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_include_GX() {
+ensure_include_GXY() {
     # intentionally no local scope so it can modify globals AND exit script
 
     include_G "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "Failed to source '%s'" "$1"
-        exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
+        if [ "$(array_get_first WAS_SOURCED)" -eq 0 ]; then
+            exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
+        else
+            return "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
+        fi
     fi
 }
 
@@ -542,7 +638,13 @@ ensure_cd() {
 
 #-------------------------------------------------------------------------------
 safe_rm() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         path_to_remove="$1"
         print_rm_error_message="$2"
 
@@ -593,12 +695,20 @@ safe_rm() {
         fi
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
 #-------------------------------------------------------------------------------
 ensure_does_not_exist() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         path_to_remove="$1"
 
         log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
@@ -613,12 +723,20 @@ ensure_does_not_exist() {
         fi
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
 #-------------------------------------------------------------------------------
 create_dir() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         destdir="$1"
 
         ensure_does_not_exist "${destdir}"
@@ -638,12 +756,20 @@ create_dir() {
         fi
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
 #-------------------------------------------------------------------------------
 ensure_dir() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         destdir="$1"
 
         log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
@@ -655,6 +781,8 @@ ensure_dir() {
         fi
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
@@ -672,7 +800,13 @@ get_datetime_stamp_filename_formatted()
 
 #-------------------------------------------------------------------------------
 create_my_tempdir() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         the_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}-$(get_datetime_stamp_filename_formatted)")
         ret=$?
         if [ $ret -ne 0 ]; then
@@ -683,6 +817,8 @@ create_my_tempdir() {
         exit "${RET_SUCCESS}"
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
@@ -711,7 +847,13 @@ ensure_my_tempdir_G() {
 
 #-------------------------------------------------------------------------------
 move_file() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         source_filepath="$1"
         dest_filepath="$2"
 
@@ -725,12 +867,20 @@ move_file() {
         fi
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
 #-------------------------------------------------------------------------------
 copy_file() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         source_filepath="$1"
         dest="$2"
 
@@ -744,12 +894,20 @@ copy_file() {
         fi
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
 #-------------------------------------------------------------------------------
 copy_dir() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         source_dir="$1"
         dest_dir="$2"
 
@@ -763,6 +921,8 @@ copy_dir() {
         fi
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
@@ -789,7 +949,13 @@ is_integer()
 
 #-------------------------------------------------------------------------------
 get_my_real_basename() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
     (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
         last_was_sourced="$(array_get_last WAS_SOURCED)"
         last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
         if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
@@ -809,6 +975,41 @@ get_my_real_basename() {
         exit "${RET_SUCCESS}"
     )
     ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+get_my_real_dir_fullpath() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
+    (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
+        last_was_sourced="$(array_get_last WAS_SOURCED)"
+        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
+        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
+            if [ "${last_was_sourced}" -eq 0 ]; then
+                command echo "${MY_DIR_FULLPATH}"
+            else
+                if [ "$(array_get_length SOURCED_DIR_FULLPATH)" -gt 0 ]; then
+                    command echo "$(array_get_last SOURCED_DIR_FULLPATH)"
+                else
+                    command echo "$(rreadlink '.')"
+                fi
+            fi
+        else
+            command echo "${MY_DIR_FULLPATH}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
     return $ret
 }
 
@@ -821,6 +1022,10 @@ get_my_real_basename() {
 if [ "${WAS_SOURCED}" = "" ]; then
     array_init WAS_SOURCED
 fi
+
+PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+SHELL_SESSION_FILE=""
+export SHELL_SESSION_FILE
 
 # WARNING: _THIS_FILE_WAS_SOURCED is not script safe, it only is valid during
 #   and immediately after the block that set it; other scripts that get sourced
@@ -839,6 +1044,9 @@ else # All other shells: examine $0 for known shell binary filenames
 fi
 array_append WAS_SOURCED "${_THIS_FILE_WAS_SOURCED}"
 export WAS_SOURCED
+
+SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+export SHELL_SESSION_FILE
 
 #endregion source check
 #===============================================================================
@@ -908,16 +1116,15 @@ else
     fi
 
     if [ "${OUR_SOURCED_FULLPATH}" != "" ]; then
-        array_append SOURCED_FULLPATH "$(rreadlink "${OUR_SOURCED_FULLPATH}")"
-        array_append SOURCED_BASENAME "$(basename "${OUR_SOURCED_FULLPATH}")"
-        array_append SOURCED_DIR_FULLPATH "$(dirname -- "${OUR_SOURCED_FULLPATH}")"
-        array_append SOURCED_DIR_BASENAME "$(basename -- "${SOURCED_DIR_FULLPATH}")"
+        OUR_SOURCED_FULLPATH="$(rreadlink "${OUR_SOURCED_FULLPATH}")"
     else
-        array_append SOURCED_FULLPATH ""
-        array_append SOURCED_BASENAME ""
-        array_append SOURCED_DIR_FULLPATH ""
-        array_append SOURCED_DIR_BASENAME ""
+        OUR_SOURCED_FULLPATH="$(rreadlink ".")"
     fi
+    array_append SOURCED_FULLPATH "${OUR_SOURCED_FULLPATH}"
+    array_append SOURCED_BASENAME "$(basename "${OUR_SOURCED_FULLPATH}")"
+    array_append SOURCED_DIR_FULLPATH "$(dirname -- "${OUR_SOURCED_FULLPATH}")"
+    array_append SOURCED_DIR_BASENAME "$(basename -- "${SOURCED_DIR_FULLPATH}")"
+
     export SOURCED_FULLPATH
     export SOURCED_BASENAME
     export SOURCED_DIR_FULLPATH

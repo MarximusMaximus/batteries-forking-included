@@ -77,7 +77,7 @@ export MY_DIR_BASENAME
 #endregion Self Referentials
 #===============================================================================
 
-"${MY_DIR_FULLPATH}"/../../../run.sh "$@"
+"${MY_DIR_FULLPATH}"/../../run.sh "$@"
 exit $?
 '''
 #spellchecker: enable
@@ -106,7 +106,8 @@ def __main(argv):
 
     parser.parse_known_args(argv)
 
-    time.sleep(600)
+    print("running")
+    time.sleep(60)
 
     # exit with useful code
     sys.exit(0)
