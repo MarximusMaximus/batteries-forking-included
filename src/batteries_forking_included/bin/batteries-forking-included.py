@@ -19,10 +19,6 @@ rreadlink() {
         # Try to make the execution environment as predictable as possible:
         # All commands below are invoked via 'command', so we must make sure
         # that 'command' itself is not redefined as an alias or shell function.
-        # \(NOTE: that command is too inconsistent across shells, so we don't
-        # use it.\)
-        # 'command' is a *builtin* in bash, dash, ksh, zsh, and some platforms
-        # do not even have an external utility version of it \(e.g, Ubuntu\).
         # 'command' bypasses aliases and shell functions and also finds builtins
         # in bash, dash, and ksh. In zsh, option POSIX_BUILTINS must be turned
         # on for that to happen.
@@ -126,7 +122,7 @@ if (
 #endregion Bootstrap Preamble
 ################################################################################
 __doc__ = """\
-
+batteries-forking-included python wrapper
 """
 
 import argparse

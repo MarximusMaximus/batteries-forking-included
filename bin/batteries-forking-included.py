@@ -1,1 +1,1 @@
-../src/bin/batteries-forking-included.py
+../src/batteries_forking_included/bin/batteries-forking-included.py

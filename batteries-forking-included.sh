@@ -2436,11 +2436,12 @@ ensure_batteries_forking_included() {
 
         check_tools__require_downloadable_X
 
+        log_superdebug "BATTERIES_FORKING_INCLUDED_FULLPATH=${BATTERIES_FORKING_INCLUDED_FULLPATH}"
+
         if \
             [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}" ] ||
             [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}/.git" ] ||
-            [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src" ] ||
-            [ ! -f "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/batteries-forking-included.py" ]
+            [ ! -f "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template/bfi-update.sh" ]
         then
             # batteries-forking-included missing, let's download it
             ensure_cd "${BATTERIES_FORKING_INCLUDED_FULLPATH}/.."
