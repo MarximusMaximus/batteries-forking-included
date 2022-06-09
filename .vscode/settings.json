@@ -291,4 +291,5 @@
     "**/node_modules",
     "**/src/template/post-bootstrap.sh"
 ],
+"python.defaultInterpreterPath": "/opt/conda/miniforge/envs/batteries-forking-included/bin/python",
 }

@@ -1126,10 +1126,6 @@ if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
     export MY_BASENAME
     MY_DIR_FULLPATH="$(dirname -- "${MY_FULLPATH}")"
     export MY_DIR_FULLPATH
-    MY_DIR_BASENAME="$(basename -- "${MY_DIR_FULLPATH}")"
-    export MY_DIR_BASENAME
-    BATTERIES_FORKING_INCLUDED_FULLPATH="${MY_DIR_FULLPATH}/../batteries-forking-included"
-    export BATTERIES_FORKING_INCLUDED_FULLPATH
 
     #endregion Self Referentials
     #===========================================================================
@@ -1257,11 +1253,6 @@ if [ "${my_tempdir:-}" = "" ]; then
     my_tempdir=""; export my_tempdir
 fi
 
-project_dir=""; export project_dir
-project_base_name=""; export project_base_name
-dev_mode=false; export dev_mode
-deploy_mode=false; export deploy_mode
-
 git_exists=false; export git_exists
 curl_exists=false; export curl_exists
 wget_exists=false; export wget_exists
@@ -1269,6 +1260,15 @@ tar_exists=false; export tar_exists
 unzip_exists=false; export unzip_exists
 diff_exists=false; export diff_exists
 md5_exists=false; export md5_exists
+
+# used by update and bootstrap
+project_dir=""; export project_dir
+
+# used ony by bootstrap
+project_base_name=""; export project_base_name
+dev_mode=false; export dev_mode
+deploy_mode=false; export deploy_mode
+
 
 #endregion Public Globals
 #===============================================================================
@@ -1544,14 +1544,14 @@ parse_args__bootstrap() {
                     exit "${RET_ERROR_INVALID_ARGUMENT}"
                 fi
                 ;;
-            --project-dir=?*)
+            -p=?*|--project-dir=?*)
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir=* arg"
                 project_dir="$1"
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
                 project_dir="$(command echo "${project_dir}" | cut -c 15-)"
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
                 ;;
-            --project-dir=)
+            -p=|--project-dir=)
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir= arg"
                 print_usage
                 log_error "\"--project-dir\" requires a non-empty option argument."
@@ -1570,14 +1570,14 @@ parse_args__bootstrap() {
                     exit "${RET_ERROR_INVALID_ARGUMENT}"
                 fi
                 ;;
-            --project-base-name=?*)
+            -P=?*|--project-base-name=?*)
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name=* arg"
                 project_base_name_temp="$1"
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
                 project_base_name_temp="$(command echo "${project_base_name_temp}" | cut -c 21-)"
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
                 ;;
-            --project-base-name=)
+            -P=|--project-base-name=)
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name= arg"
                 print_usage
                 log_error "\"--project-base-name\" requires a non-empty option argument."
@@ -1686,6 +1686,8 @@ parse_args__bootstrap() {
 
     parse_args__common_set_and_export
 
+    project_dir="$(rreadlink "${project_dir}")"
+
     export project_dir
     if [ "${project_base_name_temp}" = "" ]; then
         project_base_name="$(basename -- "${project_dir}")"
@@ -1695,6 +1697,9 @@ parse_args__bootstrap() {
     export project_base_name
     export dev_mode
     export deploy_mode
+
+    BATTERIES_FORKING_INCLUDED_FULLPATH="${project_dir}/../batteries-forking-included"
+    export BATTERIES_FORKING_INCLUDED_FULLPATH
 
     log_debug "project_dir=%s" "${project_dir}"
     log_debug "project_base_name=%s" "${project_base_name}"
@@ -1713,6 +1718,9 @@ parse_args__bootstrap() {
 parse_args__update() {
     log_ultradebug "$(get_my_real_basename)::parse_args__update called with '%s'" "$*"
 
+    # temporarily just assign these to best guesses
+    project_dir="$(pwd)"
+
     temp_verbosity="${verbosity}"
     alt_color=false
 
@@ -1730,6 +1738,32 @@ parse_args__update() {
                 log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found -- arg"
                 shift
                 break
+                ;;
+
+            -p|--project-dir)
+                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir arg"
+                if [ -n "$2" ]; then
+                    project_dir="$2"
+                    log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+                    shift
+                else
+                    print_usage
+                    log_error "\"--project-dir\" requires a non-empty option argument."
+                    exit "${RET_ERROR_INVALID_ARGUMENT}"
+                fi
+                ;;
+            -p=?*|--project-dir=?*)
+                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir=* arg"
+                project_dir="$1"
+                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+                project_dir="$(command echo "${project_dir}" | cut -c 15-)"
+                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+                ;;
+            -p=|--project-dir=)
+                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir= arg"
+                print_usage
+                log_error "\"--project-dir\" requires a non-empty option argument."
+                exit "${RET_ERROR_INVALID_ARGUMENT}"
                 ;;
 
             --?*)
@@ -1813,6 +1847,15 @@ parse_args__update() {
     # fi
 
     parse_args__common_set_and_export
+
+    project_dir="$(rreadlink "${project_dir}")"
+
+    export project_dir
+
+    BATTERIES_FORKING_INCLUDED_FULLPATH="${project_dir}/../batteries-forking-included"
+    export BATTERIES_FORKING_INCLUDED_FULLPATH
+
+    log_debug "project_dir=%s" "${project_dir}"
 
     if [ "${should_print_usage}" = true ]; then
         print_usage__update
@@ -2609,20 +2652,20 @@ check_and_update_file() {
         filename="$1"
         make_backup="$2"
 
-        if [ ! -f "${filename}" ]; then
+        if [ ! -f "${my_tempdir}/template/${filename}" ]; then
             log_warning "Expected a file, but found a directory: %s" "${my_tempdir}/template/${filename}"
             exit "${RET_WARNING_NOT_A_FILE}"
         fi
 
         needs_copy=false
 
-        if [ ! -f "${MY_DIR_FULLPATH}/${filename}" ]; then
+        if [ ! -f "${project_dir}/${filename}" ]; then
             needs_copy=true
             log_info "${filename} missing from project. Will be copied."
         fi
 
         if [ "${needs_copy}" = false ]; then
-            is_file_same "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+            is_file_same "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
             ret=$?
             if [ $ret -gt 2 ]; then
                 exit "${RET_ERROR_FILE_COULD_NOT_BE_ACCESSED}"
@@ -2638,10 +2681,10 @@ check_and_update_file() {
             log_info "Copying latest ${filename}..."
 
             if [ "${make_backup}" = true ]; then
-                if [ -f "${MY_DIR_FULLPATH}/${filename}" ]; then
-                    backup_filepath="${MY_DIR_FULLPATH}/${filename}.$(get_datetime_stamp_filename_formatted).old"
+                if [ -f "${project_dir}/${filename}" ]; then
+                    backup_filepath="${project_dir}/${filename}.$(get_datetime_stamp_filename_formatted).old"
                     log_info "Creating backup at ${backup_filepath}"
-                    copy_file "${MY_DIR_FULLPATH}/${filename}" "${backup_filepath}"
+                    copy_file "${project_dir}/${filename}" "${backup_filepath}"
                     ret=$?
                     if [ "$(return_code_is_error $ret)" = true ]; then
                         exit $ret
@@ -2649,15 +2692,15 @@ check_and_update_file() {
                 fi
             fi
 
-            safe_rm "${MY_DIR_FULLPATH}/${filename}"
+            safe_rm "${project_dir}/${filename}"
             ret=$?
             if [ "$(return_code_is_error $ret)" = true ]; then
                 exit $ret
             fi
 
-            move_file "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+            move_file "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
             if [ "$(return_code_is_error $ret)" = true ]; then
-                log_fatal "failed to move '%s' to '%s'" "${my_tempdir}/template/${filename}" "${MY_DIR_FULLPATH}/${filename}"
+                log_fatal "failed to move '%s' to '%s'" "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
                 exit "${RET_ERROR_MOVE_FAILED}"
             fi
 
@@ -2667,6 +2710,8 @@ check_and_update_file() {
 
             exit "${RET_SUCCESS_SPECIAL}"
         else
+            safe_rm "${my_tempdir}/template/${filename}"
+
             exit "${RET_SUCCESS}"
         fi
     )
@@ -2728,8 +2773,8 @@ compare_and_update_files() {
             exit "${RET_ERROR_FILE_COULD_NOT_BE_ACCESSED}"
         fi
         # split middle part of project post-bootstrap.sh (USER PART)
-        middle_file="${MY_DIR_FULLPATH}"/post-bootstrap.sh
-        if [ ! -f "${MY_DIR_FULLPATH}"/post-bootstrap.sh ]; then
+        middle_file="${project_dir}"/post-bootstrap.sh
+        if [ ! -f "${project_dir}"/post-bootstrap.sh ]; then
             middle_file="${my_tempdir}"/template/post-bootstrap.sh
         fi
         awk -v do_print=0 '{if (match($0,"    \# WARNING: DO NOT EDIT BELOW THIS LINE")) do_print=0; if (do_print==1) print; if (match($0,"    # WARNING: DO NOT EDIT ABOVE THIS LINE")) do_print=1}' "${middle_file}" >"${my_tempdir}"/template/post-bootstrap.sh-part2
