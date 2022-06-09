@@ -27,7 +27,9 @@ Global Flags:
     +r, --no-report     do NOT display report at end of run
 
 Global Options:
-    NONE
+    -p[=]PROJECT_DIR, --project-dir[=]PROJECT_DIR
+                        override to use specified project dir
+                        default: current working directory of invocation
 
 Positional Arguments:
     NONE
@@ -92,6 +94,9 @@ Global Options:
                         default: basename of PROJECT_DIR
 
 Positional Arguments:
+    NONE
+
+Subcommands:
     NONE
 EOF
 )
