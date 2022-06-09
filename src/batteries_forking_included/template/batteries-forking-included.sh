@@ -426,7 +426,7 @@ ensure_include_GXY() {
 #===============================================================================
 
 #===============================================================================
-#region Arrays
+#region Array Implementation
 
 # # initialize an array:
 # NOTE: no $ sign on my_array_name
@@ -1082,6 +1082,15 @@ get_my_real_dir_fullpath() {
     return $ret
 }
 
+#-------------------------------------------------------------------------------
+unident_text() {
+    (
+        text="$1"
+        leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
+        echo "${text}" | sed -e "s/\(${leading}\)\(.*\)/\2/"
+    )
+}
+
 #endregion Helper Functions
 #===============================================================================
 
@@ -1131,6 +1140,10 @@ if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
     export MY_BASENAME
     MY_DIR_FULLPATH="$(dirname -- "${MY_FULLPATH}")"
     export MY_DIR_FULLPATH
+    MY_DIR_BASENAME="$(basename -- "${MY_DIR_FULLPATH}")"
+    export MY_DIR_BASENAME
+    BATTERIES_FORKING_INCLUDED_FULLPATH="${MY_DIR_FULLPATH}/../batteries-forking-included"
+    export BATTERIES_FORKING_INCLUDED_FULLPATH
 
     #endregion Self Referentials
     #===========================================================================
@@ -1271,7 +1284,8 @@ project_dir=""; export project_dir
 
 # used ony by bootstrap
 project_base_name=""; export project_base_name
-dev_mode=false; export dev_mode
+dev_mode="${BFI_DEV_MODE:-false}"; export dev_mode
+dev_mode_unsticky=false
 deploy_mode=false; export deploy_mode
 
 
@@ -1522,10 +1536,12 @@ parse_args__bootstrap() {
             -d|--dev|--developer)
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found dev arg"
                 dev_mode=true
+                dev_mode_unsticky=true
                 ;;
             +d|--no-dev|--no-developer)
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found no-dev arg"
                 dev_mode=false
+                dev_mode_unsticky=true
                 ;;
 
             -D|--deploy|--deployment)
@@ -1615,6 +1631,7 @@ parse_args__bootstrap() {
                         d)
                             log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-);\t found dev flag"
                             dev_mode=true;
+                            dev_mode_unsticky=true
                             ;;
 
                         D)
@@ -1648,6 +1665,7 @@ parse_args__bootstrap() {
                         d)
                             log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(+);\t found no-dev flag"
                             dev_mode=false;
+                            dev_mode_unsticky=true
                             ;;
 
                         D)
@@ -1701,6 +1719,7 @@ parse_args__bootstrap() {
     fi
     export project_base_name
     export dev_mode
+    export dev_mode_unsticky
     export deploy_mode
 
     BATTERIES_FORKING_INCLUDED_FULLPATH="${project_dir}/../batteries-forking-included"
@@ -1709,6 +1728,7 @@ parse_args__bootstrap() {
     log_debug "project_dir=%s" "${project_dir}"
     log_debug "project_base_name=%s" "${project_base_name}"
     log_debug "dev_mode=%s" "${dev_mode}"
+    log_debug "dev_mode_unsticky=%s" "${dev_mode_unsticky}"
     log_debug "deploy_mode=%s" "${deploy_mode}"
 
     if [ "${should_print_usage}" = true ]; then
@@ -2260,6 +2280,47 @@ conda_setup_env()
 }
 
 #-------------------------------------------------------------------------------
+conda_env_read_sticky_config() {
+    log_header "Loading sticky configuration options..."
+
+    log_superdebug "dev_mode_unsticky=${dev_mode_unsticky}"
+    if [ "${dev_mode_unsticky}" != true ]; then
+        log_superdebug "doing dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\""
+        dev_mode="${BFI_DEV_MODE:-${dev_mode}}"
+    else
+        log_superdebug "SKIPPING dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\""
+    fi
+    export dev_mode
+    log_debug "dev_mode=%s" "${dev_mode}"
+
+    log_footer "Sticky configuration options loaded."
+}
+
+#-------------------------------------------------------------------------------
+conda_env_write_sticky_config() {
+    log_header "Writing sticky configuration options..."
+
+    ensure_dir "${CONDA_PREFIX}"/etc/conda/activate.d
+    ensure_dir "${CONDA_PREFIX}"/etc/conda/deactivate.d
+    touch "${CONDA_PREFIX}"/etc/conda/activate.d/env_vars.sh
+    touch "${CONDA_PREFIX}"/etc/conda/deactivate.d/env_vars.sh
+
+    activate_env_vars_text="\
+        BFI_DEV_MODE=\"${dev_mode}\"
+    "
+    activate_env_vars_text="$(unident_text "${activate_env_vars_text}")"
+    echo "${activate_env_vars_text}" >"${CONDA_PREFIX}"/etc/conda/activate.d/env_vars.sh
+
+    deactivate_env_vars_text="\
+        unset BFI_DEV_MODE
+    "
+    deactivate_env_vars_text="$(unident_text "${deactivate_env_vars_text}")"
+    echo "${deactivate_env_vars_text}" >"${CONDA_PREFIX}"/etc/conda/deactivate.d/env_vars.sh
+
+    log_footer "Sticky configuration options written."
+}
+
+#-------------------------------------------------------------------------------
 poetry_install() {
     (
         log_header "Checking for Poetry Settings..."
@@ -2289,7 +2350,7 @@ poetry_install() {
             fi
 
             poetry_no_dev=""
-            if [ "${dev_mode}" = false ]; then
+            if [ "${dev_mode}" = false ] && [ "${BFI_DEV_MODE:-false}" = false ]; then
                 poetry_no_dev=" --no-dev"
             fi
 
@@ -2339,10 +2400,10 @@ pip_uninstall() {
 
                 log_footer "'pip uninstall' Completed."
             else
-                log_footer "pip-uninstall.txt Empty. Skipping."
+                log_footer "pip-uninstall.txt Empty. Skipping pip uninstall."
             fi
         else
-            log_footer "pip-uninstall.txt Not Found. Skipping."
+            log_footer "pip-uninstall.txt Not Found. Skipping pip uninstall."
         fi
 
         exit "${RET_SUCCESS}"
@@ -2356,7 +2417,7 @@ pip_install() {
     (
         pip_requirements_found=false
 
-        if [ "${dev_mode}" = "true" ]; then
+        if [ "${dev_mode}" = true ] || [ "${BFI_DEV_MODE:-false}" = true ]; then
             log_header "Running in dev mode, checking for pip-requirements-dev.txt..."
             if [ -f ./pip-requirements-dev.txt ]; then
                 log_footer "pip-requirements-dev.txt Found."
@@ -2379,7 +2440,10 @@ pip_install() {
             ret="${RET_ERROR_UNKNOWN}"
 
             if \
-                [ "${dev_mode}" = "true" ] &&
+                {
+                    [ "${dev_mode}" = true ] ||
+                    [ "${BFI_DEV_MODE:-false}" = true ]
+                } &&
                 [ -f ./pip-requirements-dev.txt ]
             then
                 log_header "Running 'pip install' using 'pip-requirements-dev.txt'..."
@@ -2441,7 +2505,7 @@ ensure_batteries_forking_included() {
         if \
             [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}" ] ||
             [ ! -d "${BATTERIES_FORKING_INCLUDED_FULLPATH}/.git" ] ||
-            [ ! -f "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template/bfi-update.sh" ]
+            [ ! -f "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/batteries_forking_included/template/bfi-update.sh" ]
         then
             # batteries-forking-included missing, let's download it
             ensure_cd "${BATTERIES_FORKING_INCLUDED_FULLPATH}/.."
@@ -2587,10 +2651,10 @@ copy_temporary_template_files() {
 
         log_debug "Copying files"
 
-        copy_dir "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template/" "${my_tempdir}/template/"
+        copy_dir "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
         ret=$?
         if [ "$(return_code_is_error $ret)" = true ]; then
-            log_fatal "failed to copy files from '%s' to '%s'" "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/template/" "${my_tempdir}/template/"
+            log_fatal "failed to copy files from '%s' to '%s'" "${BATTERIES_FORKING_INCLUDED_FULLPATH}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
             exit "${RET_ERROR_COPY_FAILED}"
         fi
 
@@ -2922,6 +2986,30 @@ batteries_forking_included__bootstrap() {
         # poetry show | awk '{if ($1 !~ /six|packaging|pyparsing/ ) {print "pypi::" $1}}' >"$CONDA_PREFIX"/conda-meta/pinned
 
         conda_setup_env
+        ret=$?
+        if [ "$(return_code_is_error $ret)" = true ]; then
+            exit $ret
+        fi
+
+        conda_activate_env_G "${project_base_name}"
+        ret=$?
+        if [ "$(return_code_is_error $ret)" = true ]; then
+            exit $ret
+        fi
+
+        conda_env_read_sticky_config
+        ret=$?
+        if [ "$(return_code_is_error $ret)" = true ]; then
+            exit $ret
+        fi
+
+        conda_env_write_sticky_config
+        ret=$?
+        if [ "$(return_code_is_error $ret)" = true ]; then
+            exit $ret
+        fi
+
+        conda_full_deactivate_G
         ret=$?
         if [ "$(return_code_is_error $ret)" = true ]; then
             exit $ret

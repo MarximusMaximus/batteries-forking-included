@@ -289,7 +289,7 @@
 },
 "todo-tree.filtering.excludeGlobs": [
     "**/node_modules",
-    "**/src/template/post-bootstrap.sh"
+    "**/src/batteries_forking_included/template/post-bootstrap.sh"
 ],
 "python.defaultInterpreterPath": "/opt/conda/miniforge/envs/batteries-forking-included/bin/python",
 }

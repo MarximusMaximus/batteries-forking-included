@@ -357,7 +357,7 @@ ensure_include_GXY() {
 #===============================================================================
 
 #===============================================================================
-#region Arrays
+#region Array Implementation
 
 # # initialize an array:
 # NOTE: no $ sign on my_array_name
@@ -1011,6 +1011,15 @@ get_my_real_dir_fullpath() {
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
     return $ret
+}
+
+#-------------------------------------------------------------------------------
+unident_text() {
+    (
+        text="$1"
+        leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
+        echo "${text}" | sed -e "s/\(${leading}\)\(.*\)/\2/"
+    )
 }
 
 #endregion Helper Functions

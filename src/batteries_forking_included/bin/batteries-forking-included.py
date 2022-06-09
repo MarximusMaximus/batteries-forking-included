@@ -139,7 +139,7 @@ def subcommand_init(
     **kwargs: dict[str, Any],
 ) -> int:
     """
-    Call BFI/src/template/bfi-update.sh with current dir as project dir to copy
+    Call BFI/src/batteries_forking_included/template/bfi-update.sh with current dir as project dir to copy
         ALL missing files (and update others) to current dir.
 
     Args:
@@ -154,10 +154,11 @@ def subcommand_init(
 
     cwd = os.path.abspath(os.path.curdir)
     cmd = [
-        f"{MY_REPO_FULLPATH}/src/template/bfi-update.sh",
+        f"{MY_REPO_FULLPATH}/src/batteries_forking_included/template/bfi-update.sh",
         f"--project-dir={cwd}",
     ]
     cmd = cmd + extras
+    print("Executing: " + " ".join(cmd))
     ret = subprocess.call(cmd)
     return ret
 
@@ -182,9 +183,10 @@ def subcommand_update(
     kwargs = kwargs  # noqa: F841
 
     cmd = [
-        f"{MY_REPO_FULLPATH}/src/template/bfi-update.sh",
+        f"{MY_REPO_FULLPATH}/src/batteries_forking_included/template/bfi-update.sh",
     ]
     cmd = cmd + extras
+    print("Executing: " + " ".join(cmd))
     ret = subprocess.call(cmd)
     return ret
 
@@ -210,9 +212,10 @@ def subcommand_run(
     kwargs = kwargs  # noqa: F841
 
     cmd = [
-        f"{MY_REPO_FULLPATH}/src/template/bfi-run.sh",
+        f"{MY_REPO_FULLPATH}/src/batteries_forking_included/template/bfi-run.sh",
     ]
     cmd = cmd + extras
+    print("Executing: " + " ".join(cmd))
     ret = subprocess.call(extras)
     return ret
 
@@ -237,9 +240,10 @@ def subcommand_bootstrap(
     kwargs = kwargs  # noqa: F841
 
     cmd = [
-        f"{MY_REPO_FULLPATH}/src/template/bootstrap.sh",
+        f"{MY_REPO_FULLPATH}/src/batteries_forking_included/template/bootstrap.sh",
     ]
     cmd = cmd + extras
+    print("Executing: " + " ".join(cmd))
     ret = subprocess.call(cmd)
     return ret
 
