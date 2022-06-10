@@ -85,11 +85,12 @@ jobs:
 
       - name: batteries-forking-included
         run: |
-          ./bootstrap.sh
+          sh ./bootstrap.sh
 
       - name: Test - ${{ matrix.tox-env }}
         run: |
-          ./run.sh tox -e ${{ matrix.tox-env }} -- -p no:sugar
+          . ./activate.sh
+          tox -e ${{ matrix.tox-env }} -- -p no:sugar
 
       - name: Upload Test Report Artifacts
         if: matrix.tox-env != 'lint'
@@ -125,11 +126,12 @@ jobs:
 
       - name: batteries-forking-included
         run: |
-          ./bootstrap.sh
+          sh ./bootstrap.sh
 
       - name: Build package
         run: |
-          ./run.sh poetry build
+          . ./activate.sh
+          poetry build
 
       - name: Upload Build Products
         uses: actions/upload-artifact@v3
@@ -155,7 +157,7 @@ jobs:
 
       - name: batteries-forking-included
         run: |
-          ./bootstrap.sh
+          sh ./bootstrap.sh
 
       - name: Process Version Number
         id: process-version
@@ -228,7 +230,7 @@ jobs:
 
       - name: batteries-forking-included
         run: |
-          ./bootstrap.sh
+          sh ./bootstrap.sh
 
       - uses: actions/download-artifact@v3
         name: Download Build Products
