@@ -78,6 +78,8 @@ jobs:
           echo matrix:
           echo os: ${{ matrix.os }}
           echo tox-env: ${{ matrix.tox-env }}
+          echo Env:
+          env | sort
 
       - name: Override Python Version For Work Env
         run: |
