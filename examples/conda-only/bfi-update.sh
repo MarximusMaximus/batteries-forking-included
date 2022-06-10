@@ -1,1 +1,1 @@
-../../src/template/bfi-update.sh
+../../src/batteries_forking_included/template/bfi-update.sh

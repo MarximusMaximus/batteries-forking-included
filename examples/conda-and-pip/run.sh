@@ -1,1 +1,1 @@
-../../src/template/run.sh
+../../src/batteries_forking_included/template/run.sh

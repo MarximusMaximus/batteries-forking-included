@@ -1,1 +1,1 @@
-../../src/template/activate.sh
+../../src/batteries_forking_included/template/activate.sh

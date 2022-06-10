@@ -106,7 +106,7 @@ repos:
     rev: "v1.2.4"
     hooks:
     - id: python-safety-dependencies-check
-      files: pyproject.toml
+      files: ^pyproject\.toml
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: "v1.9.0"
@@ -137,19 +137,6 @@ repos:
     rev: "v0.8.0.4"
     hooks:
       - id: shellcheck
-  # alternative? additional?
-  - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: "2.1.6"
-    hooks:
-      - id: script-must-have-extension
-      - id: script-must-not-have-extension
-      - id: shellcheck
-      - id: shfmt
-  # alternative? additional?
-  - repo: https://github.com/detailyang/pre-commit-shell
-    rev: "v1.0.6"
-    hooks:
-      - id: shell-lint
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: "v0.31.1"
@@ -237,7 +224,7 @@ repos:
       - id: check-dash-syntax
         name: Check Shell scripts syntax correctness
         language: system
-        entry: bash -n --posix
+        entry: bash --posix -n
         files: ^.*\.sh$
 
   - repo: local

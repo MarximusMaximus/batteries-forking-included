@@ -1,1 +1,1 @@
-../../src/template/post-bootstrap.sh
+../../src/batteries_forking_included/template/post-bootstrap.sh

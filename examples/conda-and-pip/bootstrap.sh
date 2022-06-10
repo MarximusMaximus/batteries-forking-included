@@ -1,1 +1,1 @@
-../../src/template/bootstrap.sh
+../../src/batteries_forking_included/template/bootstrap.sh

@@ -139,8 +139,9 @@ def subcommand_init(
     **kwargs: dict[str, Any],
 ) -> int:
     """
-    Call BFI/src/batteries_forking_included/template/bfi-update.sh with current dir as project dir to copy
-        ALL missing files (and update others) to current dir.
+    Call BFI/src/batteries_forking_included/template/bfi-update.sh with current
+        dir as project dir to copy ALL missing files (and update others) to
+        current dir.
 
     Args:
         extras (list[str]): command line args to bfi-update.sh

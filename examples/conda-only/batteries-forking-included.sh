@@ -1,0 +1,1 @@
+../../src/batteries_forking_included/template/batteries-forking-included.sh
