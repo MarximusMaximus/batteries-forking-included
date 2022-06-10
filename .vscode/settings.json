@@ -272,8 +272,8 @@
   "python.linting.mypyPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/mypy",
   "python.linting.pycodestyleCategorySeverity.W": "Error",
   "python.poetryPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/poetry",
-  "autoDocstring.includeExtendedSummary": true,
-  "autoDocstring.includeName": true,
+  "autoDocstring.includeExtendedSummary": false,
+  "autoDocstring.includeName": false,
   "autoDocstring.startOnNewLine": true,
   "shellcheck.useWorkspaceRootAsCwd": true,
   "python.linting.mypyArgs": [
@@ -292,4 +292,14 @@
     "**/src/batteries_forking_included/template/post-bootstrap.sh"
 ],
 "python.defaultInterpreterPath": "/opt/conda/miniforge/envs/batteries-forking-included/bin/python",
+"search.exclude": {
+    "**/__pycache__": true,
+    "**/.git": true,
+    "**/.mypy_cache": true,
+    "**/.tox": true,
+    "**/coverage": true,
+    "**/coverage.xml": true,
+    "**/htmlcov": true,
+    "**/poetry.lock": true
+},
 }
