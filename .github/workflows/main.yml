@@ -44,16 +44,10 @@ jobs:
             os: ubuntu-latest-x64
             python-version: "3.10"
             os-image: ubuntu-latest
-            conda-forge-os: Linux
-            conda-forge-arch: X86_64
-            conda-forge-ext: sh
           - tox-env: coverage
             os: ubuntu-latest-x64
             python-version: "3.10"
             os-image: ubuntu-latest
-            conda-forge-os: Linux
-            conda-forge-arch: X86_64
-            conda-forge-ext: sh
 
           # set vars for tox-env
           - tox-env: py38
@@ -66,19 +60,10 @@ jobs:
           # set vars for os & conda-forge
           - os: ubuntu-latest-x64
             os-image: ubuntu-latest
-            conda-forge-os: Linux
-            conda-forge-arch: X86_64
-            conda-forge-ext: sh
           - os: windows-latest-x64
             os-image: windows-latest
-            conda-forge-os: Windows
-            conda-forge-arch: X86_64
-            conda-forge-ext: exe
           - os: macos-latest-x64
             os-image: macos-latest
-            conda-forge-os: MacOSX
-            conda-forge-arch: X86_64
-            conda-forge-ext: sh
 
     runs-on: ${{ matrix.os-image }}
 
@@ -92,51 +77,19 @@ jobs:
           echo ARCH: ${{ runner.arch }}
           echo matrix:
           echo os: ${{ matrix.os }}
-          echo conda-forge-os: ${{ matrix.conda-forge-os }}
-          echo conda-forge-ext: ${{ matrix.conda-forge-ext }}
-          echo conda-forge-arch: ${{ matrix.conda-forge-arch }}
           echo tox-env: ${{ matrix.tox-env }}
 
       - name: Override Python Version For Work Env
         run: |
           sed -i.old 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
 
-      - name: Setup miniforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
-        with:
-          installer-url: https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-${{ matrix.conda-forge-os }}-${{ matrix.conda-forge-arch }}.${{ matrix.conda-forge-ext }}
-          allow-softlinks: true
-          show-channel-urls: true
-          auto-activate-base: false
-
-      - name: Conda Base Info
+      - name: batteries-forking-included
         run: |
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-
-      - name: Conda Env Setup
-        run: |
-          conda env create --name work --file ./conda-environment.yml -v
-
-      - name: Conda Work Env Info
-        run: |
-          conda activate work
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-
-      - name: Poetry Dependencies
-        run: |
-          conda activate work
-          poetry install
+          ./bootstrap.sh
 
       - name: Test - ${{ matrix.tox-env }}
         run: |
-          conda activate work
-          tox -e ${{ matrix.tox-env }} -- -p no:sugar
+          ./run.sh tox -e ${{ matrix.tox-env }} -- -p no:sugar
 
       - name: Upload Test Report Artifacts
         if: matrix.tox-env != 'lint'
@@ -170,42 +123,13 @@ jobs:
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
-      - name: Setup miniforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
-        with:
-          installer-url: https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-X86_64.sh
-          allow-softlinks: true
-          show-channel-urls: true
-          auto-activate-base: false
-
-      - name: Conda Base Info
+      - name: batteries-forking-included
         run: |
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-
-      - name: Conda Env Setup
-        run: |
-          conda env create --name work --file ./conda-environment.yml -v
-
-      - name: Conda Work Env Info
-        run: |
-          conda activate work
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-
-      - name: Poetry Dependencies
-        run: |
-          conda activate work
-          poetry install
+          ./bootstrap.sh
 
       - name: Build package
         run: |
-          conda activate work
-          poetry build
+          ./run.sh poetry build
 
       - name: Upload Build Products
         uses: actions/upload-artifact@v3
@@ -229,49 +153,21 @@ jobs:
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
-      - name: Setup miniforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
-        with:
-          installer-url: https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-X86_64.sh
-          allow-softlinks: true
-          show-channel-urls: true
-          auto-activate-base: false
-
-      - name: Conda Base Info
+      - name: batteries-forking-included
         run: |
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-
-      - name: Conda Env Setup
-        run: |
-          conda env create --name work --file ./conda-environment.yml -v
-
-      - name: Conda Work Env Info
-        run: |
-          conda activate work
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-
-      - name: Poetry Dependencies
-        run: |
-          conda activate work
-          poetry install
+          ./bootstrap.sh
 
       - name: Process Version Number
         id: process-version
         run: |
-          conda activate work
+          . ./activate.sh
           echo ::set-output name=version::$(poetry version --short)
           [[ "$(poetry version --short)" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] \
             || echo ::set-output name=prerelease::true
 
       - name: Check Tag Doesn't Exist
         run: |
-          conda activate work
+          . ./activate.sh
           echo "${{ steps.process-version.outputs.version }}"
           echo ""
           git tag
@@ -286,7 +182,7 @@ jobs:
 
       - name: Check Branch Name
         run: |
-          conda activate work
+          . ./activate.sh
           if [[ \
             "$(echo ${{ github.ref_name  }} | sed 's/release\///g;s/\//./g')" != \
             "${{ steps.process-version.outputs.version }}" \
@@ -330,37 +226,9 @@ jobs:
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
-      - name: Setup miniforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
-        with:
-          installer-url: https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-X86_64.sh
-          allow-softlinks: true
-          show-channel-urls: true
-          auto-activate-base: false
-
-      - name: Conda Base Info
+      - name: batteries-forking-included
         run: |
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-
-      - name: Conda Env Setup
-        run: |
-          conda env create --name work --file ./conda-environment.yml -v
-
-      - name: Conda Work Env Info
-        run: |
-          conda activate work
-          conda info
-          conda list
-          conda config --show-sources
-          conda config --show
-
-      - name: Poetry Dependencies
-        run: |
-          conda activate work
-          poetry install
+          ./bootstrap.sh
 
       - uses: actions/download-artifact@v3
         name: Download Build Products
