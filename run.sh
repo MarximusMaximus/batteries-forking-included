@@ -1179,6 +1179,13 @@ fi
             if [ "$(file "${TEMP_RUN_EXEC}" | grep 'script' )" != "" ]; then
                 # arg 1 is a script
                 RUN_ARGS="$1"   # use original $1 so that we get the name the user passed in
+                if [ ! -e "${RUN_ARGS}" ]; then
+                    TEMP_RUN_ARGS="$(which "${RUN_ARGS}")"
+                    ret=$?
+                    if [ $ret -eq 0 ]; then
+                        RUN_ARGS="${TEMP_RUN_ARGS}"
+                    fi
+                fi
                 shebang=$(head -n 1 "${TEMP_RUN_EXEC}")
                 if [ "$(echo "${TEMP_RUN_EXEC}" | grep ".py" )" != "" ]; then
                     # NOTE: we are doing this so that .py scripts that use an
