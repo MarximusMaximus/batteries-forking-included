@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-
+set -x
 # NOTE: see usage from batteries-forking-included.sh for command line arguments
 
 ################################################################################
