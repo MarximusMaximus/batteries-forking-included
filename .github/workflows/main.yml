@@ -84,7 +84,7 @@ jobs:
           sed -i.old 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
 
       - name: batteries-forking-included
-        shell: sh {0}
+        shell: sh -x {0}
         run: |
           ./bootstrap.sh
 
