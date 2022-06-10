@@ -14,8 +14,12 @@ on:
   pull_request:
     # any pull request
 
+defaults:
+  run:
+    shell: bash {0}
+
 env:
-  OMEGA_DEBUG: True
+  OMEGA_DEBUG: all
 
 jobs:
   test:
