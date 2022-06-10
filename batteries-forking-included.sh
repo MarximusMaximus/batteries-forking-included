@@ -1999,7 +1999,7 @@ download_url_to_path() {
 
         if [ "${curl_exists}" = true ]; then
             log_info "Using curl to download '${URL}' to '${output}'"
-            teetty_G curl -# -L "${URL}" --fail --output "${output}"
+            teetty_G "${FULL_LOG}" "${FULL_LOG}" curl -# -L "${URL}" --fail --output "${output}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "failed to download ${URL} (curl)"
@@ -2007,7 +2007,7 @@ download_url_to_path() {
             fi
         elif [ "${wget_exists}" = true ]; then
             log_info "Using wget to download '${URL}' to '${output}'"
-            teetty_G wget "${URL}" -O "${output}"
+            teetty_G "${FULL_LOG}" "${FULL_LOG}" wget "${URL}" -O "${output}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "failed to download ${URL} (wget)"
