@@ -776,7 +776,7 @@ create_my_tempdir() {
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        the_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}-$(get_datetime_stamp_filename_formatted)")
+        the_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}-$(get_datetime_stamp_filename_formatted).XXXXXXX")
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to get temporary directory"
