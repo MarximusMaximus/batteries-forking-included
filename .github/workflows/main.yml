@@ -86,7 +86,7 @@ jobs:
       - name: batteries-forking-included
         shell: sh -x {0}
         run: |
-          ./bootstrap.sh
+          sh -x ./bootstrap.sh
 
       - name: Test - ${{ matrix.tox-env }}
         run: |
