@@ -1477,6 +1477,11 @@ get_ansi_code()
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
+        if [ "$TERM" = "" ]; then
+            TERM=xterm-256color
+            export TERM
+        fi
+
         ending="$3"
         if [ "${ending}" = "" ]; then
             ending="${ANSI_CODE_END}"
