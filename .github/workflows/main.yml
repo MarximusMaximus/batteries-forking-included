@@ -84,8 +84,9 @@ jobs:
           sed -i.old 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
 
       - name: batteries-forking-included
+        shell: sh {0}
         run: |
-          sh ./bootstrap.sh
+          ./bootstrap.sh
 
       - name: Test - ${{ matrix.tox-env }}
         run: |
@@ -125,8 +126,9 @@ jobs:
           echo ARCH: ${{ runner.arch }}
 
       - name: batteries-forking-included
+        shell: sh {0}
         run: |
-          sh ./bootstrap.sh
+          ./bootstrap.sh
 
       - name: Build package
         run: |
@@ -156,8 +158,9 @@ jobs:
           echo ARCH: ${{ runner.arch }}
 
       - name: batteries-forking-included
+        shell: sh {0}
         run: |
-          sh ./bootstrap.sh
+          ./bootstrap.sh
 
       - name: Process Version Number
         id: process-version
@@ -229,8 +232,9 @@ jobs:
           echo ARCH: ${{ runner.arch }}
 
       - name: batteries-forking-included
+        shell: sh {0}
         run: |
-          sh ./bootstrap.sh
+          ./bootstrap.sh
 
       - uses: actions/download-artifact@v3
         name: Download Build Products
