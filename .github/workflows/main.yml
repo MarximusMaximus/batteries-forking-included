@@ -14,13 +14,6 @@ on:
   pull_request:
     # any pull request
 
-defaults:
-  run:
-    shell: bash -l {0}  # we want all shell scripts to load .bash_profile
-                        #   because as we setup the environment we add startup
-                        #   commands there, and every 'run' directive runs in
-                        #   its own shell instance
-
 jobs:
   test:
     name: Test - ${{ matrix.os }} - ${{ matrix.tox-env }}

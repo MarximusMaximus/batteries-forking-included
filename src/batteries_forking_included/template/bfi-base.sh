@@ -1477,9 +1477,11 @@ get_ansi_code()
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
+        command echo "$TERM"
         if [ "$TERM" = "" ]; then
-            TERM=xterm-256color
-            export TERM
+            tput() {
+                command tput -T xterm-256color
+            }
         fi
 
         ending="$3"
