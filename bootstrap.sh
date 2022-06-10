@@ -1020,6 +1020,7 @@ else # All other shells: examine $0 for known shell binary filenames
     # Detects 'sh' and 'dash'; add additional shell filenames as needed.
     echo "$0"
     echo "${0##*/}"
+    echo "$*"
     env | sort
     case ${0##*/} in sh|dash) _THIS_FILE_WAS_SOURCED=1;; esac
 fi
