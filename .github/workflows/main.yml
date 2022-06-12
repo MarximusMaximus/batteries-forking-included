@@ -24,6 +24,7 @@ env:
   DO_SET_X_BOOTSTRAP: false
   DO_SET_X_RUN: false
   DO_SET_X_UPDATE: false
+  my_tempdir: $HOME/bfi_tempdir/$GITHUB_ACTION
 
 jobs:
   test:
@@ -72,10 +73,12 @@ jobs:
     runs-on: ${{ matrix.os-image }}
 
     steps:
-      - uses: actions/checkout@v1
-        name: Checkout Repo
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v1
 
       - name: Runner Info
+        id: runner-info
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
@@ -83,23 +86,27 @@ jobs:
           echo os: ${{ matrix.os }}
           echo tox-env: ${{ matrix.tox-env }}
           echo Env:
-          env | sort
+          printenv | sort
 
       - name: Override Python Version For Work Env
+        id: override-python-version
         run: |
           sed -i.old 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
 
       - name: batteries-forking-included
+        id: batteries-forking-included
         shell: sh {0}
         run: |
           ./bootstrap.sh --dev
 
       - name: Test - ${{ matrix.tox-env }}
+        id: test-${{ matrix.tox-env }}
         run: |
           . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p no:sugar
 
       - name: Upload Test Report Artifacts
+        id: upload-test-report-artifacts
         if: matrix.tox-env != 'lint'
         uses: actions/upload-artifact@v3
         with:
@@ -108,6 +115,7 @@ jobs:
             .reports/**
 
       - name: Upload Coverage Artifacts
+        id: upload-coverage-artifacts
         if: matrix.tox-env == 'coverage'
         uses: actions/upload-artifact@v3
         with:
@@ -123,25 +131,31 @@ jobs:
     needs: test
 
     steps:
-      - uses: actions/checkout@v1
-        name: Checkout Repo
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v1
+
 
       - name: Runner Info
+        id: runner-info
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
       - name: batteries-forking-included
+        id: batteries-forking-included
         shell: sh {0}
         run: |
           ./bootstrap.sh
 
-      - name: Build package
+      - name: Build Package
+        id: build-package
         run: |
           . ./activate.sh
           poetry build
 
       - name: Upload Build Products
+        id: upload-build-products
         uses: actions/upload-artifact@v3
         with:
           name: build-products
@@ -155,15 +169,18 @@ jobs:
     needs: [test, build]
 
     steps:
-      - uses: actions/checkout@v1
-        name: Checkout Repo
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v1
 
       - name: Runner Info
+        id: runner-info
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
       - name: batteries-forking-included
+        id: batteries-forking-included
         shell: sh {0}
         run: |
           ./bootstrap.sh
@@ -177,6 +194,7 @@ jobs:
             || echo ::set-output name=prerelease::true
 
       - name: Check Tag Doesn't Exist
+        id: check-tag-does-not-exist
         run: |
           . ./activate.sh
           echo "${{ steps.process-version.outputs.version }}"
@@ -192,6 +210,7 @@ jobs:
           fi
 
       - name: Check Branch Name
+        id: check-branch-name
         run: |
           . ./activate.sh
           if [[ \
@@ -202,13 +221,15 @@ jobs:
             exit 2
           fi
 
-      - uses: actions/download-artifact@v3
-        name: Download Build Products
+      - name: Download Build Products
+        id: download-build-products
+        uses: actions/download-artifact@v3
         with:
           name: build-products
           path: dist
 
       - name: Create Release
+        id: create-release
         uses: ncipollo/release-action@v1
         with:
           commit: ${{ github.sha }}
@@ -229,28 +250,33 @@ jobs:
     needs: [test, build, github-release]
 
     steps:
-      - uses: actions/checkout@v1
-        name: Checkout Repo
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v1
 
       - name: Runner Info
+        id: runner-info
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
       - name: batteries-forking-included
+        id: batteries-forking-included
         shell: sh {0}
         run: |
           ./bootstrap.sh
 
-      - uses: actions/download-artifact@v3
-        name: Download Build Products
+      - name: Download Build Products
+        id: download-build-products
+        uses: actions/download-artifact@v3
         with:
           name: build-products
           path: dist
 
       - name: Publish to PyPI
+        id: publish-to-pypi
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
         run: |
-          conda activate work
+          . ./activate.sh
           poetry publish
