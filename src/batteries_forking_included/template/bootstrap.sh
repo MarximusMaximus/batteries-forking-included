@@ -5,6 +5,8 @@ DOLLAR_UNDER="$_"
 
 # NOTE: see usage from batteries-forking-included.sh for command line arguments
 
+set -x
+
 ################################################################################
 #region Preamble
 
