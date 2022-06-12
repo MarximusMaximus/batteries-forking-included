@@ -3,6 +3,8 @@
 # shellcheck disable=SC3028
 DOLLAR_UNDER="$_"
 
+set -x
+
 # NOTE: see usage from batteries-forking-included.sh for command line arguments
 
 ################################################################################

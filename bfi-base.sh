@@ -1509,22 +1509,20 @@ get_ansi_code()
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        if [ "$TERM" = "" ]; then
-            TERM=xterm-256color
-            export TERM
-        fi
-
         ending="$3"
         if [ "${ending}" = "" ]; then
             ending="${ANSI_CODE_END}"
         fi
-        tput_colors="$(tput colors 2>/dev/null)"
-        if [ "${tput_colors}" = "" ]; then
-            tput_colors=16
+        tput_colors=16
+        if [ "$TERM" != "" ]; then
+            tput_colors="$(tput colors 2>/dev/null)"
+            if [ "${tput_colors}" = "" ]; then
+                tput_colors=16
+            fi
         fi
         # because "colorize_output" may or may not exist
         # shellcheck disable=SC2154
-        if [ "$(command echo "${TERM}" | grep 'mono')" != "" ] ||
+        if [ "$(command echo "$TERM" | grep 'mono')" != "" ] ||
             [ "$(tput colors)" -lt 16 ] ||
             [ "${NO_COLOR}" != "" ] ||
             [ "${colorized_output}" = false ];
