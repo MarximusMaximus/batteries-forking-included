@@ -1397,10 +1397,6 @@ return_code_is_success() {
 #===============================================================================
 #region Constants
 
-if [ "${CONDA_INSTALL_PATH}" = "" ]; then
-    CONDA_INSTALL_PATH="/opt/conda/miniforge"
-fi
-export CONDA_INSTALL_PATH
 DATETIME_STAMP_HUMAN_FORMAT="+%Y-%m-%d %H:%M:%S"; export DATETIME_STAMP_HUMAN_FORMAT
 DATETIME_STAMP_FILENAME_FORMAT="+%Y%m%dT%H%M%S"; export DATETIME_STAMP_FILENAME_FORMAT
 
@@ -1425,6 +1421,8 @@ CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
 LINUX_BASE_FLAVOR="NOT_LINUX"; export LINUX_BASE_FLAVOR
 LINUX_BASE_FLAVOR_VERSION="NOT_LINUX"; export LINUX_BASE_FLAVOR_VERSION
 
+CONDA_INSTALL_PATH="/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+
 if [ "${REAL_PLATFORM}" = "Darwin" ]; then
     date() {
         command date -j "$@"
@@ -1434,6 +1432,12 @@ if [ "${REAL_PLATFORM}" = "Darwin" ]; then
 
     CONDA_FORGE_PLATFORM="MacOSX"; export CONDA_FORGE_PLATFORM
     CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
+
+    if [ "${CI}" = true ]; then
+        if [ "${GITHUB_ACTIONS}" = true ]; then
+            CONDA_INSTALL_PATH="/usr/local/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+        fi
+    fi
 elif [ "${REAL_PLATFORM}" = "Linux" ]; then
     date() {
         command date "$@"
