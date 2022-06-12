@@ -3,6 +3,8 @@
 # shellcheck disable=SC3028
 DOLLAR_UNDER="$_"
 
+set -x
+
 ################################################################################
 #region Preamble
 

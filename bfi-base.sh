@@ -2780,6 +2780,7 @@ export SHELL_SESSION_FILE
 (
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
+
     ############################################################################
     #region Private *
 
@@ -2819,6 +2820,8 @@ export SHELL_SESSION_FILE
     ############################################################################
 )
 ret=$?
+SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+export SHELL_SESSION_FILE
 
 ################################################################################
 #region Postamble
