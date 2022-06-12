@@ -92,7 +92,7 @@ jobs:
 
       - name: Test - ${{ matrix.tox-env }}
         run: |
-          . ./activate.sh
+          set -x . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p no:sugar
 
       - name: Upload Test Report Artifacts
