@@ -100,7 +100,7 @@ jobs:
           ./bootstrap.sh --dev
 
       - name: Test - ${{ matrix.tox-env }}
-        id: test-${{ matrix.tox-env }}
+        id: test-tox
         run: |
           . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p no:sugar
