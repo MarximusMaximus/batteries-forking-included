@@ -1397,7 +1397,10 @@ return_code_is_success() {
 #===============================================================================
 #region Constants
 
-CONDA_INSTALL_PATH="/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+if [ "${CONDA_INSTALL_PATH}" = "" ]; then
+    CONDA_INSTALL_PATH="/opt/conda/miniforge"
+fi
+export CONDA_INSTALL_PATH
 DATETIME_STAMP_HUMAN_FORMAT="+%Y-%m-%d %H:%M:%S"; export DATETIME_STAMP_HUMAN_FORMAT
 DATETIME_STAMP_FILENAME_FORMAT="+%Y%m%dT%H%M%S"; export DATETIME_STAMP_FILENAME_FORMAT
 

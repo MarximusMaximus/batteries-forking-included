@@ -20,6 +20,7 @@ defaults:
 
 env:
   OMEGA_DEBUG: all
+  CONDA_INSTALL_PATH: /usr/local/opt/conda
 
 jobs:
   test:
