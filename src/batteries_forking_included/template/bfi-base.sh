@@ -1422,12 +1422,12 @@ LINUX_BASE_FLAVOR="NOT_LINUX"; export LINUX_BASE_FLAVOR
 LINUX_BASE_FLAVOR_VERSION="NOT_LINUX"; export LINUX_BASE_FLAVOR_VERSION
 
 CONDA_INSTALL_PATH="/opt/conda/miniforge"; export CONDA_INSTALL_PATH
-    if [ "${CI}" = true ]; then
-        if [ "${GITHUB_ACTIONS}" = true ]; then
-            CONDA_INSTALL_PATH="/Users/runner/opt/conda/miniforge"; export CONDA_INSTALL_PATH
-            mkdir -p "${CONDA_INSTALL_PATH}"
-        fi
+if [ "${CI}" = true ]; then
+    if [ "${GITHUB_ACTIONS}" = true ]; then
+        CONDA_INSTALL_PATH="${HOME}/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+        mkdir -p "${CONDA_INSTALL_PATH}"
     fi
+fi
 
 if [ "${REAL_PLATFORM}" = "Darwin" ]; then
     date() {
