@@ -111,7 +111,7 @@ jobs:
         with:
           name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
           path: |
-            ${{ github.workspace }}/bfi_temp
+            ${{ github.workspace }}/bfi_temp/log
 
       - name: Upload Test Report Artifacts
         id: upload-test-report-artifacts
