@@ -1,8 +1,10 @@
 #!/usr/bin/env sh
 # "$_" undefined in POSIX, we only use it for specific shells
 # shellcheck disable=SC3028
-DOLLAR_UNDER="$_ $*"
+DOLLAR_UNDER="$_"
 export DOLLAR_UNDER
+
+TEMP_SHELL_SOURCE="./activate.sh"
 
 set -x
 
@@ -1097,6 +1099,10 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             echo "$0"
             echo "$*"
             env | sort
+            if [ "${TEMP_SHELL_SOURCE}" != "" ]; then
+                TEMP_FILE_NAME="${TEMP_SHELL_SOURCE}"
+            fi
+            printenv
             ;;
         *)
             # bash, dash, sh(bash), zsh invoked
