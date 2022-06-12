@@ -24,7 +24,6 @@ env:
   DO_SET_X_BOOTSTRAP: false
   DO_SET_X_RUN: false
   DO_SET_X_UPDATE: false
-  my_tempdir: $HOME/bfi_tempdir/$GITHUB_ACTION
 
 jobs:
   test:

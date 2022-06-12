@@ -808,12 +808,21 @@ create_my_tempdir() {
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to get temporary directory"
-            exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+        if [ "${CI}" = true ]; then
+            if [ "${GITHUB_ACTIONS}" = true ]; then
+                the_tempdir="${HOME}/bfi_temp/${GITHUB_ACTION}"; export CONDA_INSTALL_PATH
+            else
+                the_tempdir="${HOME}/bfi_temp"
+            fi
+        else
+            the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                log_fatal "failed to get temporary directory"
+                exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+            fi
         fi
+
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
     )
