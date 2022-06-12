@@ -1523,7 +1523,7 @@ get_ansi_code()
         # because "colorize_output" may or may not exist
         # shellcheck disable=SC2154
         if [ "$(command echo "$TERM" | grep 'mono')" != "" ] ||
-            [ "$(tput colors)" -lt 16 ] ||
+            [ "${tput_colors}" -lt 16 ] ||
             [ "${NO_COLOR}" != "" ] ||
             [ "${colorized_output}" = false ];
         then
