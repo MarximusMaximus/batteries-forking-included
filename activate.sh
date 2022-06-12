@@ -1090,6 +1090,12 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             fi
             array_append WAS_SOURCED true
             ;;
+        ????????-????-????-????-????????????.sh)
+            # github sourced, multi-command
+            array_append WAS_SOURCED true
+            env | sort
+            exit 1
+            ;;
         *)
             # bash, dash, sh(bash), zsh invoked
             # zsh sourced
