@@ -1094,7 +1094,6 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             # github sourced, multi-command
             array_append WAS_SOURCED true
             env | sort
-            exit 1
             ;;
         *)
             # bash, dash, sh(bash), zsh invoked
