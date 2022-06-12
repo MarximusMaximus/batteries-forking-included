@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
+# "$_" undefined in POSIX, we only use it for specific shells
+# shellcheck disable=SC3028
+DOLLAR_UNDER="$_"
 
 # NOTE: Edit the function 'post_bootstrap' to include your project's custom setup
 
@@ -6,6 +9,9 @@
 #   order to be cross compatible between platforms/shells. Compatibility with
 #   'dash', 'bash --posix', and 'zsh --emulate sh' are the goal; 'dash' appears
 #   to be the most strict, so you can use that as your baseline.
+
+################################################################################
+#region Public *
 
 #===============================================================================
 #region Public Functions
@@ -15,8 +21,13 @@ post_bootstrap()
     # you already have a local scope boundary within here, you do not need
     #   to create another unless you absolutely need/want to do so
 
+    # you have can call everything available in the Preamble region,
+    #   bfi-base.sh, and batteries-forking-included.sh (they are already
+    #   all in scope)
+
     # The current working directory is your project's root dir
 
+    # to prevent accidents when testing this script on it's own
     require_not_root_user_XY
 
     # WARNING: DO NOT EDIT ABOVE THIS LINE
@@ -291,12 +302,8 @@ require_not_root_user_XY() {
 
     # shellcheck disable=SC3028
     if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
-        if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
-            log_fatal "${MY_BASENAME} should not be run as root nor with sudo"
-        else
-            log_fatal "$(array_get_last SOURCED_BASENAME) should not be run as root nor with sudo"
-        fi
-        if [ "$(array_get_first WAS_SOURCED)" -eq 0 ]; then
+        log_fatal "$(get_my_real_basename) should not be run as root nor with sudo"
+        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
             exit "${RET_ERROR_USER_IS_ROOT}"
         else
             return "${RET_ERROR_USER_IS_ROOT}"
@@ -310,12 +317,8 @@ require_root_user_XY() {
 
     # shellcheck disable=SC3028
     if [ $UID -ne 0 ] && [ $EUID -ne 0 ] && [ "$(id -u)" -ne 0 ]; then
-        if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
-            log_fatal "${MY_BASENAME} MUST be run as root or with sudo"
-        else
-            log_fatal "$(array_get_last SOURCED_BASENAME) MUST be run as root or with sudo"
-        fi
-        if [ "$(array_get_first WAS_SOURCED)" -eq 0 ]; then
+        log_fatal "$(get_my_real_basename) MUST be run as root or with sudo"
+        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
             exit "${RET_ERROR_USER_IS_NOT_ROOT}"
         else
             return "${RET_ERROR_USER_IS_NOT_ROOT}"
@@ -327,15 +330,27 @@ require_root_user_XY() {
 #===============================================================================
 
 #===============================================================================
-#region Include Directives
+#region Include/Invoke Directives
 
 #-------------------------------------------------------------------------------
 include_G() {
     # intentionally no local scope so it modify globals
 
+    array_append SHELL_SOURCE "$1"
+    export SHELL_SOURCE
+    array_append WAS_SOURCED true
+    export WAS_SOURCED
+
     # shellcheck disable=SC1090
     . "$1"
-    return $?
+    ret=$?
+
+    array_remove_last WAS_SOURCED
+    export WAS_SOURCED
+    array_remove_last SHELL_SOURCE
+    export SHELL_SOURCE
+
+    return $ret
 }
 
 #-------------------------------------------------------------------------------
@@ -346,7 +361,7 @@ ensure_include_GXY() {
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "Failed to source '%s'" "$1"
-        if [ "$(array_get_first WAS_SOURCED)" -eq 0 ]; then
+        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
             exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
         else
             return "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
@@ -354,7 +369,25 @@ ensure_include_GXY() {
     fi
 }
 
-#endregion Include Directives
+#-------------------------------------------------------------------------------
+invoke() {
+    array_append SHELL_SOURCE "$1"
+    export SHELL_SOURCE
+    array_append WAS_SOURCED false
+    export WAS_SOURCED
+
+    "$@"
+    ret=$?
+
+    array_remove_last WAS_SOURCED
+    export WAS_SOURCED
+    array_remove_last SHELL_SOURCE
+    export SHELL_SOURCE
+
+    return $ret
+}
+
+#endregion Include/Invoke Directives
 #===============================================================================
 
 #===============================================================================
@@ -808,7 +841,7 @@ create_my_tempdir() {
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        the_tempdir=$(mktemp -d -t "${MY_BASENAME:-UNKNOWN}-$(get_datetime_stamp_filename_formatted).XXXXXXX")
+        the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to get temporary directory"
@@ -949,6 +982,30 @@ is_integer()
 }
 
 #-------------------------------------------------------------------------------
+get_my_real_fullpath() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
+    (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
+        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
+            array_get_last SHELL_SOURCE
+        else
+            echo "UNKNOWN"
+            exit "${RET_ERROR_UNKNOWN}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
 get_my_real_basename() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
@@ -957,20 +1014,11 @@ get_my_real_basename() {
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        last_was_sourced="$(array_get_last WAS_SOURCED)"
-        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
-        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
-            if [ "${last_was_sourced}" -eq 0 ]; then
-                command echo "${MY_BASENAME}"
-            else
-                if [ "$(array_get_length SOURCED_BASENAME)" -gt 0 ]; then
-                    command echo "$(array_get_last SOURCED_BASENAME)"
-                else
-                    command echo "UNKNOWN"
-                fi
-            fi
+        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
+            basename "$(array_get_last SHELL_SOURCE)"
         else
-            command echo "${MY_BASENAME}"
+            echo "UNKNOWN"
+            exit "${RET_ERROR_UNKNOWN}"
         fi
 
         exit "${RET_SUCCESS}"
@@ -990,20 +1038,35 @@ get_my_real_dir_fullpath() {
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        last_was_sourced="$(array_get_last WAS_SOURCED)"
-        last_was_sourced_is_integer="$(is_integer "${last_was_sourced}")"
-        if [ "${last_was_sourced_is_integer}" -eq 0 ]; then
-            if [ "${last_was_sourced}" -eq 0 ]; then
-                command echo "${MY_DIR_FULLPATH}"
-            else
-                if [ "$(array_get_length SOURCED_DIR_FULLPATH)" -gt 0 ]; then
-                    command echo "$(array_get_last SOURCED_DIR_FULLPATH)"
-                else
-                    command echo "$(rreadlink '.')"
-                fi
-            fi
+        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
+            dirname "$(array_get_last SHELL_SOURCE)"
         else
-            command echo "${MY_DIR_FULLPATH}"
+            echo "UNKNOWN"
+            exit "${RET_ERROR_UNKNOWN}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
+    return $ret
+}
+
+#-------------------------------------------------------------------------------
+get_my_real_dir_basename() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
+    (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
+        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
+            basename "$(dirname "$(array_get_last SHELL_SOURCE)")"
+        else
+            echo "UNKNOWN"
+            exit "${RET_ERROR_UNKNOWN}"
         fi
 
         exit "${RET_SUCCESS}"
@@ -1027,140 +1090,89 @@ unident_text() {
 #===============================================================================
 
 #===============================================================================
-#region source check
+#region Source/Invoke Check For Top Level File
 
 if [ "${WAS_SOURCED}" = "" ]; then
+    WAS_SOURCED=""
     array_init WAS_SOURCED
 fi
-
-PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-SHELL_SESSION_FILE=""
-export SHELL_SESSION_FILE
-
-# WARNING: _THIS_FILE_WAS_SOURCED is not script safe, it only is valid during
-#   and immediately after the block that set it; other scripts that get sourced
-#   WILL overwrite it
-_THIS_FILE_WAS_SOURCED=0
-if [ -n "$ZSH_EVAL_CONTEXT" ]; then
-    case $ZSH_EVAL_CONTEXT in *:file) _THIS_FILE_WAS_SOURCED=1;; esac
-elif [ -n "$KSH_VERSION" ]; then
-    # shellcheck disable=SC2296
-    [ "$(cd "$(dirname -- "$0")" && pwd -P)/$(basename -- "$0")" != "$(cd "$(dirname -- "${.sh.file}")" && pwd -P)/$(basename -- "${.sh.file}")" ] && _THIS_FILE_WAS_SOURCED=1
-elif [ -n "$BASH_VERSION" ]; then
-    (return 0 2>/dev/null) && _THIS_FILE_WAS_SOURCED=1
-else # All other shells: examine $0 for known shell binary filenames
-    # Detects 'sh' and 'dash'; add additional shell filenames as needed.
-    case ${0##*/} in sh|dash) _THIS_FILE_WAS_SOURCED=1;; esac
+if [ "${SHELL_SOURCE}" = "" ]; then
+    SHELL_SOURCE=""
+    array_init SHELL_SOURCE
 fi
-array_append WAS_SOURCED "${_THIS_FILE_WAS_SOURCED}"
+
+# NOTE: that all these detection methods only work for the FIRST file
+#   that is invoked or sourced, all others must be handled by the
+#   include_G, ensure_include_GXY, and invoke functions.
+if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
+    TEMP_FILE_NAME=""
+    case "${0##*/}" in
+        bash|dash|sh)  # zsh handled later
+            # # bash, dash, sh(bash), sh(dash), sh(zsh) sourced
+            # shellcheck disable=SC2128
+            if [ -n "${BASH_SOURCE}" ]; then
+                # bash, sh(bash) sourced
+                # shellcheck disable=SC3054
+                TEMP_FILE_NAME="${BASH_SOURCE[0]}"
+            else
+                # dash, sh(dash) sourced
+                x="$(lsof -p $$ -Fn0 | tail -1)"
+                TEMP_FILE_NAME="${x#n}"
+                if [ "$(echo "${TEMP_FILE_NAME}" | grep -e "^->0x")" != "" ]; then
+                    # sh(zsh) sourced
+                    TEMP_FILE_NAME="${DOLLAR_UNDER}"
+                fi
+            fi
+            array_append WAS_SOURCED true
+            ;;
+        *)
+            # bash, dash, sh(bash), zsh invoked
+            # zsh sourced
+            x="$(lsof -p $$ -Fn0 | tail -1)"
+            x="${x#*n}"
+            if [ -f "$x" ]; then
+                x="$(rreadlink "$x")"
+            fi
+            TEMP_FILE_NAME="$(rreadlink "$0")"
+            if [ "${TEMP_FILE_NAME}" != "${x}" ]; then
+                # zsh sourced
+                array_append WAS_SOURCED true
+            else
+                # bash, dash, sh(bash), zsh invoked
+                array_append WAS_SOURCED false
+            fi
+            ;;
+    esac
+    TEMP_FILE_NAME="$(rreadlink "${TEMP_FILE_NAME}")"
+    array_append SHELL_SOURCE "${TEMP_FILE_NAME}"
+fi
+
 export WAS_SOURCED
+export SHELL_SOURCE
 
-SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-export SHELL_SESSION_FILE
+# sometimes shellcheck thinks log_ultradebug is only defined later, not before
+# shellcheck disable=SC2218
+log_ultradebug "WAS_SOURCED: $WAS_SOURCED"
+# shellcheck disable=SC2218
+log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
 
-#endregion source check
+#endregion Source/Invoke Check For Top Level File
 #===============================================================================
 
+#===============================================================================
+#region Announce Ourself
 
-if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
-    #===========================================================================
-    #region Self Referentials
-
-    MY_FULLPATH="$(rreadlink "$0")"
-    export MY_FULLPATH
-    MY_BASENAME="$(basename "${MY_FULLPATH}")"
-    export MY_BASENAME
-    MY_DIR_FULLPATH="$(dirname -- "${MY_FULLPATH}")"
-    export MY_DIR_FULLPATH
-    MY_DIR_BASENAME="$(basename -- "${MY_DIR_FULLPATH}")"
-    export MY_DIR_BASENAME
-    BATTERIES_FORKING_INCLUDED_FULLPATH="${MY_DIR_FULLPATH}/../batteries-forking-included"
-    export BATTERIES_FORKING_INCLUDED_FULLPATH
-
-    #endregion Self Referentials
-    #===========================================================================
-
-    #===========================================================================
-    #region Announce Ourself (Not Sourced)
-
-    log_debug "Invoked: ${MY_FULLPATH} ($$)"
-
-    #endregion Announce Ourself (Not Sourced)
-
-    #===========================================================================
+if [ "$(array_get_last WAS_SOURCED)" = false ]; then
+    log_debug "Invoked: $(get_my_real_fullpath) ($$)"
 else
-    #===========================================================================
-    #region Track Sourcing
-
-    # make best effort to figure out our name if we were sourced and print it
-
-    if [ "${SOURCED_FULLPATH}" = "" ]; then
-        array_init SOURCED_FULLPATH
-    fi
-    if [ "${SOURCED_BASENAME}" = "" ]; then
-        array_init SOURCED_BASENAME
-    fi
-    if [ "${SOURCED_DIR_FULLPATH}" = "" ]; then
-        array_init SOURCED_DIR_FULLPATH
-    fi
-    if [ "${SOURCED_DIR_BASENAME}" = "" ]; then
-        array_init SOURCED_DIR_BASENAME
-    fi
-
-    OUR_SOURCED_FULLPATH=""
-    # bash
-    if test -n "$BASH"; then
-        # shellcheck disable=SC3028,SC3054
-        OUR_SOURCED_FULLPATH=${BASH_SOURCE[0]}
-    # ksh
-    elif test -n "$TMOUT"; then
-        # shellcheck disable=SC2296
-        OUR_SOURCED_FULLPATH=${.sh.file}
-    # zsh
-    elif test -n "$ZSH_NAME" ; then
-        # shellcheck disable=SC2296
-        OUR_SOURCED_FULLPATH=${(%):-%x}
-    # dash
-    elif test "${0##*/}" = dash; then
-        x=$(lsof -p $$ -Fn0 | tail -1); OUR_SOURCED_FULLPATH=${x#n}
-    fi
-
-    if [ "${OUR_SOURCED_FULLPATH}" != "" ]; then
-        OUR_SOURCED_FULLPATH="$(rreadlink "${OUR_SOURCED_FULLPATH}")"
-    else
-        OUR_SOURCED_FULLPATH="$(rreadlink ".")"
-    fi
-    array_append SOURCED_FULLPATH "${OUR_SOURCED_FULLPATH}"
-    array_append SOURCED_BASENAME "$(basename "${OUR_SOURCED_FULLPATH}")"
-    array_append SOURCED_DIR_FULLPATH "$(dirname -- "${OUR_SOURCED_FULLPATH}")"
-    array_append SOURCED_DIR_BASENAME "$(basename -- "${SOURCED_DIR_FULLPATH}")"
-
-    export SOURCED_FULLPATH
-    export SOURCED_BASENAME
-    export SOURCED_DIR_FULLPATH
-    export SOURCED_DIR_BASENAME
-
-    #endregion Track Sourcing
-    #===========================================================================
-
-    #===========================================================================
-    #region Announce Ourself (Sourced)
-
-    if [ "${OUR_SOURCED_FULLPATH}" != "" ]; then
-        log_debug "Sourced: $(array_get_last SOURCED_FULLPATH) ($$)"
-    else
-        log_debug "Sourced: Unknown Path ($$)"
-    fi
-
-    #endregion Announce Ourself (Sourced)
-    #===========================================================================
+    log_debug "Sourced: $(get_my_real_fullpath) ($$)"
 fi
+
+#endregion Announce Ourself
+#===============================================================================
 
 #endregion Preamble
 ################################################################################
-
-################################################################################
-#region Public *
 
 (
     ############################################################################
@@ -1171,7 +1183,7 @@ fi
 
     #---------------------------------------------------------------------------
     __main() {
-        log_fatal "${MY_BASENAME} must be sourced"
+        log_fatal "$(get_my_real_basename) must be sourced"
         return "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"
     }
 
@@ -1183,10 +1195,13 @@ fi
     #endregion Private Functions
     #===========================================================================
 
+    #endregion Private *
+    ############################################################################
+
     ############################################################################
     #region Immediate
 
-    if [ "$(array_get_last WAS_SOURCED)" -eq 0 ]; then
+    if [ "$(array_get_last WAS_SOURCED)" = false ]; then
         __main "$@"
         ret=$?
     else
@@ -1206,24 +1221,10 @@ ret=$?
 #===============================================================================
 #region Track Sourcing
 
-if [ "$(array_get_last WAS_SOURCED)" -eq 1 ]; then
-    OUR_SOURCED_FULLPATH="$(array_get_last SOURCED_FULLPATH)"
-    if [ "${OUR_SOURCED_FULLPATH}" != "" ]; then
-        log_debug "Source Completed: $(array_get_last SOURCED_FULLPATH) ($$)"
-    else
-        log_debug "Source Completed: Unknown Path ($$)"
-    fi
-
-    array_remove_last SOURCED_FULLPATH
-    export SOURCED_FULLPATH
-    array_remove_last SOURCED_BASENAME
-    export SOURCED_BASENAME
-    array_remove_last SOURCED_DIR_FULLPATH
-    export SOURCED_DIR_FULLPATH
-    array_remove_last SOURCED_DIR_BASENAME
-    export SOURCED_DIR_BASENAME
+if [ "$(array_get_last WAS_SOURCED)" = true ]; then
+    log_debug "Source Completed: $(get_my_real_fullpath) ($$)"
 else
-    log_debug "Invoke Completed: ${MY_FULLPATH} ($$)"
+    log_debug "Invoke Completed: $(get_my_real_basename) ($$)"
 fi
 
 #endregion Track Sourcing
@@ -1231,9 +1232,13 @@ fi
 
 # NOTE: we have to return here if we were sourced otherwise we kill the shell
 _THIS_FILE_WAS_SOURCED="$(array_get_last WAS_SOURCED)"
-array_remove_last WAS_SOURCED
-export WAS_SOURCED
-if [ "${_THIS_FILE_WAS_SOURCED}" -eq 0 ]; then
+if [ "$(array_get_length WAS_SOURCED)" -eq 1 ]; then
+    array_remove_last WAS_SOURCED
+    array_remove_last SHELL_SOURCE
+    export WAS_SOURCED
+    export SHELL_SOURCE
+fi
+if [ "${_THIS_FILE_WAS_SOURCED}" = false ]; then
     exit $ret
 else
     return $ret
