@@ -21,6 +21,10 @@ defaults:
 env:
   OMEGA_DEBUG: all
   CONDA_INSTALL_PATH: /usr/local/opt/conda
+  DO_SET_X_ACTIVATE: true
+  DO_SET_X_BOOTSTRAP: false
+  DO_SET_X_RUN: false
+  DO_SET_X_UPDATE: false
 
 jobs:
   test:

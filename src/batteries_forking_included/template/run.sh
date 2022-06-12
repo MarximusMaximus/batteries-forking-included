@@ -3,6 +3,10 @@
 # shellcheck disable=SC3028
 DOLLAR_UNDER="$_"
 
+if [ "${DO_SET_X_RUN}" = true ]; then
+    set -x
+fi
+
 ################################################################################
 #region Preamble
 

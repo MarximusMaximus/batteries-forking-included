@@ -5,6 +5,10 @@ DOLLAR_UNDER="$_"
 
 # NOTE: see usage from batteries-forking-included.sh for command line arguments
 
+if [ "${DO_SET_X_UPDATE}" = true ]; then
+    set -x
+fi
+
 ################################################################################
 #region Preamble
 

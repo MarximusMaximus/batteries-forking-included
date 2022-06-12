@@ -3,7 +3,9 @@
 # shellcheck disable=SC3028
 DOLLAR_UNDER="$_"
 
-set -x
+if [ "${DO_SET_X_BOOTSTRAP}" = true ]; then
+    set -x
+fi
 
 # NOTE: see usage from batteries-forking-included.sh for command line arguments
 
