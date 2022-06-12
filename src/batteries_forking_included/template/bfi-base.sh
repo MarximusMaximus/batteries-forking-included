@@ -298,6 +298,11 @@ require_root_user_XY() {
 include_G() {
     # intentionally no local scope so it modify globals
 
+    if [ ! -f "$1" ]; then
+        log_warning "Could not source because file is missing: %s" "$1"
+        return "${RET_ERROR_FILE_NOT_FOUND}"
+    fi
+
     array_append SHELL_SOURCE "$1"
     export SHELL_SOURCE
     array_append WAS_SOURCED true
@@ -2700,7 +2705,7 @@ conda_init_G() {
     fi
 
     # shellcheck disable=SC1091
-    . "${CONDA_INSTALL_PATH}/etc/profile.d/conda.sh"
+    include_G "${CONDA_INSTALL_PATH}/etc/profile.d/conda.sh"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "'. conda.sh' failed with error code: %d" "$ret"
@@ -2775,6 +2780,7 @@ export SHELL_SESSION_FILE
 (
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
+
     ############################################################################
     #region Private *
 
@@ -2814,6 +2820,8 @@ export SHELL_SESSION_FILE
     ############################################################################
 )
 ret=$?
+SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+export SHELL_SESSION_FILE
 
 ################################################################################
 #region Postamble

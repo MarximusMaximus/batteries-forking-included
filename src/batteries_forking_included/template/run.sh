@@ -294,6 +294,11 @@ require_root_user_XY() {
 include_G() {
     # intentionally no local scope so it modify globals
 
+    if [ ! -f "$1" ]; then
+        log_warning "Could not source because file is missing: %s" "$1"
+        return "${RET_ERROR_FILE_NOT_FOUND}"
+    fi
+
     array_append SHELL_SOURCE "$1"
     export SHELL_SOURCE
     array_append WAS_SOURCED true
@@ -1136,7 +1141,7 @@ fi
 
 #endregion Preamble
 ################################################################################
-
+.
 (
     RUN_EXEC="python"
     RUN_ARGS="$(get_my_real_dir_fullpath)"/bin/"$(get_my_real_dir_basename)".py
