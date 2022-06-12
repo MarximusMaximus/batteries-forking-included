@@ -5,8 +5,6 @@ DOLLAR_UNDER="$_"
 
 # NOTE: see usage from batteries-forking-included.sh for command line arguments
 
-set -x
-
 ################################################################################
 #region Preamble
 
@@ -1097,8 +1095,13 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             fi
             TEMP_FILE_NAME="$(rreadlink "$0")"
             if [ "${TEMP_FILE_NAME}" != "${x}" ]; then
-                # zsh sourced
-                array_append WAS_SOURCED true
+                if [ "${x}" = "pipe" ]; then
+                    # github invoked
+                    array_append WAS_SOURCED false
+                else
+                    # zsh sourced
+                    array_append WAS_SOURCED true
+                fi
             else
                 # bash, dash, sh(bash), zsh invoked
                 array_append WAS_SOURCED false
