@@ -1468,7 +1468,9 @@ export PLATFORM_IS_WSL;
 #region Calculated "Constants"
 
 set_calculated_constants() {
-    CONDA_BASE_DIR_FULLPATH="$(dirname "$(dirname "${CONDA_EXE}")")"; export CONDA_BASE_DIR_FULLPATH
+    # CONDA_BASE_DIR_FULLPATH="$(dirname "$(dirname "${CONDA_EXE}")")"
+    # export CONDA_BASE_DIR_FULLPATH
+    true
 }
 set_calculated_constants
 
@@ -2698,13 +2700,13 @@ conda_init_G() {
     fi
 
     # shellcheck disable=SC1091
-    . "${CONDA_BASE_DIR_FULLPATH:-/opt/conda/miniforge}/etc/profile.d/conda.sh"
+    . "${CONDA_INSTALL_PATH}/etc/profile.d/conda.sh"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "'. conda.sh' failed with error code: %d" "$ret"
         return "${RET_ERROR_CONDA_INIT_FAILED}"
     fi
-    PATH="${CONDA_BASE_DIR_FULLPATH:-/opt/conda/miniforge}/bin:$PATH"
+    PATH="${CONDA_INSTALL_PATH}/bin:$PATH"
     export PATH
 
     teetty_G "${FULL_LOG}" "${FULL_LOG}" "type conda | head -n 1"

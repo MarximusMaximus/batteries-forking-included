@@ -2171,7 +2171,7 @@ ensure_conda() {
     (
         log_header "Checking For Conda..."
 
-        if [ ! -f "${CONDA_BASE_DIR_FULLPATH}/etc/profile.d/conda.sh" ]; then
+        if [ ! -f "${CONDA_INSTALL_PATH}/etc/profile.d/conda.sh" ]; then
             log_footer "Conda Not Found."
 
             log_header "Installing Conda..."
