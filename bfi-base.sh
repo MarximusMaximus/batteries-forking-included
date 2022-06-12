@@ -1092,6 +1092,17 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             fi
             array_append WAS_SOURCED true
             ;;
+        ????????-????-????-????-????????????.sh)
+            # github sourced, multi-command
+            array_append WAS_SOURCED true
+            echo "$0"
+            echo "$*"
+            env | sort
+            if [ "${TEMP_SHELL_SOURCE}" != "" ]; then
+                TEMP_FILE_NAME="${TEMP_SHELL_SOURCE}"
+            fi
+            printenv
+            ;;
         *)
             # bash, dash, sh(bash), zsh invoked
             # zsh sourced
@@ -1507,11 +1518,12 @@ get_ansi_code()
         if [ "${ending}" = "" ]; then
             ending="${ANSI_CODE_END}"
         fi
-        tput_colors="$(tput colors >/dev/null 2>&1)"
+        tput_colors="$(tput colors 2>/dev/null)"
         if [ "${tput_colors}" = "" ]; then
             tput_colors=16
         fi
-        # shellcheck disable=SC2154 # because "colorize_output" may or may not exist
+        # because "colorize_output" may or may not exist
+        # shellcheck disable=SC2154
         if [ "$(command echo "${TERM}" | grep 'mono')" != "" ] ||
             [ "$(tput colors)" -lt 16 ] ||
             [ "${NO_COLOR}" != "" ] ||
@@ -1519,10 +1531,8 @@ get_ansi_code()
         then
             command printf ""
         elif [ "${colorized_output}" = "alt" ] && [ "$2" != "" ]; then
-            # shellcheck disable=SC2059
             command printf "${ANSI_CODE_START}$2${ending}"
         else
-            # shellcheck disable=SC2059
             command printf "${ANSI_CODE_START}$1${ending}"
         fi
 

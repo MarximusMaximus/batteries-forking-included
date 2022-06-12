@@ -1088,6 +1088,17 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             fi
             array_append WAS_SOURCED true
             ;;
+        ????????-????-????-????-????????????.sh)
+            # github sourced, multi-command
+            array_append WAS_SOURCED true
+            echo "$0"
+            echo "$*"
+            env | sort
+            if [ "${TEMP_SHELL_SOURCE}" != "" ]; then
+                TEMP_FILE_NAME="${TEMP_SHELL_SOURCE}"
+            fi
+            printenv
+            ;;
         *)
             # bash, dash, sh(bash), zsh invoked
             # zsh sourced
@@ -1141,7 +1152,7 @@ fi
 
 #endregion Preamble
 ################################################################################
-.
+
 (
     RUN_EXEC="python"
     RUN_ARGS="$(get_my_real_dir_fullpath)"/bin/"$(get_my_real_dir_basename)".py
