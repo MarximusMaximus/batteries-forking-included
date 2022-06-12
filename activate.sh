@@ -6,7 +6,9 @@ export DOLLAR_UNDER
 
 TEMP_SHELL_SOURCE="./activate.sh"
 
-set -x
+if [ "${DO_SET_X_ACTIVATE}" = true ]; then
+    set -x
+fi
 
 ################################################################################
 #region Preamble
