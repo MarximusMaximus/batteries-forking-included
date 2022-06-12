@@ -104,6 +104,15 @@ jobs:
           . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p no:sugar
 
+      - name: Upload BFI Logs
+        id: upload-bfi-logs
+        if: matrix.tox-env != 'lint'
+        uses: actions/upload-artifact@v3
+        with:
+          name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
+          path: |
+            ${{ env.HOME }}/bfi_temp/${{ env.GITHUB_ACTION }}
+
       - name: Upload Test Report Artifacts
         id: upload-test-report-artifacts
         if: matrix.tox-env != 'lint'
