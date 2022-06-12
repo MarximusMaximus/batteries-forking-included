@@ -1422,6 +1422,9 @@ CONDA_FORGE_PLATFORM="UNKNOWN"; export CONDA_FORGE_PLATFORM
 CONDA_FORGE_ARCH="UNKNOWN"; export CONDA_FORGE_ARCH
 CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
 
+LINUX_BASE_FLAVOR="NOT_LINUX"; export LINUX_BASE_FLAVOR
+LINUX_BASE_FLAVOR_VERSION="NOT_LINUX"; export LINUX_BASE_FLAVOR_VERSION
+
 if [ "${REAL_PLATFORM}" = "Darwin" ]; then
     date() {
         command date -j "$@"
@@ -1436,7 +1439,37 @@ elif [ "${REAL_PLATFORM}" = "Linux" ]; then
         command date "$@"
     }
 
-    DEFAULT_ADMIN_GROUP="wheel"; export DEFAULT_ADMIN_GROUP
+    LINUX_BASE_FLAVOR_VERSION="$(cat /proc/version)"; export LINUX_BASE_FLAVOR_VERSION
+
+    LINUX_BASE_FLAVOR="UNKNOWN_LINUX"
+    DEFAULT_ADMIN_GROUP="wheel"
+    if [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[dD]ebian" )" != "" ]; then
+        LINUX_BASE_FLAVOR="Debian"
+        DEFAULT_ADMIN_GROUP="sudo";
+    elif [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[uU]buntu" )" != "" ]; then
+        LINUX_BASE_FLAVOR="Ubuntu"
+        # version of command with leading cat is easier to read
+        # shellcheck disable=SC2002
+        __LINUX_BASE_FLAVOR_VERSION_UBUNTU="$(cat /etc/os-release | awk -F = '/VERSION_ID/ {print $2}' | sed -e 's/"//g')"
+        __LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR="$(echo "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU}" |  awk -F . '{print $1}')"
+        __LINUX_BASE_FLAVOR_VERSION_UBUNTU_MINOR="$(echo "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU}" |  awk -F . '{print $2}')"
+        if [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR}" -le 10 ]; then
+            DEFAULT_ADMIN_GROUP="sudo"
+        elif [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR}" -eq 11 ]; then
+            if [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MINOR}" -le 10 ]; then
+                DEFAULT_ADMIN_GROUP="sudo"
+            else
+                DEFAULT_ADMIN_GROUP="admin"
+            fi
+        else
+            DEFAULT_ADMIN_GROUP="admin"
+        fi
+    elif [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[rR]ed [hHat]" )" != "" ]; then
+        LINUX_BASE_FLAVOR="Fedora"
+        DEFAULT_ADMIN_GROUP="wheel";
+    fi
+    export LINUX_BASE_FLAVOR
+    export DEFAULT_ADMIN_GROUP
 
     CONDA_FORGE_PLATFORM="Linux"; export CONDA_FORGE_PLATFORM
     CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
