@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # "$_" undefined in POSIX, we only use it for specific shells
 # shellcheck disable=SC3028
-DOLLAR_UNDER="$_"
+DOLLAR_UNDER="$_ $*"
 export DOLLAR_UNDER
 
 set -x
