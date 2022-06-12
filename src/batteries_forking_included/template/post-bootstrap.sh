@@ -1139,7 +1139,7 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             if [ "${TEMP_SHELL_SOURCE}" != "" ]; then
                 TEMP_FILE_NAME="${TEMP_SHELL_SOURCE}"
             fi
-            printenv
+            printenv | sort
             ;;
         *)
             # bash, dash, sh(bash), zsh invoked
