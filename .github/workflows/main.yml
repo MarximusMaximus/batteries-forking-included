@@ -14,9 +14,14 @@ on:
   pull_request:
     # any pull request
 
-defaults:
-  run:
-    shell: bash {0}
+# due to using WSL, we have to set this in the matrix env and then pass it to
+# each run, OR for non-matrix set in the job's defaults
+# defaults:
+#   run:
+#     shell: bash -l {0}  # we want all shell scripts to load .bash_profile
+#                         #   because as we setup the environment we add startup
+#                         #   commands there, and every 'run' directive runs in
+#                         #   its own shell instance
 
 env:
   OMEGA_DEBUG: all
@@ -35,7 +40,8 @@ jobs:
         os: [
           macos-latest-x64,
           ubuntu-latest-x64,
-          windows-latest-x64,
+          windows_debian-latest-x64,
+          windows_ubuntu-latest-x64,
         ]
         tox-env: [
           py38,
@@ -48,10 +54,14 @@ jobs:
             os: ubuntu-latest-x64
             python-version: "3.10"
             os-image: ubuntu-latest
+            windows-wsl: not_windows
+            use-shell: sh {0}
           - tox-env: coverage
             os: ubuntu-latest-x64
             python-version: "3.10"
             os-image: ubuntu-latest
+            windows-wsl: not_windows
+            use-shell: sh {0}
 
           # set vars for tox-env
           - tox-env: py38
@@ -64,10 +74,20 @@ jobs:
           # set vars for os & conda-forge
           - os: ubuntu-latest-x64
             os-image: ubuntu-latest
-          - os: windows-latest-x64
+            windows-wsl: not_windows
+            use-shell: bash -l {0}
+          - os: windows_debian-latest-x64
             os-image: windows-latest
+            windows-wsl: Debian
+            use-shell: wsl-sh {0}
+          - os: windows_ubuntu-latest-x64
+            os-image: windows-latest
+            windows-wsl: Ubuntu-20.04
+            use-shell: wsl-sh {0}
           - os: macos-latest-x64
             os-image: macos-latest
+            windows-wsl: not_windows
+            use-shell: sh {0}
 
     runs-on: ${{ matrix.os-image }}
 
@@ -76,30 +96,40 @@ jobs:
         id: checkout-repo
         uses: actions/checkout@v1
 
+      - if: windows-wsl != "not_windows"
+        uses: Vampire/setup-wsl@v1
+        with:
+          distribution: ${{ windows-wsl }}
+          wsl-shell-command: sh
+
       - name: Runner Info
         id: runner-info
+        shell: ${{ matrix.use-shell }}
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
           echo matrix:
           echo os: ${{ matrix.os }}
           echo tox-env: ${{ matrix.tox-env }}
+          echo windows-wsl: ${{ windows-wsl }}
           echo Env:
           printenv | sort
 
       - name: Override Python Version For Work Env
         id: override-python-version
+        shell: ${{ matrix.use-shell }}
         run: |
           sed -i.old 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
 
       - name: batteries-forking-included
         id: batteries-forking-included
-        shell: sh {0}
+        shell: ${{ matrix.use-shell }}
         run: |
           ./bootstrap.sh --dev
 
       - name: Test - ${{ matrix.tox-env }}
         id: test-tox
+        shell: ${{ matrix.use-shell }}
         run: |
           . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p no:sugar
@@ -138,6 +168,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
 
+    defaults:
+      run:
+        shell: sh {0}
+
     steps:
       - name: Checkout Repo
         id: checkout-repo
@@ -146,6 +180,7 @@ jobs:
 
       - name: Runner Info
         id: runner-info
+        shell: ${{ matrix.use-shell }}
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
@@ -175,6 +210,10 @@ jobs:
 
     runs-on: ubuntu-latest
     needs: [test, build]
+
+    defaults:
+      run:
+        shell: sh {0}
 
     steps:
       - name: Checkout Repo
@@ -256,6 +295,10 @@ jobs:
 
     runs-on: ubuntu-latest
     needs: [test, build, github-release]
+
+    defaults:
+      run:
+        shell: sh {0}
 
     steps:
       - name: Checkout Repo
