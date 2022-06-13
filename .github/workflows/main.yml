@@ -85,7 +85,7 @@ jobs:
         id: checkout-repo
         uses: actions/checkout@v1
 
-      - if: matrix.windows-wsl != "not_windows"
+      - if: matrix.windows-wsl != 'not_windows'
         uses: Vampire/setup-wsl@v1
         with:
           distribution: ${{ matrix.windows-wsl }}
