@@ -1478,7 +1478,10 @@ if [ "${REAL_PLATFORM}" = "Darwin" ]; then
 
     CONDA_FORGE_PLATFORM="MacOSX"; export CONDA_FORGE_PLATFORM
     CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
-elif [ "${REAL_PLATFORM}" = "Linux" ]; then
+elif \
+    [ "${REAL_PLATFORM}" = "Linux" ] ||
+    [ "$(echo "${REAL_PLATFORM}" | grep -e 'MINGW64_NT' )" != "" ]
+then
     date() {
         command date "$@"
     }
