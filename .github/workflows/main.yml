@@ -96,10 +96,10 @@ jobs:
         id: checkout-repo
         uses: actions/checkout@v1
 
-      - if: windows-wsl != "not_windows"
+      - if: matrix.windows-wsl != "not_windows"
         uses: Vampire/setup-wsl@v1
         with:
-          distribution: ${{ windows-wsl }}
+          distribution: ${{ matrix.windows-wsl }}
           wsl-shell-command: sh
 
       - name: Runner Info
@@ -111,7 +111,7 @@ jobs:
           echo matrix:
           echo os: ${{ matrix.os }}
           echo tox-env: ${{ matrix.tox-env }}
-          echo windows-wsl: ${{ windows-wsl }}
+          echo windows-wsl: ${{ matrix.windows-wsl }}
           echo Env:
           printenv | sort
 
