@@ -1087,7 +1087,7 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
     log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"
     log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
-    case "${0##*/}" in
+    case "${TEMP_ARG_ZERO}" in
         bash|dash|sh)  # zsh handled later
             log_ultradebug "\$0 was a known shell (not zsh)."
             # # bash, dash, sh(bash), sh(dash), sh(zsh) sourced
