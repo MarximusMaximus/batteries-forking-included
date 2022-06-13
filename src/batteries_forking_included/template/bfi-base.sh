@@ -246,10 +246,10 @@ rreadlink() {
 
         return 0
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #endregion RReadLink
@@ -695,10 +695,10 @@ safe_rm() {
             exit "${RET_ERROR_UNSAFE_RM_PATH}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -723,10 +723,10 @@ ensure_does_not_exist() {
             exit $ret
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -756,10 +756,10 @@ create_dir() {
             exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -781,10 +781,10 @@ ensure_dir() {
             exit $ret
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -826,10 +826,10 @@ create_my_tempdir() {
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -876,10 +876,10 @@ move_file() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -903,10 +903,10 @@ copy_file() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -930,10 +930,10 @@ copy_dir() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -975,10 +975,10 @@ get_my_real_fullpath() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -999,10 +999,10 @@ get_my_real_basename() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1023,10 +1023,10 @@ get_my_real_dir_fullpath() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1047,10 +1047,10 @@ get_my_real_dir_basename() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1359,10 +1359,10 @@ return_code_is_error() {
             exit 1
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1395,10 +1395,10 @@ return_code_is_warning() {
             exit 1
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1425,10 +1425,10 @@ return_code_is_success() {
             exit 1
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #endregion Return Codes
@@ -1619,10 +1619,10 @@ get_ansi_code()
 
         exit 0
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1943,10 +1943,10 @@ create_fifo() {
         command printf '%s\n' "$fifo"
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2033,10 +2033,10 @@ format_log_message()
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2055,10 +2055,10 @@ log_console()
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2085,10 +2085,10 @@ log_success_final() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2115,10 +2115,10 @@ log_success() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2153,10 +2153,10 @@ log_fatal() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2191,10 +2191,10 @@ log_error() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2226,10 +2226,10 @@ log_warning() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2258,10 +2258,10 @@ log_header() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2288,10 +2288,10 @@ log_footer() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2318,10 +2318,10 @@ log_info_important() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2348,10 +2348,10 @@ log_info() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2378,10 +2378,10 @@ log_info_noprefix() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2408,10 +2408,10 @@ log_debug() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2438,10 +2438,10 @@ log_superdebug() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2468,10 +2468,10 @@ log_ultradebug() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2491,10 +2491,10 @@ log_file() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    log_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $log_ret
 }
 
 # #-------------------------------------------------------------------------------
@@ -2534,10 +2534,10 @@ report_errors() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    report_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $report_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2565,10 +2565,10 @@ report_warnings() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    report_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $report_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2675,10 +2675,10 @@ report_final_status() {
 
         exit "$ret"
     )
-    ret=$?
+    report_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $report_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2712,10 +2712,10 @@ report_all() {
         fi
         exit $ret
     )
-    ret=$?
+    report_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $report_ret
 }
 
 #-------------------------------------------------------------------------------

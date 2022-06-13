@@ -351,10 +351,10 @@ rreadlink() {
 
         return 0
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #endregion RReadLink
@@ -800,10 +800,10 @@ safe_rm() {
             exit "${RET_ERROR_UNSAFE_RM_PATH}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -828,10 +828,10 @@ ensure_does_not_exist() {
             exit $ret
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -861,10 +861,10 @@ create_dir() {
             exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -886,10 +886,10 @@ ensure_dir() {
             exit $ret
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -931,10 +931,10 @@ create_my_tempdir() {
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -981,10 +981,10 @@ move_file() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1008,10 +1008,10 @@ copy_file() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1035,10 +1035,10 @@ copy_dir() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1080,10 +1080,10 @@ get_my_real_fullpath() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1104,10 +1104,10 @@ get_my_real_basename() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1128,10 +1128,10 @@ get_my_real_dir_fullpath() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1152,10 +1152,10 @@ get_my_real_dir_basename() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2092,8 +2092,8 @@ download_url_to_path() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2118,8 +2118,8 @@ extract_tarball() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2163,8 +2163,8 @@ extract_zipball() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2218,8 +2218,8 @@ download_and_extract() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2278,8 +2278,8 @@ ensure_conda() {
             exit "${RET_SUCCESS}"
         fi
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2306,8 +2306,8 @@ conda_update_base()
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2350,8 +2350,8 @@ conda_setup_env()
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2446,8 +2446,8 @@ poetry_install() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2483,8 +2483,8 @@ pip_uninstall() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2540,8 +2540,8 @@ pip_install() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $?
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2623,8 +2623,8 @@ ensure_batteries_forking_included() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2709,8 +2709,8 @@ update_batteries_forking_included_repo() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2737,8 +2737,8 @@ copy_temporary_template_files() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2787,8 +2787,8 @@ is_file_same() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2860,8 +2860,8 @@ check_and_update_file() {
             exit "${RET_SUCCESS}"
         fi
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -2999,8 +2999,8 @@ compare_and_update_files() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    return $ret
+    exit_ret=$?
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -3122,8 +3122,8 @@ batteries_forking_included__bootstrap() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    report_all $ret "${print_report}" "$(get_my_real_basename)"
+    exit_ret=$?
+    report_all $exit_ret "${print_report}" "$(get_my_real_basename)"
     ret=$?
     return $ret
 }
@@ -3180,8 +3180,8 @@ batteries_forking_included__update() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
-    report_all $ret "${print_report}" "$(get_my_real_basename)"
+    exit_ret=$?
+    report_all $exit_ret "${print_report}" "$(get_my_real_basename)"
     ret=$?
     return $ret
 }

@@ -283,10 +283,10 @@ rreadlink() {
 
         return 0
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #endregion RReadLink
@@ -732,10 +732,10 @@ safe_rm() {
             exit "${RET_ERROR_UNSAFE_RM_PATH}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -760,10 +760,10 @@ ensure_does_not_exist() {
             exit $ret
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -793,10 +793,10 @@ create_dir() {
             exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -818,10 +818,10 @@ ensure_dir() {
             exit $ret
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -863,10 +863,10 @@ create_my_tempdir() {
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -913,10 +913,10 @@ move_file() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -940,10 +940,10 @@ copy_file() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -967,10 +967,10 @@ copy_dir() {
             exit "${RET_ERROR_COPY_FAILED}"
         fi
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1012,10 +1012,10 @@ get_my_real_fullpath() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1036,10 +1036,10 @@ get_my_real_basename() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1060,10 +1060,10 @@ get_my_real_dir_fullpath() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -1084,10 +1084,10 @@ get_my_real_dir_basename() {
 
         exit "${RET_SUCCESS}"
     )
-    ret=$?
+    exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
-    return $ret
+    return $exit_ret
 }
 
 #-------------------------------------------------------------------------------
