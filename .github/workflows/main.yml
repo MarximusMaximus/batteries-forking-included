@@ -14,14 +14,9 @@ on:
   pull_request:
     # any pull request
 
-# due to using WSL, we have to set this in the matrix env and then pass it to
-# each run, OR for non-matrix set in the job's defaults
-# defaults:
-#   run:
-#     shell: bash -l {0}  # we want all shell scripts to load .bash_profile
-#                         #   because as we setup the environment we add startup
-#                         #   commands there, and every 'run' directive runs in
-#                         #   its own shell instance
+defaults:
+  run:
+    shell: sh {0}  # we want all shell scripts to use the basic sh shell by default
 
 env:
   OMEGA_DEBUG: all
@@ -55,13 +50,11 @@ jobs:
             python-version: "3.10"
             os-image: ubuntu-latest
             windows-wsl: not_windows
-            use-shell: sh {0}
           - tox-env: coverage
             os: ubuntu-latest-x64
             python-version: "3.10"
             os-image: ubuntu-latest
             windows-wsl: not_windows
-            use-shell: sh {0}
 
           # set vars for tox-env
           - tox-env: py38
@@ -75,19 +68,15 @@ jobs:
           - os: ubuntu-latest-x64
             os-image: ubuntu-latest
             windows-wsl: not_windows
-            use-shell: bash -l {0}
           - os: windows_debian-latest-x64
             os-image: windows-latest
             windows-wsl: Debian
-            use-shell: wsl-sh {0}
           - os: windows_ubuntu-latest-x64
             os-image: windows-latest
             windows-wsl: Ubuntu-20.04
-            use-shell: wsl-sh {0}
           - os: macos-latest-x64
             os-image: macos-latest
             windows-wsl: not_windows
-            use-shell: sh {0}
 
     runs-on: ${{ matrix.os-image }}
 
@@ -104,7 +93,6 @@ jobs:
 
       - name: Runner Info
         id: runner-info
-        shell: ${{ matrix.use-shell }}
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
@@ -117,19 +105,16 @@ jobs:
 
       - name: Override Python Version For Work Env
         id: override-python-version
-        shell: ${{ matrix.use-shell }}
         run: |
           sed -i.old 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
 
       - name: batteries-forking-included
         id: batteries-forking-included
-        shell: ${{ matrix.use-shell }}
         run: |
           ./bootstrap.sh --dev
 
       - name: Test - ${{ matrix.tox-env }}
         id: test-tox
-        shell: ${{ matrix.use-shell }}
         run: |
           . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p no:sugar
@@ -168,10 +153,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
 
-    defaults:
-      run:
-        shell: sh {0}
-
     steps:
       - name: Checkout Repo
         id: checkout-repo
@@ -180,14 +161,12 @@ jobs:
 
       - name: Runner Info
         id: runner-info
-        shell: ${{ matrix.use-shell }}
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
       - name: batteries-forking-included
         id: batteries-forking-included
-        shell: sh {0}
         run: |
           ./bootstrap.sh
 
@@ -211,10 +190,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, build]
 
-    defaults:
-      run:
-        shell: sh {0}
-
     steps:
       - name: Checkout Repo
         id: checkout-repo
@@ -228,7 +203,6 @@ jobs:
 
       - name: batteries-forking-included
         id: batteries-forking-included
-        shell: sh {0}
         run: |
           ./bootstrap.sh
 
@@ -296,10 +270,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, build, github-release]
 
-    defaults:
-      run:
-        shell: sh {0}
-
     steps:
       - name: Checkout Repo
         id: checkout-repo
@@ -313,7 +283,6 @@ jobs:
 
       - name: batteries-forking-included
         id: batteries-forking-included
-        shell: sh {0}
         run: |
           ./bootstrap.sh
 
