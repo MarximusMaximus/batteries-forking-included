@@ -808,12 +808,21 @@ create_my_tempdir() {
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to get temporary directory"
-            exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+        if [ "${CI}" = true ]; then
+            if [ "${GITHUB_ACTIONS}" = true ]; then
+                the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"; export CONDA_INSTALL_PATH
+            else
+                the_tempdir="${HOME}/bfi_temp/$(get_datetime_stamp_filename_formatted)"
+            fi
+        else
+            the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                log_fatal "failed to get temporary directory"
+                exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+            fi
         fi
+
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
     )
@@ -1073,30 +1082,41 @@ fi
 #   include_G, ensure_include_GXY, and invoke functions.
 if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
     TEMP_FILE_NAME=""
+    log_ultradebug "\$0=$0"
+    log_ultradebug "\${0##*/}=${0##*/}"
     case "${0##*/}" in
         bash|dash|sh)  # zsh handled later
+            log_ultradebug "\$0 was a known shell (not zsh)."
             # # bash, dash, sh(bash), sh(dash), sh(zsh) sourced
             # shellcheck disable=SC2128
             if [ -n "${BASH_SOURCE}" ]; then
                 # bash, sh(bash) sourced
+                log_ultradebug "\$BASH_SOURCE exists."
+                # shellcheck disable=SC3054
+                log_ultradebug "\${BASH_SOURCE[0]}=${BASH_SOURCE[0]}"
                 # shellcheck disable=SC3054
                 TEMP_FILE_NAME="${BASH_SOURCE[0]}"
             else
+                log_ultradebug "\$BASH_SOURCE does NOT exist."
+                log_ultradebug "\(which lsof)=$(which lsof)"
+                log_ultradebug "\$?=$?"
                 # dash, sh(dash) sourced
                 x="$(lsof -p $$ -Fn0 | tail -1)"
                 TEMP_FILE_NAME="${x#n}"
-                if [ "$(echo "${TEMP_FILE_NAME}" | grep -e "^->0x")" != "" ]; then
+                if [ "$(command echo "${TEMP_FILE_NAME}" | grep -e "^->0x")" != "" ]; then
                     # sh(zsh) sourced
+                    log_ultradebug "TEMP_FILE_NAME starts with '->0x', this is zsh sourced."
                     TEMP_FILE_NAME="${DOLLAR_UNDER}"
                 fi
             fi
             array_append WAS_SOURCED true
             ;;
         ????????-????-????-????-????????????.sh)
+            log_ultradebug "\$0 resembles a uuid, probably is github sourced."
             # github sourced, multi-command
             array_append WAS_SOURCED true
-            echo "$0"
-            echo "$*"
+            log_ultradebug "$0"
+            log_ultradebug "$*"
             env | sort
             if [ "${TEMP_SHELL_SOURCE}" != "" ]; then
                 TEMP_FILE_NAME="${TEMP_SHELL_SOURCE}"
@@ -1106,6 +1126,9 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
         *)
             # bash, dash, sh(bash), zsh invoked
             # zsh sourced
+            log_ultradebug "Some other shell?"
+            log_ultradebug "\(which lsof)=$(which lsof)"
+            log_ultradebug "\$?=$?"
             x="$(lsof -p $$ -Fn0 | tail -1)"
             x="${x#*n}"
             if [ -f "$x" ]; then
@@ -1113,20 +1136,26 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             fi
             TEMP_FILE_NAME="$(rreadlink "$0")"
             if [ "${TEMP_FILE_NAME}" != "${x}" ]; then
+                log_ultradebug "TEMP_FILE_NAME and x are different."
                 if [ "${x}" = "pipe" ]; then
+                    log_ultradebug "x is 'pipe', probably github invoked."
                     # github invoked
                     array_append WAS_SOURCED false
                 else
+                    log_ultradebug "x is NOT 'pipe', probably zsh sourced."
                     # zsh sourced
                     array_append WAS_SOURCED true
                 fi
             else
+                log_ultradebug "TEMP_FILE_NAME and x are the SAME, likely invoked."
                 # bash, dash, sh(bash), zsh invoked
                 array_append WAS_SOURCED false
             fi
             ;;
     esac
+    log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
     TEMP_FILE_NAME="$(rreadlink "${TEMP_FILE_NAME}")"
+    log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
     array_append SHELL_SOURCE "${TEMP_FILE_NAME}"
 fi
 
