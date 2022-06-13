@@ -928,7 +928,7 @@ create_my_tempdir() {
             fi
         fi
 
-        echo "${the_tempdir}" sed -e 'l'
+        echo "${the_tempdir}" | sed -e 'l' >&2
 
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"

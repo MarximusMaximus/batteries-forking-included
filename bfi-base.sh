@@ -823,7 +823,7 @@ create_my_tempdir() {
             fi
         fi
 
-        echo "${the_tempdir}" sed -e 'l'
+        echo "${the_tempdir}" | sed -e 'l' >&2
 
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
@@ -1788,7 +1788,6 @@ set_ansi_code_constants() {
     ANSI_COLOR_SUPERDEBUG="$(get_ansi_code '1;30')"; export ANSI_COLOR_SUPERDEBUG           # grey
     ANSI_COLOR_ULTRADEBUG="$(get_ansi_code '0;35' '0;33')"; export ANSI_COLOR_ULTRADEBUG    # darkmagenta/darkyellow
 
-    ANSI_SUCCESS_FINAL="${ANSI_COLOR_SUCCESS}${ANSI_BELL}✅ "; export ANSI_SUCCESS_FINAL
     ANSI_SUCCESS="${ANSI_COLOR_SUCCESS}"; export ANSI_SUCCESS
     ANSI_FATAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 "; export ANSI_FATAL
     ANSI_ERROR="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ "; export ANSI_ERROR
@@ -1800,6 +1799,11 @@ set_ansi_code_constants() {
     ANSI_DEBUG="${ANSI_COLOR_DEBUG}"; export ANSI_DEBUG
     ANSI_SUPERDEBUG="${ANSI_COLOR_SUPERDEBUG}"; export ANSI_SUPERDEBUG
     ANSI_ULTRADEBUG="${ANSI_COLOR_ULTRADEBUG}"; export ANSI_ULTRADEBUG
+
+    ANSI_SUCCESS_FINAL="${ANSI_COLOR_SUCCESS}${ANSI_BELL}✅ "; export ANSI_SUCCESS_FINAL
+    ANSI_FATAL_FINAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 "; export ANSI_FATAL_FINAL
+    ANSI_ERROR_FINAL="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ "; export ANSI_ERROR_FINAL
+    ANSI_WARNING_FINAL="${ANSI_COLOR_WARNING}${ANSI_BELL}⚠️ "; export ANSI_WARNING_FINAL
 }
 set_ansi_code_constants
 
@@ -2067,36 +2071,6 @@ log_console()
 }
 
 #-------------------------------------------------------------------------------
-log_success_final() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_SUCCESS_FINAL}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)"
-        if \
-            [ "${quiet:-}" != true ] ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "${message%EOL}"
-        fi
-        if [ "${FULL_LOG}" != "" ]; then
-            >>"${FULL_LOG}" command printf -- "${message%EOL}"
-        fi
-
-        exit "${RET_SUCCESS}"
-    )
-    log_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $log_ret
-}
-
-#-------------------------------------------------------------------------------
 log_success() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
@@ -2127,6 +2101,36 @@ log_success() {
 }
 
 #-------------------------------------------------------------------------------
+log_success_final() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
+    (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
+        # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
+        message="$(format_log_message "${ANSI_SUCCESS_FINAL}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        if \
+            [ "${quiet:-}" != true ] ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            command printf -- "${message%EOL}"
+        fi
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    log_ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
+    return $log_ret
+}
+
+#-------------------------------------------------------------------------------
 log_fatal() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
@@ -2137,6 +2141,44 @@ log_fatal() {
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_FATAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)"
+
+        if \
+            [ "${verbosity:-0}" -ge "${LOG_LEVEL_FATAL}" ] ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            >&2 command printf -- "${message%EOL}"
+        fi
+
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${FATAL_LOG}" != "" ]; then
+            >>"${FATAL_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${ERROR_AND_FATAL_LOG}" != "" ]; then
+            >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    log_ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
+    return $log_ret
+}
+
+#-------------------------------------------------------------------------------
+log_fatal_final() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
+    (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
+        # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
+        message="$(format_log_message "${ANSI_FATAL_FINAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             [ "${verbosity:-0}" -ge "${LOG_LEVEL_FATAL}" ] ||
@@ -2203,6 +2245,44 @@ log_error() {
 }
 
 #-------------------------------------------------------------------------------
+log_error_final() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
+    (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
+        # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
+        message="$(format_log_message "${ANSI_ERROR_FINAL}ERROR: " "${ANSI_RESET}" "$@"; command echo EOL)"
+
+        if \
+            [ "${verbosity:-0}" -ge "${LOG_LEVEL_ERROR}" ] ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            >&2 command printf -- "${message%EOL}"
+        fi
+
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${ERROR_LOG}" != "" ]; then
+            >>"${ERROR_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${ERROR_AND_FATAL_LOG}" != "" ]; then
+            >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    log_ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
+    return $log_ret
+}
+
+#-------------------------------------------------------------------------------
 log_warning() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
@@ -2213,6 +2293,41 @@ log_warning() {
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
         message="$(format_log_message "${ANSI_WARNING}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)"
+
+        if \
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_WARNING}" ]  ;} ||
+            [ "${OMEGA_DEBUG:-}" = true ] ||
+            [ "${OMEGA_DEBUG:-}" = "all" ]
+        then
+            >&2 command printf -- "${message%EOL}"
+        fi
+
+        if [ "${FULL_LOG}" != "" ]; then
+            >>"${FULL_LOG}" command printf -- "${message%EOL}"
+        fi
+        if [ "${WARNING_LOG}" != "" ]; then
+            >>"${WARNING_LOG}" command printf -- "${message%EOL}"
+        fi
+
+        exit "${RET_SUCCESS}"
+    )
+    log_ret=$?
+    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+    export SHELL_SESSION_FILE
+    return $log_ret
+}
+
+#-------------------------------------------------------------------------------
+log_warning_final() {
+    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+    SHELL_SESSION_FILE=""
+    export SHELL_SESSION_FILE
+    (
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+
+        # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
+        message="$(format_log_message "${ANSI_WARNING_FINAL}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_WARNING}" ]  ;} ||
@@ -2668,11 +2783,11 @@ report_final_status() {
             if [ "$stored_ret" -eq 0 ]; then
                 log_success_final "%s Completed Successfully." "${message%EOL}"
             elif [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
-                log_fatal "%s Had %s%s%s%s%s." "${message%EOL}" "${fatal_text}" "${before_error_text}" "${error_text}" "${before_warning_text}" "${warning_text}"
+                log_fatal_final "%s Had %s%s%s%s%s." "${message%EOL}" "${fatal_text}" "${before_error_text}" "${error_text}" "${before_warning_text}" "${warning_text}"
             elif [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
-                log_error "%s Had %s%s%s." "${message%EOL}" "${error_text}" "${before_warning_text}" "${warning_text}"
+                log_error_final "%s Had %s%s%s." "${message%EOL}" "${error_text}" "${before_warning_text}" "${warning_text}"
             elif [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
-                log_warning "%s Had %s." "${message%EOL}" "${warning_text}"
+                log_warning_final "%s Had %s." "${message%EOL}" "${warning_text}"
             fi
         else
             log_ultradebug "Skipping Final Report b/c should_print is '%s'." "${should_print}"
