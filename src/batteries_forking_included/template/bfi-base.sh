@@ -1091,6 +1091,7 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
                 # shellcheck disable=SC3054
                 TEMP_FILE_NAME="${BASH_SOURCE[0]}"
             else
+                echo "$(which lsof)"
                 # dash, sh(dash) sourced
                 x="$(lsof -p $$ -Fn0 | tail -1)"
                 TEMP_FILE_NAME="${x#n}"
@@ -1115,6 +1116,7 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
         *)
             # bash, dash, sh(bash), zsh invoked
             # zsh sourced
+            echo "$(which lsof)"
             x="$(lsof -p $$ -Fn0 | tail -1)"
             x="${x#*n}"
             if [ -f "$x" ]; then
