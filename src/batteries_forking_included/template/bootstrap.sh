@@ -816,9 +816,6 @@ create_my_tempdir() {
             else
                 the_tempdir="${HOME}/bfi_temp/$(get_datetime_stamp_filename_formatted)"
             fi
-            if [ "${PLATFORM_IS_WSL}" = true ]; then
-                the_tempdir="$(wsl wslpath -a "${the_tempdir}")"
-            fi
         else
             the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
             ret=$?
@@ -827,6 +824,8 @@ create_my_tempdir() {
                 exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
             fi
         fi
+
+        echo "${the_tempdir}" sed -e 'l'
 
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
