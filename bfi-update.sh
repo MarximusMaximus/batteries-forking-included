@@ -1085,7 +1085,10 @@ fi
 if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
     TEMP_FILE_NAME=""
     log_ultradebug "\$0=$0"
-    log_ultradebug "\${0##*/}=${0##*/}"
+    TEMP_ARG_ZERO="$0"
+    log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
+    TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"
+    log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     case "${0##*/}" in
         bash|dash|sh)  # zsh handled later
             log_ultradebug "\$0 was a known shell (not zsh)."
