@@ -810,7 +810,7 @@ create_my_tempdir() {
 
         if [ "${CI}" = true ]; then
             if [ "${GITHUB_ACTIONS}" = true ]; then
-                the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"; export CONDA_INSTALL_PATH
+                the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"
             else
                 the_tempdir="${HOME}/bfi_temp/$(get_datetime_stamp_filename_formatted)"
             fi
@@ -822,6 +822,8 @@ create_my_tempdir() {
                 exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
             fi
         fi
+
+        the_tempdir="$(rreadlink "${the_tempdir}")"
 
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"

@@ -847,7 +847,7 @@ create_my_tempdir() {
 
         if [ "${CI}" = true ]; then
             if [ "${GITHUB_ACTIONS}" = true ]; then
-                the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"; export CONDA_INSTALL_PATH
+                the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"
             else
                 the_tempdir="${HOME}/bfi_temp/$(get_datetime_stamp_filename_formatted)"
             fi
@@ -859,6 +859,8 @@ create_my_tempdir() {
                 exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
             fi
         fi
+
+        the_tempdir="$(rreadlink "${the_tempdir}")"
 
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
@@ -1124,7 +1126,7 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
     log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"
     log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
-    case "${0##*/}" in
+    case "${TEMP_ARG_ZERO}" in
         bash|dash|sh)  # zsh handled later
             log_ultradebug "\$0 was a known shell (not zsh)."
             # # bash, dash, sh(bash), sh(dash), sh(zsh) sourced
