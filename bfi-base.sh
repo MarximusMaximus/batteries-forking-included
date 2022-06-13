@@ -2658,8 +2658,9 @@ report_final_status() {
                 before_warning_text=" and "
             fi
 
+            stored_ret=$ret
             log_info "%s exiting with return code: %d" "${message%EOL}"  "$ret"
-            if [ "$ret" -eq 0 ]; then
+            if [ "$stored_ret" -eq 0 ]; then
                 log_success_final "%s Completed Successfully." "${message%EOL}"
             elif [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
                 log_fatal "%s Had %s%s%s%s%s." "${message%EOL}" "${fatal_text}" "${before_error_text}" "${error_text}" "${before_warning_text}" "${warning_text}"
