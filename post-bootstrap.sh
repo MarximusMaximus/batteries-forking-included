@@ -1166,8 +1166,12 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             log_ultradebug "Some other shell?"
             log_ultradebug "\(which lsof)=$(which lsof)"
             log_ultradebug "\$?=$?"
-            x="$(lsof -p $$ -Fn0 | tail -1)"
-            x="${x#*n}"
+            if [ "$(which lsof)" != "" ]; then
+                x="$(lsof -p $$ -Fn0 | tail -1)"
+                x="${x#*n}"
+            else
+                x="NONE"
+            fi
             if [ -f "$x" ]; then
                 x="$(rreadlink "$x")"
             fi
@@ -1177,6 +1181,10 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
                 if [ "${x}" = "pipe" ]; then
                     log_ultradebug "x is 'pipe', probably github invoked."
                     # github invoked
+                    array_append WAS_SOURCED false
+                elif [ "${x}" = "NONE" ]; then
+                    log_ultradebug "lsof not available, probably wsl invoked."
+                    # wsl doesn't have lsof, so invoked
                     array_append WAS_SOURCED false
                 else
                     log_ultradebug "x is NOT 'pipe', probably zsh sourced."
