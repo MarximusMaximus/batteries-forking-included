@@ -860,7 +860,8 @@ create_my_tempdir() {
             fi
         fi
 
-        echo "${the_tempdir}" | sed -e 'l' >&2
+        echo "${the_tempdir}" | cut -c1 | tr '[:upper:]' '[:lower:]' >&2
+        echo "${the_tempdir}" | cut -c2- | sed -e 's/\\/\//g' -e 'l' >&2
 
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
