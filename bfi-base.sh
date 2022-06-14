@@ -624,6 +624,16 @@ array_for_each() {
 #region Helper Functions
 
 #-------------------------------------------------------------------------------
+windows_path_to_unix_path() {
+    if [ "${PLATFORM_IS_WSL}" = true ]; then
+        command echo "$1" | cut -c1 | tr '[:upper:]' '[:lower:]' >&2
+        command echo "$1" | cut -c3- | sed -e 's/\\/\//g' -e 'l' >&2
+    else
+        command echo "$1"
+    fi
+}
+
+#-------------------------------------------------------------------------------
 ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
     log_superdebug "Changing current directory to '%s'" "$1"
@@ -823,8 +833,7 @@ create_my_tempdir() {
             fi
         fi
 
-        echo "${the_tempdir}" | cut -c1 | tr '[:upper:]' '[:lower:]' >&2
-        echo "${the_tempdir}" | cut -c2- | sed -e 's/\\/\//g' -e 'l' >&2
+        the_tempdir="$(windows_path_to_unix_path "${the_tempdir}")"
 
         command echo "${the_tempdir}"
         exit "${RET_SUCCESS}"
