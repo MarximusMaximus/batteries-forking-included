@@ -731,8 +731,8 @@ array_for_each() {
 #-------------------------------------------------------------------------------
 windows_path_to_unix_path() {
     if [ "${PLATFORM_IS_WSL}" = true ]; then
-        command printf "$1" | cut -c1 | tr '[:upper:]' '[:lower:]'
-        command printf "$1" | cut -c3- | sed -e 's/\\/\//g' -e 'l'
+        command printf "$(command printf "$1" | cut -c1 | tr '[:upper:]' '[:lower:]')"
+        command printf "$(command printf "$1" | cut -c3- | sed -e 's/\\/\//g' -e 'l')"
     else
         command printf "$1"
     fi
