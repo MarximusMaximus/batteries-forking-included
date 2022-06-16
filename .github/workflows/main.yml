@@ -35,8 +35,8 @@ jobs:
         os: [
           macos-latest-x64,
           ubuntu-latest-x64,
-          windows_debian-latest-x64,
-          windows_ubuntu-latest-x64,
+          # windows_debian-latest-x64,
+          # windows_ubuntu-latest-x64,
         ]
         tox-env: [
           py38,
@@ -68,12 +68,12 @@ jobs:
           - os: ubuntu-latest-x64
             os-image: ubuntu-latest
             windows-wsl: not_windows
-          - os: windows_debian-latest-x64
-            os-image: windows-latest
-            windows-wsl: Debian
-          - os: windows_ubuntu-latest-x64
-            os-image: windows-latest
-            windows-wsl: Ubuntu-20.04
+          # - os: windows_debian-latest-x64
+          #   os-image: windows-latest
+          #   windows-wsl: Debian
+          # - os: windows_ubuntu-latest-x64
+          #   os-image: windows-latest
+          #   windows-wsl: Ubuntu-20.04
           - os: macos-latest-x64
             os-image: macos-latest
             windows-wsl: not_windows
