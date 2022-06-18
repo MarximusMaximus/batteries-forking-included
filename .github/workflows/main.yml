@@ -105,7 +105,7 @@ jobs:
           echo PATH="$PATH"
           ln -s "$SOURCE_PATH" "/usr/bin/sw-sh"
           which sw-sh
-          ll /usr/bin/sw-sh
+          ls -l /usr/bin/sw-sh
 
       - if: matrix.windows-wsl == 'not_windows'
         name: Setup shell (Non-WSL)
@@ -115,7 +115,7 @@ jobs:
           echo PATH="$PATH"
           sudo ln -s "$(which sh)" "/usr/local/bin/sw-sh"
           which sw-sh
-          ll /usr/bin/sw-sh
+          ls -l /usr/bin/sw-sh
 
       - name: Runner Info
         id: runner-info
