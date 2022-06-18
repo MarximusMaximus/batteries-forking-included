@@ -103,7 +103,7 @@ jobs:
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-distribution-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           echo $PATH
-          ln -s "$SOURCE_PATH" "/usr/local/bin/sw-sh"
+          ln -s "$SOURCE_PATH" "/usr/bin/sw-sh"
 
       - if: matrix.windows-wsl == 'not_windows'
         name: Setup shell (Non-WSL)
