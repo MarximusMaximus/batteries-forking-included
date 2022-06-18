@@ -102,15 +102,20 @@ jobs:
         run: |
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-distribution-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
-          echo $PATH
+          echo PATH="$PATH"
           ln -s "$SOURCE_PATH" "/usr/bin/sw-sh"
+          which sw-sh
+          ll /usr/bin/sw-sh
 
       - if: matrix.windows-wsl == 'not_windows'
         name: Setup shell (Non-WSL)
         id: setup-shell-non-wsl
         shell: sh {0}
         run: |
+          echo PATH="$PATH"
           sudo ln -s "$(which sh)" "/usr/local/bin/sw-sh"
+          which sw-sh
+          ll /usr/bin/sw-sh
 
       - name: Runner Info
         id: runner-info
