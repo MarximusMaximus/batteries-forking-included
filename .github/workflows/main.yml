@@ -104,7 +104,7 @@ jobs:
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           echo PATH="$PATH"
           ln -s "$SOURCE_PATH" "/usr/bin/sw-sh"
-          chmod a+x "/usr/bin/sw-sh"
+          chmod -H a+x "/usr/bin/sw-sh"
           which sw-sh
           ls -l "/usr/bin/sw-sh"
 
@@ -115,7 +115,7 @@ jobs:
         run: |
           echo PATH="$PATH"
           sudo ln -s "$(which sh)" "/usr/local/bin/sw-sh"
-          chmod a+x "/usr/local/bin/sw-sh"
+          chmod -H a+x "/usr/local/bin/sw-sh"
           which sw-sh
           ls -l "/usr/local/bin/sw-sh"
 
