@@ -92,8 +92,23 @@ jobs:
           distribution: ${{ matrix.windows-wsl }}
           wsl-shell-command: sh
 
+      - if: matrix.windows-wsl != 'not_windows'
+        name: Setup shell (WSL)
+        id: setup-shell-wsl
+        shell: sh
+        run: |
+          sudo ln -s "$(which wsl-sh)" "/usr/local/bin/sw-sh"
+
+      - if: matrix.windows-wsl == 'not_windows'
+        name: Setup shell (Non-WSL)
+        id: setup-shell-wsl
+        shell: sh
+        run: |
+          sudo ln -s "$(which sh)" "/usr/local/bin/sw-sh"
+
       - name: Runner Info
         id: runner-info
+        shell: sw-sh
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
@@ -106,16 +121,19 @@ jobs:
 
       - name: Override Python Version For Work Env
         id: override-python-version
+        shell: sw-sh
         run: |
           sed -i.old 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
 
       - name: batteries-forking-included
         id: batteries-forking-included
+        shell: sw-sh
         run: |
           ./bootstrap.sh --dev
 
       - name: Test - ${{ matrix.tox-env }}
         id: test-tox
+        shell: sw-sh
         run: |
           . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p sugar --force-sugar --color=yes
