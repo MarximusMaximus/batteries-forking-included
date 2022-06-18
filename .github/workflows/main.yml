@@ -117,7 +117,7 @@ jobs:
         id: test-tox
         run: |
           . ./activate.sh
-          tox -e ${{ matrix.tox-env }} -- -p no:sugar
+          tox -e ${{ matrix.tox-env }}
 
       - name: Upload BFI Logs
         id: upload-bfi-logs

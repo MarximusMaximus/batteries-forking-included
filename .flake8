@@ -33,6 +33,9 @@
         # too many leading '#' for block comment
         # (used for region markers)
         E266,
+        # multiple spaces before keyword
+        # (we use multiple spaces for alignment in many places)
+        E272,
         # module level import not at top of file
         # (file preamble comes before includes)
         E402,
