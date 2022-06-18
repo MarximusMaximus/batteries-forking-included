@@ -90,7 +90,8 @@ jobs:
         uses: Vampire/setup-wsl@v1
         with:
           distribution: ${{ matrix.windows-wsl }}
-          wsl-shell-command: sh
+          wsl-shell-command: sh --noprofile --norc -euo pipefail '{0}'
+          set-as-default: 'false'
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
