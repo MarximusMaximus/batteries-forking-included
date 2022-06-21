@@ -99,6 +99,13 @@ jobs:
           set-as-default: 'false'
 
       - if: matrix.windows-wsl != 'not_windows'
+        name: Windows Build Version
+        id: windows-build-version
+        shell: cmd
+        run: |
+          ver
+
+      - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
         id: setup-shell-wsl
         shell: sh {0}  # use the regular sh to make ~/sh
@@ -108,9 +115,10 @@ jobs:
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
           pwd
-          sudo mkdir -p "$(dirname "${DEST_PATH}")"
-          sudo touch "${DEST_PATH}"
-          sudo chown runner "${DEST_PATH}"
+          wsl -l -v
+          mkdir -p "$(dirname "${DEST_PATH}")"
+          touch "${DEST_PATH}"
+          chown runner "${DEST_PATH}"
           chmod +x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
@@ -127,7 +135,6 @@ jobs:
           sudo mkdir -p "$(dirname "${DEST_PATH}")"
           sudo touch "${DEST_PATH}"
           sudo chown runner "${DEST_PATH}"
-          chmod +x "${DEST_PATH}"
           chmod +x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
