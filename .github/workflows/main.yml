@@ -114,6 +114,8 @@ jobs:
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
+          sudo umount /mnt/c
+          sudo mount -t drvfs C: /mnt/c -o metadata
           pwd
           wsl -l -v
           mkdir -p "$(dirname "${DEST_PATH}")"
