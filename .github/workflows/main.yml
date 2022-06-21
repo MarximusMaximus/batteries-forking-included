@@ -16,7 +16,10 @@ on:
 
 defaults:
   run:
-    shell: sh {0}  # we want all shell scripts to use the basic sh shell by default
+    # we want all shell scripts to use the basic sh shell by default
+    # we make a copy of it at ~/sh so that we can use WSL's shell on
+    #    windows, but the regular sh on linux/macos
+    shell: ~/sh {0}
 
 env:
   OMEGA_DEBUG: all
@@ -98,33 +101,30 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
         id: setup-shell-wsl
-        shell: sh {0}
+        shell: sh {0}  # use the regular sh to make ~/sh
         run: |
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-distribution-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
-          DEST_PATH=/usr/bin/sw-sh
+          DEST_PATH=~/sh
           echo PATH="$PATH"
           cp "${SOURCE_PATH}" "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
-          which sw-sh
 
       - if: matrix.windows-wsl == 'not_windows'
         name: Setup shell (Non-WSL)
         id: setup-shell-non-wsl
-        shell: sh {0}
+        shell: sh {0}  # use the regular sh to make ~/sh
         run: |
           SOURCE_PATH="$(which sh)"
-          DEST_PATH=/usr/local/bin/sw-sh
+          DEST_PATH=~/sh
           echo PATH="$PATH"
           cp "${SOURCE_PATH}" "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
-          which sw-sh
 
       - name: Runner Info
         id: runner-info
-        shell: sw-sh {0}
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
@@ -137,19 +137,16 @@ jobs:
 
       - name: Override Python Version For Work Env
         id: override-python-version
-        shell: sw-sh {0}
         run: |
           sed -i.old 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
 
       - name: batteries-forking-included
         id: batteries-forking-included
-        shell: sw-sh {0}
         run: |
           ./bootstrap.sh --dev
 
       - name: Test - ${{ matrix.tox-env }}
         id: test-tox
-        shell: sw-sh {0}
         run: |
           . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p sugar --force-sugar --color=yes
