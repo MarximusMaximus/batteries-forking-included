@@ -102,22 +102,28 @@ jobs:
         run: |
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-distribution-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
+          DEST_PATH=/usr/bin/sw-sh
           echo PATH="$PATH"
-          ln -s "$SOURCE_PATH" "/usr/bin/sw-sh"
-          chmod -R a+x "/usr/bin/sw-sh"
+          echo '#/usr/bin/env sh' >"${DEST_PATH}"
+          echo 'exit "$SOURCE_PATH" "$@"' >"${DEST_PATH}"
+
+          chmod a+x "${DEST_PATH}"
+          ls -l "${DEST_PATH}"
           which sw-sh
-          ls -l "/usr/bin/sw-sh"
 
       - if: matrix.windows-wsl == 'not_windows'
         name: Setup shell (Non-WSL)
         id: setup-shell-non-wsl
         shell: sh {0}
         run: |
+          SOURCE_PATH="$(which sh)"
+          DEST_PATH=/usr/bin/sw-sh
           echo PATH="$PATH"
-          sudo ln -s "$(which sh)" "/usr/local/bin/sw-sh"
-          chmod -h a+x "/usr/local/bin/sw-sh"
+          echo '#/usr/bin/env sh' >"${DEST_PATH}"
+          echo 'exit "$SOURCE_PATH" "$@"' >"${DEST_PATH}"
+          chmod a+x "${DEST_PATH}"
+          ls -l "${DEST_PATH}"
           which sw-sh
-          ls -l "/usr/local/bin/sw-sh"
 
       - name: Runner Info
         id: runner-info
