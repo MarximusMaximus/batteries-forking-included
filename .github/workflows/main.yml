@@ -95,8 +95,16 @@ jobs:
         id: setup-wsl
         with:
           distribution: ${{ matrix.windows-wsl }}
-          wsl-shell-command: sh --noprofile --norc -euo pipefail '{0}'
-          set-as-default: 'false'
+          wsl-shell-command: sh '{0}'
+          set-as-default: 'true'
+          wsl-conf: |
+            [automount]
+            enabled = true
+            root = /
+            options = "metadata,umask=022"
+            [interop]
+            appendWindowsPath = false
+
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Windows Build Version
@@ -110,13 +118,11 @@ jobs:
         id: setup-shell-wsl
         shell: bash {0}  # use the regular sh to make ~/sh
         run: |
-          WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-distribution-wrapper-path }}"
+          WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
           cat "${WRAPPER_PATH}"
-          umount /c
-          mount -t drvfs C: /c -o metadata
           pwd
           wsl -l -v
           mkdir -p "$(dirname "${DEST_PATH}")"
