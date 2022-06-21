@@ -148,6 +148,8 @@ jobs:
           echo os: ${{ matrix.os }}
           echo tox-env: ${{ matrix.tox-env }}
           echo windows-wsl: ${{ matrix.windows-wsl }}
+          echo Mounts:
+          mount -l
           echo Env:
           printenv | sort
 
