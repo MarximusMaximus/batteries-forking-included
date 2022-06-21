@@ -108,8 +108,9 @@ jobs:
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
           pwd
-          mkdir -p "$(dirname "${DEST_PATH}")"
-          touch "${DEST_PATH}"
+          sudo mkdir -p "$(dirname "${DEST_PATH}")"
+          sudo touch "${DEST_PATH}"
+          sudo chown runner "${DEST_PATH}"
           chmod +x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
@@ -123,8 +124,10 @@ jobs:
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
           pwd
-          mkdir -p "$(dirname "${DEST_PATH}")"
-          touch "${DEST_PATH}"
+          sudo mkdir -p "$(dirname "${DEST_PATH}")"
+          sudo touch "${DEST_PATH}"
+          sudo chown runner "${DEST_PATH}"
+          chmod +x "${DEST_PATH}"
           chmod +x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
