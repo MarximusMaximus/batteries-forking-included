@@ -50,6 +50,7 @@
     "pyproject",
     "pytest",
     "pytester",
+    "runneradmin",
     "sanitise",
     "sdist",
     "setuptools",

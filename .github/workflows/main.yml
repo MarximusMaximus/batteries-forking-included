@@ -118,7 +118,7 @@ jobs:
           wsl -l -v
           mkdir -p "$(dirname "${DEST_PATH}")"
           touch "${DEST_PATH}"
-          chown runner "${DEST_PATH}"
+          chown runneradmin "${DEST_PATH}"
           chmod +x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
@@ -141,6 +141,7 @@ jobs:
 
       - name: Runner Info
         id: runner-info
+        shell: sh {0}
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
