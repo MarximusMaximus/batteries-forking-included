@@ -107,8 +107,10 @@ jobs:
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           DEST_PATH=./runner/sh
           echo PATH="$PATH"
+          pwd
           mkdir -p "$(dirname "${DEST_PATH}")"
-          cp "${SOURCE_PATH}" "${DEST_PATH}"
+          touch "${DEST_PATH}"
+          chmod +x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
 
@@ -120,8 +122,10 @@ jobs:
           SOURCE_PATH="$(which sh)"
           DEST_PATH=./runner/sh
           echo PATH="$PATH"
+          pwd
           mkdir -p "$(dirname "${DEST_PATH}")"
-          cp "${SOURCE_PATH}" "${DEST_PATH}"
+          touch "${DEST_PATH}"
+          chmod +x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
 
