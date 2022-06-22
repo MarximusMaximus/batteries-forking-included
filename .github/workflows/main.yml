@@ -106,7 +106,6 @@ jobs:
             [interop]
             appendWindowsPath = false
 
-
       - if: matrix.windows-wsl != 'not_windows'
         name: Windows Build Version
         id: windows-build-version
@@ -135,12 +134,13 @@ jobs:
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           DEST_PATH=/opt/runner/sh
+          cat /etc/wsl.conf
           echo PATH="$PATH"
           pwd
           mkdir -p "$(dirname "${DEST_PATH}")"
           touch "${DEST_PATH}"
           chown runneradmin "${DEST_PATH}"
-          chmod +x "${DEST_PATH}"
+          chmod a+x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
 
@@ -156,7 +156,7 @@ jobs:
           sudo mkdir -p "$(dirname "${DEST_PATH}")"
           sudo touch "${DEST_PATH}"
           sudo chown runner "${DEST_PATH}"
-          chmod +x "${DEST_PATH}"
+          chmod a+x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
 
