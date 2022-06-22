@@ -117,13 +117,13 @@ jobs:
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
-          mount -l
           pwd
           mkdir -p "$(dirname "${DEST_PATH}")"
           touch "${DEST_PATH}"
           chown runneradmin "${DEST_PATH}"
           chmod a+x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
+          echo "exit \"${SOURCE_PATH}\" \"$@\"" >"${DEST_PATH}"
           "${DEST_PATH}" --version
 
       # LINUX/MACOS
@@ -141,11 +141,11 @@ jobs:
           sudo chown runner "${DEST_PATH}"
           chmod a+x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
+          echo "exit \"${SOURCE_PATH}\" \"$@\"" >"${DEST_PATH}"
           "${DEST_PATH}" --version
 
       - name: Runner Info
         id: runner-info
-        shell: sh {0}
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
