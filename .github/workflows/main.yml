@@ -123,7 +123,8 @@ jobs:
           chown runneradmin "${DEST_PATH}"
           chmod a+x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
-          echo "exit \"${SOURCE_PATH}\" \"$@\"" >"${DEST_PATH}"
+          echo "\"${SOURCE_PATH}\" \"$@\"" >>"${DEST_PATH}"
+          echo "exit \$?" >>"${DEST_PATH}"
           "${DEST_PATH}" --version
 
       # LINUX/MACOS
@@ -141,7 +142,8 @@ jobs:
           sudo chown runner "${DEST_PATH}"
           chmod a+x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
-          echo "exit \"${SOURCE_PATH}\" \"$@\"" >"${DEST_PATH}"
+          echo "\"${SOURCE_PATH}\" \"$@\"" >>"${DEST_PATH}"
+          echo "exit \$?" >>"${DEST_PATH}"
           "${DEST_PATH}" --version
 
       - name: Runner Info
