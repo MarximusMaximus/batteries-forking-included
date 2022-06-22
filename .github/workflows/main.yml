@@ -114,17 +114,23 @@ jobs:
           ver
 
       - if: matrix.windows-wsl != 'not_windows'
+        name: Windows WSL Restart
+        id: windows-wsl-restart
+        shell: cmd
+        run: |
+          wsl --shutdown
+          wsl -l -v
+
+      - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
         id: setup-shell-wsl
-        shell: bash {0}  # use the regular sh to make ~/sh
+        shell: sh {0}  # use the regular sh to make ~/sh
         run: |
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
-          cat "${WRAPPER_PATH}"
           pwd
-          wsl -l -v
           mkdir -p "$(dirname "${DEST_PATH}")"
           touch "${DEST_PATH}"
           chown runneradmin "${DEST_PATH}"
