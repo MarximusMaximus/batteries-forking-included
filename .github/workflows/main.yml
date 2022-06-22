@@ -137,7 +137,8 @@ jobs:
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
           sudo mkdir -p "$(dirname "${DEST_PATH}")"
-
+          sudo ln -s "${SOURCE_PATH}" "${DEST_PATH}"
+          sudo ls -l "${DEST_PATH}"
 
           # sudo touch "${DEST_PATH}"
           # sudo chown runner "${DEST_PATH}"
