@@ -84,10 +84,6 @@ jobs:
     runs-on: ${{ matrix.os-image }}
 
     steps:
-      - name: Checkout Repo
-        id: checkout-repo
-        uses: actions/checkout@v1
-
       - if: matrix.windows-wsl != 'not_windows'
         uses: Vampire/setup-wsl@v1.2.1
         name: Setup WSL
@@ -106,6 +102,15 @@ jobs:
             enabled = true
             appendWindowsPath = false
 
+      - if: matrix.windows-wsl != 'not_windows'
+        name: Override Git (WSL)
+        id: override-git-wsl
+        shell: cmd
+        run: |
+          md git-override
+          echo wsl git %*>git.cmd
+          echo "%CD%" >> $GITHUB_PATH
+
       - name: Runner Info
         id: runner-info
         run: |
@@ -117,6 +122,10 @@ jobs:
           echo windows-wsl: ${{ matrix.windows-wsl }}
           echo Env:
           printenv | sort
+
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v1
 
       - name: Override Python Version For Work Env
         id: override-python-version
