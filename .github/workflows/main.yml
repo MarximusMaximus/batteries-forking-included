@@ -101,7 +101,7 @@ jobs:
           wsl-conf: |
             [automount]
             enabled = true
-            root = /mnt/
+            root = /
             options = "metadata,umask=022,fmask=011,case=off"
             mountFsTab = true
             [interop]
