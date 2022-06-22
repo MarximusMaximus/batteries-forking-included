@@ -116,7 +116,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Windows WSL Conf
         id: windows-wsl-conf
-        shell: wsl sh {0}
+        shell: wsl sh '{0}'
         run: |
           echo '[automount]
           enabled = true
@@ -142,7 +142,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
         id: setup-shell-wsl
-        shell: wsl sh {0}  # use the regular sh to make ~/sh
+        shell: wsl sh '{0}'  # use the regular sh to make ~/sh
         run: |
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
