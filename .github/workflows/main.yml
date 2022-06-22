@@ -28,7 +28,7 @@ jobs:
     name: Test - ${{ matrix.os }} - ${{ matrix.tox-env }}
     defaults:
       run:
-        shell: ${{ matrix.shell || 'sh'}}
+        shell: ${{ matrix.shell || 'sh {0}' }}
     strategy:
       fail-fast: false
       max-parallel: 4
@@ -115,8 +115,6 @@ jobs:
           echo os: ${{ matrix.os }}
           echo tox-env: ${{ matrix.tox-env }}
           echo windows-wsl: ${{ matrix.windows-wsl }}
-          echo Mounts:
-          mount -l
           echo Env:
           printenv | sort
 
