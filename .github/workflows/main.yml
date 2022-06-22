@@ -100,7 +100,7 @@ jobs:
           wsl-conf: |
             [automount]
             enabled = true
-            root = /
+            root = /mnt/
             options = "metadata,umask=022,fmask=000,case=off"
             mountFsTab = true
             [interop]
@@ -109,18 +109,18 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Windows Build Version
         id: windows-build-version
-        shell: cmd
+        shell: cmd {0}
         run: |
           ver
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Windows WSL Conf
         id: windows-wsl-conf
-        shell: sh
+        shell: wsl sh {0}
         run: |
           echo '[automount]
           enabled = true
-          root = /
+          root = /mnt/
           options = \"metadata,umask=022,fmask=000,case=off\"
           mountFsTab = true
           [interop]
@@ -129,7 +129,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Windows WSL Restart
         id: windows-wsl-restart
-        shell: cmd
+        shell: cmd {0}
         run: |
           wsl --shutdown
           wsl -l -v
@@ -142,7 +142,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
         id: setup-shell-wsl
-        shell: sh {0}  # use the regular sh to make ~/sh
+        shell: wsl sh {0}  # use the regular sh to make ~/sh
         run: |
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
