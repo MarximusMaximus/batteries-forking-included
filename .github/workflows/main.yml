@@ -116,14 +116,16 @@ jobs:
         run: |
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
-          DEST_PATH=/opt/runner/sh
+          DEST_PATH=/opt/runner/sh.bat
           echo PATH="$PATH"
           mkdir -p "$(dirname "${DEST_PATH}")"
-          touch "${DEST_PATH}"
-          chmod a+x "${DEST_PATH}"
-          echo "#!/usr/bin/env sh" >>"${DEST_PATH}"
-          echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
-          echo "exit \$?" >>"${DEST_PATH}"
+          ln -s "${SOURCE_PATH}" "${DEST_PATH}"
+          ls -l "${DEST_PATH}"
+
+          # touch "${DEST_PATH}"
+          # chmod a+x "${DEST_PATH}"
+          # echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
+          # echo "exit \$?" >>"${DEST_PATH}"
 
       # LINUX/MACOS
       - if: matrix.windows-wsl == 'not_windows'
@@ -135,11 +137,14 @@ jobs:
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
           sudo mkdir -p "$(dirname "${DEST_PATH}")"
-          sudo touch "${DEST_PATH}"
-          chmod a+x "${DEST_PATH}"
-          echo "#!/usr/bin/env sh" >>"${DEST_PATH}"
-          echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
-          echo "exit \$?" >>"${DEST_PATH}"
+
+
+          # sudo touch "${DEST_PATH}"
+          # sudo chown runner "${DEST_PATH}"
+          # chmod a+x "${DEST_PATH}"
+          # echo "#!/usr/bin/env sh" >>"${DEST_PATH}"
+          # echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
+          # echo "exit \$?" >>"${DEST_PATH}"
 
       - name: Runner Info
         id: runner-info
