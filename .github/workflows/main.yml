@@ -108,6 +108,7 @@ jobs:
         shell: cmd
         run: |
           md git-override
+          cd git-override
           echo wsl git %*>git.cmd
           echo "%CD%" >> $GITHUB_PATH
 
