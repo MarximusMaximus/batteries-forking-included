@@ -105,6 +105,7 @@ jobs:
             options = "metadata,umask=022,fmask=011,case=off"
             mountFsTab = true
             [interop]
+            enabled = true
             appendWindowsPath = false
 
       # WINDOWS
@@ -117,16 +118,12 @@ jobs:
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
-          pwd
           mkdir -p "$(dirname "${DEST_PATH}")"
           touch "${DEST_PATH}"
-          chown runneradmin "${DEST_PATH}"
           chmod a+x "${DEST_PATH}"
-          ls -l "${DEST_PATH}"
           echo "#!/usr/bin/env sh" >>"${DEST_PATH}"
           echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
           echo "exit \$?" >>"${DEST_PATH}"
-          cat "${DEST_PATH}"
 
       # LINUX/MACOS
       - if: matrix.windows-wsl == 'not_windows'
@@ -137,16 +134,12 @@ jobs:
           SOURCE_PATH="$(which sh)"
           DEST_PATH=/opt/runner/sh
           echo PATH="$PATH"
-          pwd
           sudo mkdir -p "$(dirname "${DEST_PATH}")"
           sudo touch "${DEST_PATH}"
-          sudo chown runner "${DEST_PATH}"
           chmod a+x "${DEST_PATH}"
-          ls -l "${DEST_PATH}"
           echo "#!/usr/bin/env sh" >>"${DEST_PATH}"
           echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
           echo "exit \$?" >>"${DEST_PATH}"
-          cat "${DEST_PATH}"
 
       - name: Runner Info
         id: runner-info
