@@ -120,6 +120,8 @@ jobs:
         run: |
           wsl --shutdown
           wsl -l -v
+          sleep 10
+          wsl -l -v
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
