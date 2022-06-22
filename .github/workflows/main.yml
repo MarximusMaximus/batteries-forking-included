@@ -114,6 +114,19 @@ jobs:
           ver
 
       - if: matrix.windows-wsl != 'not_windows'
+        name: Windows WSL Conf
+        id: windows-wsl-conf
+        shell: sh
+        run: |
+          echo '[automount]
+          enabled = true
+          root = /
+          options = \"metadata,umask=022,fmask=000,case=off\"
+          mountFsTab = true
+          [interop]
+          appendWindowsPath = false' >/etc/wsl.conf
+
+      - if: matrix.windows-wsl != 'not_windows'
         name: Windows WSL Restart
         id: windows-wsl-restart
         shell: cmd
