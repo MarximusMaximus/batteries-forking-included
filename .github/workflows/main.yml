@@ -28,6 +28,7 @@ env:
   DO_SET_X_RUN: false
   DO_SET_X_UPDATE: false
   PY_COLORS: 1
+  WSLENV: OMEGA_DEBUG:DO_SET_X_ACTIVATE:DO_SET_X_BOOTSTRAP:DO_SET_X_RUN:DO_SET_X_UPDATE:PY_COLORS
 
 jobs:
   test:
@@ -106,38 +107,18 @@ jobs:
             [interop]
             appendWindowsPath = false
 
-      - if: matrix.windows-wsl != 'not_windows'
-        name: Windows Build Version
-        id: windows-build-version
-        shell: cmd {0}
-        run: |
-          ver
-
       # - if: matrix.windows-wsl != 'not_windows'
-      #   name: Windows WSL Conf
-      #   id: windows-wsl-conf
-      #   shell: wsl-sh {0}
+      #   name: Windows WSL Restart
+      #   id: windows-wsl-restart
+      #   shell: cmd
       #   run: |
-      #     echo '[automount]
-      #     enabled = true
-      #     root = /mnt/
-      #     options = \"metadata,umask=022,fmask=011,case=off\"
-      #     mountFsTab = true
-      #     [interop]
-      #     appendWindowsPath = false' >/etc/wsl.conf
-
-      - if: matrix.windows-wsl != 'not_windows'
-        name: Windows WSL Restart
-        id: windows-wsl-restart
-        shell: cmd
-        run: |
-          wsl --shutdown
-          wsl -l -v
-          sleep 10
-          wsl -l -v
-          wsl echo
-          sleep 10
-          wsl -l -v
+      #     wsl --shutdown
+      #     wsl -l -v
+      #     sleep 10
+      #     wsl -l -v
+      #     wsl echo
+      #     sleep 10
+      #     wsl -l -v
 
       # WINDOWS
       - if: matrix.windows-wsl != 'not_windows'

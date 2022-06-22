@@ -66,6 +66,7 @@
     "urlencode",
     "whitespaces",
     "WSL's",
+    "WSLENV",
     "xcodeproj"
 ],
   "files.eol": "\n",
