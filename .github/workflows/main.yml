@@ -123,10 +123,10 @@ jobs:
           chown runneradmin "${DEST_PATH}"
           chmod a+x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
+          echo "#!/usr/bin/env sh" >>"${DEST_PATH}"
           echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
           echo "exit \$?" >>"${DEST_PATH}"
           cat "${DEST_PATH}"
-          which wsl-sh
 
       # LINUX/MACOS
       - if: matrix.windows-wsl == 'not_windows'
@@ -143,6 +143,7 @@ jobs:
           sudo chown runner "${DEST_PATH}"
           chmod a+x "${DEST_PATH}"
           ls -l "${DEST_PATH}"
+          echo "#!/usr/bin/env sh" >>"${DEST_PATH}"
           echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
           echo "exit \$?" >>"${DEST_PATH}"
           cat "${DEST_PATH}"
