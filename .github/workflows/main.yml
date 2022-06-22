@@ -101,7 +101,8 @@ jobs:
             [automount]
             enabled = true
             root = /
-            options = "metadata,umask=022"
+            options = "metadata,umask=22,fmask=11,case=off"
+            mountFsTab = true
             [interop]
             appendWindowsPath = false
 
@@ -120,6 +121,9 @@ jobs:
         run: |
           wsl --shutdown
           wsl -l -v
+          sleep 10
+          wsl -l -v
+          wsl echo
           sleep 10
           wsl -l -v
 
