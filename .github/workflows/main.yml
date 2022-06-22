@@ -14,13 +14,6 @@ on:
   pull_request:
     # any pull request
 
-defaults:
-  run:
-    # we want all shell scripts to use the basic sh shell by default
-    # we make a copy of it at ~/sh so that we can use WSL's shell on
-    #    windows, but the regular sh on linux/macos
-    shell: /opt/runner/sh {0}
-
 env:
   OMEGA_DEBUG: all
   DO_SET_X_ACTIVATE: false
@@ -33,6 +26,9 @@ env:
 jobs:
   test:
     name: Test - ${{ matrix.os }} - ${{ matrix.tox-env }}
+    defaults:
+      run:
+        shell: ${{ matrix.shell || 'sh'}}
     strategy:
       fail-fast: false
       max-parallel: 4
@@ -76,9 +72,11 @@ jobs:
           - os: windows_debian-latest-x64
             os-image: windows-latest
             windows-wsl: Debian
+            shell: "wsl-sh {0}"
           - os: windows_ubuntu-latest-x64
             os-image: windows-latest
             windows-wsl: Ubuntu-20.04
+            shell: "wsl-sh {0}"
           - os: macos-latest-x64
             os-image: macos-latest
             windows-wsl: not_windows
@@ -107,45 +105,6 @@ jobs:
             [interop]
             enabled = true
             appendWindowsPath = false
-
-      # WINDOWS
-      - if: matrix.windows-wsl != 'not_windows'
-        name: Setup shell (WSL)
-        id: setup-shell-wsl
-        shell: wsl-sh {0}  # use the regular sh to make /opt/runner/sh
-        run: |
-          WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
-          SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
-          DEST_PATH=/opt/runner/sh
-          echo PATH="$PATH"
-          mkdir -p "$(dirname "${DEST_PATH}")"
-          ln -s "${SOURCE_PATH}" "${DEST_PATH}"
-          ls -l "${DEST_PATH}"
-
-          # touch "${DEST_PATH}"
-          # chmod a+x "${DEST_PATH}"
-          # echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
-          # echo "exit \$?" >>"${DEST_PATH}"
-
-      # LINUX/MACOS
-      - if: matrix.windows-wsl == 'not_windows'
-        name: Setup shell (Non-WSL)
-        id: setup-shell-non-wsl
-        shell: sh {0}  # use the regular sh to make ~/sh
-        run: |
-          SOURCE_PATH="$(which sh)"
-          DEST_PATH=/opt/runner/sh
-          echo PATH="$PATH"
-          sudo mkdir -p "$(dirname "${DEST_PATH}")"
-          sudo ln -s "${SOURCE_PATH}" "${DEST_PATH}"
-          sudo ls -l "${DEST_PATH}"
-
-          # sudo touch "${DEST_PATH}"
-          # sudo chown runner "${DEST_PATH}"
-          # chmod a+x "${DEST_PATH}"
-          # echo "#!/usr/bin/env sh" >>"${DEST_PATH}"
-          # echo "\"${SOURCE_PATH}\" \"\$@\"" >>"${DEST_PATH}"
-          # echo "exit \$?" >>"${DEST_PATH}"
 
       - name: Runner Info
         id: runner-info
