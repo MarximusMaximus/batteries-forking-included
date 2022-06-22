@@ -239,7 +239,7 @@ rreadlink() {
         # NOTE: that we manually resolve paths ending in /. and /.. to make sure we have a normalized path.
         if [ "$fname" = '.' ]; then
             command printf '%s\n' "${targetDir%/}"
-        elif    [ "$fname" = '..' ]; then
+        elif [ "$fname" = '..' ]; then
             # NOTE: something like /var/.. will resolve to /private (assuming /var@ -> /private/var),
             # NOTE:     i.e. the '..' is applied AFTER canonicalization.
             command printf '%s\n' "$(command dirname -- "${targetDir}")"
