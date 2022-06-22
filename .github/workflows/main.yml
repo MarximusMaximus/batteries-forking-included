@@ -107,19 +107,6 @@ jobs:
             [interop]
             appendWindowsPath = false
 
-      # - if: matrix.windows-wsl != 'not_windows'
-      #   name: Windows WSL Restart
-      #   id: windows-wsl-restart
-      #   shell: cmd
-      #   run: |
-      #     wsl --shutdown
-      #     wsl -l -v
-      #     sleep 10
-      #     wsl -l -v
-      #     wsl echo
-      #     sleep 10
-      #     wsl -l -v
-
       # WINDOWS
       - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
@@ -129,9 +116,8 @@ jobs:
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
           DEST_PATH=/opt/runner/sh
-          cat /etc/wsl.conf
           echo PATH="$PATH"
-          mount --help
+          mount -l
           pwd
           mkdir -p "$(dirname "${DEST_PATH}")"
           touch "${DEST_PATH}"
