@@ -130,7 +130,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Windows WSL Restart
         id: windows-wsl-restart
-        shell: cmd {0}
+        shell: cmd
         run: |
           wsl --shutdown
           wsl -l -v
