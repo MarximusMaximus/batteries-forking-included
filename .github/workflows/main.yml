@@ -101,7 +101,7 @@ jobs:
             [automount]
             enabled = true
             root = /mnt/
-            options = "metadata,umask=022,fmask=000,case=off"
+            options = "metadata,umask=022,fmask=011,case=off"
             mountFsTab = true
             [interop]
             appendWindowsPath = false
@@ -113,19 +113,18 @@ jobs:
         run: |
           ver
 
-      - if: matrix.windows-wsl != 'not_windows'
-        name: Windows WSL Conf
-        id: windows-wsl-conf
-        #shell: wsl sh -c "sh \"/$(command echo '{0}' | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo '{0}' | cut -c3- | sed -e 's/\\/\//g')\")"
-        shell: wsl-sh {0}
-        run: |
-          echo '[automount]
-          enabled = true
-          root = /mnt/
-          options = \"metadata,umask=022,fmask=000,case=off\"
-          mountFsTab = true
-          [interop]
-          appendWindowsPath = false' >/etc/wsl.conf
+      # - if: matrix.windows-wsl != 'not_windows'
+      #   name: Windows WSL Conf
+      #   id: windows-wsl-conf
+      #   shell: wsl-sh {0}
+      #   run: |
+      #     echo '[automount]
+      #     enabled = true
+      #     root = /mnt/
+      #     options = \"metadata,umask=022,fmask=011,case=off\"
+      #     mountFsTab = true
+      #     [interop]
+      #     appendWindowsPath = false' >/etc/wsl.conf
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Windows WSL Restart
@@ -140,11 +139,11 @@ jobs:
           sleep 10
           wsl -l -v
 
+      # WINDOWS
       - if: matrix.windows-wsl != 'not_windows'
         name: Setup shell (WSL)
         id: setup-shell-wsl
-        shell: wsl-sh {0}
-        #shell: wsl sh '{0}'  # use the regular sh to make ~/sh
+        shell: wsl-sh {0}  # use the regular sh to make /opt/runner/sh
         run: |
           WRAPPER_PATH="${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }}"
           SOURCE_PATH="/$(command echo "$WRAPPER_PATH" | cut -c1 | tr '[:upper:]' '[:lower:]')$(command echo "$WRAPPER_PATH" | cut -c3- | sed -e 's/\\/\//g')"
@@ -160,6 +159,7 @@ jobs:
           ls -l "${DEST_PATH}"
           "${DEST_PATH}" --version
 
+      # LINUX/MACOS
       - if: matrix.windows-wsl == 'not_windows'
         name: Setup shell (Non-WSL)
         id: setup-shell-non-wsl
