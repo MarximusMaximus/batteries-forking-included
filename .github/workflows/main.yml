@@ -101,7 +101,7 @@ jobs:
             [automount]
             enabled = true
             root = /
-            options = "metadata,umask=22,fmask=11,case=off"
+            options = "metadata,umask=022,fmask=000,case=off"
             mountFsTab = true
             [interop]
             appendWindowsPath = false
