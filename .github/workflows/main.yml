@@ -103,6 +103,7 @@ jobs:
             appendWindowsPath = false
           additional-packages:
             git
+            git-lfs
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Override Git (WIN32) (to use WSL's git)
