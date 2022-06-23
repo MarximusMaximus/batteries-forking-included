@@ -103,8 +103,8 @@ jobs:
             appendWindowsPath = false
 
       - if: matrix.windows-wsl != 'not_windows'
-        name: Override Git (WIN32)
-        id: override-git-wsl
+        name: Override Git (WIN32) (to use WSL's git)
+        id: override-git-win32
         shell: cmd
         run: |
           md git-override
@@ -112,7 +112,8 @@ jobs:
           echo wsl git %*>git.cmd
           echo "%CD%" >> $GITHUB_PATH
 
-      - name: Runner Info (WIN32)
+      - if: matrix.windows-wsl != 'not_windows'
+        name: Runner Info (WIN32)
         id: runner-info-win32
         shell: cmd
         run: |
