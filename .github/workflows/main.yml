@@ -110,7 +110,14 @@ jobs:
           md git-override
           cd git-override
           echo wsl git %*>git.cmd
-          echo "%CD%" >> $GITHUB_PATH
+          echo GITHUB_PATH start
+          type %GITHUB_PATH%
+          echo GITHUB_PATH end
+          echo %CD% >> %GITHUB_PATH%
+          echo GITHUB_PATH start
+          type %GITHUB_PATH%
+          echo GITHUB_PATH end
+          dir %CD%
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Runner Info (WIN32)
@@ -126,7 +133,9 @@ jobs:
           echo where git:
           where git
           echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
+          echo GITHUB_PATH start
           type %GITHUB_PATH%
+          echo GITHUB_PATH end
           echo Env:
           set | sort
 
@@ -142,7 +151,9 @@ jobs:
           echo which git:
           which git
           echo cat \$GITHUB_PATH \($GITHUB_PATH\):
+          echo GITHUB_PATH start
           cat $GITHUB_PATH
+          echo GITHUB_PATH end
           echo Env:
           printenv | sort
 
