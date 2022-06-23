@@ -125,7 +125,7 @@ jobs:
           echo   .windows-wsl: ${{ matrix.windows-wsl }}
           echo where git:
           where git
-          echo type \%GITHUB_PATH\% (%GITHUB_PATH%):
+          echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
           type %GITHUB_PATH%
           echo Env:
           set | sort
@@ -141,7 +141,7 @@ jobs:
           echo   .windows-wsl: ${{ matrix.windows-wsl }}
           echo which git:
           which git
-          echo cat \$GITHUB_PATH ($GITHUB_PATH):
+          echo cat \$GITHUB_PATH \($GITHUB_PATH\):
           cat $GITHUB_PATH
           echo Env:
           printenv | sort
