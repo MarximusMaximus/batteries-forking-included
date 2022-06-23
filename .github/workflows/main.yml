@@ -147,6 +147,7 @@ jobs:
           echo GITHUB_PATH end
           echo Env:
           reg query HKEY_CURRENT_USER\Environment
+          reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment"
 
       - name: Runner Info (Linux, macOS, WSL)
         id: runner-info
