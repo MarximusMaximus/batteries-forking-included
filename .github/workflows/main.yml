@@ -122,6 +122,7 @@ jobs:
           type %GITHUB_PATH%
           echo GITHUB_PATH end
           dir %CD%
+          type git.cmd
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Runner Info (WIN32)
