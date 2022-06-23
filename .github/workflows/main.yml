@@ -123,7 +123,10 @@ jobs:
           echo   .os: ${{ matrix.os }}
           echo   .tox-env: ${{ matrix.tox-env }}
           echo   .windows-wsl: ${{ matrix.windows-wsl }}
-          echo where git: $(where git)
+          echo where git:
+          where git
+          echo type \%GITHUB_PATH\% (%GITHUB_PATH%):
+          type %GITHUB_PATH%
           echo Env:
           set | sort
 
@@ -136,9 +139,13 @@ jobs:
           echo   .os: ${{ matrix.os }}
           echo   .tox-env: ${{ matrix.tox-env }}
           echo   .windows-wsl: ${{ matrix.windows-wsl }}
-          echo which git: $(which git)
+          echo which git:
+          which git
+          echo cat \$GITHUB_PATH ($GITHUB_PATH):
+          cat $GITHUB_PATH
           echo Env:
           printenv | sort
+
 
       - name: Checkout Repo
         id: checkout-repo
