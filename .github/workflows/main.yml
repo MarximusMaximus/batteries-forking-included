@@ -103,7 +103,7 @@ jobs:
             appendWindowsPath = false
 
       - if: matrix.windows-wsl != 'not_windows'
-        name: Override Git (WSL)
+        name: Override Git (WIN32)
         id: override-git-wsl
         shell: cmd
         run: |
@@ -112,15 +112,30 @@ jobs:
           echo wsl git %*>git.cmd
           echo "%CD%" >> $GITHUB_PATH
 
-      - name: Runner Info
+      - name: Runner Info (WIN32)
+        id: runner-info-win32
+        shell: cmd
+        run: |
+          echo OS: ${{ runner.os }}
+          echo ARCH: ${{ runner.arch }}
+          echo matrix:
+          echo   .os: ${{ matrix.os }}
+          echo   .tox-env: ${{ matrix.tox-env }}
+          echo   .windows-wsl: ${{ matrix.windows-wsl }}
+          echo where git: $(where git)
+          echo Env:
+          set | sort
+
+      - name: Runner Info (Linux, macOS, WSL)
         id: runner-info
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
           echo matrix:
-          echo os: ${{ matrix.os }}
-          echo tox-env: ${{ matrix.tox-env }}
-          echo windows-wsl: ${{ matrix.windows-wsl }}
+          echo   .os: ${{ matrix.os }}
+          echo   .tox-env: ${{ matrix.tox-env }}
+          echo   .windows-wsl: ${{ matrix.windows-wsl }}
+          echo which git: $(which git)
           echo Env:
           printenv | sort
 
