@@ -136,6 +136,8 @@ jobs:
           echo   .windows-wsl: ${{ matrix.windows-wsl }}
           echo where git:
           where git
+          echo git version:
+          git version
           echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
           echo GITHUB_PATH start
           type %GITHUB_PATH%
@@ -154,6 +156,8 @@ jobs:
           echo   .windows-wsl: ${{ matrix.windows-wsl }}
           echo which git:
           which git
+          echo git version:
+          git version
           echo cat \$GITHUB_PATH \($GITHUB_PATH\):
           echo GITHUB_PATH start
           cat $GITHUB_PATH
