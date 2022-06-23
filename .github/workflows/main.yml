@@ -111,7 +111,7 @@ jobs:
         run: |
           md git-override
           cd git-override
-          echo wsl git %*>git.cmd
+          echo wsl git %%*>git.cmd
           echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
           echo GITHUB_PATH start
           type %GITHUB_PATH%
