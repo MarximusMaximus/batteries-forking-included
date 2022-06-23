@@ -146,8 +146,31 @@ jobs:
           type %GITHUB_PATH%
           echo GITHUB_PATH end
           echo Env:
+          set
           reg query HKEY_CURRENT_USER\Environment
           reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment"
+
+      - if: matrix.windows-wsl != 'not_windows'
+        name: Runner Info (WIN32 sh)
+        id: runner-info-win32-sh
+        shell: sh
+        run: |
+          echo OS: ${{ runner.os }}
+          echo ARCH: ${{ runner.arch }}
+          echo matrix:
+          echo   .os: ${{ matrix.os }}
+          echo   .tox-env: ${{ matrix.tox-env }}
+          echo   .windows-wsl: ${{ matrix.windows-wsl }}
+          echo which git:
+          which git
+          echo git version:
+          git version
+          echo cat \$GITHUB_PATH ($GITHUB_PATH%):
+          echo GITHUB_PATH start
+          cat $GITHUB_PATH
+          echo GITHUB_PATH end
+          echo Env:
+          printenv | sort
 
       - name: Runner Info (Linux, macOS, WSL)
         id: runner-info
