@@ -111,7 +111,8 @@ jobs:
         run: |
           md git-override
           cd git-override
-          echo wsl git %%*>git.cmd
+          echo echo off>git.cmd
+          echo wsl git %%*>>git.cmd
           echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
           echo GITHUB_PATH start
           type %GITHUB_PATH%
@@ -144,7 +145,7 @@ jobs:
           type %GITHUB_PATH%
           echo GITHUB_PATH end
           echo Env:
-          set | sort
+          set
 
       - name: Runner Info (Linux, macOS, WSL)
         id: runner-info
@@ -165,7 +166,6 @@ jobs:
           echo GITHUB_PATH end
           echo Env:
           printenv | sort
-
 
       - name: Checkout Repo
         id: checkout-repo
