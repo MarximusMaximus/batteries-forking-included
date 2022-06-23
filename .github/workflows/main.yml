@@ -146,7 +146,7 @@ jobs:
           type %GITHUB_PATH%
           echo GITHUB_PATH end
           echo Env:
-          set
+          reg query HKEY_CURRENT_USER\Environment
 
       - name: Runner Info (Linux, macOS, WSL)
         id: runner-info
