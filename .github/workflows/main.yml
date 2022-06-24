@@ -137,7 +137,7 @@ jobs:
           md git-override
           cd git-override
           echo @echo off>git.cmd
-          echo ${{ steps.setup-wsl.outputs.wsl-shell-wrapper-path }} git %%*>>git.cmd
+          echo wsl git %%*>>git.cmd
           echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
           echo GITHUB_PATH start
           type %GITHUB_PATH%
@@ -149,6 +149,28 @@ jobs:
           echo GITHUB_PATH end
           dir %CD%
           type git.cmd
+
+      - if: matrix.windows-wsl != 'not_windows'
+        name: Override Node (WIN32) (to use WSL's Node)
+        id: override-git-node
+        continue-on-error: true
+        shell: cmd
+        run: |
+          md node-override
+          cd node-override
+          echo @echo off>node.cmd
+          echo wsl node %%*>>node.cmd
+          echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
+          echo GITHUB_PATH start
+          type %GITHUB_PATH%
+          echo GITHUB_PATH end
+          echo %CD%>>%GITHUB_PATH%
+          echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
+          echo GITHUB_PATH start
+          type %GITHUB_PATH%
+          echo GITHUB_PATH end
+          dir %CD%
+          type node.cmd
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Runner Info (WIN32)
@@ -168,8 +190,6 @@ jobs:
           git version
           echo where node:
           where node
-          echo where node16:
-          where node16
           echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
           echo GITHUB_PATH start
           type %GITHUB_PATH%
@@ -197,8 +217,6 @@ jobs:
           git version
           echo which node:
           which node
-          echo which node16:
-          which node16
           echo cat \$GITHUB_PATH \($GITHUB_PATH\):
           echo GITHUB_PATH start
           cat $GITHUB_PATH
@@ -222,8 +240,6 @@ jobs:
           git version
           echo which node:
           which node
-          echo which node16:
-          which node16
           echo cat \$GITHUB_PATH \($GITHUB_PATH\):
           echo GITHUB_PATH start
           cat $GITHUB_PATH
