@@ -109,6 +109,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Set WSLENV
         id: set-wslenv
+        continue-on-error: true
         shell: cmd
         run: |
           echo WSLENV=${{ env.WSLENV_BASE }}:${{ env.WSLENV_APPEND }}>>%GITHUB_ENV%
@@ -116,6 +117,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Override Git (WIN32) (to use WSL's git)
         id: override-git-win32
+        continue-on-error: true
         shell: cmd
         run: |
           md git-override
@@ -137,6 +139,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Runner Info (WIN32)
         id: runner-info-win32
+        continue-on-error: true
         shell: cmd
         run: |
           echo OS: ${{ runner.os }}
@@ -161,6 +164,7 @@ jobs:
       - if: matrix.windows-wsl != 'not_windows'
         name: Runner Info (WIN32 sh)
         id: runner-info-win32-sh
+        continue-on-error: true
         shell: sh
         run: |
           echo OS: ${{ runner.os }}
@@ -182,6 +186,7 @@ jobs:
 
       - name: Runner Info (Linux, macOS, WSL)
         id: runner-info
+        continue-on-error: true
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
