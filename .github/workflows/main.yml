@@ -137,7 +137,7 @@ jobs:
           md git-override
           cd git-override
           echo @echo off>git.cmd
-          echo wsl git %%*>>git.cmd
+          echo ${{ steps.execute_action.outputs.wsl-shell-wrapper-path }} git %%*>>git.cmd
           echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
           echo GITHUB_PATH start
           type %GITHUB_PATH%
