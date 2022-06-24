@@ -100,12 +100,13 @@ jobs:
             options = "metadata,umask=022,fmask=011,case=off"
             mountFsTab = true
             [interop]
-            enabled = true
+            enabled = false
             appendWindowsPath = false
           additional-packages:
             git
             git-lfs
 
+      # WARNING: RUNNER_USER doesn't normally exist for Windows runners, it will be invalid if used in CMD/PWRSH
       - if: matrix.windows-wsl != 'not_windows'
         name: Set WSL Extra Env Vars (WSL)
         id: set-wsl-extra-env-vars
