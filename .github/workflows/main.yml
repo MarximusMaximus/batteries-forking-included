@@ -270,7 +270,7 @@ jobs:
       - name: Upload BFI Logs
         id: upload-bfi-logs
         if: matrix.tox-env != 'lint'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
           path: |
@@ -279,7 +279,7 @@ jobs:
       - name: Upload Test Report Artifacts
         id: upload-test-report-artifacts
         if: matrix.tox-env != 'lint'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: test-report-${{ matrix.os }}-${{ matrix.tox-env }}
           path: |
@@ -288,7 +288,7 @@ jobs:
       - name: Upload Coverage Artifacts
         id: upload-coverage-artifacts
         if: matrix.tox-env == 'coverage'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: code-coverage-report
           path: |
@@ -304,8 +304,7 @@ jobs:
     steps:
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v1
-
+        uses: actions/checkout@v3.0.2
 
       - name: Runner Info
         id: runner-info
@@ -341,7 +340,7 @@ jobs:
     steps:
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3.0.2
 
       - name: Runner Info
         id: runner-info
@@ -392,14 +391,14 @@ jobs:
 
       - name: Download Build Products
         id: download-build-products
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3.0.0
         with:
           name: build-products
           path: dist
 
       - name: Create Release
         id: create-release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.10.0
         with:
           commit: ${{ github.sha }}
           artifacts: "dist/*"
@@ -421,7 +420,7 @@ jobs:
     steps:
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3.0.2
 
       - name: Runner Info
         id: runner-info
@@ -436,7 +435,7 @@ jobs:
 
       - name: Download Build Products
         id: download-build-products
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3.0.0
         with:
           name: build-products
           path: dist
