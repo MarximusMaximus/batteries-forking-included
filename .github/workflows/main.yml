@@ -105,6 +105,7 @@ jobs:
           additional-packages:
             git
             git-lfs
+            node16
 
       # WARNING: RUNNER_USER doesn't normally exist for Windows runners, it will be invalid if used in CMD/PWRSH
       - if: matrix.windows-wsl != 'not_windows'
@@ -165,6 +166,10 @@ jobs:
           where git
           echo git version:
           git version
+          echo where node:
+          where node
+          echo where node16:
+          where node16
           echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
           echo GITHUB_PATH start
           type %GITHUB_PATH%
@@ -190,6 +195,10 @@ jobs:
           which git
           echo git version:
           git version
+          echo which node:
+          which node
+          echo which node16:
+          which node16
           echo cat \$GITHUB_PATH \($GITHUB_PATH\):
           echo GITHUB_PATH start
           cat $GITHUB_PATH
@@ -211,6 +220,10 @@ jobs:
           which git
           echo git version:
           git version
+          echo which node:
+          which node
+          echo which node16:
+          which node16
           echo cat \$GITHUB_PATH \($GITHUB_PATH\):
           echo GITHUB_PATH start
           cat $GITHUB_PATH
