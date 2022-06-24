@@ -111,7 +111,7 @@ jobs:
         id: set-wslenv
         shell: cmd
         run: |
-          echo WSLENV: ${{ env.WSLENV_BASE }}:${{ env.WSLENV_APPEND }}>>%GITHUB_ENV%
+          echo WSLENV=${{ env.WSLENV_BASE }}:${{ env.WSLENV_APPEND }}>>%GITHUB_ENV%
 
       - if: matrix.windows-wsl != 'not_windows'
         name: Override Git (WIN32) (to use WSL's git)
