@@ -3059,6 +3059,7 @@ batteries_forking_included__bootstrap() {
         fi
 
         ensure_conda
+        ret=$?
         if [ "$(return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
