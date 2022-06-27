@@ -1,0 +1,793 @@
+# Auto detect other text files and perform LF normalization
+# for anything not defined below
+*                   text=auto eol=lf
+# line endings should be preserved for patch files
+*.patch             -text
+
+################################################################################
+#region Specific Filenames
+
+# Config File
+.editorconfig       text
+# Config File
+.env                text
+# Config File
+.gitattributes      text
+# Config File
+.gitconfig          text
+# Config File
+.gvimrc             text eol=lf
+# Config File
+.htaccess           text
+# Config File
+.prettierrc         text
+# Config File
+.vimrc              text eol=lf
+# Document
+AUTHORS             text
+# Document
+AUTHORS*            text
+# Config File
+browserslist        text
+# Document
+CHANGELOG           text
+# Document
+CHANGELOG*          text
+# Document
+CHANGES             text
+# Document
+CHANGES*            text
+# Document
+CONTRIBUTING        text
+# Document
+CONTRIBUTING*       text
+# Document
+COPYING             text
+# Document
+COPYING*            text
+# Document
+copyright           text
+# Document
+COPYRIGHT           text
+# Document
+copyright*          text
+# Document
+COPYRIGHT*          text
+# Docker
+Dockerfile          text
+# Document
+INSTALL             text
+# Document
+INSTALL*            text
+# Document
+license             text
+# Document
+LICENSE             text
+# Document
+license*            text
+# Document
+LICENSE*            text
+# Config File
+Makefile            text
+# Config File
+makefile            text
+# Document
+NEWS                text
+# Document
+NEWS*               text
+# Config File
+package-lock.json   text -diff
+# Config File
+package.json        text eol=lf
+# Config File
+pnpm-lock.yaml      text eol=lf -diff
+# Config File
+Procfile            text
+# Document
+readme              text
+# Document
+README              text
+# Document
+readme*             text
+# Document
+README*             text
+# Document
+TODO                text
+# Document
+TODO*               text
+# Config File
+yarn.lock           text -diff
+# Config File
+zlogin              text eol=lf
+# Config File
+zprofile            text eol=lf
+# Config File
+zsh*                text eol=lf
+# Config File
+zshenv              text eol=lf
+# Config File
+zshrc               text eol=lf
+
+#endregion Specific Filenames
+################################################################################
+
+################################################################################
+#region Extensions
+
+# 3D Models
+*.3dm               binary
+# 3D Models
+*.3ds               binary
+# Video
+*.3gp               binary
+# Video
+*.3gpp              binary
+# Compressed Files
+*.7z                binary
+# Compiled Static Library
+*.a                 binary
+# Document
+*.adoc              text
+# Adobe Illustrator
+*.ai                binary
+# Audio
+*.aif               binary
+# Audio
+*.aiff              binary
+# Unity
+*.anim              merge=unityyamlmerge eol=lf
+# Executable
+*.apk               binary
+# Executable
+*.app               binary
+# Video
+*.as                binary
+# Video
+*.asf               binary
+# Unity
+*.asset             linguist-generated
+# Unity
+*.asset             merge=unityyamlmerge eol=lf
+# Video
+*.asx               binary
+# Video
+*.avi               binary
+# Linuxy Shell Script (MUST be lf)
+*.bash              text eol=lf
+# Config File
+*.bash_history      text eol=lf
+# Config File
+*.bash_login        text eol=lf
+# Config File
+*.bash_logout       text eol=lf
+# Config File
+*.bash_profile      text eol=lf
+# Config File
+*.bashprofile       text eol=lf
+# Config File
+*.bashrc            text eol=lf
+# Windows Shell Script (MUST be crlf)
+*.bat               text eol=crlf
+# Document
+*.bibtex            text diff=bibtex
+# Raw Data
+*.bin               binary
+# Raw Data
+*.binary            binary
+# 3D Models
+*.blend             binary
+# Graphics
+*.bmp               binary
+# Compressed File
+*.bz2               binary
+# C
+*.c                 text diff=cpp
+# C++
+*.c++               text diff=cpp
+# 3D Models
+*.c4d               binary
+# C++
+*.cc                text diff=cpp
+# PowerShell (MUST be crlf)
+*.cdxml             text eol=crlf
+# Unity
+*.cginc             text
+# Java
+*.class             binary
+# Windows Shell Script (MUST be crlf)
+*.cmd               text eol=crlf
+# Config File
+*.cnf               text
+# Coffeescript
+*.coffee            text
+# 3D Models
+*.collada           binary
+# Config File
+*.conf              text
+# Config File
+*.config            text
+# Unity
+*.controller        merge=unityyamlmerge eol=lf
+# C++
+*.cpp               text diff=cpp
+# CSharp
+*.cs                text diff=csharp
+# CSharp
+*.cshtml            text diff=html
+# Visual Studio
+*.csproj            text eol=crlf merge=union
+# CSS
+*.css               text diff=css
+# Datafile (text based)
+*.csv               text
+# CSharp
+*.csx               text diff=csharp
+# Unity
+*.cubemap           binary
+# C++
+*.cxx               text diff=cpp
+# 3D Models
+*.dae               binary
+# Raw Data
+*.db                binary
+# Visual Studio
+*.dbproj            text eol=crlf merge=union
+# Datafile
+*.df                text
+# Copmiled Dynamic Library
+*.dll               binary
+# Document
+*.doc               diff=astextplain
+# Document
+*.DOC               diff=astextplain
+# Document
+*.docx              diff=astextplain
+# Document
+*.DOCX              diff=astextplain
+# Document
+*.dot               diff=astextplain
+# Document
+*.DOT               diff=astextplain
+# 3D Models
+*.dxf               binary
+# Compiled Dynamic Library
+*.dylib             binary
+# Java
+*.ear               binary
+# Template File
+*.ejs               text
+# Font
+*.eot               binary
+# Graphic
+*.eps               binary
+# Template File
+*.erb               text
+# Executable
+*.exe               binary
+# Graphics
+*.exr               binary
+# 3D Models
+*.FBX               binary
+# 3D Models
+*.fbx               binary
+# MATLAB
+*.fig               binary
+# Visual Studio
+*.filters           text eol=crlf merge=union
+# Linuxy Shell Script (MUST be lf)
+*.fish              text eol=lf
+# Video
+*.fla               binary
+# Video
+*.flv               binary
+# Visual Studio
+*.fsproj            text eol=crlf merge=union
+# Precompiled Headers
+*.gch               binary
+# Graphics
+*.gif               binary
+# Graphic
+*.gifv              binary
+# Config File
+*.gitignore         text
+# Shader
+*.glsl              text
+# Golang
+*.go                -text diff=golang
+# Java
+*.gradle            text diff=java
+# Java
+*.gradle.kts        text diff=kotlin
+# Groovy
+*.groovy            text diff=java
+# Compressed Files
+*.gz                binary
+# C
+*.h                 text diff=cpp
+# C++
+*.h++               text diff=cpp
+# Template File
+*.haml              text
+# Template File
+*.handlebars        text
+# Template File
+*.hbs               text
+# Template File
+*.hbt               text
+# Graphics
+*.hdr               binary
+# C++
+*.hh                text diff=cpp
+# Shader
+*.hlsl              text
+# C++
+*.hpp               text diff=cpp
+# HTML
+*.htm               text diff=html
+# HTML
+*.html              text diff=html
+# Graphic
+*.ico               binary
+# Graphics
+*.iff               binary
+# Assembly
+*.inc               text
+# Config File
+*.ini               text
+# Python (Jupyter)
+*.ipynb             text
+# Audio
+*.it                binary
+# Template File
+*.jade              text
+# Java
+*.jar               binary
+# 3D Models
+*.jas               binary
+# Java
+*.java              text diff=java
+# Java
+*.jks               binary
+# Graphics
+*.jng               binary
+# Graphics
+*.jp2               binary
+# Graphics
+*.jpeg              binary
+# Graphics
+*.jpg               binary
+# Graphic
+*.jpx               binary
+# Javascript
+*.js                text
+# Datafile
+*.json              text
+# Javascript
+*.jsp               text
+# Javascript
+*.jspf              text
+# Javascript
+*.jspx              text
+# Javascript
+*.jsx               text
+# Graphics
+*.jxr               binary
+# Audio
+*.kar               binary
+# Java
+*.kt                text diff=kotlin
+# Compiled Static Library
+*.la                binary
+# Compiled Static Library
+*.lai               binary
+# Template File
+*.latte             text
+# CSS
+*.less              text
+# Compiled Static Library
+*.lib               binary
+# Compiled Intermediate File
+*.lo                binary
+# Config File
+*.lock              text -diff
+# Visual Studio
+*.lsproj            text eol=crlf merge=union
+# Lua
+*.lua               text
+# 3D Models
+*.lws               binary
+# 3D Models
+*.lxo               binary
+# Objective C
+*.m                 text diff=objc
+# Audio
+*.m4a               binary
+# Video
+*.m4v               binary
+# 3D Models
+*.ma                binary
+# Map
+*.map               text -diff
+# Document
+*.markdown          text diff=markdown
+# Unity
+*.mat               linguist-generated
+# Unity
+*.mat               merge=unityyamlmerge eol=lf
+# 3D Models
+*.max               binary
+# 3D Models
+*.mb                binary
+# Document
+*.md                text diff=markdown
+# MATLAB
+*.mdl               binary
+# MATLAB
+*.mdlp              binary
+# Document
+*.mdown             text diff=markdown
+# Document
+*.mdtext            text
+# Document
+*.mdtxt             text
+# Document
+*.mdwn              text diff=markdown
+# Document
+*.mdx               text diff=markdown
+# Unity
+*.meta              linguist-generated
+# Unity
+*.meta              merge=unityyamlmerge eol=lf
+# MATLAB
+*.mex*              binary
+# Audio
+*.mid               binary
+# Audio
+*.midi              binary
+# Document
+*.mkd               text diff=markdown
+# Document
+*.mkdn              text diff=markdown
+# MATLAB
+*.mlappinstall      binary
+# MATLAB
+*.mlpkginstall      binary
+# MATLAB
+*.mltbx             binary
+# Objective C
+*.mm                text diff=objc
+# MATLAB
+*.mn                binary
+# Video
+*.mng               binary
+# Audio
+*.mod               binary
+# Visual Studio
+*.modelproj         text eol=crlf merge=union
+# Video
+*.mov               binary
+# Audio
+*.mp2               binary
+# Audio
+*.mp3               binary
+# Video
+*.mp4               binary
+# Audio
+*.mpa               binary
+# Video
+*.mpeg              binary
+# Video
+*.mpg               binary
+# Mathematica
+*.mt                text diff=mathematica
+# MATLAB
+*.mu                text diff=matlab
+# Template File
+*.mustache          text
+# Mathematica
+*.mx                binary
+# Mathematica
+*.nb                text diff=mathematica
+# Template File
+*.njk               text
+# Config File
+*.npmignore         text
+# Compiled Intermediate File
+*.o                 binary
+# Compiled Intermediate File
+*.obj               binary
+# Datafile
+*.od                text
+# Audio
+*.ogg               binary
+# Video
+*.ogv               binary
+# Datafile
+*.onlydata          text
+# Font
+*.otf               binary
+# Executable
+*.out               binary
+# MATLAB
+*.p                 binary
+# Xcode
+*.pbxproj           binary -merge=union
+# Precompiled Headers
+*.pch               binary
+# Copmiled Dynamic Library
+*.pdb               binary
+# Document
+*.pdf               binary
+# Document
+*.pdf               diff=astextplain
+# Document
+*.PDF               diff=astextplain
+# PHP
+*.php               text diff=php
+# Template File
+*.phtml             text
+# Unity
+*.physicMaterial    merge=unityyamlmerge eol=lf
+# Unity
+*.physicMaterial2D  merge=unityyamlmerge eol=lf
+# Unity
+*.physicsMaterial   merge=unityyamlmerge eol=lf
+# Unity
+*.physicsMaterial2D merge=unityyamlmerge eol=lf
+# Python
+*.pickle            binary
+# Graphics
+*.pict              binary
+# Python
+*.pkl               binary
+# Perl
+*.pl                text diff=perl
+# Document
+*.plaintext         text
+# 3D Models
+*.ply               binary
+# Perl
+*.pm                text diff=perl
+# Graphics
+*.png               binary
+# Unity
+*.prefab            linguist-generated
+# Unity
+*.prefab            merge=unityyamlmerge eol=lf
+# Config File
+*.profile           text eol=lf
+# Config File
+*.properties        text
+# Visual Studio
+*.props             text eol=crlf merge=union
+# PowerShell (MUST be crlf)
+*.ps1               text eol=crlf
+# PowerShell (MUST be crlf)
+*.ps1x              text eol=crlf
+# PowerShell (MUST be crlf)
+*.ps1xml            text eol=crlf
+# Graphics
+*.psb               binary
+# Photoshop
+*.psd               binary
+# PowerShell (MUST be crlf)
+*.psd1              text eol=crlf
+# PowerShell (MUST be crlf)
+*.psm1              text eol=crlf
+# PowerShell (MUST be crlf)
+*.psrc              text eol=crlf
+# PowerShell (MUST be crlf)
+*.pssc              text eol=crlf
+# Python
+*.pxd               text diff=python
+# Python
+*.py                text diff=python
+# Python
+*.py3               text diff=python
+# Python
+*.pyc               binary
+# Python
+*.pyd               binary
+# Python
+*.pyi               text diff=python
+# Python
+*.pyo               binary
+# Python
+*.pyw               text diff=python
+# Python
+*.pyx               text diff=python
+# Python
+*.pyz               text diff=python
+# Compressed Files
+*.r[0-9][0-9]       binary
+# Audio
+*.ra                binary
+# Compressed Files
+*.rar               binary
+# Ruby
+*.rb                text diff=ruby
+# Unity
+*.reason            binary
+# Unity
+*.rns               binary
+# Document
+*.rtf               diff=astextplain
+# Document
+*.RTF               diff=astextplain
+# Audio
+*.s3m               binary
+# CSS
+*.sass              text
+# SCALA
+*.scala             text diff=java
+# Scheme
+*.scm               text
+# CSS
+*.scss              text diff=css
+# Linuxy Shell Script (MUST be lf)
+*.sh                text eol=lf
+# Shader
+*.shader            text
+# Unity
+*.skel.bytes        binary
+# 3D Models
+*.skp               binary
+# MATLAB
+*.sldd              binary
+# Visual Studio
+*.sln               text eol=crlf merge=union
+# Compiled Intermediate File
+*.slo               binary
+# MATLAB
+*.slx               binary
+# MATLAB
+*.slxp              binary
+# Compiled Dynamic Library
+*.so                binary
+# SQL
+*.sql               linguist-detectable=true
+# SQL
+*.sql               linguist-language=sql
+# SQL
+*.sql               text
+# Visual Studio
+*.sqlproj           text eol=crlf merge=union
+# 3D Models
+*.stl               binary
+# CSS
+*.styl              text
+# Template File
+*.svelte            text
+# Graphics
+*.svg               binary
+# Graphics
+*.svgz              binary
+# Video
+*.swc               binary
+# Video
+*.swf               binary
+# Swift
+*.swift             text diff=swift
+# Datafile (text based)
+*.tab               text
+# XML
+*.tag               text
+# XML
+*.tagx              text
+# Compressed Files
+*.tar               binary
+# Document
+*.tex               text diff=tex
+# Document
+*.text              text
+# Document
+*.textfile          text
+# Document
+*.textile           text
+# Graphics
+*.tga               binary
+# Compressed Files
+*.tgz               binary
+# Graphics
+*.tif               binary
+# Graphics
+*.tiff              binary
+# XML
+*.tld               text
+# Template File
+*.tmpl              text
+# Config File
+*.toml              text
+# Datafile (text based)
+*.toml              text
+# Template File
+*.tpl               text
+# Typescript
+*.ts                text
+# Datafile (text based)
+*.tsv               text
+# Typescript
+*.tsx               text
+# Font
+*.ttf               binary
+# Template File
+*.twig              text
+# Document
+*.txt               text
+# Unity
+*.unity             linguist-generated
+# Unity
+*.unity             merge=unityyamlmerge eol=lf
+# Unity
+*.unitypackage      binary
+# Visual Studio
+*.vbproj            text eol=crlf merge=union
+# Visual Studio
+*.vcproj            text eol=crlf merge=union
+# Visual Studio
+*.vcxitems          text eol=crlf merge=union
+# Visual Studio
+*.vcxproj           text eol=crlf merge=union
+# Config File
+*.vim               text eol=lf
+# Template File
+*.vue               text
+# Java
+*.war               binary
+# Audio
+*.wav               binary
+# Graphics
+*.wbmp              binary
+# Video
+*.webm              binary
+# Graphics
+*.webp              binary
+# Visual Studio
+*.wixproj           text eol=crlf merge=union
+# Mathematica
+*.wl                text diff=mathematica
+# Mathematica
+*.wls               text diff=mathematica
+# Mathematica
+*.wlt               text diff=mathematica
+# Video
+*.wmv               binary
+# Font
+*.woff              binary
+# Font
+*.woff2             binary
+# Visual Studio
+*.wwaproj           text eol=crlf merge=union
+# XHTML
+*.xhtml             text diff=html
+# Audio
+*.xm                binary
+# XML
+*.xml               text
+# Visual Studio
+*.xproj             text eol=crlf merge=union
+# XML
+*.xslt              text
+# Datafile (text based)
+*.yaml              text
+# Datafile (text based)
+*.yml               text
+# Compressed Files
+*.zip               binary
+# Config File
+*.zlogin            text eol=lf
+# Config File
+*.zlogout           text eol=lf
+# Config File
+*.zprofile          text eol=lf
+# Linuxy Shell Script (MUST be lf)
+*.zsh               text eol=lf
+# Config File
+*.zshenv            text eol=lf
+# Config File
+*.zshrc             text eol=lf
+# 3D Models
+*.ztl               binary
+
+#endregion Extensions
+################################################################################
