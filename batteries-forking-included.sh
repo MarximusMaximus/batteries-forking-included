@@ -367,13 +367,18 @@ rreadlink() {
 require_not_root_user_XY() {
     # intentionally no local scope so it can exit script
 
-    # shellcheck disable=SC3028
-    if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
-        log_fatal "$(get_my_real_basename) should not be run as root nor with sudo"
-        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-            exit "${RET_ERROR_USER_IS_ROOT}"
-        else
-            return "${RET_ERROR_USER_IS_ROOT}"
+    if [ "${CI}" = true ] && [ "${PLATFORM_IS_WSL}" = true ]; then
+        # github runner's WSL user is always root
+        true
+    else
+        # shellcheck disable=SC3028
+        if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
+            log_fatal "$(get_my_real_basename) should not be run as root nor with sudo"
+            if [ "$(array_get_first WAS_SOURCED)" = true ]; then
+                exit "${RET_ERROR_USER_IS_ROOT}"
+            else
+                return "${RET_ERROR_USER_IS_ROOT}"
+            fi
         fi
     fi
 }
