@@ -2268,6 +2268,10 @@ ensure_conda() {
             conda_installer="${my_tempdir}/downloads/${file_to_download}"
 
             download_url_to_path "${URL}" "${conda_installer}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                exit $ret
+            fi
 
             teetty_G "${FULL_LOG}" "${FULL_LOG}" chmod +x "${my_tempdir}/downloads/${file_to_download}"
 
