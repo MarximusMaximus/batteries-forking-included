@@ -17,7 +17,7 @@ on:
 env:
   OMEGA_DEBUG: all
   DO_SET_X_ACTIVATE: false
-  DO_SET_X_BOOTSTRAP: true
+  DO_SET_X_BOOTSTRAP: false
   DO_SET_X_RUN: false
   DO_SET_X_UPDATE: false
   PY_COLORS: 1
