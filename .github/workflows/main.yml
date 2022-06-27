@@ -92,7 +92,6 @@ jobs:
         with:
           distribution: ${{ matrix.windows-wsl }}
           wsl-shell-command: sh '{0}'
-          wsl-shell-user: runner
           set-as-default: 'true'
           wsl-conf: |
             [automount]
