@@ -262,12 +262,24 @@ jobs:
           . ./activate.sh
           tox -e ${{ matrix.tox-env }} -- -p sugar --force-sugar --color=yes
 
+      - name: ls bfi_temp
+        run: |
+          cd ${{ github.workspace }}
+          find .
+
+      - name: dir bfi_temp
+        shell: cmd
+        run: |
+          cd ${{ github.workspace }}
+          dir /s /b /a-d
+
       - name: Upload BFI Logs
         id: upload-bfi-logs
         if: matrix.tox-env != 'lint'
         uses: actions/upload-artifact@v3.1.0
         with:
           name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
+          if-no-files-found: error
           path: |
             ${{ github.workspace }}/bfi_temp/**/log/**
 
@@ -277,6 +289,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: test-report-${{ matrix.os }}-${{ matrix.tox-env }}
+          if-no-files-found: error
           path: |
             .reports/**
 
@@ -286,6 +299,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: code-coverage-report
+          if-no-files-found: error
           path: |
             coverage.xml
             htmlcov/**
@@ -323,6 +337,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-products
+          if-no-files-found: error
           path: dist/*
 
   github-release:
