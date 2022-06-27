@@ -118,6 +118,7 @@ jobs:
             nodejs
             curl
             wget
+            ca-certificates
 
       # WARNING: RUNNER_USER doesn't normally exist for Windows runners, it will be invalid if used in CMD/PWRSH
       - if: matrix.windows-wsl != 'not_windows'
