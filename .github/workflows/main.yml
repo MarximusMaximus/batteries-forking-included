@@ -39,6 +39,8 @@ jobs:
           ubuntu-latest-x64,
           windows_ubuntu-latest-x64,
           macos-latest-x64,
+          windows_apline-latest-x64,
+          windows_opensuse-latest-x64,
         ]
         tox-env: [
           py38,
@@ -70,6 +72,9 @@ jobs:
           - os: ubuntu-latest-x64
             os-image: ubuntu-latest
             windows-wsl: not_windows
+          - os: macos-latest-x64
+            os-image: macos-latest
+            windows-wsl: not_windows
           - os: windows_debian-latest-x64
             os-image: windows-latest
             windows-wsl: Debian
@@ -78,9 +83,14 @@ jobs:
             os-image: windows-latest
             windows-wsl: Ubuntu-20.04
             shell: "wsl-sh {0}"
-          - os: macos-latest-x64
-            os-image: macos-latest
-            windows-wsl: not_windows
+          - os: windows_apline-latest-x64
+            os-image: windows-latest
+            windows-wsl: Apline
+            shell: "wsl-sh {0}"
+          - os: windows_opensuse-latest-x64
+            os-image: windows-latest
+            windows-wsl: openSUSE-Leap-15.2
+            shell: "wsl-sh {0}"
 
     runs-on: ${{ matrix.os-image }}
 
