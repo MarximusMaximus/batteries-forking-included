@@ -35,10 +35,10 @@ jobs:
       max-parallel: 4
       matrix:
         os: [
-          # macos-latest-x64,
-          # ubuntu-latest-x64,
           windows_debian-latest-x64,
+          ubuntu-latest-x64,
           windows_ubuntu-latest-x64,
+          macos-latest-x64,
         ]
         tox-env: [
           py38,
