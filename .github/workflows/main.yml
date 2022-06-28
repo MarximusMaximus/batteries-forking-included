@@ -266,7 +266,7 @@ jobs:
         if: always()
         run: |
           cd ${{ github.workspace }}
-          find .
+          find *
 
       - name: dir bfi_temp
         if: always() && matrix.windows-wsl != 'not_windows'
