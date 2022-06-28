@@ -138,50 +138,6 @@ jobs:
           echo WIN_HOME=%USERPROFILE%>>%GITHUB_ENV%
           echo WSLENV=${{ env.WSLENV_BASE }}:${{ env.WSLENV_APPEND }}>>%GITHUB_ENV%
 
-      # - if: matrix.windows-wsl != 'not_windows'
-      #   name: Override Git (WIN32) (to use WSL's git)
-      #   id: override-git-win32
-      #   continue-on-error: true
-      #   shell: cmd
-      #   run: |
-      #     md git-override
-      #     cd git-override
-      #     echo @echo off>git.cmd
-      #     echo wsl git %%*>>git.cmd
-      #     echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
-      #     echo GITHUB_PATH start
-      #     type %GITHUB_PATH%
-      #     echo GITHUB_PATH end
-      #     echo %CD%>>%GITHUB_PATH%
-      #     echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
-      #     echo GITHUB_PATH start
-      #     type %GITHUB_PATH%
-      #     echo GITHUB_PATH end
-      #     dir %CD%
-      #     type git.cmd
-
-      # - if: matrix.windows-wsl != 'not_windows'
-      #   name: Override Node (WIN32) (to use WSL's Node)
-      #   id: override-git-node
-      #   continue-on-error: true
-      #   shell: cmd
-      #   run: |
-      #     md node-override
-      #     cd node-override
-      #     echo @echo off>node.cmd
-      #     echo wsl node %%*>>node.cmd
-      #     echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
-      #     echo GITHUB_PATH start
-      #     type %GITHUB_PATH%
-      #     echo GITHUB_PATH end
-      #     echo %CD%>>%GITHUB_PATH%
-      #     echo type %%GITHUB_PATH%% (%GITHUB_PATH%):
-      #     echo GITHUB_PATH start
-      #     type %GITHUB_PATH%
-      #     echo GITHUB_PATH end
-      #     dir %CD%
-      #     type node.cmd
-
       - if: matrix.windows-wsl != 'not_windows'
         name: Runner Info (WIN32)
         id: runner-info-win32
