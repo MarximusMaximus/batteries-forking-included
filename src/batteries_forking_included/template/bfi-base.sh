@@ -1168,13 +1168,13 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             log_ultradebug "x:              ${x}"
             if [ "${TEMP_FILE_NAME}" != "${x}" ]; then
                 log_ultradebug "TEMP_FILE_NAME and x are different."
-                if [ "${x}" = "pipe" ]; then
+                if [ "$(echo "${x}" | grep -e 'pipe')" != "" ]; then
                     log_ultradebug "x is 'pipe', probably github invoked."
                     # github invoked
                     array_append WAS_SOURCED false
                 elif [ "${x}" = "NONE" ]; then
                     log_ultradebug "lsof not available, probably wsl invoked."
-                    # wsl doesn't have lsof, so invoked
+                    # wsl doesn't always have lsof, so invoked
                     array_append WAS_SOURCED false
                 else
                     log_ultradebug "x is NOT 'pipe', probably zsh sourced."
