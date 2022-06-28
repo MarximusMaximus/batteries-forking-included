@@ -120,6 +120,7 @@ jobs:
             wget
             ca-certificates
             file
+            tar
 
       # WARNING: RUNNER_USER doesn't normally exist for Windows runners, it will be invalid if used in CMD/PWRSH
       - if: matrix.windows-wsl != 'not_windows'
