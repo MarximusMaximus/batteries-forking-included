@@ -35,12 +35,11 @@ jobs:
       max-parallel: 4
       matrix:
         os: [
-          windows_debian-latest-x64,
           ubuntu-latest-x64,
-          windows_ubuntu-latest-x64,
           macos-latest-x64,
-          windows_alpine-latest-x64,
+          windows_debian-latest-x64,
           windows_opensuse-latest-x64,
+          windows_ubuntu-latest-x64,
         ]
         tox-env: [
           py38,
@@ -82,10 +81,6 @@ jobs:
           - os: windows_ubuntu-latest-x64
             os-image: windows-latest
             windows-wsl: Ubuntu-20.04
-            shell: "wsl-sh {0}"
-          - os: windows_alpine-latest-x64
-            os-image: windows-latest
-            windows-wsl: Alpine
             shell: "wsl-sh {0}"
           - os: windows_opensuse-latest-x64
             os-image: windows-latest
