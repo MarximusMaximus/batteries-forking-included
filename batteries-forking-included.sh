@@ -2292,7 +2292,7 @@ ensure_conda() {
 
             log_info "Installing Conda with PREFIX='${CONDA_INSTALL_PATH}'"
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" "${conda_installer}" -b -f -p "${CONDA_INSTALL_PATH}"
+            teetty_G "${FULL_LOG}" "${FULL_LOG}" set -x && "${conda_installer}" -b -f -p "${CONDA_INSTALL_PATH}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "Failed to install Conda."
@@ -2321,6 +2321,13 @@ conda_update_base()
         if [ $ret -ne 0 ]; then
             log_fatal "'conda activate base' exited with error code: %d" "$ret"
             exit "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
+        fi
+
+        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda update -n base conda
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "'conda update -n base' exited with error code: %d" "$ret"
+            exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
         fi
 
         teetty_G "${FULL_LOG}" "${FULL_LOG}" conda update -n base --all -v -y --prune
