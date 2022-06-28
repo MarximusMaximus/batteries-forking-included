@@ -263,11 +263,13 @@ jobs:
           tox -e ${{ matrix.tox-env }} -- -p sugar --force-sugar --color=yes
 
       - name: ls bfi_temp
+        if: always()
         run: |
           cd ${{ github.workspace }}
           find .
 
       - name: dir bfi_temp
+        if: always() && matrix.windows-wsl != 'not_windows'
         shell: cmd
         run: |
           cd ${{ github.workspace }}
@@ -275,7 +277,7 @@ jobs:
 
       - name: Upload BFI Logs
         id: upload-bfi-logs
-        if: matrix.tox-env != 'lint'
+        if: always()
         uses: actions/upload-artifact@v3.1.0
         with:
           name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
