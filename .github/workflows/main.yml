@@ -197,7 +197,7 @@ jobs:
 
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3.0.2
 
       - name: Override Python Version For Work Env
         id: override-python-version
@@ -253,26 +253,42 @@ jobs:
     needs: test
 
     steps:
-      - name: Checkout Repo
-        id: checkout-repo
-        uses: actions/checkout@v3.0.2
-
       - name: Runner Info
         id: runner-info
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
+          echo which git:
+          which git
+          echo git version:
+          git version
+          echo Env:
+          printenv | sort
+
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v3.0.2
 
       - name: batteries-forking-included
         id: batteries-forking-included
         run: |
-          ./bootstrap.sh
+          ./bootstrap.sh --dev
 
       - name: Build Package
         id: build-package
         run: |
           . ./activate.sh
           poetry build
+
+      - name: Upload BFI Logs
+        id: upload-bfi-logs
+        if: always()
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/bfi_temp/**/log/**
 
       - name: Upload Build Products
         id: upload-build-products
@@ -290,20 +306,20 @@ jobs:
     needs: [test, build]
 
     steps:
-      - name: Checkout Repo
-        id: checkout-repo
-        uses: actions/checkout@v3.0.2
-
       - name: Runner Info
         id: runner-info
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v3.0.2
+
       - name: batteries-forking-included
         id: batteries-forking-included
         run: |
-          ./bootstrap.sh
+          ./bootstrap.sh --dev
 
       - name: Process Version Number
         id: process-version
@@ -361,6 +377,15 @@ jobs:
           tag: ${{ steps.process-version.outputs.version }}
           prerelease: ${{ steps.process-version.outputs.prerelease == 'true' }}
 
+      - name: Upload BFI Logs
+        id: upload-bfi-logs
+        if: always()
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/bfi_temp/**/log/**
 
   publish:
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/heads/release')
@@ -370,20 +395,20 @@ jobs:
     needs: [test, build, github-release]
 
     steps:
-      - name: Checkout Repo
-        id: checkout-repo
-        uses: actions/checkout@v3.0.2
-
       - name: Runner Info
         id: runner-info
         run: |
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
 
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v3.0.2
+
       - name: batteries-forking-included
         id: batteries-forking-included
         run: |
-          ./bootstrap.sh
+          ./bootstrap.sh --dev
 
       - name: Download Build Products
         id: download-build-products
@@ -399,3 +424,13 @@ jobs:
         run: |
           . ./activate.sh
           poetry publish
+
+      - name: Upload BFI Logs
+        id: upload-bfi-logs
+        if: always()
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/bfi_temp/**/log/**
