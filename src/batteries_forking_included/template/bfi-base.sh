@@ -1164,6 +1164,8 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
                 x="$(rreadlink "$x")"
             fi
             TEMP_FILE_NAME="$(rreadlink "$0")"
+            log_ultradebug "TEMP_FILE_NAME: ${TEMP_FILE_NAME}"
+            log_ultradebug "x:              ${x}"
             if [ "${TEMP_FILE_NAME}" != "${x}" ]; then
                 log_ultradebug "TEMP_FILE_NAME and x are different."
                 if [ "${x}" = "pipe" ]; then
