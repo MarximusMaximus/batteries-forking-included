@@ -265,14 +265,19 @@ jobs:
       - name: ls bfi_temp
         if: always()
         run: |
-          cd ${{ github.workspace }}
+          find .*
           find *
+
+      - name: file python
+        if: always() && matrix.windows-wsl != 'not_windows'
+        continue-on-error: true
+        run: |
+          file /d/a/batteries-forking-included/batteries-forking-included/.tox/py38/bin/python
 
       - name: dir bfi_temp
         if: always() && matrix.windows-wsl != 'not_windows'
         shell: cmd
         run: |
-          cd ${{ github.workspace }}
           dir /s /b /a-d
 
       - name: Upload BFI Logs
