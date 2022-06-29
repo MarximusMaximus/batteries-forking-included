@@ -1,7 +1,6 @@
 """
 batteries-forking-included python wrapper
 """
-# flake8: noqa
 
 from .__impl import (
     bfi_bootstrap,
