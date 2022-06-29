@@ -25,6 +25,7 @@ from subprocess import (
 )
 from typing import (
     Any,
+    Dict,
 )
 
 #endregion stdlib
@@ -149,7 +150,7 @@ def test_call_bfi__no_args() -> None:
     _summary_
     """
     cmd = ["python", "./bin/batteries-forking-included.py"]
-    env: dict[str, Any] = {
+    env: Dict[str, Any] = {
         "OMEGA_DEBUG": "true",
     }
     for k, v in os_environ.items():
@@ -166,7 +167,7 @@ def test_call_bfi__help() -> None:
     _summary_
     """
     cmd = ["python", "./bin/batteries-forking-included.py", "--help"]
-    env: dict[str, Any] = {
+    env: Dict[str, Any] = {
         "OMEGA_DEBUG": "true",
     }
     for k, v in os_environ.items():

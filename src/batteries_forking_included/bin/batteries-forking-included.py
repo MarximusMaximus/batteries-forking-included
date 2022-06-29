@@ -136,6 +136,8 @@ batteries-forking-included python wrapper
 import argparse
 from typing import (
     Any,
+    Dict,
+    List,
 )
 
 #endregion stdlib
@@ -168,9 +170,9 @@ BFI_VERSION = batteries_forking_included_BFI_VERSION
 
 #-------------------------------------------------------------------------------
 def subcommand_bootstrap(
-    extras: list[str],
-    *args: list[Any],
-    **kwargs: dict[str, Any],
+    extras: List[str],
+    *args: List[Any],
+    **kwargs: Dict[str, Any],
 ) -> int:
     """
     Call bootstrap.sh to begin bootstrap process.
@@ -189,9 +191,9 @@ def subcommand_bootstrap(
 
 #-------------------------------------------------------------------------------
 def subcommand_init(
-    extras: list[str],
-    *args: list[Any],
-    **kwargs: dict[str, Any],
+    extras: List[str],
+    *args: List[Any],
+    **kwargs: Dict[str, Any],
 ) -> int:
     """
     Call BFI/src/batteries_forking_included/template/bfi-update.sh with current
@@ -212,9 +214,9 @@ def subcommand_init(
 
 #-------------------------------------------------------------------------------
 def subcommand_update(
-    extras: list[str],
-    *args: list[Any],
-    **kwargs: dict[str, Any],
+    extras: List[str],
+    *args: List[Any],
+    **kwargs: Dict[str, Any],
 ) -> int:
     """
     Call bfi-update.sh to update project's BFI files from BFI's template.
@@ -233,9 +235,9 @@ def subcommand_update(
 
 #-------------------------------------------------------------------------------
 def subcommand_run(
-    extras: list[str],
-    *args: list[Any],
-    **kwargs: dict[str, Any],
+    extras: List[str],
+    *args: List[Any],
+    **kwargs: Dict[str, Any],
 ) -> int:
     """
     Call run.sh to run a command (denoted in 'extras') in the project's conda
@@ -260,7 +262,7 @@ def subcommand_run(
 #region Private Functions
 
 #-------------------------------------------------------------------------------
-def __main(argv: list[str]) -> int:
+def __main(argv: List[str]) -> int:
     """
     Entry point.
 

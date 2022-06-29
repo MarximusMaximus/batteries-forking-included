@@ -31,6 +31,9 @@ from os.path import (
 from subprocess import (
     call                            as subprocess_call,
 )
+from typing import (
+    List,
+)
 
 #endregion stdlib
 #===============================================================================
@@ -51,7 +54,7 @@ BFI_VERSION = os_environ.get(
 
 #-------------------------------------------------------------------------------
 def bfi_bootstrap(
-    extras: list[str],
+    extras: List[str],
 ) -> int:
     """
     Call bootstrap.sh to begin bootstrap process.
@@ -72,7 +75,7 @@ def bfi_bootstrap(
 
 #-------------------------------------------------------------------------------
 def bfi_init(
-    extras: list[str],
+    extras: List[str],
 ) -> int:
     """
     Call BFI/src/batteries_forking_included/template/bfi-update.sh with current
@@ -97,7 +100,7 @@ def bfi_init(
 
 #-------------------------------------------------------------------------------
 def bfi_update(
-    extras: list[str],
+    extras: List[str],
 ) -> int:
     """
     Call bfi-update.sh to update project's BFI files from BFI's template.
@@ -118,7 +121,7 @@ def bfi_update(
 
 #-------------------------------------------------------------------------------
 def bfi_run(
-    extras: list[str],
+    extras: List[str],
 ) -> int:
     """
     Call run.sh to run a command (denoted in 'extras') in the project's conda
