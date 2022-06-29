@@ -36,6 +36,9 @@
         # multiple spaces before keyword
         # (we use multiple spaces for alignment in many places)
         E272,
+        # two lines before definitions
+        # (conflicts with region directives)
+        E302, E305,
         # module level import not at top of file
         # (file preamble comes before includes)
         E402,
