@@ -118,6 +118,8 @@ if (
     ".py" in os_path.basename(MY_PROGRAM_NAME)
 ):
     MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)
+del os
+del os_path
 
 #endregion Bootstrap Preamble
 ################################################################################
@@ -125,12 +127,65 @@ __doc__ = """\
 batteries-forking-included python wrapper
 """
 
+################################################################################
+#region Imports
+
+#===============================================================================
+#region stdlib
+
 import argparse
-import subprocess
-from typing import Any
+from typing import (
+    Any,
+)
 
-BFI_VERSION = os.environ.get("BFI_VERSION", "Unknown")
+#endregion stdlib
+#===============================================================================
 
+#===============================================================================
+#region Ours
+
+from batteries_forking_included import (
+    bfi_bootstrap                   as batteries_forking_included_bfi_bootstrap,
+    bfi_init                        as batteries_forking_included_bfi_init,
+    bfi_update                      as batteries_forking_included_bfi_update,
+    bfi_run                         as batteries_forking_included_bfi_run,
+    BFI_VERSION                     as batteries_forking_included_BFI_VERSION,
+)
+
+#endregion Imports
+################################################################################
+
+################################################################################
+#region Constants
+
+BFI_VERSION = batteries_forking_included_BFI_VERSION
+
+#endregion Constants
+################################################################################
+
+################################################################################
+#region Subcommands
+
+#-------------------------------------------------------------------------------
+def subcommand_bootstrap(
+    extras: list[str],
+    *args: list[Any],
+    **kwargs: dict[str, Any],
+) -> int:
+    """
+    Call bootstrap.sh to begin bootstrap process.
+
+    Args:
+        extras (list[str]): command line args to bootstrap.sh
+
+    Returns:
+        int: return code from bootstrap.sh
+    """
+    # silence the "variable not used" complaints in function signature
+    args = args  # noqa: F841
+    kwargs = kwargs  # noqa: F841
+
+    return batteries_forking_included_bfi_bootstrap(extras=extras)
 
 #-------------------------------------------------------------------------------
 def subcommand_init(
@@ -153,16 +208,7 @@ def subcommand_init(
     args = args  # noqa: F841
     kwargs = kwargs  # noqa: F841
 
-    cwd = os.path.abspath(os.path.curdir)
-    cmd = [
-        f"{MY_REPO_FULLPATH}/src/batteries_forking_included/template/bfi-update.sh",
-        f"--project-dir={cwd}",
-    ]
-    cmd = cmd + extras
-    print("Executing: " + " ".join(cmd))
-    ret = subprocess.call(cmd)
-    return ret
-
+    return batteries_forking_included_bfi_init(extras=extras)
 
 #-------------------------------------------------------------------------------
 def subcommand_update(
@@ -183,14 +229,7 @@ def subcommand_update(
     args = args  # noqa: F841
     kwargs = kwargs  # noqa: F841
 
-    cmd = [
-        f"{MY_REPO_FULLPATH}/src/batteries_forking_included/template/bfi-update.sh",
-    ]
-    cmd = cmd + extras
-    print("Executing: " + " ".join(cmd))
-    ret = subprocess.call(cmd)
-    return ret
-
+    return batteries_forking_included_bfi_update(extras=extras)
 
 #-------------------------------------------------------------------------------
 def subcommand_run(
@@ -212,42 +251,13 @@ def subcommand_run(
     args = args  # noqa: F841
     kwargs = kwargs  # noqa: F841
 
-    cmd = [
-        f"{MY_REPO_FULLPATH}/src/batteries_forking_included/template/bfi-run.sh",
-    ]
-    cmd = cmd + extras
-    print("Executing: " + " ".join(cmd))
-    ret = subprocess.call(extras)
-    return ret
+    return batteries_forking_included_bfi_run(extras=extras)
 
+#endregion Subcommands
+################################################################################
 
-#-------------------------------------------------------------------------------
-def subcommand_bootstrap(
-    extras: list[str],
-    *args: list[Any],
-    **kwargs: dict[str, Any],
-) -> int:
-    """
-    Call bootstrap.sh to begin bootstrap process.
-
-    Args:
-        extras (list[str]): command line args to bootstrap.sh
-
-    Returns:
-        int: return code from bootstrap.sh
-    """
-    # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
-
-    cmd = [
-        f"{MY_REPO_FULLPATH}/src/batteries_forking_included/template/bootstrap.sh",
-    ]
-    cmd = cmd + extras
-    print("Executing: " + " ".join(cmd))
-    ret = subprocess.call(cmd)
-    return ret
-
+################################################################################
+#region Private Functions
 
 #-------------------------------------------------------------------------------
 def __main(argv: list[str]) -> int:
@@ -317,7 +327,15 @@ def __main(argv: list[str]) -> int:
     # exit with useful code
     return ret
 
+#endregion Private Functions
+################################################################################
+
+################################################################################
+#region Immediate
 
 if __name__ == "__main__":
     ret = __main(sys.argv[1:])
     sys.exit(ret)
+
+#endregion Immediate
+################################################################################
