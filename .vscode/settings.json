@@ -1,317 +1,450 @@
 {
-  "cSpell.words": [
-    "Autobuild",
-    "automount",
-    "backticks",
-    "bdist",
-    "bootstrapper",
-    "cmake",
-    "cmakelint",
-    "codeql",
-    "conda",
-    "Cookiecutter",
-    "curlylint",
-    "cython",
-    "detailyang",
-    "docstrings",
-    "endregion",
-    "fmask",
-    "gitlint",
-    "goanpeca",
-    "hackebrot",
-    "HKEY",
-    "htmlcov",
-    "isort",
-    "Jenkinsfile",
-    "luacheck",
-    "makepyfile",
-    "markdownlint",
-    "Marximus",
-    "Maximus",
-    "miniconda",
-    "miniforge",
-    "mkdir",
-    "mypy",
-    "ncipollo",
-    "ngmodel",
-    "ngrepeat",
-    "noahsark",
-    "nodeid",
-    "noprofile",
-    "noqa",
-    "norc",
-    "numcollected",
-    "pipefail",
-    "posix",
-    "printenv",
-    "pygments",
-    "pygrep",
-    "pyjson",
-    "pypa",
-    "pyparsing",
-    "pypi",
-    "pyproject",
-    "pytest",
-    "pytester",
-    "runneradmin",
-    "sanitise",
-    "sdist",
-    "setuptools",
-    "shellcheck",
-    "shfmt",
-    "Slurper",
-    "softlinks",
-    "stylua",
-    "subpackage",
-    "tempdir",
-    "trackby",
-    "urlencode",
-    "whitespaces",
-    "WSL's",
-    "WSLENV",
-    "xcodeproj"
-],
-  "files.eol": "\n",
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
-  "files.associations": {
-      "LICENSE": "plaintext",
-      "setup.cfg": "ini",
-      ".coveragerc": "ini",
-  },
-  "editor.insertSpaces": true,
-  "editor.showFoldingControls": "always",
-  "editor.tabSize": 4,
-  "python.disableInstallationCheck": true,
-  "python.testing.unittestEnabled": false,
-  "python.testing.pytestEnabled": true,
-  "shell-syntax.defaultShell": "sh",
-  "better-comments.highlightPlainText": true,
-  "better-comments.tags": [
-      {
-          "tag": "NOTE:",
-          "color": "#98C379",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": false,
-          "italic": false
-      },
-      {
-          "tag": "WARNING:",
-          "color": "#FF2D00",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "HACK:",
-          "color": "#FF2D00",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": false,
-          "italic": false
-      },
-      {
-          "tag": "QUESTION:",
-          "color": "#3498DB",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": false,
-          "italic": false
-      },
-      {
-          "tag": "TODO:",
-          "color": "#FF8C00",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": false,
-          "italic": false
-      },
-      {
-          "tag": "noqa:",
-          "color": "#9900CC",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "type: ignore",
-          "color": "#9900CC",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "pragma: no branch",
-          "color": "#9900CC",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "pragma: no cover",
-          "color": "#9900CC",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "shellcheck",
-          "color": "#9900CC",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "#####",
-          "color": "#DDDDDD",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "#000000",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "=====",
-          "color": "#DDDDDD",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "#333333",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "-----",
-          "color": "#DDDDDD",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "#666666",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": ".....",
-          "color": "#DDDDDD",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "#999999",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "endregion ",
-          "color": "#7F7F7F",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": true,
-          "italic": false
-      },
-      {
-          "tag": "region ",
-          "color": "#009900",
-          "strikethrough": false,
-          "underline": false,
-          "backgroundColor": "transparent",
-          "bold": true,
-          "italic": false
-      },
-  ],
-  "coverage-gutters.showLineCoverage": true,
-  "coverage-gutters.showRulerCoverage": true,
-  "koverage.coverageFileNames": [
-      "lcov.info",
-      "cov.xml",
-      "coverage.xml",
-      "jacoco.xml"
-  ],
-  "koverage.sufficientCoverageThreshold": 100,
-  "koverage.coverageFilePaths": [
-      ".",
-      "coverage"
-  ],
-  "livePreview.defaultPreviewPath": "/htmlcov/index.html",
-  "esbonio.sphinx.confDir": "",
-  "python.linting.flake8Path": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/flake8",
-  "python.linting.flake8Enabled": true,
-  "python.linting.flake8CategorySeverity.W": "Error",
-  "python.linting.flake8Args": [
-      "--config=./.flake8"
-  ],
-  "taskExplorer.exclude": [
-      "**/.vscode-test/**",
-      // "**/bin/**",
-      "**/src/**",
-      "**/build/**",
-      "**/CompiledOutput/**",
-      "**/dist/**",
-      "**/doc/**",
-      "**/ext/**",
-      "**/out/**",
-      "**/output/**",
-      "**/packages/**",
-      "**/release/**",
-      "**/releases/**",
-      "**/samples/**",
-      "**/sdks/**",
-      "**/static/**",
-      "**/target/**",
-      "**/test/**",
-      "**/third_party/**",
-      "**/vendor/**",
-      "**/work/**",
-      "**/tests/**",
-      "**/.tox/**"
-  ],
-  "python.linting.mypyCategorySeverity.note": "Warning",
-  "python.linting.mypyEnabled": true,
-  "python.linting.mypyPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/mypy",
-  "python.linting.pycodestyleCategorySeverity.W": "Error",
-  "python.poetryPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/poetry",
-  "autoDocstring.includeExtendedSummary": false,
-  "autoDocstring.includeName": false,
-  "autoDocstring.startOnNewLine": true,
-  "shellcheck.useWorkspaceRootAsCwd": true,
-  "python.linting.mypyArgs": [
-      "--follow-imports=silent",
-      "--show-column-numbers",
-      "--no-pretty",
-      "--strict"
-],
-"workbench.colorCustomizations": {
-    "activityBar.background": "#1F312F",
-    "titleBar.activeBackground": "#2B4542",
-    "titleBar.activeForeground": "#F8FBFB"
-},
-"todo-tree.filtering.excludeGlobs": [
-    "**/node_modules",
-    "**/src/batteries_forking_included/template/post-bootstrap.sh"
-],
-"python.defaultInterpreterPath": "/opt/conda/miniforge/envs/batteries-forking-included/bin/python",
-"search.exclude": {
-    "**/__pycache__": true,
-    "**/.git": true,
-    "**/.mypy_cache": true,
-    "**/.tox": true,
-    "**/coverage": true,
-    "**/coverage.xml": true,
-    "**/htmlcov": true,
-    "**/poetry.lock": true
-},
+    "cSpell.words": [
+        "Autobuild",
+        "automount",
+        "backticks",
+        "bdist",
+        "bootstrapper",
+        "cmake",
+        "cmakelint",
+        "codeql",
+        "conda",
+        "Cookiecutter",
+        "curlylint",
+        "cython",
+        "detailyang",
+        "docstrings",
+        "endregion",
+        "fmask",
+        "gitlint",
+        "goanpeca",
+        "hackebrot",
+        "HKEY",
+        "htmlcov",
+        "isort",
+        "Jenkinsfile",
+        "luacheck",
+        "makepyfile",
+        "markdownlint",
+        "Marximus",
+        "Maximus",
+        "miniconda",
+        "miniforge",
+        "mkdir",
+        "mypy",
+        "ncipollo",
+        "ngmodel",
+        "ngrepeat",
+        "noahsark",
+        "nodeid",
+        "noprofile",
+        "noqa",
+        "norc",
+        "numcollected",
+        "pipefail",
+        "posix",
+        "printenv",
+        "pygments",
+        "pygrep",
+        "pyjson",
+        "pypa",
+        "pyparsing",
+        "pypi",
+        "pyproject",
+        "pytest",
+        "pytester",
+        "runneradmin",
+        "sanitise",
+        "sdist",
+        "setuptools",
+        "shellcheck",
+        "shfmt",
+        "Slurper",
+        "softlinks",
+        "stylua",
+        "subpackage",
+        "tempdir",
+        "trackby",
+        "urlencode",
+        "whitespaces",
+        "WSL's",
+        "WSLENV",
+        "xcodeproj"
+    ],
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.associations": {
+        "LICENSE": "plaintext",
+        "setup.cfg": "ini",
+        ".coveragerc": "ini",
+    },
+    "editor.insertSpaces": true,
+    "editor.showFoldingControls": "always",
+    "editor.tabSize": 4,
+    "python.disableInstallationCheck": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "shell-syntax.defaultShell": "sh",
+    "better-comments.highlightPlainText": true,
+    "better-comments.tags": [
+        {
+            "tag": "NOTE:",
+            "color": "#98C379",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "WARNING:",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "HACK:",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "QUESTION:",
+            "color": "#3498DB",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "TODO:",
+            "color": "#FF8C00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "noqa:",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "type: ignore",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "pragma: no branch",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "pragma: no cover",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "shellcheck",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "nosec",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "mypy: ignore-errors",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "flake8: noqa",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "#####",
+            "color": "#DDDDDD",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "#000000",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "=====",
+            "color": "#DDDDDD",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "#333333",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "-----",
+            "color": "#DDDDDD",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "#666666",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": ".....",
+            "color": "#DDDDDD",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "#999999",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "endregion ",
+            "color": "#7F7F7F",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "region ",
+            "color": "#009900",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+    ],
+    "coverage-gutters.showLineCoverage": true,
+    "coverage-gutters.showRulerCoverage": true,
+    "koverage.coverageFileNames": [
+        "lcov.info",
+        "cov.xml",
+        "coverage.xml",
+        "jacoco.xml"
+    ],
+    "koverage.sufficientCoverageThreshold": 100,
+    "koverage.coverageFilePaths": [
+        ".",
+        "coverage"
+    ],
+    "livePreview.defaultPreviewPath": "/htmlcov/index.html",
+    "esbonio.sphinx.confDir": "",
+    "python.linting.flake8Path": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/flake8",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8CategorySeverity.W": "Error",
+    "python.linting.flake8Args": [
+        "--config=./.flake8"
+    ],
+    "taskExplorer.exclude": [
+        "**/.vscode-test/**",
+        // "**/bin/**",
+        "**/src/**",
+        "**/build/**",
+        "**/CompiledOutput/**",
+        "**/dist/**",
+        "**/doc/**",
+        "**/ext/**",
+        "**/out/**",
+        "**/output/**",
+        "**/packages/**",
+        "**/release/**",
+        "**/releases/**",
+        "**/samples/**",
+        "**/sdks/**",
+        "**/static/**",
+        "**/target/**",
+        "**/test/**",
+        "**/third_party/**",
+        "**/vendor/**",
+        "**/work/**",
+        "**/tests/**",
+        "**/.tox/**"
+    ],
+    "python.linting.mypyCategorySeverity.note": "Warning",
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/mypy",
+    "python.linting.pycodestyleCategorySeverity.W": "Error",
+    "python.poetryPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/poetry",
+    "autoDocstring.includeExtendedSummary": false,
+    "autoDocstring.includeName": false,
+    "autoDocstring.startOnNewLine": true,
+    "shellcheck.useWorkspaceRootAsCwd": true,
+    "python.linting.mypyArgs": [
+        "--follow-imports=silent",
+        "--show-column-numbers",
+        "--no-pretty",
+        "--strict"
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#1F312F",
+        "titleBar.activeBackground": "#2B4542",
+        "titleBar.activeForeground": "#F8FBFB"
+    },
+    "todo-tree.filtering.excludeGlobs": [
+        "**/node_modules",
+        "**/src/batteries_forking_included/template/post-bootstrap.sh"
+    ],
+    "python.defaultInterpreterPath": "/opt/conda/miniforge/envs/batteries-forking-included/bin/python",
+    "search.exclude": {
+        "**/__pycache__": true,
+        "**/.git": true,
+        "**/.mypy_cache": true,
+        "**/.tox": true,
+        "**/coverage": true,
+        "**/coverage.xml": true,
+        "**/htmlcov": true,
+        "**/poetry.lock": true
+    },
+    "coverage-gutters.coverageReportFileName": "htmlcov/index.html",
+    "coverage-gutters.coverageFileNames": [
+        "lcov.info",
+        "cov.xml",
+        "coverage.xml",
+        "jacoco.xml",
+        "coverage.cobertura.xml"
+    ],
+    "region-viewer.markers-overrides": {
+        "gitconfig": {
+            "start": "^\\s*#?region\\b(?<name>.*)", // <name> will be used to to give the region a name
+            "end": "^\\s*#?endregion\\b"
+        },
+    },
+    // "bracketLens.minBracketScopeLines": 2,
+    // "bracketLens.languageConfiguration": {
+    // "ignoreCase": false,
+    // "comments": {
+    //     "block": [
+    //         {
+    //             "opening": "/*",
+    //             "closing": "*/"
+    //         },
+    //     ],
+    //     "line": [
+    //         "//",
+    //         "#",
+    //     ]
+    // },
+    // "brackets": {
+    //     "symbol": [
+    //         {
+    //             "opening": "(",
+    //             "closing": ")",
+    //             "headerMode": "smart",
+    //             "inters": []
+    //         },
+    //         {
+    //             "opening": "[",
+    //             "closing": "]",
+    //             "headerMode": "smart",
+    //             "inters": []
+    //         },
+    //         {
+    //             "opening": "{",
+    //             "closing": "}",
+    //             "headerMode": "smart",
+    //             "inters": []
+    //         },
+    //     ],
+    //     "word": [
+    //         {
+    //             "opening": "if",
+    //             "closing": "fi",
+    //             "headerMode": "inner",
+    //             "inters": [
+    //             // "\\",
+    //             // "then",
+    //             // "else",
+    //             // "elif",
+    //             ]
+    //         }
+    //     ]
+    // },
+    // "strings": {
+    //     "inline": [
+    //         {
+    //             "opening": "\"",
+    //             "closing": "\"",
+    //             "escape": [
+    //             "\\\\",
+    //             "\\\""
+    //             ]
+    //         },
+    //         {
+    //             "opening": "'",
+    //             "closing": "'",
+    //             "escape": [
+    //             "\\\\",
+    //             "\\'"
+    //             ]
+    //         }
+    //     ],
+    //     "multiline": [
+    //         {
+    //             "opening": "`",
+    //             "closing": "`",
+    //             "escape": [
+    //             "\\\\",
+    //             "\\`"
+    //             ]
+    //         }
+    //     ]
+    //     },
+    //     "terminators": [
+    //         ";",
+    //         ",",
+    //     ],
+    //     "ignoreSymbols": [
+    //         "\\//"
+    //     ]
+    // },
+    // "bracketLens.mode": "auto",
+    // "[python]": {
+    //     "bracketLens.mode": "auto",
+    // },
 }
