@@ -92,7 +92,7 @@ repos:
     rev: "v0.902"
     hooks:
       - id: mypy
-        args: ["--strict"]
+        args: ["--strict", "--show-error-codes"]
         additional_dependencies: [pytest]
 
   - repo: https://gitlab.com/bmares/check-json5
