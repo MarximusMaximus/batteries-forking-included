@@ -50,7 +50,6 @@ pipdeptree = "^2.2.1"
 tox = "^3.25.0"
 pytest-sugar = "^0.9.4"
 mypy = "^0.950"
-black = "^22.3.0"
 Pygments = "^2.12.0"
 restructuredtext-lint = "^1.4.0"
 pytest-html = "^3.1.1"
@@ -62,9 +61,7 @@ flake8-docstrings = "^1.6.0"
 flake8-commas = "^2.1.0"
 flake8-pyi = "^22.4.1"
 colorama = "^0.4.4"
-blacken-docs = "^1.12.1"
 pygrep = "^0.2"
-# pre-commit-hooks-safety = {git = "https://github.com/Lucas-C/pre-commit-hooks-safety.git", rev = "v1.2.4"}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
