@@ -7,6 +7,8 @@ data_file = .coverage
 [report]
 skip_covered = false
 show_missing = true
+omit =
+    */bin/*
 # do not consider the following lines during coverage calculation
 exclude_lines =
     # Have to re-enable the standard pragma
