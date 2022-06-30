@@ -12,7 +12,13 @@ on:
       - 'issue/**'
       - '!user/**'  # explicitly no user/ branches [mostly a note that they exist]
   pull_request:
-    # any pull request
+    branches:
+      # only for the branches specified below
+      - main
+      - 'release/**'
+      - 'feature/**'
+      - 'issue/**'
+      - '!user/**'  # explicitly no user/ branches [mostly a note that they exist]
 
 env:
   OMEGA_DEBUG: all
@@ -29,8 +35,58 @@ defaults:
     shell: sh {0}
 
 jobs:
+  build:
+    name: Build Products
+    runs-on: ubuntu-latest
+    steps:
+      - name: Runner Info
+        id: runner-info
+        run: |
+          echo OS: ${{ runner.os }}
+          echo ARCH: ${{ runner.arch }}
+          echo which git:
+          which git
+          echo git version:
+          git version
+          echo Env:
+          printenv | sort
+
+      - name: Checkout Repo
+        id: checkout-repo
+        uses: actions/checkout@v3.0.2
+
+      - name: batteries-forking-included
+        id: batteries-forking-included
+        run: |
+          ./bootstrap.sh --dev
+
+      - name: Build Package
+        id: build-package
+        run: |
+          . ./activate.sh
+          poetry build
+
+      - name: Upload BFI Logs
+        id: upload-bfi-logs
+        if: always()
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: bfi-logs-build
+          if-no-files-found: error
+          path: |
+            ${{ github.workspace }}/bfi_temp/**/log/**
+
+      - name: Upload Build Products
+        id: upload-build-products
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-products
+          if-no-files-found: error
+          path: dist/*
+
   test:
     name: Test - ${{ matrix.os }} - ${{ matrix.tox-env }}
+    needs: build
     defaults:
       run:
         shell: ${{ matrix.shell || 'sh {0}' }}
@@ -90,9 +146,7 @@ jobs:
             os-image: windows-latest
             windows-wsl: openSUSE-Leap-15.2
             shell: "wsl-sh {0}"
-
     runs-on: ${{ matrix.os-image }}
-
     steps:
       - if: matrix.windows-wsl != 'not_windows'
         uses: Vampire/setup-wsl@v1.2.1
@@ -250,65 +304,11 @@ jobs:
             coverage.xml
             htmlcov/**
 
-  build:
-    name: Build Products
-
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - name: Runner Info
-        id: runner-info
-        run: |
-          echo OS: ${{ runner.os }}
-          echo ARCH: ${{ runner.arch }}
-          echo which git:
-          which git
-          echo git version:
-          git version
-          echo Env:
-          printenv | sort
-
-      - name: Checkout Repo
-        id: checkout-repo
-        uses: actions/checkout@v3.0.2
-
-      - name: batteries-forking-included
-        id: batteries-forking-included
-        run: |
-          ./bootstrap.sh --dev
-
-      - name: Build Package
-        id: build-package
-        run: |
-          . ./activate.sh
-          poetry build
-
-      - name: Upload BFI Logs
-        id: upload-bfi-logs
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: bfi-logs-build
-          if-no-files-found: error
-          path: |
-            ${{ github.workspace }}/bfi_temp/**/log/**
-
-      - name: Upload Build Products
-        id: upload-build-products
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-products
-          if-no-files-found: error
-          path: dist/*
-
   github-release:
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/heads/release')
     name: Create Github Release
-
     runs-on: ubuntu-latest
-    needs: [test, build]
-
+    needs: [build, test]
     steps:
       - name: Runner Info
         id: runner-info
@@ -396,7 +396,7 @@ jobs:
     name: Publish to PyPI
 
     runs-on: ubuntu-latest
-    needs: [test, build, github-release]
+    needs: [build, test, github-release]
 
     steps:
       - name: Runner Info
