@@ -63,6 +63,7 @@ flake8-pyi = "^22.4.1"
 colorama = "^0.4.4"
 pygrep = "^0.2"
 bandit = "^1.7.4"
+pytest-subprocess = "^1.4.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

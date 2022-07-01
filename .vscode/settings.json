@@ -44,6 +44,7 @@
         "pipefail",
         "posix",
         "printenv",
+        "pydocstyle",
         "pygments",
         "pygrep",
         "pyjson",

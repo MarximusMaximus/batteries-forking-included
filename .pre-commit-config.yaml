@@ -27,14 +27,20 @@ repos:
     hooks:
       - id: flake8
         additional_dependencies: [
-          flake8-bugbear,
-          flake8_commas,
-          flake8-docstrings,
-          # disabled b/c does not behave like regular mypy,
-          #   just use regular mypy
-          # flake8-mypy,
-          flake8-pyi,
-          pytest,
+            # various potential bug checker
+            flake8-bugbear,
+            # trailing commas and such
+            flake8_commas,
+            # does pydocstyle -- style checks inside docstrings
+            flake8-docstrings,
+            # disabled b/c does not behave like regular mypy,
+            #   just use regular mypy
+            # flake8-mypy,
+            # python interface files
+            flake8-pyi,
+            # dependencies for libraries needed to check against
+            pytest,
+            pytest-subprocess,
         ]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -86,7 +92,11 @@ repos:
     hooks:
       - id: mypy
         args: ["--strict", "--show-error-codes"]
-        additional_dependencies: [pytest]
+        additional_dependencies: [
+            # dependencies for libraries needed to check against
+            pytest,
+            pytest-subprocess,
+        ]
 
   - repo: https://gitlab.com/bmares/check-json5
     rev: "v1.0.0"
