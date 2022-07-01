@@ -48,6 +48,7 @@
         "pygments",
         "pygrep",
         "pyjson",
+        "pylint",
         "pypa",
         "pyparsing",
         "pypi",

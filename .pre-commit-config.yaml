@@ -43,6 +43,17 @@ repos:
             pytest-subprocess,
         ]
 
+  - repo: https://github.com/jendrikseipp/vulture
+    rev: 'v2.3'
+    hooks:
+      - id: vulture
+
+  - repo: https://github.com/PyCQA/pylint/
+    rev: 'v2.14.4'
+    hooks:
+      - id: pylint
+        entry: pylint --verbose
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: "v4.2.0"
     hooks:
@@ -70,7 +81,20 @@ repos:
     rev: "1.7.4"
     hooks:
       - id: bandit
-        files: ^src/
+        name: bandit-src
+        pass_filenames: false
+        args: [
+            "--recursive",
+            "src",
+        ]
+      - id: bandit
+        name: bandit-tests
+        pass_filenames: false
+        args: [
+            "--recursive",
+            "tests",
+            "--skip=B101",
+        ]
 
   - repo: local
     hooks:
