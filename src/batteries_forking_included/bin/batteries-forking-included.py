@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# pylint: disable=C0103
 ################################################################################
 #region Bootstrap Preamble
 # 'multiline shebang' that will run this script in the proper environment
@@ -278,8 +279,8 @@ def __main(argv: List[str]) -> int:
         description=f"batteries-forking-included {BFI_VERSION}\n{__doc__}",
     )
     parser.add_argument(
-        '--version',
-        action='version',
+        "--version",
+        action="version",
         version=f"batteries-forking-included {BFI_VERSION}",
     )
     subparsers = parser.add_subparsers(
@@ -336,8 +337,8 @@ def __main(argv: List[str]) -> int:
 #region Immediate
 
 if __name__ == "__main__":
-    ret = __main(sys.argv[1:])
-    sys.exit(ret)
+    __ret = __main(sys.argv[1:])
+    sys.exit(__ret)
 
 #endregion Immediate
 ################################################################################
