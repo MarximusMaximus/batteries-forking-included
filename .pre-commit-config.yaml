@@ -6,19 +6,6 @@ repos:
     - id: add-trailing-comma
       args: ["--py36-plus"]
 
-  # - repo: https://github.com/ambv/black
-  #   rev: "22.3.0"
-  #   hooks:
-  #     - id: black
-  #       args: [--safe, --verbose, --diff, --color]
-
-  # - repo: https://github.com/asottile/blacken-docs
-  #   rev: "v1.12.1"
-  #   hooks:
-  #   -   id: blacken-docs
-  #       args: ["--line-length=88","--target-version=py38"]
-  #       additional_dependencies: [black==22.3.0]
-
   # TODO: #8 (add additional linter? isort)
   # - repo: https://github.com/pycqa/isort
   #   rev: "5.10.1"
