@@ -28,7 +28,7 @@ from os.path import (
     abspath                         as os_path_abspath,
     curdir                          as os_path_curdir,
 )
-from subprocess import (
+from subprocess import (  # nosec
     call                            as subprocess_call,
 )
 from typing import (
@@ -70,7 +70,7 @@ def bfi_bootstrap(
     ]
     cmd = cmd + extras
     print("Executing: " + " ".join(cmd))
-    ret = subprocess_call(cmd)
+    ret = subprocess_call(cmd)  # nosec
     return ret
 
 #-------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ def bfi_init(
     ]
     cmd = cmd + extras
     print("Executing: " + " ".join(cmd))
-    ret = subprocess_call(cmd)
+    ret = subprocess_call(cmd)  # nosec
     return ret
 
 #-------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ def bfi_update(
     ]
     cmd = cmd + extras
     print("Executing: " + " ".join(cmd))
-    ret = subprocess_call(cmd)
+    ret = subprocess_call(cmd)  # nosec
     return ret
 
 #-------------------------------------------------------------------------------
@@ -138,5 +138,5 @@ def bfi_run(
     ]
     cmd = cmd + extras
     print("Executing: " + " ".join(cmd))
-    ret = subprocess_call(extras)
+    ret = subprocess_call(extras)  # nosec
     return ret
