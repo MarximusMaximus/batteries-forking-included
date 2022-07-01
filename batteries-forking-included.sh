@@ -2542,7 +2542,7 @@ pip_install() {
             if [ -f ./pip-requirements-dev.txt ]; then
                 log_footer "pip-requirements.txt Found."
             else
-                log_footer "pip-requirements-dev.txt Not Found. Skipping pip install."
+                log_footer "pip-requirements.txt Not Found. Skipping pip install."
             fi
         fi
 
