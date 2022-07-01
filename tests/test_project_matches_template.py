@@ -1,5 +1,5 @@
 """
-tests/test_batteries-forking-included.py (batteries-forking-included)
+tests/test_batteries_forking_included.py (batteries-forking-included)
 """
 
 ################################################################################
@@ -13,19 +13,14 @@ from filecmp import (
     cmp                             as filecmp_cmp,
 )
 from os import (
-    environ                         as os_environ,
     listdir                         as os_listdir,
 )
 from os.path import (
     abspath                         as os_path_abspath,
     join                            as os_path_join,
 )
-from subprocess import (
-    run                             as subprocess_run,
-)
 from typing import (
     Any,
-    Dict,
 )
 
 #endregion stdlib
@@ -61,15 +56,13 @@ REPO_ROOT_DIR = "."
 ################################################################################
 #region Tests
 
-
 #-------------------------------------------------------------------------------
-def test___main() -> None:
+def test___loads() -> None:
     """
     Simple test to confirm this subpackage of tests loads.
     """
 
     assert True
-
 
 #-------------------------------------------------------------------------------
 def test_files_match__general() -> None:
@@ -103,13 +96,11 @@ def test_files_match__post_bootstrap(tmp_path: PytestFixture) -> None:
     part2_data = []
     part3_data = []
 
-    f = open(template_path, "r", encoding="utf-8")
-    template_data = f.readlines()
-    f.close()
+    with open(template_path, "r", encoding="utf-8") as f:
+        template_data = f.readlines()
 
-    f = open(repo_path, "r", encoding="utf-8")
-    repo_data = f.readlines()
-    f.close()
+    with open(repo_path, "r", encoding="utf-8") as f:
+        repo_data = f.readlines()
 
     in_part = "part1"
     for line in template_data:
@@ -133,49 +124,14 @@ def test_files_match__post_bootstrap(tmp_path: PytestFixture) -> None:
         if in_part == "part2":
             part2_data.append(line)
 
-    f = open(combined_template_path, "w", encoding="utf-8")
-    f.writelines(part1_data)
-    f.writelines(part2_data)
-    f.writelines(part3_data)
-    f.flush()
-    f.close()
+    with open(combined_template_path, "w", encoding="utf-8") as f:
+        f.writelines(part1_data)
+        f.writelines(part2_data)
+        f.writelines(part3_data)
+        f.flush()
 
     cmp_ret = filecmp_cmp(combined_template_path, repo_path)
     assert cmp_ret, f"files do not match: {template_path} != {repo_path}"
-
-
-#-------------------------------------------------------------------------------
-def test_call_bfi__no_args() -> None:
-    """
-    _summary_
-    """
-    cmd = ["python", "./bin/batteries-forking-included.py"]
-    env: Dict[str, Any] = {
-        "OMEGA_DEBUG": "true",
-    }
-    for k, v in os_environ.items():
-        env[k] = v
-    p = subprocess_run(cmd, capture_output=True, env=env)
-
-    assert p.returncode == 2
-    assert b"Error: SUBCOMMAND required." in p.stdout
-
-
-#-------------------------------------------------------------------------------
-def test_call_bfi__help() -> None:
-    """
-    _summary_
-    """
-    cmd = ["python", "./bin/batteries-forking-included.py", "--help"]
-    env: Dict[str, Any] = {
-        "OMEGA_DEBUG": "true",
-    }
-    for k, v in os_environ.items():
-        env[k] = v
-    p = subprocess_run(cmd, capture_output=True, env=env)
-
-    assert p.returncode == 0
-    assert b"usage:" in p.stdout
 
 #endregion Tests
 ################################################################################
