@@ -1,3 +1,1 @@
-"""
-conda-and-pip.py
-"""
+../src/conda_and_pip/bin/conda-and-pip.py
