@@ -67,6 +67,7 @@ pytest-subprocess = "^1.4.1"
 prospector = "^1.7.7"
 vulture = "^2.4"
 pylint = "^2.14.4"
+pytest-prefer-nested-dup-tests = "^0.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -117,7 +118,7 @@ filterwarnings = [
 log_cli_level = "debug"
 testpaths = ["."]
 pythonpath = ["."]
-norecursedirs = "examples/*"
+norecursedirs = "examples/batteries-forking-included"
 
 # [tool.isort]
 # verbose = true

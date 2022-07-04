@@ -8,6 +8,7 @@ tests/conftest.py (batteries-forking-included)
 #===============================================================================
 #region stdlib
 
+import os
 # from typing import (
 #     Sequence,
 #     Union,
@@ -20,3 +21,5 @@ tests/conftest.py (batteries-forking-included)
 ################################################################################
 
 # pytest_plugins: Union[str, Sequence[str]] = ["pytester"]
+
+os.environ["PY_IGNORE_IMPORTMISMATCH"] = "1"
