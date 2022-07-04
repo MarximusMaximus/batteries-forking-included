@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 # pylint: disable=C0103
+# type: ignore
 ################################################################################
 #region Bootstrap Preamble
 # 'multiline shebang' that will run this script in the proper environment
@@ -105,13 +106,15 @@ exit $?
 #spellchecker: enable
 
 # insert our repo base dir into the sys.path so that we can import our library
-# we know that the repo path is ./.. b/c we should be in ./bin/
+# we know that the repo path is ./../../.. b/c we should be in ./src/<project name>/bin/
 import sys
 import os
 import os.path as os_path
 MY_DIR_FULLPATH = os_path.dirname(__file__)
-MY_REPO_FULLPATH = os_path.dirname(MY_DIR_FULLPATH)
+MY_REPO_FULLPATH = os_path.dirname(os_path.dirname(MY_DIR_FULLPATH))
 sys.path.insert(0, MY_REPO_FULLPATH)
+MY_LIB_FULLPATH = os_path.join(MY_REPO_FULLPATH, "src")
+sys.path.insert(0, MY_LIB_FULLPATH)
 
 MY_PROGRAM_NAME = os.environ.get("BFI_ORIGINAL_EXEC_NAME", os_path.basename(sys.argv[0]))
 if (
@@ -121,6 +124,7 @@ if (
     MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)
 del os
 del os_path
+del sys
 
 #endregion Bootstrap Preamble
 ################################################################################
@@ -134,10 +138,8 @@ batteries-forking-included python wrapper
 #===============================================================================
 #region stdlib
 
-import argparse
+import sys
 from typing import (
-    Any,
-    Dict,
     List,
 )
 
@@ -148,115 +150,10 @@ from typing import (
 #region Ours
 
 from batteries_forking_included import (
-    bfi_bootstrap                   as batteries_forking_included_bfi_bootstrap,
-    bfi_init                        as batteries_forking_included_bfi_init,
-    bfi_update                      as batteries_forking_included_bfi_update,
-    bfi_run                         as batteries_forking_included_bfi_run,
-    BFI_VERSION                     as batteries_forking_included_BFI_VERSION,
+    __main__                        as batteries_forking_included___main__,
 )
 
 #endregion Imports
-################################################################################
-
-################################################################################
-#region Constants
-
-BFI_VERSION = batteries_forking_included_BFI_VERSION
-
-#endregion Constants
-################################################################################
-
-################################################################################
-#region Subcommands
-
-#-------------------------------------------------------------------------------
-def subcommand_bootstrap(
-    extras: List[str],
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
-) -> int:
-    """
-    Call bootstrap.sh to begin bootstrap process.
-
-    Args:
-        extras (list[str]): command line args to bootstrap.sh
-
-    Returns:
-        int: return code from bootstrap.sh
-    """
-    # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
-
-    return batteries_forking_included_bfi_bootstrap(extras=extras)
-
-#-------------------------------------------------------------------------------
-def subcommand_init(
-    extras: List[str],
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
-) -> int:
-    """
-    Call BFI/src/batteries_forking_included/template/bfi-update.sh with current
-        dir as project dir to copy ALL missing files (and update others) to
-        current dir.
-
-    Args:
-        extras (list[str]): command line args to bfi-update.sh
-
-    Returns:
-        int: return code from bfi-update.sh
-    """
-    # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
-
-    return batteries_forking_included_bfi_init(extras=extras)
-
-#-------------------------------------------------------------------------------
-def subcommand_update(
-    extras: List[str],
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
-) -> int:
-    """
-    Call bfi-update.sh to update project's BFI files from BFI's template.
-
-    Args:
-        extras (list[str]): command line args to bfi-update.sh
-
-    Returns:
-        int: return code from bfi-update.sh
-    """
-    # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
-
-    return batteries_forking_included_bfi_update(extras=extras)
-
-#-------------------------------------------------------------------------------
-def subcommand_run(
-    extras: List[str],
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
-) -> int:
-    """
-    Call run.sh to run a command (denoted in 'extras') in the project's conda
-        environment.
-
-    Args:
-        extras (list[str]): command line args to run.sh
-
-    Returns:
-        int: return code from run.sh
-    """
-    # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
-
-    return batteries_forking_included_bfi_run(extras=extras)
-
-#endregion Subcommands
 ################################################################################
 
 ################################################################################
@@ -273,59 +170,10 @@ def __main(argv: List[str]) -> int:
     Returns:
         int: return code
     """
-    # do argparse stuff
-    parser = argparse.ArgumentParser(
-        prog=MY_PROGRAM_NAME,
-        description=f"batteries-forking-included {BFI_VERSION}\n{__doc__}",
+
+    ret: int = int(
+        getattr(batteries_forking_included___main__, "__main")(argv),  # noqa: B009
     )
-    parser.add_argument(
-        "--version",
-        action="version",
-        version=f"batteries-forking-included {BFI_VERSION}",
-    )
-    subparsers = parser.add_subparsers(
-        dest="subcommand",
-        metavar="SUBCOMMAND",
-    )
-
-    subparsers.add_parser(
-        name="init",
-        help="initialize current directory with template",
-    )
-
-    subparsers.add_parser(
-        name="update",
-        help="update current directory from template",
-    )
-
-    subparsers.add_parser(
-        name="run",
-        help="run command in current directory's project's environment",
-    )
-
-    subparsers.add_parser(
-        name="bootstrap",
-        help="bootstrap current directory's project's environment",
-    )
-
-    options, extras = parser.parse_known_args(argv)
-
-    subcommands = {
-        "init": subcommand_init,
-        "update": subcommand_update,
-        "run":  subcommand_run,
-        "bootstrap": subcommand_bootstrap,
-    }
-
-    if (
-        options.subcommand is None or
-        options.subcommand not in subcommands
-    ):
-        parser.print_help()
-        print("\nError: SUBCOMMAND required.")
-        parser.exit(2)
-
-    ret = subcommands[options.subcommand](extras=extras, **vars(options))
 
     # exit with useful code
     return ret
