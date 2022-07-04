@@ -220,6 +220,7 @@ coverage.html
 
 # test & other report data
 .reports/
+.pylint.d/
 
 # codeql
 .codeql/
