@@ -36,6 +36,7 @@
         "ngmodel",
         "ngrepeat",
         "noahsark",
+        "nobranch",
         "nodeid",
         "noprofile",
         "noqa",
@@ -58,6 +59,7 @@
         "runneradmin",
         "sanitise",
         "sdist",
+        "setenv",
         "setuptools",
         "shellcheck",
         "shfmt",
@@ -163,7 +165,25 @@
             "italic": false
         },
         {
+            "tag": "pragma: nobranch",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
             "tag": "pragma: no cover",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "pragma: nocover",
             "color": "#9900CC",
             "strikethrough": false,
             "underline": false,
@@ -200,6 +220,15 @@
         },
         {
             "tag": "flake8: noqa",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "pylint: disable",
             "color": "#9900CC",
             "strikethrough": false,
             "underline": false,
@@ -357,6 +386,7 @@
             "end": "^\\s*#?endregion\\b"
         },
     },
+    "coverage-gutters.coverageBaseDir": ".",
     // "bracketLens.minBracketScopeLines": 2,
     // "bracketLens.languageConfiguration": {
     // "ignoreCase": false,
