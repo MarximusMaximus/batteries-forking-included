@@ -1,3 +1,1 @@
-"""
-conda-and-poetry.py
-"""
+../src/conda_and_poetry/bin/conda-and-poetry.py
