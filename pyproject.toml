@@ -1,8 +1,7 @@
-
 [tool.poetry]
 name = "batteries-forking-included"
 # WARNING: Don't forget to update the version number in src/bfi/template/bfi-base.sh
-version = "0.1.1"
+version = "0.1.2dev"
 description = "A Pytest plugin to drop duplicated tests during collection, but will prefer keeping nested packages."
 authors = ["Marximus Maximus <marximus@marximus.com>"]
 license = "MIT"
@@ -24,9 +23,16 @@ classifiers = [
     "Operating System :: OS Independent",
     "License :: OSI Approved :: MIT License",
 ]
+packages = [
+    { include = "batteries_forking_included", from="src" },
+]
 include = [
     "CHANGELOG.rst",
-    "tests"
+    "tests",
+    "activate.sh",
+    "batteries-forking-included.sh",
+    "bfi-base.sh",
+    "run.sh",
 ]
 
 [tool.poetry.urls]
@@ -95,8 +101,6 @@ addopts = [
     "--doctest-continue-on-failure",
     # coverage (configured via .coveragerc)
     "--cov",
-    # track contexts in which lines are called
-    "--cov-context=test",
     # output coverage to terminal
     "--cov-report=term",
     # output coverage as html report (for human browsing from CI)
@@ -104,6 +108,7 @@ addopts = [
     # output coverage as xml report (for CI reporting and VSCode reporting)
     "--cov-report=xml",
     # show local variable values in traceback
+    "--tb=long",
     "--showlocals",
     # raise errors if using an unregistered marker
     "--strict-markers",
@@ -122,7 +127,7 @@ filterwarnings = [
 log_cli_level = "debug"
 testpaths = ["."]
 pythonpath = ["."]
-norecursedirs = "examples/batteries-forking-included"
+norecursedirs = ["examples/batteries-forking-included/*", "dist/*"]
 
 # [tool.isort]
 # verbose = true

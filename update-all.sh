@@ -9,3 +9,7 @@
         fi
     done
 )
+(
+    cd src/batteries_forking_included || exit 1
+    cp ./template/* .
+)

@@ -9,6 +9,7 @@ tests/src/batteries_forking_included/test___main__.py (batteries-forking-include
 #region stdlib
 
 from os.path import (
+    abspath                         as os_path_abspath,
     expanduser                      as os_path_expanduser,
     join                            as os_path_join,
     relpath                         as os_path_relpath,
@@ -16,6 +17,11 @@ from os.path import (
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
+    Pytester                        as pytest_Pytester,
+)
+from shutil import (
+    copymode                        as shutil_copymode,
+    copytree                        as shutil_copytree,
 )
 from subprocess import (
     run                             as subprocess_run,
@@ -86,7 +92,7 @@ class Test_CommandLine():
         """
         Invoked from src dir.
         """
-        cwd = os_path_join(MODULE_UNDER_TEST.MY_REPO_FULLPATH, "src")
+        cwd = os_path_abspath(os_path_join(MODULE_UNDER_TEST.MY_DIR_FULLPATH, ".."))
         script_path = os_path_join(
             ".",
             os_path_relpath(MODULE_UNDER_TEST.MY_DIR_FULLPATH, cwd),
@@ -143,10 +149,55 @@ class Test_CommandLine():
         assert p.returncode == 0
 
     #-------------------------------------------------------------------------------
-    def test_CommandLine_RunEchoFoo_FromRepoRoot(self) -> None:
+    def test_CommandLine_RunEchoFoo_FromRepoRoot(
+        self,
+        monkeypatch: pytest_MonkeyPatch,
+        pytester: pytest_Pytester,
+    ) -> None:
         """
         Invoke from repo root.
         """
+        mock_repo_path = pytester.copy_example(
+            os_path_join(
+                MODULE_UNDER_TEST.MY_DIR_FULLPATH,
+                "template",
+            ),
+        )
+        shutil_copymode(
+            os_path_join(MODULE_UNDER_TEST.MY_DIR_FULLPATH, "template", "run.sh"),
+            os_path_join(mock_repo_path, "run.sh"),
+        )
+        src_mod_fullpath = os_path_join(
+            mock_repo_path,
+            "src",
+            "template_project",
+        )
+        shutil_copytree(
+            MODULE_UNDER_TEST.MY_DIR_FULLPATH,
+            src_mod_fullpath,
+            dirs_exist_ok=True,
+        )
+        pytester.makepyprojecttoml("""\
+            name = "template_project"
+            version = "0.0.0"
+            description = "A template project."
+        """)
+        monkeypatch.setattr(
+            MODULE_UNDER_TEST,
+            "MY_REPO_FULLPATH",
+            mock_repo_path,
+        )
+        monkeypatch.setattr(
+            MODULE_UNDER_TEST,
+            "MY_REPO_FULLPATH",
+            mock_repo_path,
+        )
+        monkeypatch.setattr(
+            MODULE_UNDER_TEST,
+            "MY_DIR_FULLPATH",
+            src_mod_fullpath,
+        )
+
         cwd = MODULE_UNDER_TEST.MY_REPO_FULLPATH
 
         script_path = os_path_join(

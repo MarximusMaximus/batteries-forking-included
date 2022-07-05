@@ -11,9 +11,13 @@ tests/src/batteries_forking_included/test___impl.py (batteries-forking-included)
 from io import (
     TextIOWrapper                   as io_TextIOWrapper,
 )
+from os.path import (
+    join                            as os_path_join,
+)
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
+    Pytester                        as pytest_Pytester,
 )
 from subprocess import (
     run                             as subprocess_run,
@@ -222,10 +226,15 @@ class Test_getVersionNumber():
     '''
 
     #---------------------------------------------------------------------------
-    def test_getVersionNumber_importlib(self) -> None:
+    def test_getVersionNumber_importlib(
+        self,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
         """
         Test getVersionNumber via importlib.
         """
+
+        monkeypatch.delenv("BFI_VERSION", raising=False)
 
         ret = MODULE_UNDER_TEST.getVersionNumber()
 
@@ -236,52 +245,89 @@ class Test_getVersionNumber():
     def test_getVersionNumber_pyproject_toml(
         self,
         monkeypatch: pytest_MonkeyPatch,
+        pytester: pytest_Pytester,
     ) -> None:
         """
         Test getVersionNumber via pyproject.toml.
         """
         import importlib.metadata
 
+        mock_repo_path = pytester.copy_example(
+            os_path_join(
+                MODULE_UNDER_TEST.MY_DIR_FULLPATH,
+                "template",
+            ),
+        )
+        pytester.makepyprojecttoml("""\
+            name = "template"
+            version = "0.0.0"
+            description = "A template project."
+        """)
+        monkeypatch.setattr(
+            MODULE_UNDER_TEST,
+            "MY_REPO_FULLPATH",
+            mock_repo_path,
+        )
+
         def mock_importlib_metadata_version(_: str) -> str:
             raise importlib.metadata.PackageNotFoundError
-
         monkeypatch.setattr(
             MODULE_UNDER_TEST,
             "importlib_metadata_version",
             mock_importlib_metadata_version,
         )
+
+        monkeypatch.delenv("BFI_VERSION", raising=False)
 
         ret = MODULE_UNDER_TEST.getVersionNumber()
 
         assert ret != ""
         assert ret != "UNKNOWN"
+        assert ret == "0.0.0"
 
     #---------------------------------------------------------------------------
     def test_getVersionNumber_UNKNOWN(
         self,
         monkeypatch: pytest_MonkeyPatch,
+        pytester: pytest_Pytester,
     ) -> None:
         """
         Test getVersionNumber via pyproject.toml.
         """
         import importlib.metadata
 
+        mock_repo_path = pytester.copy_example(
+            os_path_join(
+                MODULE_UNDER_TEST.MY_DIR_FULLPATH,
+                "template",
+            ),
+        )
+        pytester.makepyprojecttoml("""\
+            name = "template"
+            version = "0.0.0"
+            description = "A template project."
+        """)
+        monkeypatch.setattr(
+            MODULE_UNDER_TEST,
+            "MY_REPO_FULLPATH",
+            mock_repo_path,
+        )
+
         def mock_importlib_metadata_version(_: str) -> str:
             raise importlib.metadata.PackageNotFoundError
-
-        def mock_open(f: str, m: str) -> io_TextIOWrapper:  # pragma: no cover
-            raise Exception
-
         monkeypatch.setattr(
             MODULE_UNDER_TEST,
             "importlib_metadata_version",
             mock_importlib_metadata_version,
         )
 
+        def mock_open(f: str, m: str) -> io_TextIOWrapper:  # pragma: no cover
+            raise Exception
         # create something that monkeypatch can override
         MODULE_UNDER_TEST.open = lambda f, m: __builtins__.open(f, m)  # type: ignore  # pragma: no cover  # noqa: E501,B950
-
         monkeypatch.setattr(MODULE_UNDER_TEST, "open", mock_open)
+
+        monkeypatch.delenv("BFI_VERSION", raising=False)
 
         ret = MODULE_UNDER_TEST.getVersionNumber()
 
@@ -292,27 +338,42 @@ class Test_getVersionNumber():
     def test_getVersionNumber_BFI_VERSION(
         self,
         monkeypatch: pytest_MonkeyPatch,
+        pytester: pytest_Pytester,
     ) -> None:
         """
         Test getVersionNumber via pyproject.toml.
         """
         import importlib.metadata
 
+        mock_repo_path = pytester.copy_example(
+            os_path_join(
+                MODULE_UNDER_TEST.MY_DIR_FULLPATH,
+                "template",
+            ),
+        )
+        pytester.makepyprojecttoml("""\
+            name = "template"
+            version = "0.0.0"
+            description = "A template project."
+        """)
+        monkeypatch.setattr(
+            MODULE_UNDER_TEST,
+            "MY_REPO_FULLPATH",
+            mock_repo_path,
+        )
+
         def mock_importlib_metadata_version(_: str) -> str:
             raise importlib.metadata.PackageNotFoundError
-
-        def mock_open(f: str, m: str) -> io_TextIOWrapper:  # pragma: no cover
-            raise Exception
-
         monkeypatch.setattr(
             MODULE_UNDER_TEST,
             "importlib_metadata_version",
             mock_importlib_metadata_version,
         )
 
+        def mock_open(f: str, m: str) -> io_TextIOWrapper:  # pragma: no cover
+            raise Exception
         # create something that monkeypatch can override
         MODULE_UNDER_TEST.open = lambda f, m: __builtins__.open(f, m)  # type: ignore  # pragma: no cover  # noqa: E501,B950
-
         monkeypatch.setattr(MODULE_UNDER_TEST, "open", mock_open)
 
         monkeypatch.setenv("BFI_VERSION", "x.y.z")

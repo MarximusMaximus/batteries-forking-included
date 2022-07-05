@@ -162,8 +162,11 @@ def getVersionNumber() -> str:
         try:
             with open(os_path_join(MY_REPO_FULLPATH, "pyproject.toml")) as f:
                 f_data = []
-                for _ in range(10):
-                    f_data.append(f.readline())
+                for _ in range(10):  # pragma: no branch
+                    line = f.readline()
+                    if line == "":
+                        break
+                    f_data.append(line)
                 f_data = [x for x in f_data if "version = " in x]
                 bfi_version = f_data[0][len("version = "):]
                 bfi_version = bfi_version[1:-2]

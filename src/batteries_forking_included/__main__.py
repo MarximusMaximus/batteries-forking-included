@@ -246,7 +246,7 @@ def scriptEntryPoint() -> int:
         int: return code
     """
     ret = __main(sys.argv[1:])
-    sys.exit(ret)
+    sys.exit(ret)  # pragma: no cover
 
 #endregion Script Entry Point
 ################################################################################
