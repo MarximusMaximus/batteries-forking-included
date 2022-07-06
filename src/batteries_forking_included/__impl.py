@@ -11,12 +11,8 @@ MY_REPO_FULLPATH = os_path.dirname(os_path.dirname(MY_DIR_FULLPATH))
 del os_path
 
 from logging import (  # noqa: F401
-    DEBUG                           as logging_DEBUG,
-    ERROR                           as logging_ERROR,
     FATAL                           as logging_FATAL,
     getLogger                       as logging_getLogger,
-    INFO                            as logging_INFO,
-    WARNING                         as logging_WARNING,
 )
 logger = logging_getLogger(__name__)
 logger_log = logger.log
@@ -160,7 +156,11 @@ def getVersionNumber() -> str:
         bfi_version = importlib_metadata_version("batteries_forking_included")
     except importlib_metadata_PackageNotFoundError:
         try:
-            with open(os_path_join(MY_REPO_FULLPATH, "pyproject.toml")) as f:
+            with open(
+                os_path_join(MY_REPO_FULLPATH, "pyproject.toml"),
+                "r",
+                encoding="utf-8",
+            ) as f:
                 f_data = []
                 for _ in range(10):  # pragma: no branch
                     line = f.readline()
@@ -170,7 +170,7 @@ def getVersionNumber() -> str:
                 f_data = [x for x in f_data if "version = " in x]
                 bfi_version = f_data[0][len("version = "):]
                 bfi_version = bfi_version[1:-2]
-        except Exception:
+        except Exception:  # pylint: disable=broad-except
             bfi_version = "UNKNOWN"
 
     bfi_version = os_environ.get("BFI_VERSION", bfi_version)
@@ -221,6 +221,7 @@ def __main(argv: List[str]) -> int:
     Returns:
         int: return code
     """
+    argv = argv  # ignores unused var
 
     logger_log(logging_FATAL, "This module should not be run directly.")
 
@@ -232,8 +233,8 @@ def __main(argv: List[str]) -> int:
 ################################################################################
 #region Immediate
 
-if __name__ == "__main__":
-    __ret = __main(sys.argv[1:])
+if __name__ == "__main__":  # pragma: no cover
+    __ret = __main(sys.argv[1:])  # pylint: disable=invalid-name
     sys.exit(__ret)
 
 #endregion Immediate

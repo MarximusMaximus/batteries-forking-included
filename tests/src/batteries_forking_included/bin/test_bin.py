@@ -12,9 +12,6 @@ tests/bin/test_batteries_dash_forking_dash_included.py (batteries-forking-includ
 from os import (
     environ                         as os_environ,
 )
-from pytest import (
-    mark                            as pytest_mark,
-)
 from subprocess import (  # nosec
     run                             as subprocess_run,
 )
@@ -25,6 +22,16 @@ from typing import (
 )
 
 #endregion stdlib
+#===============================================================================
+
+#===============================================================================
+#region third party
+
+from pytest import (
+    mark                            as pytest_mark,
+)
+
+#endregion third party
 #===============================================================================
 
 #===============================================================================

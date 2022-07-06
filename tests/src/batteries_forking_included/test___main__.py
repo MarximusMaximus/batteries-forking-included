@@ -14,11 +14,6 @@ from os.path import (
     join                            as os_path_join,
     relpath                         as os_path_relpath,
 )
-from pytest import (
-    mark                            as pytest_mark,
-    MonkeyPatch                     as pytest_MonkeyPatch,
-    Pytester                        as pytest_Pytester,
-)
 from shutil import (
     copymode                        as shutil_copymode,
     copytree                        as shutil_copytree,
@@ -33,6 +28,18 @@ from typing import (
 )
 
 #endregion stdlib
+#===============================================================================
+
+#===============================================================================
+#region third party
+
+from pytest import (
+    mark                            as pytest_mark,
+    MonkeyPatch                     as pytest_MonkeyPatch,
+    Pytester                        as pytest_Pytester,
+)
+
+#endregion third party
 #===============================================================================
 
 #===============================================================================
@@ -296,6 +303,10 @@ class Test___main():
             *args: List[Any],
             **kwargs: Dict[str, Any],
         ) -> int:
+            # ignore unused vars in function signature
+            args = args
+            kwargs = kwargs
+
             expected_extras = extra_args[1:]
             assert extras == expected_extras
 

@@ -14,11 +14,6 @@ from io import (
 from os.path import (
     join                            as os_path_join,
 )
-from pytest import (
-    mark                            as pytest_mark,
-    MonkeyPatch                     as pytest_MonkeyPatch,
-    Pytester                        as pytest_Pytester,
-)
 from subprocess import (
     run                             as subprocess_run,
 )
@@ -32,6 +27,18 @@ from typing import (
 )
 
 #endregion stdlib
+#===============================================================================
+
+#===============================================================================
+#region third party
+
+from pytest import (
+    mark                            as pytest_mark,
+    MonkeyPatch                     as pytest_MonkeyPatch,
+    Pytester                        as pytest_Pytester,
+)
+
+#endregion third party
 #===============================================================================
 
 #===============================================================================
@@ -189,7 +196,7 @@ class Test_bfiSubcommand:
             assert cmd_str is not None
             assert expected_cmd_str in cmd_str
 
-            if func == MODULE_UNDER_TEST.bfiInit:
+            if func == MODULE_UNDER_TEST.bfiInit:  # pylint: disable=comparison-with-callable  # noqa: E501,B950
                 assert "--project-dir" in cmd_str
 
             return expected_ret
@@ -202,7 +209,7 @@ class Test_bfiSubcommand:
 
         ret = None
         if input_args is None:
-            ret = func()  # type: ignore
+            ret = func()  # type: ignore[call-arg]
         else:
             ret = func(input_args)
 
@@ -250,7 +257,7 @@ class Test_getVersionNumber():
         """
         Test getVersionNumber via pyproject.toml.
         """
-        import importlib.metadata
+        import importlib.metadata  # pylint: disable=import-outside-toplevel
 
         mock_repo_path = pytester.copy_example(
             os_path_join(
@@ -294,7 +301,7 @@ class Test_getVersionNumber():
         """
         Test getVersionNumber via pyproject.toml.
         """
-        import importlib.metadata
+        import importlib.metadata  # pylint: disable=import-outside-toplevel
 
         mock_repo_path = pytester.copy_example(
             os_path_join(
@@ -321,10 +328,10 @@ class Test_getVersionNumber():
             mock_importlib_metadata_version,
         )
 
-        def mock_open(f: str, m: str) -> io_TextIOWrapper:  # pragma: no cover
+        def mock_open(f: str, mode: str) -> io_TextIOWrapper:  # pragma: no cover
             raise Exception
         # create something that monkeypatch can override
-        MODULE_UNDER_TEST.open = lambda f, m: __builtins__.open(f, m)  # type: ignore  # pragma: no cover  # noqa: E501,B950
+        MODULE_UNDER_TEST.open = lambda f, m: __builtins__.open(f, m)  # type: ignore[attr-defined]  # pragma: no cover  # noqa: E501,B950
         monkeypatch.setattr(MODULE_UNDER_TEST, "open", mock_open)
 
         monkeypatch.delenv("BFI_VERSION", raising=False)
@@ -343,7 +350,7 @@ class Test_getVersionNumber():
         """
         Test getVersionNumber via pyproject.toml.
         """
-        import importlib.metadata
+        import importlib.metadata  # pylint: disable=import-outside-toplevel
 
         mock_repo_path = pytester.copy_example(
             os_path_join(
@@ -370,10 +377,10 @@ class Test_getVersionNumber():
             mock_importlib_metadata_version,
         )
 
-        def mock_open(f: str, m: str) -> io_TextIOWrapper:  # pragma: no cover
+        def mock_open(f: str, mode: str) -> io_TextIOWrapper:  # pragma: no cover
             raise Exception
         # create something that monkeypatch can override
-        MODULE_UNDER_TEST.open = lambda f, m: __builtins__.open(f, m)  # type: ignore  # pragma: no cover  # noqa: E501,B950
+        MODULE_UNDER_TEST.open = lambda f, mode: __builtins__.open(f, mode)  # type: ignore[attr-defined]  # pragma: no cover  # noqa: E501,B950
         monkeypatch.setattr(MODULE_UNDER_TEST, "open", mock_open)
 
         monkeypatch.setenv("BFI_VERSION", "x.y.z")
@@ -444,9 +451,9 @@ class Test__bfiExecute:
 
         ret = None
         if input_args is None:
-            ret = MODULE_UNDER_TEST._bfiExecute(script="script.sh")
+            ret = MODULE_UNDER_TEST._bfiExecute(script="script.sh")  # pylint: disable=protected-access  # noqa: E501,B950
         else:
-            ret = MODULE_UNDER_TEST._bfiExecute(script="script.sh", extras=input_args)
+            ret = MODULE_UNDER_TEST._bfiExecute(script="script.sh", extras=input_args)  # pylint: disable=protected-access  # noqa: E501,B950
 
         assert ret == expected_ret
 

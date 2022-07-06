@@ -352,7 +352,9 @@
         "--follow-imports=silent",
         "--show-column-numbers",
         "--no-pretty",
-        "--strict"
+        "--strict",
+        "--show-error-context",
+        "--show-error-codes"
     ],
     "workbench.colorCustomizations": {
         "activityBar.background": "#1F312F",
@@ -389,6 +391,8 @@
         },
     },
     "coverage-gutters.coverageBaseDir": ".",
+    "python.linting.pylintEnabled": true,
+    "python.linting.banditEnabled": true,
     // "bracketLens.minBracketScopeLines": 2,
     // "bracketLens.languageConfiguration": {
     // "ignoreCase": false,

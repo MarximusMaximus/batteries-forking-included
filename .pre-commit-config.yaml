@@ -53,6 +53,11 @@ repos:
     hooks:
       - id: pylint
         entry: pylint --verbose
+        additional_dependencies: [
+            # dependencies for libraries needed to check against
+            pytest,
+            pytest-subprocess,
+        ]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: "v4.2.0"

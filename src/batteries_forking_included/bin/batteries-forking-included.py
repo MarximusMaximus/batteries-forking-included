@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # pylint: disable=C0103
-# type: ignore
+
 ################################################################################
 #region Bootstrap Preamble
 # 'multiline shebang' that will run this script in the proper environment
@@ -124,7 +124,6 @@ if (  # pragma: no cover
     MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)
 del os
 del os_path
-del sys
 
 #endregion Bootstrap Preamble
 ################################################################################
@@ -138,7 +137,6 @@ batteries-forking-included python wrapper
 #===============================================================================
 #region stdlib
 
-import sys
 from typing import (
     List,
 )
@@ -160,7 +158,7 @@ from batteries_forking_included import (
 #region Private Functions
 
 #-------------------------------------------------------------------------------
-def __main(argv: List[str]) -> int:
+def __main(argv: List[str]) -> int:  # pragma: no cover
     """
     Entry point.
 
@@ -184,7 +182,7 @@ def __main(argv: List[str]) -> int:
 ################################################################################
 #region Immediate
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     __ret = __main(sys.argv[1:])
     sys.exit(__ret)
 

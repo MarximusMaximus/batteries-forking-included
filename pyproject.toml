@@ -268,17 +268,20 @@ class-attribute-naming-style = "snake_case"
 class-const-naming-style = "UPPER_CASE"
 
 # Naming style matching correct class names.
-class-naming-style = "PascalCase"
+# class-naming-style = "PascalCase" but allow underscores
+class-rgx = "[^\\W\\da-z][^\\W]+$"
 
 # Naming style matching correct constant names.
 const-naming-style = "UPPER_CASE"
 
 # Naming style matching correct function names.
-function-naming-style = "snake_case"
+# function-naming-style = "camelCase" but allow underscoes
+function-rgx = "([^\\W\\dA-Z].{2,}|__[^\\W\\dA-Z].+__)$"
 
 # Good variable names which should always be accepted, separated by a comma.
 good-names = [
     "_",
+    "e",
     "err",
     "ex",
     "f",
@@ -287,6 +290,8 @@ good-names = [
     "k",
     "p",
     "ret",
+    "_ret",
+    "__ret",
     "Run",
     "w",
     "v",
@@ -299,7 +304,8 @@ good-names = [
 inlinevar-naming-style = "snake_case"
 
 # Naming style matching correct method names.
-method-naming-style = "camelCase"
+# method-naming-style = "camelCase"
+method-rgx = "([^\\W\\dA-Z].{2,}|__[^\\W\\dA-Z].+__)$"
 
 # # Naming style matching correct module names.
 # module-naming-style = "snake_case"
@@ -354,13 +360,13 @@ valid-metaclass-classmethod-first-arg = ["cls"]
 # ignored-parents =
 
 # Maximum number of arguments for function / method.
-max-args = 5
+max-args = 99
 
 # Maximum number of attributes for a class (see R0902).
-max-attributes = 7
+max-attributes = 99
 
 # Maximum number of boolean expressions in an if statement (see R0916).
-max-bool-expr = 5
+max-bool-expr = 99
 
 # Maximum number of branch for function / method body.
 max-branches = 12
@@ -372,16 +378,16 @@ max-locals = 15
 max-parents = 7
 
 # Maximum number of public methods for a class (see R0904).
-max-public-methods = 20
+max-public-methods = 99
 
 # Maximum number of return / yield for function / method body.
 max-returns = 6
 
 # Maximum number of statements in function / method body.
-max-statements = 50
+max-statements = 999
 
 # Minimum number of public methods for a class (see R0903).
-min-public-methods = 2
+min-public-methods = 0
 
 [tool.pylint.exceptions]
 # Exceptions that will emit a warning when caught.
@@ -402,7 +408,7 @@ indent-after-paren = 4
 indent-string = "    "
 
 # Maximum number of characters on a single line.
-max-line-length = 100
+max-line-length = 9999
 
 # Maximum number of lines in a module.
 max-module-lines = 9999
@@ -484,6 +490,9 @@ disable = [
     # "useless-suppression",
     # "deprecated-pragma",
     # "use-symbolic-message-instead"
+    "unnecessary-pass",
+    "pointless-string-statement",
+    "unnecessary-lambda",
     "C0413",
     "W0127",
     "W1510",

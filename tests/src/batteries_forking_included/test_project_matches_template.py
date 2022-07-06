@@ -1,7 +1,7 @@
 """
 tests/test_batteries_forking_included.py (batteries-forking-included)
 """
-
+# pylint: disable=R0801
 ################################################################################
 #region Imports
 

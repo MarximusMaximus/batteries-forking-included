@@ -53,7 +53,7 @@ TEMPLATE_DIR = "src/batteries_forking_included/template"
 MY_DIR = os_path_dirname(__file__)
 REPO_ROOT_DIR = os_path_abspath(".")
 TESTS_DIR = os_path_join(REPO_ROOT_DIR, "tests")
-REL_DIR_TO_TEST = os_path_relpath(MY_DIR, TESTS_DIR)
+REL_DIR_TO_TEST = os_path_relpath(MY_DIR, TESTS_DIR).replace("_", "-")
 DIR_TO_TEST = os_path_join(REPO_ROOT_DIR, REL_DIR_TO_TEST)
 
 #endregion Constants

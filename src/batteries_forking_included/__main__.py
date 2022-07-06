@@ -222,7 +222,7 @@ def __main(argv: List[str]) -> int:
     if (
         options.subcommand is None or
         options.subcommand not in subcommands
-    ):
+    ):  # pragma: no cover
         parser.print_help()
         print("\nError: SUBCOMMAND required.")
         parser.exit(2)
@@ -238,7 +238,7 @@ def __main(argv: List[str]) -> int:
 ################################################################################
 #region Script Entry Point
 
-def scriptEntryPoint() -> int:
+def scriptEntryPoint() -> int:  # pragma: no cover
     """
     Script entry point. Used by tool.poetry.scripts.
 
@@ -246,7 +246,7 @@ def scriptEntryPoint() -> int:
         int: return code
     """
     ret = __main(sys.argv[1:])
-    sys.exit(ret)  # pragma: no cover
+    sys.exit(ret)
 
 #endregion Script Entry Point
 ################################################################################
@@ -254,7 +254,7 @@ def scriptEntryPoint() -> int:
 ################################################################################
 #region Immediate
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     scriptEntryPoint()
 
 #endregion Immediate
