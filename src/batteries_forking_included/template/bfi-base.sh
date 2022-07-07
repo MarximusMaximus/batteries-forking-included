@@ -10,8 +10,7 @@ export BFI_VERSION
 ################################################################################
 #region Preamble
 
-#===============================================================================
-#region Fallbacks
+#===============================================================================#region Fallbacks
 
 type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
 ret=$?
@@ -307,6 +306,8 @@ include_G() {
         log_warning "Could not source because file is missing: %s" "$1"
         return "${RET_ERROR_FILE_NOT_FOUND}"
     fi
+
+    log_ultradebug "Sourcing: %s" "$1"
 
     array_append SHELL_SOURCE "$1"
     export SHELL_SOURCE
