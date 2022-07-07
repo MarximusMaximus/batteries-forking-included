@@ -119,7 +119,7 @@ class Test_CommandLine():
         }
         for k, v in os_environ.items():
             env[k] = v
-        p = subprocess_run(cmd, capture_output=True, env=env)  # nosec
+        p = subprocess_run(cmd, capture_output=True, env=env)
 
         assert p.returncode == expected_ret
         assert all(x in p.stdout for x in expected_stdout)

@@ -8,6 +8,9 @@ tests/src/batteries_forking_included/test___main__.py (batteries-forking-include
 #===============================================================================
 #region stdlib
 
+from os import (
+    environ                         as os_environ,
+)
 from os.path import (
     abspath                         as os_path_abspath,
     expanduser                      as os_path_expanduser,
@@ -90,7 +93,13 @@ class Test_CommandLine():
             "--version",
         ]
 
-        p = subprocess_run(cmd, capture_output=True, cwd=cwd)
+        env: Dict[str, Any] = {
+            "OMEGA_DEBUG": "true",
+        }
+        for k, v in os_environ.items():
+            env[k] = v
+
+        p = subprocess_run(cmd, capture_output=True, cwd=cwd, env=env)
 
         assert p.returncode == 0
 
@@ -112,7 +121,13 @@ class Test_CommandLine():
             "--version",
         ]
 
-        p = subprocess_run(cmd, capture_output=True, cwd=cwd)
+        env: Dict[str, Any] = {
+            "OMEGA_DEBUG": "true",
+        }
+        for k, v in os_environ.items():
+            env[k] = v
+
+        p = subprocess_run(cmd, capture_output=True, cwd=cwd, env=env)
 
         assert p.returncode == 0
 
@@ -129,7 +144,13 @@ class Test_CommandLine():
             "--version",
         ]
 
-        p = subprocess_run(cmd, capture_output=True, cwd=cwd)
+        env: Dict[str, Any] = {
+            "OMEGA_DEBUG": "true",
+        }
+        for k, v in os_environ.items():
+            env[k] = v
+
+        p = subprocess_run(cmd, capture_output=True, cwd=cwd, env=env)
 
         assert p.returncode == 0
 
@@ -151,7 +172,13 @@ class Test_CommandLine():
             "--version",
         ]
 
-        p = subprocess_run(cmd, capture_output=True, cwd=cwd)
+        env: Dict[str, Any] = {
+            "OMEGA_DEBUG": "true",
+        }
+        for k, v in os_environ.items():
+            env[k] = v
+
+        p = subprocess_run(cmd, capture_output=True, cwd=cwd, env=env)
 
         assert p.returncode == 0
 
@@ -221,7 +248,13 @@ class Test_CommandLine():
             "foo",
         ]
 
-        p = subprocess_run(cmd, capture_output=True, cwd=cwd)
+        env: Dict[str, Any] = {
+            "OMEGA_DEBUG": "true",
+        }
+        for k, v in os_environ.items():
+            env[k] = v
+
+        p = subprocess_run(cmd, capture_output=True, cwd=cwd, env=env)
 
         assert p.returncode == 0
 
