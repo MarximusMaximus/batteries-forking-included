@@ -2877,6 +2877,10 @@ then
 
     CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_DIR}"/log
 
+    if [ "${CI}" = true ]; then
+        CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_LOG_DIR}"/$(get_datetime_stamp_filename_formatted)
+    fi
+
     ensure_dir "${CONSTANTS_TEMP_LOG_DIR}"
     ret=$?
     if [ $ret -ne 0 ]; then
