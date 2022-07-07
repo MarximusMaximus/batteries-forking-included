@@ -102,7 +102,7 @@ class Test_CommandLine():
             ),
         ],
     )
-    def test_commandLine_noArgs(
+    def test_commandLine(
         self,
         extra_args: List[str],
         expected_ret: int,
@@ -110,7 +110,7 @@ class Test_CommandLine():
         not_expected_stdout: List[bytes],
     ) -> None:
         """
-        Invoke command line with no args.
+        Invoke command line with different args.
         """
         cmd = ["python", "./bin/batteries-forking-included.py"]
         cmd = cmd + extra_args
