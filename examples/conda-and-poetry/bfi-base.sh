@@ -2996,7 +2996,7 @@ conda_activate_env_G() {
     teetty_G "${FULL_LOG}" "${FULL_LOG}" conda activate "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
-        log_fatal "'conda activate \"%2\"' exited with error code: %d" "$1" "$ret"
+        log_fatal "'conda activate \"%s\"' exited with error code: %d" "$1" "$ret"
         return "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
     fi
 

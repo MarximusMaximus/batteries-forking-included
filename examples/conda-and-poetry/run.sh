@@ -1234,19 +1234,19 @@ fi
     conda_init_G "quiet"
     ret=$?
     if [ $ret -ne 0 ]; then
-        return $ret
+        exit $ret
     fi
 
     conda_full_deactivate_G "quiet"
     ret=$?
     if [ $ret -ne 0 ]; then
-        return $ret
+        exit $ret
     fi
 
     conda_activate_env_G "$(get_my_real_dir_basename)" "quiet"
     ret=$?
     if [ $ret -ne 0 ]; then
-        return $ret
+        exit $ret
     fi
 
     if [ "${BFI_ORIGINAL_EXEC_NAME}" = "" ]; then
