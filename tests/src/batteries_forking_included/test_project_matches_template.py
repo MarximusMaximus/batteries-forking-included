@@ -21,8 +21,8 @@ from os.path import (
     join                            as os_path_join,
     relpath                         as os_path_relpath,
 )
-from typing import (
-    Any,
+from pathlib import (
+    Path                            as pathlib_Path,
 )
 
 #endregion stdlib
@@ -36,14 +36,6 @@ from typing import (
 #===============================================================================
 
 #endregion Imports
-################################################################################
-
-################################################################################
-#region Types
-
-PytestFixture = Any
-
-#endregion Types
 ################################################################################
 
 ################################################################################
@@ -81,7 +73,7 @@ def test_files_match__general() -> None:
 
 
 #-------------------------------------------------------------------------------
-def test_files_match__post_bootstrap(tmp_path: PytestFixture) -> None:
+def test_files_match__post_bootstrap(tmp_path: pathlib_Path) -> None:
     """
     Test if post_bootstrap.sh in repo root and src/bfi/template match.
     """

@@ -10,7 +10,8 @@ export BFI_VERSION
 ################################################################################
 #region Preamble
 
-#===============================================================================#region Fallbacks
+#===============================================================================
+#region Fallbacks
 
 type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
 ret=$?
@@ -301,21 +302,22 @@ require_root_user_XY() {
 #-------------------------------------------------------------------------------
 include_G() {
     # intentionally no local scope so it modify globals
-
     if [ ! -f "$1" ]; then
         log_warning "Could not source because file is missing: %s" "$1"
         return "${RET_ERROR_FILE_NOT_FOUND}"
     fi
 
-    log_ultradebug "Sourcing: %s" "$1"
+    __LAST_INCLUDE="$(rreadlink "$1")"
 
-    array_append SHELL_SOURCE "$1"
+    log_ultradebug "Sourcing: %s as %s" "$1" "${__LAST_INCLUDE}"
+
+    array_append SHELL_SOURCE "${__LAST_INCLUDE}"
     export SHELL_SOURCE
     array_append WAS_SOURCED true
     export WAS_SOURCED
 
     # shellcheck disable=SC1090
-    . "$1"
+    . "${__LAST_INCLUDE}"
     ret=$?
 
     array_remove_last WAS_SOURCED
@@ -344,7 +346,16 @@ ensure_include_GXY() {
 
 #-------------------------------------------------------------------------------
 invoke() {
-    array_append SHELL_SOURCE "$1"
+    if [ ! -f "$1" ]; then
+        log_warning "Could not invoke because file is missing: %s" "$1"
+        return "${RET_ERROR_FILE_NOT_FOUND}"
+    fi
+
+    __LAST_INCLUDE="$(rreadlink "$1")"
+
+    log_ultradebug "Invoking: %s as %s" "$1" "${__LAST_INCLUDE}"
+
+    array_append SHELL_SOURCE "${__LAST_INCLUDE}"
     export SHELL_SOURCE
     array_append WAS_SOURCED false
     export WAS_SOURCED
@@ -2941,6 +2952,8 @@ conda_init_G() {
 
     if [ "$1" != "quiet" ]; then
         log_header "Initializing Conda..."
+    else
+        log_ultradebug "Initializing Conda..."
     fi
 
     # shellcheck disable=SC1091
@@ -2958,6 +2971,8 @@ conda_init_G() {
 
     if [ "$1" != "quiet" ]; then
         log_footer "Conda Initialized."
+    else
+        log_ultradebug "Conda Initialized."
     fi
 
     return "${RET_SUCCESS}"
@@ -2969,6 +2984,8 @@ conda_full_deactivate_G() {
 
     if [ "$1" != "quiet" ]; then
         log_header "Deactivating Current Conda Environments..."
+    else
+        log_ultradebug "Deactivating Current Conda Environments..."
     fi
 
     while [ "${CONDA_SHLVL}" -gt 0 ]; do
@@ -2982,6 +2999,8 @@ conda_full_deactivate_G() {
 
     if [ "$1" != "quiet" ]; then
         log_footer "Conda Environments Deactivated."
+    else
+        log_ultradebug "Conda Environments Deactivated."
     fi
 
     return "${RET_SUCCESS}"
@@ -2991,6 +3010,8 @@ conda_full_deactivate_G() {
 conda_activate_env_G() {
     if [ "$2" != "quiet" ]; then
         log_header "Activating %s Conda Environment..." "$1"
+    else
+        log_ultradebug "Activating %s Conda Environment..." "$1"
     fi
 
     teetty_G "${FULL_LOG}" "${FULL_LOG}" conda activate "$1"
@@ -3002,6 +3023,8 @@ conda_activate_env_G() {
 
     if [ "$2" != "quiet" ]; then
         log_footer "%s Conda Environment Activated." "$1"
+    else
+        log_ultradebug "%s Conda Environment Activated." "$1"
     fi
 
     return "${RET_SUCCESS}"
