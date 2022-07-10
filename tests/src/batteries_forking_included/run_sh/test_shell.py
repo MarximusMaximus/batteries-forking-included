@@ -241,14 +241,6 @@ class Test_Invoke():
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
                     b"Conda environment is batteries-forking-included\n",
-                    (
-                        b"python is /opt/conda/miniforge/envs/" +
-                        b"batteries-forking-included/bin/python\n"
-                    ),
-                    (
-                        b"python is /opt/conda/miniforge/envs/" +
-                        b"batteries-forking-included/bin/python\n"
-                    ),
                     b"Executing: /usr/bin/env python",
                     b"usage: ./run.sh",
                     b"Error: SUBCOMMAND required.\n",
@@ -262,10 +254,6 @@ class Test_Invoke():
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
                     b"Conda environment is batteries-forking-included\n",
-                    (
-                        b"python is /opt/conda/miniforge/envs/" +
-                        b"batteries-forking-included/bin/python\n"
-                    ),
                     b"Executing: /usr/bin/env python",
                     b"usage: ./run.sh",
                     b"Error: SUBCOMMAND required.\n",
@@ -279,7 +267,6 @@ class Test_Invoke():
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
                     b"Conda environment is batteries-forking-included\n",
-                    b"echo is /bin/echo\n",
                     b"Executing: /usr/bin/env echo foo",
                     b"foo\n",
                 ],
