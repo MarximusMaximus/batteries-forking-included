@@ -12,6 +12,7 @@ tests/src/batteries_forking_included/activate_sh/test_shell.py (batteries-forkin
 from os import (
     environ                         as os_environ,
     mkdir                           as os_mkdir,
+    symlink                         as os_symlink,
 )
 from os.path import (
     abspath                         as os_path_abspath,
@@ -23,7 +24,7 @@ from shutil import (
     copy2                           as shutil_copy2,
     copytree                        as shutil_copytree,
 )
-from subprocess import (
+from subprocess import (  # pylint: disable=unused-import  # noqa: F401
     CompletedProcess                as subprocess_CompletedProcess,
     run                             as subprocess_run,
 )
@@ -93,16 +94,14 @@ def makeMockRepo(
     mock_repo_fullpath = "batteries-forking-included"
     mock_repo_fullpath = os_path_abspath(mock_repo_fullpath)
 
-    bfi_repo_fullpath = MODULE_UNDER_TEST.MY_REPO_FULLPATH
+    bfi_src_mod_fullpath = MODULE_UNDER_TEST.MY_DIR_FULLPATH
 
     os_mkdir(mock_repo_fullpath)
     monkeypatch.chdir(mock_repo_fullpath)
 
     # copy template (.sh files) into root of mock repo
     bfi_template_fullpath = os_path_join(
-        bfi_repo_fullpath,
-        "src",
-        "batteries_forking_included",
+        bfi_src_mod_fullpath,
         "template",
     )
     shutil_copytree(
@@ -112,33 +111,33 @@ def makeMockRepo(
     )
 
     # copy src/** from bfi into mock repo
-    bfi_src_fullpath = os_path_join(
-        bfi_repo_fullpath,
-        "src",
-    )
-    mock_src_fullpath = os_path_join(
+    mock_src_mod_fullpath = os_path_join(
         mock_repo_fullpath,
         "src",
+        "batteries_forking_included",
     )
     shutil_copytree(
-        bfi_src_fullpath,
-        mock_src_fullpath,
+        bfi_src_mod_fullpath,
+        mock_src_mod_fullpath,
         dirs_exist_ok=True,
     )
 
     # copy bin/** from bfi into mock repo
-    bfi_bin_fullpath = os_path_join(
-        bfi_repo_fullpath,
-        "bin",
-    )
     mock_bin_fullpath = os_path_join(
         mock_repo_fullpath,
         "bin",
     )
-    shutil_copytree(
-        bfi_bin_fullpath,
-        mock_bin_fullpath,
-        dirs_exist_ok=True,
+    os_mkdir(mock_bin_fullpath)
+    os_symlink(
+        os_path_join(
+            mock_src_mod_fullpath,
+            "bin",
+            "batteries-forking-included.py",
+        ),
+        os_path_join(
+            mock_bin_fullpath,
+            "batteries-forking-included.py",
+        ),
     )
 
     # write a pyproject.toml for the mock repo
@@ -166,7 +165,7 @@ def callMyShellFunc(
     monkeypatch: Optional[pytest_MonkeyPatch] = None,  # Optional is a lie
     request: Optional[pytest_FixtureRequest] = None,  # Optional is a lie
     tmp_path_factory: Optional[pytest_TempPathFactory] = None,  # Optional is a lie
-) -> subprocess_CompletedProcess[bytes]:
+) -> "subprocess_CompletedProcess[bytes]":
     """
     Call the matching shell func in .sh file with same name as this .py file.
 
@@ -242,8 +241,14 @@ class Test_Invoke():
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
                     b"Conda environment is batteries-forking-included\n",
-                    b"python is /opt/conda/miniforge/envs/batteries-forking-included/bin/python\n",
-                    b"python is /opt/conda/miniforge/envs/batteries-forking-included/bin/python\n",
+                    (
+                        b"python is /opt/conda/miniforge/envs/" +
+                        b"batteries-forking-included/bin/python\n"
+                    ),
+                    (
+                        b"python is /opt/conda/miniforge/envs/" +
+                        b"batteries-forking-included/bin/python\n"
+                    ),
                     b"Executing: /usr/bin/env python",
                     b"usage: ./run.sh",
                     b"Error: SUBCOMMAND required.\n",
@@ -257,7 +262,10 @@ class Test_Invoke():
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
                     b"Conda environment is batteries-forking-included\n",
-                    b"python is /opt/conda/miniforge/envs/batteries-forking-included/bin/python\n",
+                    (
+                        b"python is /opt/conda/miniforge/envs/" +
+                        b"batteries-forking-included/bin/python\n"
+                    ),
                     b"Executing: /usr/bin/env python",
                     b"usage: ./run.sh",
                     b"Error: SUBCOMMAND required.\n",

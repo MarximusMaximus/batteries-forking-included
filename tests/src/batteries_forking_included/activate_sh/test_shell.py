@@ -12,6 +12,7 @@ tests/src/batteries_forking_included/activate_sh/test_shell.py (batteries-forkin
 from os import (
     environ                         as os_environ,
     mkdir                           as os_mkdir,
+    symlink                         as os_symlink,
 )
 from os.path import (
     abspath                         as os_path_abspath,
@@ -23,7 +24,7 @@ from shutil import (
     copy2                           as shutil_copy2,
     copytree                        as shutil_copytree,
 )
-from subprocess import (
+from subprocess import (  # pylint: disable=unused-import  # noqa: F401
     CompletedProcess                as subprocess_CompletedProcess,
     run                             as subprocess_run,
 )
@@ -70,9 +71,9 @@ def makeMockRepo(
     tmp_path_factory: Optional[pytest_TempPathFactory] = None,
 ) -> str:
     """
-    Create a mock repo to use that looks like a batteries_forking_included
-        using repo, but named batteries_forking_included so we can re-use the
-        already available conda environment.
+    Create a mock repo to use that looks like a repo that uses
+        batteries_forking_include, but named batteries_forking_included so we
+        can re-use the already available conda environment.
 
     Args:
         monkeypatch (pytest_MonkeyPatch): pytest monkeypatch fixture
@@ -88,32 +89,55 @@ def makeMockRepo(
     tempdir = tmp_path_factory.mktemp("test-temp", numbered=True)
     monkeypatch.chdir(tempdir)
 
-    mock_repo_path = "batteries-forking-included"
-    mock_repo_path = os_path_abspath(mock_repo_path)
+    mock_repo_fullpath = "batteries-forking-included"
+    mock_repo_fullpath = os_path_abspath(mock_repo_fullpath)
 
-    os_mkdir(mock_repo_path)
-    monkeypatch.chdir(mock_repo_path)
+    bfi_src_mod_fullpath = MODULE_UNDER_TEST.MY_DIR_FULLPATH
+
+    os_mkdir(mock_repo_fullpath)
+    monkeypatch.chdir(mock_repo_fullpath)
 
     # copy template (.sh files) into root of mock repo
+    bfi_template_fullpath = os_path_join(
+        bfi_src_mod_fullpath,
+        "template",
+    )
     shutil_copytree(
-        os_path_join(
-            MODULE_UNDER_TEST.MY_DIR_FULLPATH,
-            "template",
-        ),
-        mock_repo_path,
+        bfi_template_fullpath,
+        mock_repo_fullpath,
         dirs_exist_ok=True,
     )
+
     # copy src/** from bfi into mock repo
-    src_mod_fullpath = os_path_join(
-        mock_repo_path,
+    mock_src_mod_fullpath = os_path_join(
+        mock_repo_fullpath,
         "src",
         "batteries_forking_included",
     )
     shutil_copytree(
-        MODULE_UNDER_TEST.MY_DIR_FULLPATH,
-        src_mod_fullpath,
+        bfi_src_mod_fullpath,
+        mock_src_mod_fullpath,
         dirs_exist_ok=True,
     )
+
+    # copy bin/** from bfi into mock repo
+    mock_bin_fullpath = os_path_join(
+        mock_repo_fullpath,
+        "bin",
+    )
+    os_mkdir(mock_bin_fullpath)
+    os_symlink(
+        os_path_join(
+            mock_src_mod_fullpath,
+            "bin",
+            "batteries-forking-included.py",
+        ),
+        os_path_join(
+            mock_bin_fullpath,
+            "batteries-forking-included.py",
+        ),
+    )
+
     # write a pyproject.toml for the mock repo
     with open("pyproject.toml", "w", encoding="utf-8") as f:
         f.write("""\
@@ -122,23 +146,24 @@ def makeMockRepo(
                 description = "A template project."
             """)
         f.flush()
+
     # copy test_source.sh into mock repo
     shutil_copy2(
         os_path_join(
             os_path_dirname(__file__),
             os_path_basename(__file__).replace(".py", ".sh"),
         ),
-        mock_repo_path,
+        mock_repo_fullpath,
     )
 
-    return mock_repo_path
+    return mock_repo_fullpath
 
 def callMyShellFunc(
     additional_args: Optional[List[str]] = None,
     monkeypatch: Optional[pytest_MonkeyPatch] = None,  # Optional is a lie
     request: Optional[pytest_FixtureRequest] = None,  # Optional is a lie
     tmp_path_factory: Optional[pytest_TempPathFactory] = None,  # Optional is a lie
-) -> subprocess_CompletedProcess[bytes]:
+) -> "subprocess_CompletedProcess[bytes]":
     """
     Call the matching shell func in .sh file with same name as this .py file.
 
@@ -160,7 +185,7 @@ def callMyShellFunc(
     if additional_args is None:
         additional_args = []
 
-    mock_repo_path = makeMockRepo(
+    mock_repo_fullpath = makeMockRepo(
         monkeypatch=monkeypatch,
         tmp_path_factory=tmp_path_factory,
     )
@@ -173,6 +198,7 @@ def callMyShellFunc(
 
     # final command line to run
     cmd = [
+        # "sh",
         script_path,
         f"{request.cls.__name__}__{request.function.__name__}",
     ]
@@ -185,7 +211,7 @@ def callMyShellFunc(
     for k, v in os_environ.items():
         env[k] = v
 
-    p = subprocess_run(cmd, capture_output=True, cwd=mock_repo_path, env=env)
+    p = subprocess_run(cmd, capture_output=True, cwd=mock_repo_fullpath, env=env)
 
     if p.returncode == 255:
         raise AssertionError(p.stdout.strip().split(b"\n")[-1])
