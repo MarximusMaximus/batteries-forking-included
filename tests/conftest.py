@@ -163,7 +163,6 @@ pytest_plugins: Union[str, Sequence[str]] = [
 ]
 
 os_environ["_IS_UNDER_TEST"] = "true"
-os_environ["PY_IGNORE_IMPORTMISMATCH"] = "1"
 
 #endregion Immediate
 ################################################################################
