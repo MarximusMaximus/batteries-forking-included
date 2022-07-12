@@ -1239,17 +1239,17 @@ fi
 ################################################################################
 #region Immediate
 
-# no privates, subshells, or functions b/c we need to modify the environment,
-# but pollute it as little as possible with private names (e.g. __main)
+# NOTE: generally no privates, subshells, or functions b/c we need to modify the
+# environment, but pollute it as little as possible with private names (e.g. __main)
 
 __bfi_activate_environment() {
-    ############################################################################
+    #===========================================================================
     #region Includes
 
     ensure_include_GXY "$(get_my_real_dir_fullpath)/bfi-base.sh"
 
     #endregion Includes
-    ############################################################################
+    #===========================================================================
 
     if [ "$(array_get_last WAS_SOURCED)" = false ]; then
         log_fatal "$(get_my_real_basename) should not be invoked, only sourced"
@@ -1279,8 +1279,12 @@ __bfi_activate_environment() {
 
     return "${RET_SUCCESS}"
 }
-__bfi_activate_environment
-ret=$?
+if [ "${_IS_UNDER_TEST}" != "true" ]; then
+    __bfi_activate_environment
+    ret=$?
+else
+    ret="${RET_SUCCESS}"
+fi
 
 #endregion Immediate
 ################################################################################

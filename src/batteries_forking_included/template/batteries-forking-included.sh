@@ -3289,14 +3289,18 @@ batteries_forking_included__update() {
     ############################################################################
     #region Immediate
 
-    if [ "$(array_get_last WAS_SOURCED)" = false ]; then
-        __main "$@"
-        ret=$?
+    if [ "${_IS_UNDER_TEST}" != "true" ]; then
+        if [ "$(array_get_last WAS_SOURCED)" = false ]; then
+            __main "$@"
+            ret=$?
+        else
+            __sourced_main
+            ret=$?
+        fi
+        exit $ret
     else
-        __sourced_main
-        ret=$?
+        exit "${RET_SUCCESS}"
     fi
-    exit $ret
 
     #endregion Immediate
     ############################################################################

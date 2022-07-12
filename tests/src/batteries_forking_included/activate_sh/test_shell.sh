@@ -4,6 +4,8 @@
 DOLLAR_UNDER="$_"
 export DOLLAR_UNDER
 
+TEMP_SHELL_SOURCE="./test_shell.sh"
+
 ################################################################################
 #region Preamble
 

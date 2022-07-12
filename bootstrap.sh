@@ -2,6 +2,9 @@
 # "$_" undefined in POSIX, we only use it for specific shells
 # shellcheck disable=SC3028
 DOLLAR_UNDER="$_"
+export DOLLAR_UNDER
+
+TEMP_SHELL_SOURCE="./bootstrap.sh"
 
 if [ "${DO_SET_X_BOOTSTRAP}" = true ]; then
     set -x
@@ -1237,23 +1240,26 @@ fi
 
 (
     ############################################################################
+    #region Private *
+
+    #===========================================================================
     #region Includes
 
     ensure_include_GXY "$(get_my_real_dir_fullpath)/bfi-base.sh"
     ensure_include_GXY "$(get_my_real_dir_fullpath)/batteries-forking-included.sh"
 
     #endregion Includes
-    ############################################################################
+    #===========================================================================
 
-    ############################################################################
+    #===========================================================================
     #region Private Constants
 
     SET_OMEGA_DEBUG=false
 
     #endregion Constants
-    ############################################################################
+    #===========================================================================
 
-    ############################################################################
+    #===========================================================================
     #region "Globals"
 
     if [ "${OMEGA_DEBUG}" = "all" ]; then
@@ -1265,11 +1271,12 @@ fi
     fi
 
     #endregion "Globals"
-    ############################################################################
+    #===========================================================================
 
-    ############################################################################
+    #===========================================================================
     #region Private Functions
 
+    #---------------------------------------------------------------------------
     __main () {
         # command echo "OMEGA_DEBUG=${OMEGA_DEBUG}"
         log_ultradebug "$(get_my_real_basename) called with '%s'" "$*"
@@ -1285,20 +1292,27 @@ fi
         return "${RET_ERROR_SCRIPT_WAS_SOURCED}"
     }
 
-    #endregion Functions
+    #endregion Private Functions
+    #===========================================================================
+
+    #endregion Private *
     ############################################################################
 
     ############################################################################
     #region Immediate
 
-    if [ "$(array_get_last WAS_SOURCED)" = false ]; then
-        __main "$@"
-        ret=$?
+    if [ "${_IS_UNDER_TEST}" != "true" ]; then
+        if [ "$(array_get_last WAS_SOURCED)" = false ]; then
+            __main "$@"
+            ret=$?
+        else
+            __sourced_main
+            ret=$?
+        fi
+        exit $ret
     else
-        __sourced_main
-        ret=$?
+        exit "${RET_SUCCESS}"
     fi
-    exit $ret
 
     #endregion Immediate
     ############################################################################

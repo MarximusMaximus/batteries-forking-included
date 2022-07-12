@@ -13,4 +13,4 @@
     cd src/batteries_forking_included || exit 1
     cp ./template/* .
 )
-poetry install
+./run.sh poetry install

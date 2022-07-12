@@ -29,6 +29,7 @@ from typing import (
 
 from pytest import (
     mark                            as pytest_mark,
+    MonkeyPatch                     as pytest_MonkeyPatch,
 )
 
 #endregion third party
@@ -62,7 +63,12 @@ class Test_CommandLine():
 
     #----------------------------------bfi-----------------------------------------
     @pytest_mark.parametrize(
-        "extra_args,expected_ret,expected_stdout,not_expected_stdout",
+        (
+            "extra_args," +
+            "expected_ret," +
+            "expected_stdout," +
+            "not_expected_stdout"
+        ),
         [
             (
                 [],
@@ -100,10 +106,13 @@ class Test_CommandLine():
         expected_ret: int,
         expected_stdout: List[bytes],
         not_expected_stdout: List[bytes],
+        monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         """
         Invoke command line with different args.
         """
+        monkeypatch.delenv("_IS_UNDER_TEST", raising=False)
+
         cmd = ["python", "./bin/batteries-forking-included.py"]
         cmd = cmd + extra_args
         env: Dict[str, Any] = {
@@ -114,8 +123,10 @@ class Test_CommandLine():
         p = subprocess_run(cmd, capture_output=True, env=env)
 
         assert p.returncode == expected_ret
-        assert all(x in p.stdout for x in expected_stdout)
-        assert all(x not in p.stdout for x in not_expected_stdout)
+        for x in expected_stdout:
+            assert x in p.stdout
+        for x in not_expected_stdout:
+            assert x not in p.stdout
 
 #endregion Command Line
 ################################################################################
