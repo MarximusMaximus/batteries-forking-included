@@ -1,6 +1,7 @@
 """
 tests/PytestShellTestHarness (batteries-forking-included)
 """
+# pylint: disable=duplicate-code
 
 ################################################################################
 #region Imports
