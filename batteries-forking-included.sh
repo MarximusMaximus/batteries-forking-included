@@ -1424,7 +1424,7 @@ print_usage__bootstrap() {
 
 #-------------------------------------------------------------------------------
 print_version() {
-    printf "batteries-forking-included %s\n" "${BFI_VERSION}./"
+    printf "batteries-forking-included %s\n" "${BFI_VERSION}"
 }
 
 #-------------------------------------------------------------------------------

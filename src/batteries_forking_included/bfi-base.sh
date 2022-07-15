@@ -4,7 +4,7 @@
 DOLLAR_UNDER="$_"
 
 # WARNING: Don't forget to update the version number in pyproject.toml
-BFI_VERSION="0.1.1"
+BFI_VERSION="0.1.2dev"
 export BFI_VERSION
 
 ################################################################################
