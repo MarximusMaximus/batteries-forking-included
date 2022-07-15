@@ -96,6 +96,7 @@ class Test_Invoke():
                     b"\nfoo\n",
                 ],
                 [
+                    b"Error:",
                 ],
             ],
             [
@@ -110,6 +111,7 @@ class Test_Invoke():
                     ),
                 ],
                 [
+                    b"Error:",
                 ],
             ],
         ],
