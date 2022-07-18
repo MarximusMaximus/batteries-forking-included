@@ -34,6 +34,7 @@
         "miniconda",
         "miniforge",
         "mkdir",
+        "monkeypatched",
         "mypy",
         "ncipollo",
         "ngmodel",
