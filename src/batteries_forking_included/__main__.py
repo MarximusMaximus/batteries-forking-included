@@ -224,7 +224,7 @@ def __main(argv: List[str]) -> int:
         options.subcommand not in subcommands
     ):  # pragma: no cover
         parser.print_help()
-        print("\nError: SUBCOMMAND required.")
+        print("\nError: SUBCOMMAND required.", file=sys.stderr)
         parser.exit(2)
 
     ret = subcommands[options.subcommand](extras=extras, **vars(options))

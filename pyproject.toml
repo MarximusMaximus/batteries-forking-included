@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "batteries-forking-included"
 # WARNING: Don't forget to update the version number in src/bfi/template/bfi-base.sh
-version = "0.1.2dev"
+version = "0.1.2.dev0"
 description = "A Pytest plugin to drop duplicated tests during collection, but will prefer keeping nested packages."
 authors = ["Marximus Maximus <marximus@marximus.com>"]
 license = "MIT"

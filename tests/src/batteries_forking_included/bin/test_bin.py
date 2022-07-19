@@ -76,27 +76,45 @@ class Test_CommandLine():
                 [
                     b"usage:",
                     b"batteries-forking-included",
+                ],
+                [
                     b"Error: SUBCOMMAND required.",
                 ],
-                [],
             ),
             (
                 ["--help"],
                 0,
-                [b"usage:", b"batteries-forking-included"],
-                [b"Error: SUBCOMMAND required."],
+                [
+                    b"usage:",
+                    b"batteries-forking-included"
+                ],
+                [
+                    b"Error: SUBCOMMAND required."
+                ],
             ),
             (
                 ["--version"],
                 0,
-                [b"batteries-forking-included"],
-                [b"usage:", b"Error: SUBCOMMAND required."],
+                [
+                    b"batteries-forking-included",
+                ],
+                [
+                    b"usage:",
+                    b"Error: SUBCOMMAND required.",
+                ],
             ),
             (
                 ["run", "echo", "foo"],
                 0,
-                [b"Executing:", b"run.sh echo foo", b"Executing: /usr/bin/env echo foo"],
-                [b"usage:", b"Error: SUBCOMMAND required."],
+                [
+                    b"Executing:",
+                    b"run.sh echo foo",
+                    b"Executing: /usr/bin/env echo foo",
+                ],
+                [
+                    b"usage:",
+                    b"Error: SUBCOMMAND required.",
+                ],
             ),
         ],
     )

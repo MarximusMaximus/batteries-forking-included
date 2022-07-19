@@ -57,7 +57,9 @@ class Test_Invoke():
             "additional_args," +
             "expected_ret," +
             "expected_stdout," +
-            "expected_stderr"
+            "expected_stderr," +
+            "expected_not_stdout," +
+            "expected_not_stderr"
         ),
         [
             [
@@ -68,7 +70,12 @@ class Test_Invoke():
                     b"Conda environment is batteries-forking-included\n",
                     b"Executing: /usr/bin/env python",
                     b"usage: ./run.sh",
+                ],
+                [
                     b"Error: SUBCOMMAND required.\n",
+                ],
+                [
+                    b"Error:",
                 ],
                 [
                 ],
@@ -81,7 +88,12 @@ class Test_Invoke():
                     b"Conda environment is batteries-forking-included\n",
                     b"Executing: /usr/bin/env python",
                     b"usage: ./run.sh",
+                ],
+                [
                     b"Error: SUBCOMMAND required.\n",
+                ],
+                [
+                    b"Error:",
                 ],
                 [
                 ],
@@ -94,6 +106,11 @@ class Test_Invoke():
                     b"Conda environment is batteries-forking-included\n",
                     b"Executing: /usr/bin/env echo foo",
                     b"\nfoo\n",
+                ],
+                [
+                ],
+                [
+                    b"Error:",
                 ],
                 [
                     b"Error:",
@@ -111,6 +128,11 @@ class Test_Invoke():
                     ),
                 ],
                 [
+                ],
+                [
+                    b"Error:",
+                ],
+                [
                     b"Error:",
                 ],
             ],
@@ -122,6 +144,8 @@ class Test_Invoke():
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
+        expected_not_stdout: List[bytes],
+        expected_not_stderr: List[bytes],
         shell_test_harness: PytestShellTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
@@ -139,6 +163,10 @@ class Test_Invoke():
             assert x in p.stdout
         for x in expected_stderr:
             assert x in p.stderr
+        for x in expected_not_stdout:
+            assert x not in p.stdout
+        for x in expected_not_stderr:
+            assert x not in p.stderr
 
 #endregion Invoke Tests
 ################################################################################
