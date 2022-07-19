@@ -34,9 +34,20 @@ Global Flags:
     +r, --no-report     do NOT display report at end of run
 
 Global Options:
+    * [=] denotes optional equals sign
+    --verbosity[=]VERBOSITY_LEVEL, --log-level[=]VERBOSITY_LEVEL
+                        explicitly set the verbosity level
+                        default: 1
+    -b[=]BFI_DIR, --bfi-dir[=]BFI_DIR
+                        override to use specified batteries-forking-included dir
+                        default: sibling directory of PROJECT_DIR named
+                            batteries-forking-included
     -p[=]PROJECT_DIR, --project-dir[=]PROJECT_DIR
                         override to use specified project dir
                         default: current working directory of invocation
+    -P[=]PROJECT_BASE_NAME, --project-base-name[=]PROJECT_BASE_NAME
+                        override to use specified project base name
+                        default: basename of PROJECT_DIR
 
 Positional Arguments:
     NONE
@@ -93,6 +104,10 @@ Global Options:
     --verbosity[=]VERBOSITY_LEVEL, --log-level[=]VERBOSITY_LEVEL
                         explicitly set the verbosity level
                         default: 1
+    -b[=]BFI_DIR, --bfi-dir[=]BFI_DIR
+                        override to use specified batteries-forking-included dir
+                        default: sibling directory of PROJECT_DIR named
+                            batteries-forking-included
     -p[=]PROJECT_DIR, --project-dir[=]PROJECT_DIR
                         override to use specified project dir
                         default: current working directory of invocation
@@ -1371,6 +1386,8 @@ export BFI_GITHUB_REPO_NAME
 #===============================================================================
 #region Public Globals
 
+__parse_args_shift_by=0
+
 should_print_usage=false; export should_print_usage
 should_print_version=false; export should_print_version
 colorized_output=true; export colorized_output
@@ -1392,9 +1409,10 @@ md5_exists=false; export md5_exists
 
 # used by update and bootstrap
 project_dir=""; export project_dir
-
-# used ony by bootstrap
 project_base_name=""; export project_base_name
+bfi_dir=""; export bfi_dir
+
+# used only by bootstrap
 dev_mode="${BFI_DEV_MODE:-false}"; export dev_mode
 dev_mode_unsticky=false
 deploy_mode=false; export deploy_mode
@@ -1423,12 +1441,31 @@ print_usage__bootstrap() {
 }
 
 #-------------------------------------------------------------------------------
+print_usage() {
+    (
+        script_name=$(get_my_real_basename)
+        case "${script_name}" in
+            bfi-update.sh)
+                print_usage__update
+                ;;
+            bootstrap.sh)
+                print_usage__bootstrap
+                ;;
+        esac
+    )
+}
+
+#-------------------------------------------------------------------------------
 print_version() {
     printf "batteries-forking-included %s\n" "${BFI_VERSION}"
 }
 
 #-------------------------------------------------------------------------------
 parse_args__common_doubledash() {
+    log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash called with '%s'" "$*"
+
+    __parse_args_shift_by=0
+
     case "$1" in
         -h|-\?|--help|--usage)
             log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found usage arg"
@@ -1455,6 +1492,33 @@ parse_args__common_doubledash() {
         +v|--no-verbose)
             log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-verbose arg"
             temp_verbosity=$((temp_verbosity - 1))
+            ;;
+
+        --verbosity)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity arg"
+            if [ -n "$2" ]; then
+                temp_verbosity="$2"
+                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
+                shift
+                __parse_args_shift_by=$(( __parse_args_shift_by + 1 ))
+            else
+                print_usage
+                log_error "\"--verbosity\" requires a non-empty option argument."
+                exit "${RET_ERROR_INVALID_ARGUMENT}"
+            fi
+            ;;
+        --verbosity=?*)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity=* arg"
+            temp_verbosity="$1"
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
+            temp_verbosity="$(command echo "${project_dir}" | cut -c 15-)"
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
+            ;;
+        --verbosity=)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity= arg"
+            print_usage
+            log_error "\"--verbosity\" requires a non-empty option argument."
+            exit "${RET_ERROR_INVALID_ARGUMENT}"
             ;;
 
         -c|--color)
@@ -1484,20 +1548,127 @@ parse_args__common_doubledash() {
             print_report=false
             ;;
 
+        -b|--bfi-dir)
+            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found bfi-dir arg, \$2=%s" "$2"
+            if [ -n "$2" ]; then
+                bfi_dir="$2"
+                log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t\t bfi_dir=%s" "${bfi_dir}"
+                shift
+                __parse_args_shift_by=$(( __parse_args_shift_by + 1 ))
+            else
+                print_usage
+                log_error "\"--bfi-dir\" requires a non-empty option argument."
+                exit "${RET_ERROR_INVALID_ARGUMENT}"
+            fi
+            ;;
+        -b=?*|--bfi-dir=?*)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found bfi-dir=* arg"
+            bfi_dir="$1"
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t bfi_dir=%s" "${bfi_dir}"
+            case "$1" in
+                -b=?*)
+                    bfi_dir="$(command echo "${bfi_dir}" | cut -c 4-)"
+                    ;;
+                --bfi-dir=?*)
+                    bfi_dir="$(command echo "${bfi_dir}" | cut -c 11-)"
+                    ;;
+            esac
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t bfi_dir=%s" "${bfi_dir}"
+            ;;
+        -b=|--bfi-dir=)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found bfi-dir= arg"
+            print_usage
+            log_error "\"--bfi-dir\" requires a non-empty option argument."
+            exit "${RET_ERROR_INVALID_ARGUMENT}"
+            ;;
+
+        -P|--project-base-name)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name arg"
+            if [ -n "$2" ]; then
+                project_base_name_temp="$2"
+                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
+                shift
+                __parse_args_shift_by=$(( __parse_args_shift_by + 1 ))
+            else
+                print_usage
+                log_error "\"--project-base-name\" requires a non-empty option argument."
+                exit "${RET_ERROR_INVALID_ARGUMENT}"
+            fi
+            ;;
+        -P=?*|--project-base-name=?*)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name=* arg"
+            project_base_name_temp="$1"
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
+            case "$1" in
+                -P=?*)
+                    project_base_name_temp="$(command echo "${project_base_name_temp}" | cut -c 4-)"
+                    ;;
+                --project-base-name=?*)
+                    project_base_name_temp="$(command echo "${project_base_name_temp}" | cut -c 21-)"
+                    ;;
+            esac
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
+            ;;
+        -P=|--project-base-name=)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name= arg"
+            print_usage
+            log_error "\"--project-base-name\" requires a non-empty option argument."
+            exit "${RET_ERROR_INVALID_ARGUMENT}"
+            ;;
+
+        -p|--project-dir)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir arg"
+            if [ -n "$2" ]; then
+                project_dir="$2"
+                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+                shift
+            else
+                print_usage
+                log_error "\"--project-dir\" requires a non-empty option argument."
+                exit "${RET_ERROR_INVALID_ARGUMENT}"
+            fi
+            ;;
+        -p=?*|--project-dir=?*)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir=* arg"
+            project_dir="$1"
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+            case "$1" in
+                -p=?*)
+                    project_dir="$(command echo "${project_dir}" | cut -c 4-)"
+                    ;;
+                --project-dir=?*)
+                    project_dir="$(command echo "${project_dir}" | cut -c 15-)"
+                    ;;
+            esac
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+            ;;
+        -p=|--project-dir=)
+            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir= arg"
+            print_usage
+            log_error "\"--project-dir\" requires a non-empty option argument."
+            exit "${RET_ERROR_INVALID_ARGUMENT}"
+            ;;
+
         --?*)
             log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found unknown arg"
             log_warning " Unknown option (ignored): %s" "$1" >&2
             ;;
     esac
+
+    return "${__parse_args_shift_by}"
 }
 
 #-------------------------------------------------------------------------------
 parse_args__common_singledash() {
-    parse_args__common_doubledash "$1"
+    log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash called with '%s'" "$*"
+    parse_args__common_doubledash "$@"
+    return $?
 }
 
 #-------------------------------------------------------------------------------
 parse_args__common_singledash_multi() {
+    log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi called with '%s'" "$*"
+
     case "$1" in
         h|\?)
             log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found usage flag"
@@ -1539,11 +1710,15 @@ parse_args__common_singledash_multi() {
 
 #-------------------------------------------------------------------------------
 parse_args__common_singleplus() {
-    parse_args__common_doubledash "$1"
+    log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus called with '%s'" "$*"
+    parse_args__common_doubledash "$@"
+    return $?
 }
 
 #-------------------------------------------------------------------------------
 parse_args__common_singleplus_multi() {
+    log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi called with '%s'" "$*"
+
     case "$1" in
         h|\?)
             log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found usage flag"
@@ -1591,12 +1766,28 @@ parse_args__common_set_and_export() {
         colorized_output=alt
     fi
 
+    project_dir="$(rreadlink "${project_dir}")"
+
+    if [ "${bfi_dir}" = "" ]; then
+        bfi_dir="${project_dir}/../batteries-forking-included"
+    fi
+    bfi_dir=$(rreadlink "${bfi_dir}")
+
+    if [ "${project_base_name_temp}" = "" ]; then
+        project_base_name="$(basename -- "${project_dir}")"
+    else
+        project_base_name="${project_base_name_temp}"
+    fi
+
     export colorized_output
     export verbosity
     export quiet
     export should_print_usage
     export should_print_version
     export print_report
+    export project_base_name
+    export project_dir
+    export bfi_dir
 
     # recalculate "constant" values
     set_calculated_constants
@@ -1608,6 +1799,9 @@ parse_args__common_set_and_export() {
     log_debug "should_print_usage=%s" "${should_print_usage}"
     log_debug "should_print_version=%s" "${should_print_version}"
     log_debug "print_report=%s" "${print_report}"
+    log_debug "project_dir=%s" "${project_dir}"
+    log_debug "project_base_name=%s" "${project_base_name}"
+    log_debug "bfi_dir=%s" "${bfi_dir}"
 
     if [ "${should_print_version}" = true ]; then
         print_version
@@ -1632,6 +1826,8 @@ parse_args__bootstrap() {
 
     while true; do
         log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while; \$1='%s'; \$*='%s'" "$1" "$*"
+
+        __parse_args_shift_by=0
 
         if [ $# -le 0 ]; then
             break
@@ -1664,64 +1860,14 @@ parse_args__bootstrap() {
                 deploy_mode=false
                 ;;
 
-            -p|--project-dir)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir arg"
-                if [ -n "$2" ]; then
-                    project_dir="$2"
-                    log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
-                    shift
-                else
-                    print_usage
-                    log_error "\"--project-dir\" requires a non-empty option argument."
-                    exit "${RET_ERROR_INVALID_ARGUMENT}"
-                fi
-                ;;
-            -p=?*|--project-dir=?*)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir=* arg"
-                project_dir="$1"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
-                project_dir="$(command echo "${project_dir}" | cut -c 15-)"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
-                ;;
-            -p=|--project-dir=)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir= arg"
-                print_usage
-                log_error "\"--project-dir\" requires a non-empty option argument."
-                exit "${RET_ERROR_INVALID_ARGUMENT}"
-                ;;
-
-            -P|--project-base-name)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name arg"
-                if [ -n "$2" ]; then
-                    project_base_name_temp="$2"
-                    log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
-                    shift
-                else
-                    print_usage
-                    log_error "\"--project-base-name\" requires a non-empty option argument."
-                    exit "${RET_ERROR_INVALID_ARGUMENT}"
-                fi
-                ;;
-            -P=?*|--project-base-name=?*)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name=* arg"
-                project_base_name_temp="$1"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
-                project_base_name_temp="$(command echo "${project_base_name_temp}" | cut -c 21-)"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
-                ;;
-            -P=|--project-base-name=)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name= arg"
-                print_usage
-                log_error "\"--project-base-name\" requires a non-empty option argument."
-                exit "${RET_ERROR_INVALID_ARGUMENT}"
-                ;;
-
             --?*)
-                parse_args__common_doubledash "$1"
+                parse_args__common_doubledash "$@"
+                shift $?
                 ;;
 
             -?)
-                parse_args__common_singledash "$1"
+                parse_args__common_singledash "$@"
+                shift $?
                 ;;
 
             -?*)    # positive flags
@@ -1820,24 +1966,10 @@ parse_args__bootstrap() {
 
     parse_args__common_set_and_export
 
-    project_dir="$(rreadlink "${project_dir}")"
-
-    export project_dir
-    if [ "${project_base_name_temp}" = "" ]; then
-        project_base_name="$(basename -- "${project_dir}")"
-    else
-        project_base_name="${project_base_name_temp}"
-    fi
-    export project_base_name
     export dev_mode
     export dev_mode_unsticky
     export deploy_mode
 
-    batteries_forking_included_dir_fullpath="${project_dir}/../batteries-forking-included"
-    export batteries_forking_included_dir_fullpath
-
-    log_debug "project_dir=%s" "${project_dir}"
-    log_debug "project_base_name=%s" "${project_base_name}"
     log_debug "dev_mode=%s" "${dev_mode}"
     log_debug "dev_mode_unsticky=%s" "${dev_mode_unsticky}"
     log_debug "deploy_mode=%s" "${deploy_mode}"
@@ -1865,6 +1997,8 @@ parse_args__update() {
     while true; do
         log_ultradebug "$(get_my_real_basename)::parse_args::while; \$1='%s'; \$*='%s'" "$1" "$*"
 
+        __parse_args_shift_by=0
+
         if [ $# -le 0 ]; then
             break
         fi
@@ -1876,38 +2010,14 @@ parse_args__update() {
                 break
                 ;;
 
-            -p|--project-dir)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir arg"
-                if [ -n "$2" ]; then
-                    project_dir="$2"
-                    log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
-                    shift
-                else
-                    print_usage
-                    log_error "\"--project-dir\" requires a non-empty option argument."
-                    exit "${RET_ERROR_INVALID_ARGUMENT}"
-                fi
-                ;;
-            -p=?*|--project-dir=?*)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir=* arg"
-                project_dir="$1"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
-                project_dir="$(command echo "${project_dir}" | cut -c 15-)"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
-                ;;
-            -p=|--project-dir=)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir= arg"
-                print_usage
-                log_error "\"--project-dir\" requires a non-empty option argument."
-                exit "${RET_ERROR_INVALID_ARGUMENT}"
-                ;;
-
             --?*)
-                parse_args__common_doubledash "$1"
+                parse_args__common_doubledash "$@"
+                shift $?
                 ;;
 
             -?)
-                parse_args__common_singledash "$1"
+                parse_args__common_singledash "$@"
+                shift $?
                 ;;
 
             -?*)    # positive flags
@@ -1983,15 +2093,6 @@ parse_args__update() {
     # fi
 
     parse_args__common_set_and_export
-
-    project_dir="$(rreadlink "${project_dir}")"
-
-    export project_dir
-
-    batteries_forking_included_dir_fullpath="${project_dir}/../batteries-forking-included"
-    export batteries_forking_included_dir_fullpath
-
-    log_debug "project_dir=%s" "${project_dir}"
 
     if [ "${should_print_usage}" = true ]; then
         print_usage__update
@@ -2622,15 +2723,15 @@ ensure_batteries_forking_included() {
 
         check_tools__require_downloadable_X
 
-        log_superdebug "batteries_forking_included_dir_fullpath=${batteries_forking_included_dir_fullpath}"
+        log_superdebug "bfi_dir=${bfi_dir}"
 
         if \
-            [ ! -d "${batteries_forking_included_dir_fullpath}" ] ||
-            [ ! -d "${batteries_forking_included_dir_fullpath}/.git" ] ||
-            [ ! -f "${batteries_forking_included_dir_fullpath}/src/batteries_forking_included/template/bfi-update.sh" ]
+            [ ! -d "${bfi_dir}" ] ||
+            [ ! -d "${bfi_dir}/.git" ] ||
+            [ ! -f "${bfi_dir}/src/batteries_forking_included/template/bfi-update.sh" ]
         then
             # batteries-forking-included missing, let's download it
-            ensure_cd "${batteries_forking_included_dir_fullpath}/.."
+            ensure_cd "${bfi_dir}/.."
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
@@ -2649,14 +2750,14 @@ ensure_batteries_forking_included() {
                 [ "${curl_exists}" = true ] ||
                 [ "${wget_exists}" = true ]
             then
-                download_and_extract "https://api.github.com/repos/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}" "${BFI_GITHUB_REPO_NAME}" "${batteries_forking_included_dir_fullpath}"
+                download_and_extract "https://api.github.com/repos/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}" "${BFI_GITHUB_REPO_NAME}" "${bfi_dir}"
                 ret=$?
                 if [ $ret -ne 0 ]; then
                     exit $ret
                 fi
 
                 # create download timestamp
-                touch "${batteries_forking_included_dir_fullpath}"/LAST_DOWNLOADED
+                touch "${bfi_dir}"/LAST_DOWNLOADED
 
                 log_footer "batteries-forking-included downloaded."
             else # pragma: no branch
@@ -2682,7 +2783,7 @@ update_batteries_forking_included_repo() {
         check_tools__require_downloadable_X
 
         if [ "${git_exists}" = true ]; then
-            ensure_cd "${batteries_forking_included_dir_fullpath}"
+            ensure_cd "${bfi_dir}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
@@ -2730,13 +2831,13 @@ update_batteries_forking_included_repo() {
             is_dirty="$(ls -lt | head -2 | tail -1 | grep -v "LAST_DOWNLOADED")"
 
             if [ "${is_dirty}" = "" ]; then
-                safe_rm "${batteries_forking_included_dir_fullpath}"
+                safe_rm "${bfi_dir}"
                 ret=$?
                 if [ "$(return_code_is_error $ret)" = true ]; then
                     exit $ret
                 fi
 
-                download_and_extract "https://api.github.com/repos/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}" "${BFI_GITHUB_REPO_NAME}" "${batteries_forking_included_dir_fullpath}"
+                download_and_extract "https://api.github.com/repos/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}" "${BFI_GITHUB_REPO_NAME}" "${bfi_dir}"
                 ret=$?
                 if [ "$(return_code_is_error $ret)" = true ]; then
                     exit $ret
@@ -2773,10 +2874,10 @@ copy_temporary_template_files() {
 
         log_debug "Copying files"
 
-        copy_dir "${batteries_forking_included_dir_fullpath}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
+        copy_dir "${bfi_dir}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
         ret=$?
         if [ "$(return_code_is_error $ret)" = true ]; then
-            log_fatal "failed to copy files from '%s' to '%s'" "${batteries_forking_included_dir_fullpath}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
+            log_fatal "failed to copy files from '%s' to '%s'" "${bfi_dir}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
             exit "${RET_ERROR_COPY_FAILED}"
         fi
 
