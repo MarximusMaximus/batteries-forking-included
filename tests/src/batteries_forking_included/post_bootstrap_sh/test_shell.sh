@@ -4,11 +4,7 @@
 DOLLAR_UNDER="$_"
 export DOLLAR_UNDER
 
-TEMP_SHELL_SOURCE="./run.sh"
-
-if [ "${DO_SET_X_RUN}" = true ]; then
-    set -x
-fi
+TEMP_SHELL_SOURCE="./test_shell.sh"
 
 ################################################################################
 #region Preamble
@@ -1241,280 +1237,76 @@ fi
 #endregion Preamble
 ################################################################################
 
-################################################################################
-#region Immediate
+assert() {
+    __assert_result="$?"  # get the return of the subshell used as first arg
+    shift  # ignore first arg as it's the subshell that generates the $? used above
+    if [ "${__assert_result}" -ne 0 ]; then
+        log_info_noprefix "expected: %s" "$@"
+        exit 255
+    fi
+}
 
+inject_monkeypatch() {
+    __main() { return 0; }
+    __sourced_main() { return 0; }
+}
+
+Test_Invoke__test_Invoke() {
+    (
+        inject_monkeypatch() { true; }
+
+        invoke ./post-bootstrap.sh "$@"
+        script_ret=$?
+        exit $script_ret
+    )
+}
+
+Test_Source__test_Source() {
+    (
+        inject_monkeypatch() { true; }
+
+        include_G ./post-bootstrap.sh
+        script_ret=$?
+
+        assert "$( [ "${CONDA_SHLVL}" -ge 1 ] )" \
+            "CONDA_SHLVL >= 1 (was {$CONDA_SHLVL})"
+        assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+            "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
+
+        exit $script_ret
+    )
+}
+
+Test_post_bootstrap__test_post_bootstrap() {
+    (
+        include_G ./post-bootstrap.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
+
+        post_bootstrap
+        func_ret=$?
+
+        exit $func_ret
+    )
+}
+
+func_to_call="$1"
+shift
 (
-    ############################################################################
-    #region Private *
-
-    #===========================================================================
-    #region Includes
-
-    ensure_include_GXY "$(get_my_real_dir_fullpath)/bfi-base.sh"
-
-    #endregion Includes
-    #===========================================================================
-
-    #===========================================================================
-    #region Private Constants
-
-    RUN_EXEC="python"
-    RUN_ARGS="$(get_my_real_dir_fullpath)"/bin/"$(get_my_real_dir_basename)".py
-
-    #endregion Private Constants
-    #===========================================================================
-
-    #===========================================================================
-    #region Private Functions
-
-    __bfi_run() {
-        (
-            conda_init_G "quiet"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                exit $ret
-            fi
-
-            conda_full_deactivate_G "quiet"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                exit $ret
-            fi
-
-            conda_activate_env_G "$(get_my_real_dir_basename)" "quiet"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                exit $ret
-            fi
-
-            if [ "${BFI_ORIGINAL_EXEC_NAME}" = "" ]; then
-                BFI_ORIGINAL_EXEC_NAME="$0"
-            fi
-            export BFI_ORIGINAL_EXEC_NAME
-
-            TEMP_RUN_EXEC="$1"
-            if [ "${TEMP_RUN_EXEC}" != "" ]; then
-                if [ ! -f "$1" ]; then
-                    if [ "$(type -- "${TEMP_RUN_EXEC}" 2>&1 | grep "\(is a shell builtin\|not found\|is a function\)" )" = "" ]; then
-                        # arg 1 is neither a shell builtin nor just a file
-                        # (when it is just a file, 'type' prints "not found")
-                        TEMP_RUN_EXEC="$(which "$1")"
-                    fi
-                fi
-                if [ "${TEMP_RUN_EXEC}" = "" ]; then
-                    TEMP_RUN_EXEC="$1"
-                fi
-
-                if [ -f "${TEMP_RUN_EXEC}" ]; then
-                    # deal with symlinks
-                    # (handles files without an extension pointing to a file that does,
-                    # e.g. bfi -> batteries-forking-included.py)
-                    TEMP_RUN_EXEC="$(rreadlink "${TEMP_RUN_EXEC}")"
-                    # arg 1 is might be an executable, see if we should run that instead
-                    if [ "$(file "${TEMP_RUN_EXEC}" | grep 'script' )" != "" ]; then
-                        # arg 1 is a script
-                        RUN_ARGS="$1"   # use original $1 so that we get the name the user passed in
-                        if [ ! -e "${RUN_ARGS}" ]; then
-                            TEMP_RUN_ARGS="$(which "${RUN_ARGS}")"
-                            ret=$?
-                            if [ $ret -eq 0 ]; then
-                                RUN_ARGS="${TEMP_RUN_ARGS}"
-                            fi
-                        fi
-                        shebang=$(head -n 1 "${TEMP_RUN_EXEC}")
-                        if [ "$(echo "${TEMP_RUN_EXEC}" | grep ".py" )" != "" ]; then
-                            # NOTE: we are doing this so that .py scripts that use an
-                            #   alternative !# such as #!bash to run a shell script preamble
-                            #   work properly
-                            # python script, or symlink without an extension to a
-                            # python script with a .py ext
-                            RUN_EXEC=python
-                            TEMP_RUN_EXEC=
-                            if [ "$(echo "${shebang}" | grep "#!")" = "" ]; then
-                                # no shebang, wtf?!
-                                true    # no op
-                            elif [ "$(echo "${shebang}" | awk '{print $1}')" = "#!/usr/bin/env" ]; then
-                                # shebang is asking /usr/bin/env to find the executable
-                                # awk removes the '#!/usr/bin/env' part
-                                TEMP_RUN_EXEC="$(echo "${shebang}" | awk '{$1=""; print $0}' )"
-                            else
-                                # shebang is the executable, remove '#!' from string
-                                # cut removes '#!'
-                                TEMP_RUN_EXEC="$(echo "${shebang}" | cut -c 3- )"
-                            fi
-                            # cleanup TEMP_RUN_EXEC
-                            # sed (1st) removes leading spaces
-                            # sed (2nd) removes trailing spaces
-                            TEMP_RUN_EXEC="$(echo "${TEMP_RUN_EXEC}" | sed -r 's/^ *//' | sed -r 's/ *$//' )"
-                            if [ "${TEMP_RUN_EXEC}" != "" ]; then
-                                "${TEMP_RUN_EXEC}" -c \
-                                    "import sys; print(f\"{[ getattr(sys, x) for x in dir(sys) if x == 'version' ][-1]}\")" \
-                                    >/dev/null 2>/dev/null
-                                ret=$?
-                                if [ $ret -eq 0 ]; then
-                                    # TEMP_RUN_EXEC is some kind of python binary
-                                    RUN_EXEC="${TEMP_RUN_EXEC}"
-                                fi
-                            fi
-                        else
-                            # .sh or other
-                            # What about python scripts that do not end in .py? AND use a non-python shebang?
-                            if [ "$(echo "${shebang}" | grep "#!")" = "" ]; then
-                                # no shebang, wtf?!
-                                log_error "First arg is an executable script, but does not have a shebang.\n"
-                                exit "${RET_ERROR_COULD_NOT_EXECUTE}"
-                            elif [ "$(echo "${shebang}" | awk '{print $1}')" = "#!/usr/bin/env" ]; then
-                                # shebang is asking /usr/bin/env to find the executable
-                                # awk removes the '#!/usr/bin/env' part
-                                RUN_EXEC="$(echo "${shebang}" | awk '{$1=""; print $0}' )"
-                            else
-                                # shebang is the executable, remove '#!' from string
-                                # cut removes '#!'
-                                RUN_EXEC="$(echo "${shebang}" | cut -c 3- )"
-                            fi
-                        fi
-                    elif [ -x "${TEMP_RUN_EXEC}" ]; then
-                        # arg 1 is directly an exec
-                        RUN_EXEC="${TEMP_RUN_EXEC}"
-                        RUN_ARGS=""
-                    fi
-                    shift
-                elif [ "$(type -- "${TEMP_RUN_EXEC}" 2>&1 | grep "\(is a shell builtin\|is a function\)" )" != "" ]; then
-                    # arg 1 is directly an shell builtin or shell function
-                    RUN_EXEC="${TEMP_RUN_EXEC}"
-                    RUN_ARGS=""
-                    shift
-                else
-                    # arg 1 is likely an argument to the script,
-                    # leave RUN_EXEC and RUN_ARGS as is
-                    true
-                fi
-            fi
-
-            # remove the "stop processing args" delimiter
-            # (allows first real arg to what we're running to be an executable file)
-            if [ "$1" = "--" ]; then
-                shift
-            fi
-
-            # cleanup RUN_EXEC
-            # sed (1st) removes leading spaces
-            # sed (2nd) removes trailing spaces
-            # if your executable actually has leading or trailing spaces in its name...
-            #          ...STOP THAT MALARKY!
-            RUN_EXEC="$(echo "${RUN_EXEC}" | sed -r 's/^ *//' | sed -r 's/ *$//' )"
-
-            printf "Conda environment is %s\n" "${CONDA_DEFAULT_ENV}"
-
-            printf "%s is " "${RUN_EXEC}"
-            which "${RUN_EXEC}"
-            if {
-                [ "${RUN_EXEC}" != "echo" ] &&
-                [ "${RUN_EXEC}" != "printf" ] &&
-                [ "$(echo "${RUN_EXEC}" | grep "/echo$")" != "" ] &&
-                [ "$(echo "${RUN_EXEC}" | grep "/printf$")" != "" ]
-            }; then
-                "${RUN_EXEC}" -c \
-                    "import sys; print(f\"{[ getattr(sys, x) for x in dir(sys) if x == 'version' ][-1]}\")" \
-                    >/dev/null 2>/dev/null
-                ret=$?
-                if [ $ret -eq 0 ]; then
-                    # RUN_EXEC is some sort of python binary
-                    "${RUN_EXEC}" --version
-                fi
-            fi
-
-            if [ "${RUN_ARGS}" = "" ]; then
-                echo Executing: /usr/bin/env "${RUN_EXEC}" "$*"
-                /usr/bin/env "${RUN_EXEC}" "$@"
-                ret=$?
-            else
-                echo Executing: /usr/bin/env "${RUN_EXEC}" "${RUN_ARGS}" "$*"
-                /usr/bin/env "${RUN_EXEC}" "${RUN_ARGS}" "$@"
-                ret=$?
-            fi
-
-            exit $ret
-        )
-        ret=$?
-        return $ret
-    }
-
-    #---------------------------------------------------------------------------
-    __main () {
-        # command echo "OMEGA_DEBUG=${OMEGA_DEBUG}"
-        log_ultradebug "$(get_my_real_basename) called with '%s'" "$*"
-
-        __bfi_run "$@"
-        ret=$?
-        return $ret
-    }
-
-    #---------------------------------------------------------------------------
-    __sourced_main () {
-        log_fatal "$(get_my_real_basename) should not be sourced"
-        return "${RET_ERROR_SCRIPT_WAS_SOURCED}"
-    }
-
-    #endregion Private Functions
-    #===========================================================================
-
-    #endregion Private *
-    ############################################################################
-
-    ############################################################################
-    #region Immediate
-
-    if [ "${_IS_UNDER_TEST}" = "true" ]; then
-        inject_monkeypatch
+    if [ "${CONDA_EXE}" != "" ]; then
+        # shellcheck disable=SC1091
+        . "$( dirname "${CONDA_EXE}" )"/../etc/profile.d/conda.sh
+        conda activate .
     fi
 
-    if \
-        [ "$(array_get_last WAS_SOURCED)" = false ] ||
-        [ "${__OVERRIDE_SOURCED}" = true ]
-    then
-        __main "$@"
-        ret=$?
-    else
-        __sourced_main
-        ret=$?
-    fi
+    assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+        "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
+
+    "${func_to_call}" "$@"
+    ret=$?
     exit $ret
-
-    #endregion Immediate
-    ############################################################################
 )
 ret=$?
-
-################################################################################
-#region Postamble
-
-#===============================================================================
-#region Track Sourcing
-
-if [ "$(array_get_last WAS_SOURCED)" = true ]; then
-    log_debug "Source Completed: $(get_my_real_fullpath) ($$)"
-else
-    log_debug "Invoke Completed: $(get_my_real_basename) ($$)"
-fi
-
-#endregion Track Sourcing
-#===============================================================================
-
-# NOTE: we have to return here if we were sourced otherwise we kill the shell
-_THIS_FILE_WAS_SOURCED="$(array_get_last WAS_SOURCED)"
-if [ "$(array_get_length WAS_SOURCED)" -eq 1 ]; then
-    array_remove_last WAS_SOURCED
-    array_remove_last SHELL_SOURCE
-    export WAS_SOURCED
-    export SHELL_SOURCE
-fi
-if [ "${_THIS_FILE_WAS_SOURCED}" = false ]; then
-    exit $ret
-else
-    return $ret
-fi
-
-#endregion Postamble
-################################################################################
+exit $ret

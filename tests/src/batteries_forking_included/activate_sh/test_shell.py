@@ -2,7 +2,6 @@
 tests/src/batteries_forking_included/activate_sh/test_shell.py (batteries-forking-included)
 """  # noqa: E501,W505
 
-
 ################################################################################
 #region Imports
 

@@ -315,6 +315,11 @@ include_G() {
     array_append WAS_SOURCED true
     export WAS_SOURCED
 
+    # shifts off path we are sourcing, but leaves other args intact so they can
+    # be used by the sourced script, this is a feature that normal most shells
+    # do not support by default
+    shift
+
     # shellcheck disable=SC1090
     . "${__LAST_INCLUDE}"
     ret=$?
@@ -331,7 +336,7 @@ include_G() {
 ensure_include_GXY() {
     # intentionally no local scope so it can modify globals AND exit script
 
-    include_G "$1"
+    include_G "$@"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "Failed to source '%s'" "$1"
@@ -1241,9 +1246,16 @@ assert() {
     fi
 }
 
+inject_monkeypatch() {
+    __main() { return 0; }
+    __sourced_main() { return 0; }
+}
+
 Test_Invoke__test_Invoke() {
     (
-        invoke ./run.sh "$@"
+        inject_monkeypatch() { true; }
+
+        invoke ./bootstrap.sh "$@"
         script_ret=$?
         exit $script_ret
     )
@@ -1251,13 +1263,35 @@ Test_Invoke__test_Invoke() {
 
 Test_Source__test_Source() {
     (
-        include_G ./run.sh
+        inject_monkeypatch() { true; }
+
+        include_G ./bootstrap.sh
         script_ret=$?
 
         assert "$( [ "${CONDA_SHLVL}" -ge 1 ] )" \
             "CONDA_SHLVL >= 1 (was {$CONDA_SHLVL})"
         assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
             "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
+
+        exit $script_ret
+    )
+}
+
+Test___main__test___main_monkeyPatched() {
+    (
+        inject_monkeypatch() {
+            echo monkeypatch
+            batteries_forking_included__bootstrap() {
+                printf "batteries_forking_included__bootstrap called %s\n" "$*"
+                exit 0
+            }
+        }
+
+        __OVERRIDE_SOURCED=true
+        export __OVERRIDE_SOURCED
+
+        include_G ./bootstrap.sh "$@"
+        script_ret=$?
 
         exit $script_ret
     )

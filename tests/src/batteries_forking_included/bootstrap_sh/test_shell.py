@@ -2,7 +2,6 @@
 tests/src/batteries_forking_included/activate_sh/test_shell.py (batteries-forking-included)
 """  # noqa: E501,W505
 
-
 ################################################################################
 #region Imports
 
@@ -57,59 +56,28 @@ class Test_Invoke():
             "additional_args," +
             "expected_ret," +
             "expected_stdout," +
-            "expected_stderr"
+            "expected_stderr," +
+            "expected_not_stdout," +
+            "expected_not_stderr"
         ),
         [
-            [
-                None,
-                2,
-                [
-                    b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
-                    b"Conda environment is batteries-forking-included\n",
-                    b"Executing: /usr/bin/env python",
-                    b"usage: ./run.sh",
-                    b"Error: SUBCOMMAND required.\n",
-                ],
-                [
-                ],
-            ],
-            [
-                [],
-                2,
-                [
-                    b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
-                    b"Conda environment is batteries-forking-included\n",
-                    b"Executing: /usr/bin/env python",
-                    b"usage: ./run.sh",
-                    b"Error: SUBCOMMAND required.\n",
-                ],
-                [
-                ],
-            ],
-            [
-                ["echo", "foo"],
-                0,
-                [
-                    b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
-                    b"Conda environment is batteries-forking-included\n",
-                    b"Executing: /usr/bin/env echo foo",
-                    b"\nfoo\n",
-                ],
-                [
-                ],
-            ],
             [
                 ["--version"],
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
-                    b"Conda environment is batteries-forking-included\n",
                     (
                         b"\nbatteries-forking-included " +
                         batteries_forking_included_getVersionNumber().encode("utf8")
                     ),
                 ],
                 [
+                ],
+                [
+                    b"Error:",
+                ],
+                [
+                    b"Error:",
                 ],
             ],
         ],
@@ -120,6 +88,8 @@ class Test_Invoke():
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
+        expected_not_stdout: List[bytes],
+        expected_not_stderr: List[bytes],
         shell_test_harness: PytestShellTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
@@ -137,11 +107,13 @@ class Test_Invoke():
             assert x in p.stdout
         for x in expected_stderr:
             assert x in p.stderr
-
+        for x in expected_not_stdout:
+            assert x not in p.stdout
+        for x in expected_not_stderr:
+            assert x not in p.stderr
 
 #endregion Invoke Tests
 ################################################################################
-
 
 ################################################################################
 #region Source Tests
@@ -164,8 +136,103 @@ class Test_Source():
 
         p = shell_test_harness.run()
 
-        assert p.returncode == 149
+        assert p.returncode == 149  # RET_ERROR_SCRIPT_WAS_SOURCED
         assert b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n" in p.stdout
 
 #endregion Source Tests
+################################################################################
+
+################################################################################
+#region __main Tests
+
+#===============================================================================
+class Test___main():
+    """
+    Invoke via command line.
+    """
+
+    #---------------------------------------------------------------------------
+    @pytest_mark.parametrize(
+        (
+            "additional_args," +
+            "expected_ret," +
+            "expected_stdout," +
+            "expected_stderr," +
+            "expected_not_stdout," +
+            "expected_not_stderr"
+        ),
+        [
+            [
+                None,
+                0,
+                [
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    b"batteries_forking_included__bootstrap called \n",
+                ],
+                [
+                ],
+                [
+                ],
+                [
+                ],
+            ],
+            [
+                [],
+                0,
+                [
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    b"batteries_forking_included__bootstrap called \n",
+                ],
+                [
+                ],
+                [
+                ],
+                [
+                ],
+            ],
+            [
+                ["echo", "foo"],
+                0,
+                [
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    b"batteries_forking_included__bootstrap called echo foo\n",
+                ],
+                [
+                ],
+                [
+                ],
+                [
+                ],
+            ],
+        ],
+    )
+    def test___main_monkeyPatched(
+        self,
+        additional_args: Union[List[str], None],
+        expected_ret: int,
+        expected_stdout: List[bytes],
+        expected_stderr: List[bytes],
+        expected_not_stdout: List[bytes],
+        expected_not_stderr: List[bytes],
+        shell_test_harness: PytestShellTestHarness,
+    ) -> None:
+        r"""
+        Call __main, with batteries_forking_included__bootstrap monkeypatched
+        to just print 'batteries_forking_included__bootstrap called (args)\n'.
+        """
+        p = shell_test_harness.run(
+            additional_args=additional_args,
+        )
+
+        assert p.returncode == expected_ret
+        for x in expected_stdout:
+            assert x in p.stdout
+        for x in expected_stderr:
+            assert x in p.stderr
+        for x in expected_not_stdout:
+            assert x not in p.stdout
+        for x in expected_not_stderr:
+            assert x not in p.stderr
+
+#endregion __main Tests
 ################################################################################

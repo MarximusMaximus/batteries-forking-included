@@ -173,7 +173,9 @@ def getVersionNumber() -> str:
         except Exception:  # pylint: disable=broad-except
             bfi_version = "UNKNOWN"
 
-    bfi_version = os_environ.get("BFI_VERSION", bfi_version)
+    if bfi_version == "UNKNOWN":
+        if "BFI_VERSION" in os_environ:
+            bfi_version = os_environ.get("BFI_VERSION", bfi_version)
 
     return bfi_version
 

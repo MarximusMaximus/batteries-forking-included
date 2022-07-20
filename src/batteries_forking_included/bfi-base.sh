@@ -316,6 +316,11 @@ include_G() {
     array_append WAS_SOURCED true
     export WAS_SOURCED
 
+    # shifts off path we are sourcing, but leaves other args intact so they can
+    # be used by the sourced script, this is a feature that normal most shells
+    # do not support by default
+    shift
+
     # shellcheck disable=SC1090
     . "${__LAST_INCLUDE}"
     ret=$?
@@ -332,7 +337,7 @@ include_G() {
 ensure_include_GXY() {
     # intentionally no local scope so it can modify globals AND exit script
 
-    include_G "$1"
+    include_G "$@"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "Failed to source '%s'" "$1"
@@ -1340,13 +1345,10 @@ RET_WARNING_NOT_A_DIRECTORY=195; export RET_WARNING_NOT_A_DIRECTORY
 
 # Special code for a special success (for use by functions to return
 #   success + other state)
-RET_SUCCESS_SPECIAL=252; export RET_SUCCESS_SPECIAL
-
-# Special code for when Version gets printed out
-RET_SUCCESS_VERSION_PRINTED=253; export RET_SUCCESS_VERSION_PRINTED
+RET_SUCCESS_SPECIAL=253; export RET_SUCCESS_SPECIAL
 
 # Special code for when Usage gets printed out
-RET_SUCCESS_USAGE_PRINTED=254; export RET_SUCCESS_USAGE_PRINTED
+#RET_TOMBSTONE=254; export RET_TOMBSTONE
 
 # Reserved b/c shell weirdness
 RET_ERROR_UNKNOWN_255=255; export RET_ERROR_UNKNOWN_255
@@ -1450,8 +1452,6 @@ return_code_is_success() {
         val=$(( val + 0 ))
         if \
             [ $val -eq "${RET_SUCCESS}" ] ||
-            [ $val -eq "${RET_SUCCESS_USAGE_PRINTED}" ] ||
-            [ $val -eq "${RET_SUCCESS_VERSION_PRINTED}" ] ||
             [ $val -eq "${RET_SUCCESS_SPECIAL}" ]
         then
             command printf "true"
@@ -3069,18 +3069,21 @@ export SHELL_SESSION_FILE
     ############################################################################
     #region Immediate
 
-    if [ "${_IS_UNDER_TEST}" != "true" ]; then
-        if [ "$(array_get_last WAS_SOURCED)" = false ]; then
-            __main "$@"
-            ret=$?
-        else
-            __sourced_main "$@"
-            ret=$?
-        fi
-        exit $ret
-    else
-        exit "${RET_SUCCESS}"
+    if [ "${_IS_UNDER_TEST}" = "true" ]; then
+        inject_monkeypatch
     fi
+
+    if \
+        [ "$(array_get_last WAS_SOURCED)" = false ] ||
+        [ "${__OVERRIDE_SOURCED}" = true ]
+    then
+        __main "$@"
+        ret=$?
+    else
+        __sourced_main
+        ret=$?
+    fi
+    exit $ret
 
     #endregion Immedate
     ############################################################################

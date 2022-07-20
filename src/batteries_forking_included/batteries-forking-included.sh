@@ -436,6 +436,11 @@ include_G() {
     array_append WAS_SOURCED true
     export WAS_SOURCED
 
+    # shifts off path we are sourcing, but leaves other args intact so they can
+    # be used by the sourced script, this is a feature that normal most shells
+    # do not support by default
+    shift
+
     # shellcheck disable=SC1090
     . "${__LAST_INCLUDE}"
     ret=$?
@@ -452,7 +457,7 @@ include_G() {
 ensure_include_GXY() {
     # intentionally no local scope so it can modify globals AND exit script
 
-    include_G "$1"
+    include_G "$@"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "Failed to source '%s'" "$1"
@@ -1803,9 +1808,14 @@ parse_args__common_set_and_export() {
     log_debug "project_base_name=%s" "${project_base_name}"
     log_debug "bfi_dir=%s" "${bfi_dir}"
 
+    if [ "${should_print_usage}" = true ]; then
+        print_usage
+        exit "${RET_SUCCESS}"
+    fi
+
     if [ "${should_print_version}" = true ]; then
         print_version
-        exit "${RET_SUCCESS_VERSION_PRINTED}"
+        exit "${RET_SUCCESS}"
     fi
 }
 
@@ -1974,11 +1984,6 @@ parse_args__bootstrap() {
     log_debug "dev_mode_unsticky=%s" "${dev_mode_unsticky}"
     log_debug "deploy_mode=%s" "${deploy_mode}"
 
-    if [ "${should_print_usage}" = true ]; then
-        print_usage__bootstrap
-        exit "${RET_SUCCESS_USAGE_PRINTED}"
-    fi
-
     return "${RET_SUCCESS}"
 }
 
@@ -2093,11 +2098,6 @@ parse_args__update() {
     # fi
 
     parse_args__common_set_and_export
-
-    if [ "${should_print_usage}" = true ]; then
-        print_usage__update
-        exit "${RET_SUCCESS_USAGE_PRINTED}"
-    fi
 
     return "${RET_SUCCESS}"
 }
@@ -2486,7 +2486,7 @@ conda_setup_env()
         else
             log_header "Updating %s Conda Environment..." "${project_base_name}"
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" conda env update --name "${project_base_name}" --file ./conda-environment.yml --prune -v
+            teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber conda env update --name "${project_base_name}" --file ./conda-environment.yml --prune -v
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "'conda update --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
@@ -3390,18 +3390,21 @@ batteries_forking_included__update() {
     ############################################################################
     #region Immediate
 
-    if [ "${_IS_UNDER_TEST}" != "true" ]; then
-        if [ "$(array_get_last WAS_SOURCED)" = false ]; then
-            __main "$@"
-            ret=$?
-        else
-            __sourced_main
-            ret=$?
-        fi
-        exit $ret
-    else
-        exit "${RET_SUCCESS}"
+    if [ "${_IS_UNDER_TEST}" = "true" ]; then
+        inject_monkeypatch
     fi
+
+    if \
+        [ "$(array_get_last WAS_SOURCED)" = false ] ||
+        [ "${__OVERRIDE_SOURCED}" = true ]
+    then
+        __main "$@"
+        ret=$?
+    else
+        __sourced_main
+        ret=$?
+    fi
+    exit $ret
 
     #endregion Immediate
     ############################################################################

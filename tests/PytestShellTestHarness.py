@@ -18,6 +18,9 @@ from subprocess import (  # pylint: disable=unused-import  # noqa: F401
     CompletedProcess                as subprocess_CompletedProcess,
     run                             as subprocess_run,
 )
+from shlex import (
+    join                            as shlex_join,
+)
 from typing import (
     Any,
     List,
@@ -97,20 +100,27 @@ class PytestShellTestHarness:
 
         # final command line to run
         cmd = [
-            # "sh",
             script_path,
             f"{self.request.cls.__name__}__{self.request.function.__name__}",
         ]
         cmd.extend(additional_args)
 
+        cmd_str = shlex_join(cmd)
+
         # pass along our entire environment + OMEGA_DEBUG=all
         env: Dict[str, Any] = {
-            "OMEGA_DEBUG": "true",
+            "OMEGA_DEBUG": "all",
         }
         for k, v in os_environ.items():
             env[k] = v
 
-        p = subprocess_run(cmd, capture_output=True, cwd=mock_repo_fullpath, env=env)
+        p = subprocess_run(
+            cmd_str,
+            capture_output=True,
+            cwd=mock_repo_fullpath,
+            env=env,
+            shell=True,  # nosec
+        )
 
         if p.returncode == 255:
             raise AssertionError(p.stdout.strip().split(b"\n")[-1])

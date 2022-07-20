@@ -86,10 +86,10 @@ class Test_CommandLine():
                 0,
                 [
                     b"usage:",
-                    b"batteries-forking-included"
+                    b"batteries-forking-included",
                 ],
                 [
-                    b"Error: SUBCOMMAND required."
+                    b"Error: SUBCOMMAND required.",
                 ],
             ),
             (

@@ -319,6 +319,11 @@ include_G() {
     array_append WAS_SOURCED true
     export WAS_SOURCED
 
+    # shifts off path we are sourcing, but leaves other args intact so they can
+    # be used by the sourced script, this is a feature that normal most shells
+    # do not support by default
+    shift
+
     # shellcheck disable=SC1090
     . "${__LAST_INCLUDE}"
     ret=$?
@@ -335,7 +340,7 @@ include_G() {
 ensure_include_GXY() {
     # intentionally no local scope so it can modify globals AND exit script
 
-    include_G "$1"
+    include_G "$@"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "Failed to source '%s'" "$1"
@@ -1461,18 +1466,21 @@ fi
     ############################################################################
     #region Immediate
 
-    if [ "${_IS_UNDER_TEST}" != "true" ]; then
-        if [ "$(array_get_last WAS_SOURCED)" = false ]; then
-            __main "$@"
-            ret=$?
-        else
-            __sourced_main
-            ret=$?
-        fi
-        exit $ret
-    else
-        exit "${RET_SUCCESS}"
+    if [ "${_IS_UNDER_TEST}" = "true" ]; then
+        inject_monkeypatch
     fi
+
+    if \
+        [ "$(array_get_last WAS_SOURCED)" = false ] ||
+        [ "${__OVERRIDE_SOURCED}" = true ]
+    then
+        __main "$@"
+        ret=$?
+    else
+        __sourced_main
+        ret=$?
+    fi
+    exit $ret
 
     #endregion Immediate
     ############################################################################
