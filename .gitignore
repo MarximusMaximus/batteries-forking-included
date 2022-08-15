@@ -241,7 +241,6 @@ coverage.html
 
 # runtime files
 *.pid
-*.lock
 
 # logs
 log
