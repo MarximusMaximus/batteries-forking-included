@@ -17,3 +17,11 @@ export bfi_dir
     ../../bfi-update.sh --project-dir="$(pwd)" --bfi-dir="${bfi_dir}"
 )
 ./run.sh poetry install
+
+# HACK: fix poetry removing important shit
+# shellcheck disable=SC1091
+. "$(dirname "$(dirname "$CONDA_EXE")")"/etc/profile.d/conda.sh
+conda activate base
+CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -y -v pip wheel setuptools
+conda activate batteries-forking-included
+CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -y -v pip wheel setuptools
