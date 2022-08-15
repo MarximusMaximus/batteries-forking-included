@@ -1,5 +1,5 @@
 """
-tests/PytestShellTestHarness (batteries-forking-included)
+tests/PytestShellTestHarness.py (batteries-forking-included)
 """
 
 ################################################################################
@@ -14,7 +14,7 @@ from os import (
 from os.path import (
     join                            as os_path_join,
 )
-from subprocess import (  # pylint: disable=unused-import  # noqa: F401
+from subprocess import (  # noqa: F401
     CompletedProcess                as subprocess_CompletedProcess,
     run                             as subprocess_run,
 )
@@ -58,7 +58,7 @@ class PytestShellTestHarness:
     #---------------------------------------------------------------------------
     def __init__(
         self,
-        make_mock_repo: str,
+        mock_repo: str,
         monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
         tmp_path_factory: pytest_TempPathFactory,
@@ -66,7 +66,8 @@ class PytestShellTestHarness:
         """
         Initialize.
         """
-        self.make_mock_repo = make_mock_repo
+        super().__init__()
+        self.mock_repo = mock_repo
         self.monkeypatch = monkeypatch
         self.request = request
         self.tmp_path_factory = tmp_path_factory
@@ -75,6 +76,7 @@ class PytestShellTestHarness:
     def run(
         self,
         additional_args: Optional[List[str]] = None,
+        additional_env_vars: Optional[Dict[str, Optional[str]]] = None,
     ) -> "subprocess_CompletedProcess[bytes]":
         """
         Call the matching shell func in .sh file with same name as this .py file.
@@ -88,9 +90,10 @@ class PytestShellTestHarness:
         """
         if additional_args is None:
             additional_args = []
+        if additional_env_vars is None:
+            additional_env_vars = {}
 
-        # mock_repo_fullpath = self.makeMockRepo()
-        mock_repo_fullpath = self.make_mock_repo
+        mock_repo_fullpath = self.mock_repo
 
         # path to script file to run
         script_path = os_path_join(
@@ -101,18 +104,26 @@ class PytestShellTestHarness:
         # final command line to run
         cmd = [
             script_path,
-            f"{self.request.cls.__name__}__{self.request.function.__name__}",
+            f"{self.request.cls.__name__}__{self.request.function.__name__}",  # type: ignore[reportUnknownMemberType]  # noqa: E501,B950
         ]
         cmd.extend(additional_args)
+        cmd = [str(x) for x in cmd]
 
         cmd_str = shlex_join(cmd)
 
         # pass along our entire environment + OMEGA_DEBUG=all
-        env: Dict[str, Any] = {
-            "OMEGA_DEBUG": "all",
-        }
+        env: Dict[str, Any] = {}
+        k: str
+        v: Optional[str]
         for k, v in os_environ.items():
             env[k] = v
+        env["OMEGA_DEBUG"] = "all"
+        env["NO_COLOR"] = "true"
+        for k, v in additional_env_vars.items():
+            if v is not None:
+                env[k] = v
+            else:
+                del env[k]
 
         p = subprocess_run(
             cmd_str,
@@ -123,7 +134,7 @@ class PytestShellTestHarness:
         )
 
         if p.returncode == 255:
-            raise AssertionError(p.stdout.strip().split(b"\n")[-1])
+            raise AssertionError(p.stderr.strip().split(b"\n")[-1])
 
         return p
 

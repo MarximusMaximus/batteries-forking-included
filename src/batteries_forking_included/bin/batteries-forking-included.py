@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
-# pylint: disable=C0103
+# pylint: disable=invalid-name
 
 ################################################################################
 #region Bootstrap Preamble
 # 'multiline shebang' that will run this script in the proper environment
 # see: https://rosettacode.org/wiki/Multiline_shebang#Python
-#spellchecker: disable
+# spellchecker: disable
 "true" '''\'
 
 #===============================================================================
@@ -103,7 +103,7 @@ export BFI_ORIGINAL_EXEC_NAME
 exit $?
 '''  # noqa: D300,W605,E501,B950
 
-#spellchecker: enable
+# spellchecker: enable
 
 # insert our repo base dir into the sys.path so that we can import our library
 # we know that the repo path is ./../../.. b/c we should be in ./src/<project name>/bin/
@@ -121,7 +121,7 @@ if (  # pragma: no cover
     "." not in os_path.basename(MY_PROGRAM_NAME) or
     ".py" in os_path.basename(MY_PROGRAM_NAME)
 ):
-    MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)
+    MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)  # type: ignore[reportConstantRedefinition]  # noqa: E501,B950
 del os
 del os_path
 

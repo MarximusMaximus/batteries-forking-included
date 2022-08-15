@@ -1285,7 +1285,11 @@ __bfi_activate_environment() {
     return "${RET_SUCCESS}"
 }
 if [ "${_IS_UNDER_TEST}" = "true" ]; then
-    inject_monkeypatch
+    type inject_monkeypatch >/dev/null 2>&1
+    monkeypatch_ret=$?
+    if [ $monkeypatch_ret -eq 0 ]; then
+        inject_monkeypatch
+    fi
 fi
 __bfi_activate_environment
 ret=$?
@@ -1295,6 +1299,20 @@ ret=$?
 
 ################################################################################
 #region Postamble
+
+#===============================================================================
+#region PytestShellTestHarness Postamble
+
+if [ "${_IS_UNDER_TEST}" = "true" ]; then
+    type inject_monkeypatch >/dev/null 2>&1
+    monkeypatch_ret=$?
+    if [ $monkeypatch_ret -eq 0 ]; then
+        inject_monkeypatch
+    fi
+fi
+
+#endregion PytestShellTestHarness Postamble
+#===============================================================================
 
 #===============================================================================
 #region Track Sourcing

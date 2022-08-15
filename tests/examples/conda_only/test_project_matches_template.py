@@ -1,7 +1,7 @@
 """
 tests/test_batteries_forking_included.py (batteries-forking-included)
 """
-# pylint: disable=R0801
+# pylint: disable=duplicate-code
 ################################################################################
 #region Imports
 
@@ -23,6 +23,9 @@ from os.path import (
 )
 from pathlib import (
     Path                            as pathlib_Path,
+)
+from typing import (
+    List,
 )
 
 #endregion stdlib
@@ -82,9 +85,9 @@ def test_files_match__post_bootstrap(tmp_path: pathlib_Path) -> None:
 
     combined_template_path = os_path_abspath(os_path_join(tmp_path, "post-bootstrap.sh"))
 
-    part1_data = []
-    part2_data = []
-    part3_data = []
+    part1_data: List[str] = []
+    part2_data: List[str] = []
+    part3_data: List[str] = []
 
     with open(template_path, "r", encoding="utf-8") as f:
         template_data = f.readlines()

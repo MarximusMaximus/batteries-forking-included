@@ -2405,7 +2405,7 @@ ensure_conda() {
 
             log_info "Installing Conda with PREFIX='${CONDA_INSTALL_PATH}'"
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" "${conda_installer}" -b -f -p "${CONDA_INSTALL_PATH}"
+            teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true "${conda_installer}" -b -f -p "${CONDA_INSTALL_PATH}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "Failed to install Conda."
@@ -2436,14 +2436,14 @@ conda_update_base()
             exit "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
         fi
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda update -n base conda
+        teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base conda -v -y --prune
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda update -n base' exited with error code: %d" "$ret"
             exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
         fi
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda update -n base --all -v -y --prune
+        teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base --all -v -y --prune
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda update -n base' exited with error code: %d" "$ret"
@@ -2475,7 +2475,7 @@ conda_setup_env()
         if [ "${found_env}" = "" ]; then
             log_header "Installing %s Conda Environment..." "${project_base_name}"
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" conda env create --name "${project_base_name}" --file ./conda-environment.yml -v
+            teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env create --name "${project_base_name}" --file ./conda-environment.yml -v
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "'conda create --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
@@ -2486,7 +2486,7 @@ conda_setup_env()
         else
             log_header "Updating %s Conda Environment..." "${project_base_name}"
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber conda env update --name "${project_base_name}" --file ./conda-environment.yml --prune -v
+            teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env update --name "${project_base_name}" --file ./conda-environment.yml --prune -v
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "'conda update --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
@@ -2582,12 +2582,19 @@ poetry_install() {
             log_debug "poetry install args: ${poetry_args}"
 
             # shellcheck disable=SC2086  # we actually want the variable to get split
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" poetry install ${poetry_args}
+            teetty_G "${FULL_LOG}" "${FULL_LOG}" poetry install ${poetry_args} --extras fixes
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "'poetry install' exited with error code: %d" "$ret"
                 exit "${RET_ERROR_POETRY_INSTALL_FAILED}"
             fi
+
+            # HACK: fix poetry removing important shit
+            (
+                conda activate base
+                CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -v -y pip wheel setuptools
+            )
+            CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -v -y pip wheel setuptools
 
             log_header "'poetry install' Completed."
         fi
@@ -3391,17 +3398,21 @@ batteries_forking_included__update() {
     #region Immediate
 
     if [ "${_IS_UNDER_TEST}" = "true" ]; then
-        inject_monkeypatch
+        type inject_monkeypatch >/dev/null 2>&1
+        monkeypatch_ret=$?
+        if [ $monkeypatch_ret -eq 0 ]; then
+            inject_monkeypatch
+        fi
     fi
 
     if \
         [ "$(array_get_last WAS_SOURCED)" = false ] ||
-        [ "${__OVERRIDE_SOURCED}" = true ]
+        [ "${_CALL_MAIN_ANYWAY}" = true ]
     then
         __main "$@"
         ret=$?
     else
-        __sourced_main
+        __sourced_main "$@"
         ret=$?
     fi
     exit $ret
@@ -3413,6 +3424,20 @@ ret=$?
 
 ################################################################################
 #region Postamble
+
+#===============================================================================
+#region PytestShellTestHarness Postamble
+
+if [ "${_IS_UNDER_TEST}" = "true" ]; then
+    type inject_monkeypatch >/dev/null 2>&1
+    monkeypatch_ret=$?
+    if [ $monkeypatch_ret -eq 0 ]; then
+        inject_monkeypatch
+    fi
+fi
+
+#endregion PytestShellTestHarness Postamble
+#===============================================================================
 
 #===============================================================================
 #region Track Sourcing

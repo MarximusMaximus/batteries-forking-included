@@ -1,4 +1,3 @@
-name: batteries-forking-included
 channels:
   - conda-forge
 dependencies:

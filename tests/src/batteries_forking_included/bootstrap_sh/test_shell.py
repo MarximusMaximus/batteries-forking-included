@@ -19,6 +19,7 @@ from typing import (
 #===============================================================================
 #region third party
 
+import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
@@ -61,7 +62,7 @@ class Test_Invoke():
             "expected_not_stderr"
         ),
         [
-            [
+            pytest.param(
                 ["--version"],
                 0,
                 [
@@ -72,6 +73,7 @@ class Test_Invoke():
                     ),
                 ],
                 [
+                    b"",
                 ],
                 [
                     b"Error:",
@@ -79,7 +81,8 @@ class Test_Invoke():
                 [
                     b"Error:",
                 ],
-            ],
+                id="args_version",
+            ),
         ],
     )
     def test_Invoke(
@@ -162,7 +165,7 @@ class Test___main():
             "expected_not_stderr"
         ),
         [
-            [
+            pytest.param(
                 None,
                 0,
                 [
@@ -170,13 +173,17 @@ class Test___main():
                     b"batteries_forking_included__bootstrap called \n",
                 ],
                 [
+                    b"",
                 ],
                 [
+                    b"Error:",
                 ],
                 [
+                    b"Error:",
                 ],
-            ],
-            [
+                id="args_None",
+            ),
+            pytest.param(
                 [],
                 0,
                 [
@@ -184,13 +191,17 @@ class Test___main():
                     b"batteries_forking_included__bootstrap called \n",
                 ],
                 [
+                    b"",
                 ],
                 [
+                    b"Error:",
                 ],
                 [
+                    b"Error:",
                 ],
-            ],
-            [
+                id="args_empty_list",
+            ),
+            pytest.param(
                 ["echo", "foo"],
                 0,
                 [
@@ -198,12 +209,16 @@ class Test___main():
                     b"batteries_forking_included__bootstrap called echo foo\n",
                 ],
                 [
+                    b"",
                 ],
                 [
+                    b"Error:",
                 ],
                 [
+                    b"Error:",
                 ],
-            ],
+                id="args_echo_foo",
+            ),
         ],
     )
     def test___main_monkeyPatched(

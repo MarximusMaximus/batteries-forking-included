@@ -19,6 +19,7 @@ from typing import (
 #===============================================================================
 #region third party
 
+import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
@@ -61,7 +62,7 @@ class Test_Invoke():
             "expected_not_stderr"
         ),
         [
-            [
+            pytest.param(
                 None,
                 2,
                 [
@@ -77,9 +78,11 @@ class Test_Invoke():
                     b"Error:",
                 ],
                 [
+                    b"FATAL:",
                 ],
-            ],
-            [
+                id="args_None",
+            ),
+            pytest.param(
                 [],
                 2,
                 [
@@ -95,9 +98,11 @@ class Test_Invoke():
                     b"Error:",
                 ],
                 [
+                    b"FATAL:",
                 ],
-            ],
-            [
+                id="args_emptyList",
+            ),
+            pytest.param(
                 ["echo", "foo"],
                 0,
                 [
@@ -107,6 +112,7 @@ class Test_Invoke():
                     b"\nfoo\n",
                 ],
                 [
+                    b"",
                 ],
                 [
                     b"Error:",
@@ -114,8 +120,9 @@ class Test_Invoke():
                 [
                     b"Error:",
                 ],
-            ],
-            [
+                id="args_echo_foo",
+            ),
+            pytest.param(
                 ["--version"],
                 0,
                 [
@@ -127,6 +134,7 @@ class Test_Invoke():
                     ),
                 ],
                 [
+                    b"",
                 ],
                 [
                     b"Error:",
@@ -134,7 +142,8 @@ class Test_Invoke():
                 [
                     b"Error:",
                 ],
-            ],
+                id="args_version",
+            ),
         ],
     )
     def test_Invoke(

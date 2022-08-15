@@ -161,7 +161,7 @@ def getVersionNumber() -> str:
                 "r",
                 encoding="utf-8",
             ) as f:
-                f_data = []
+                f_data: List[str] = []
                 for _ in range(10):  # pragma: no branch
                     line = f.readline()
                     if line == "":
@@ -223,7 +223,8 @@ def __main(argv: List[str]) -> int:
     Returns:
         int: return code
     """
-    argv = argv  # ignores unused var
+    # ignore unused vars from func signature
+    argv = argv  # pylint: disable=self-assigning-variable
 
     logger_log(logging_FATAL, "This module should not be run directly.")
 

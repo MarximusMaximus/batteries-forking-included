@@ -46,7 +46,7 @@ from .PytestShellTestHarness import PytestShellTestHarness
 #-------------------------------------------------------------------------------
 @pytest.fixture(name="shell_test_harness")
 def shell_test_harness(
-    make_mock_repo: str,  # pylint: disable=redefined-outer-name
+    mock_repo: str,  # pylint: disable=redefined-outer-name
     monkeypatch: pytest_MonkeyPatch,
     request: pytest_FixtureRequest,
     tmp_path_factory: pytest_TempPathFactory,
@@ -58,7 +58,7 @@ def shell_test_harness(
         PytestShellTestHarness: PytestShellTestHarness instance.
     """
     return PytestShellTestHarness(
-        make_mock_repo=make_mock_repo,
+        mock_repo=mock_repo,
         monkeypatch=monkeypatch,
         request=request,
         tmp_path_factory=tmp_path_factory,
@@ -66,7 +66,7 @@ def shell_test_harness(
 
 #---------------------------------------------------------------------------
 @pytest.fixture
-def make_mock_repo(
+def mock_repo(
     monkeypatch: pytest_MonkeyPatch,
     tmp_path_factory: pytest_TempPathFactory,
 ) -> str:
@@ -93,7 +93,7 @@ def make_mock_repo(
 
     # write a pyproject.toml for the mock repo
     with open("pyproject.toml", "w", encoding="utf-8") as f:
-        f.write("""\
+        _ = f.write("""\
                 name = "template_project"
                 version = "0.0.0"
                 description = "A template project."
@@ -101,6 +101,7 @@ def make_mock_repo(
         f.flush()
 
     return mock_repo_fullpath
+
 
 #endregion Fixtures
 ################################################################################

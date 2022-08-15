@@ -19,6 +19,7 @@ from typing import (
 #===============================================================================
 #region third party
 
+import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
@@ -58,7 +59,7 @@ class Test_Invoke():
             "expected_not_stderr"
         ),
         [
-            [
+            pytest.param(
                 [],
                 151,  # RET_ERROR_SCRIPT_WAS_NOT_SOURCED
                 [
@@ -71,8 +72,10 @@ class Test_Invoke():
                     b"Error:",
                 ],
                 [
+                    b"Error:",
                 ],
-            ],
+                id="no_args",
+            ),
         ],
     )
     def test_Invoke(
@@ -155,32 +158,40 @@ class Test_post_bootstrap():
             "expected_not_stderr"
         ),
         [
-            [
+            pytest.param(
                 None,
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
                 ],
                 [
+                    b"",
                 ],
                 [
+                    b"Error:",
                 ],
                 [
+                    b"Error:",
                 ],
-            ],
-            [
+                id="args_None",
+            ),
+            pytest.param(
                 [],
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
                 ],
                 [
+                    b"",
                 ],
                 [
+                    b"Error:",
                 ],
                 [
+                    b"Error:",
                 ],
-            ],
+                id="args_empty_list",
+            ),
         ],
     )
     def test_post_bootstrap(
@@ -211,5 +222,5 @@ class Test_post_bootstrap():
         for x in expected_not_stderr:
             assert x not in p.stderr
 
-#endregion Invoke Tests
+#endregion post_bootstrap Tests
 ################################################################################

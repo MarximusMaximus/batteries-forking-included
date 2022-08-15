@@ -1237,46 +1237,110 @@ fi
 #endregion Preamble
 ################################################################################
 
+################################################################################
+#region PytestShellTestHarness Preamble
+
+#-------------------------------------------------------------------------------
 assert() {
     __assert_result="$?"  # get the return of the subshell used as first arg
     shift  # ignore first arg as it's the subshell that generates the $? used above
     if [ "${__assert_result}" -ne 0 ]; then
-        log_info_noprefix "expected: %s" "$@"
+        log_fatal "expected: %s" "$@"
         exit 255
     fi
 }
 
-inject_monkeypatch() {
+#-------------------------------------------------------------------------------
+default_inject_monkeypatch() {
     __main() { return 0; }
     __sourced_main() { return 0; }
 }
 
+#-------------------------------------------------------------------------------
+inject_monkeypatch() {
+    default_inject_monkeypatch
+}
+
+#-------------------------------------------------------------------------------
+test_harness_output() {
+    (
+        inner_text="$(command printf -- "$@"; command echo EOL)"
+        command printf -- "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
+    )
+}
+
+#endregion PytestShellTestHarness Preamble
+################################################################################
+
+################################################################################
+#region Tests
+
+#===============================================================================
+#region Test_Invoke
+
+#-------------------------------------------------------------------------------
 Test_Invoke__test_Invoke() {
     (
+        if [ "${CONDA_EXE}" != "" ]; then
+            # shellcheck disable=SC1091
+            . "$( dirname "${CONDA_EXE}" )"/../etc/profile.d/conda.sh
+            conda activate .
+        fi
+
+        assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+            "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
+
         inject_monkeypatch() { true; }
 
         invoke ./bfi-update.sh "$@"
         script_ret=$?
-        exit $script_ret
-    )
-}
 
-Test_Source__test_Source() {
-    (
-        inject_monkeypatch() { true; }
-
-        include_G ./bfi-update.sh
-        script_ret=$?
-
-        assert "$( [ "${CONDA_SHLVL}" -ge 1 ] )" \
-            "CONDA_SHLVL >= 1 (was {$CONDA_SHLVL})"
         assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
             "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
 
         exit $script_ret
     )
+    return $?
 }
 
+#endregion Test_Invoke
+#===============================================================================
+
+#===============================================================================
+#region Test_Source
+
+#-------------------------------------------------------------------------------
+Test_Source__test_Source() {
+    (
+        inject_monkeypatch() { true; }
+
+        if [ "${CONDA_EXE}" != "" ]; then
+            # shellcheck disable=SC1091
+            . "$( dirname "${CONDA_EXE}" )"/../etc/profile.d/conda.sh
+            conda activate .
+        fi
+
+        assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+            "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
+
+        include_G ./bfi-update.sh "$@"
+        script_ret=$?
+
+        assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+            "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
+
+        exit $script_ret
+    )
+    return $?
+}
+
+#endregion Test_Source
+#===============================================================================
+
+#===============================================================================
+#region Test___main
+
+#-------------------------------------------------------------------------------
 Test___main__test___main_monkeyPatched() {
     (
         inject_monkeypatch() {
@@ -1287,31 +1351,35 @@ Test___main__test___main_monkeyPatched() {
             }
         }
 
-        __OVERRIDE_SOURCED=true
-        export __OVERRIDE_SOURCED
+        _CALL_MAIN_ANYWAY=true
+        export _CALL_MAIN_ANYWAY
 
         include_G ./bfi-update.sh "$@"
         script_ret=$?
 
         exit $script_ret
     )
+    return $?
 }
+
+#endregion Test___main
+#===============================================================================
+
+#endregion Tests
+################################################################################
+
+################################################################################
+#region PytestShellTestHarness Postamble
 
 func_to_call="$1"
 shift
 (
-    if [ "${CONDA_EXE}" != "" ]; then
-        # shellcheck disable=SC1091
-        . "$( dirname "${CONDA_EXE}" )"/../etc/profile.d/conda.sh
-        conda activate .
-    fi
-
-    assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
-        "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
-
     "${func_to_call}" "$@"
     ret=$?
     exit $ret
 )
 ret=$?
 exit $ret
+
+#endregion PytestShellTestHarness Postamble
+################################################################################

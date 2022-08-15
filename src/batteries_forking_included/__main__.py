@@ -21,7 +21,7 @@ if (  # pragma: no branch
     "." not in os_path.basename(MY_PROGRAM_NAME) or
     ".py" in os_path.basename(MY_PROGRAM_NAME)
 ):
-    MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)
+    MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)  # type: ignore[reportConstantRedefinition]  # noqa: E501,B950
 del os
 del os_path
 
@@ -38,7 +38,6 @@ del os_path
 import argparse
 from typing import (
     Any,
-    Dict,
     List,
 )
 
@@ -72,8 +71,8 @@ from batteries_forking_included import (
 #-------------------------------------------------------------------------------
 def subcommandBootstrap(
     extras: List[str],
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
+    *args: Any,
+    **kwargs: Any,
 ) -> int:
     """
     Call bootstrap.sh to begin bootstrap process.
@@ -85,16 +84,16 @@ def subcommandBootstrap(
         int: return code from bootstrap.sh
     """
     # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
+    args = args  # noqa: F841  # pylint: disable=self-assigning-variable
+    kwargs = kwargs  # noqa: F841  # pylint: disable=self-assigning-variable
 
     return batteries_forking_included_bfiBootstrap(extras=extras)
 
 #-------------------------------------------------------------------------------
 def subcommandInit(
     extras: List[str],
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
+    *args: Any,
+    **kwargs: Any,
 ) -> int:
     """
     Call BFI/src/batteries_forking_included/template/bfi-update.sh with current
@@ -108,16 +107,16 @@ def subcommandInit(
         int: return code from bfi-update.sh
     """
     # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
+    args = args  # noqa: F841  # pylint: disable=self-assigning-variable
+    kwargs = kwargs  # noqa: F841  # pylint: disable=self-assigning-variable
 
     return batteries_forking_included_bfiInit(extras=extras)
 
 #-------------------------------------------------------------------------------
 def subcommandRun(
     extras: List[str],
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
+    *args: Any,
+    **kwargs: Any,
 ) -> int:
     """
     Call run.sh to run a command (denoted in 'extras') in the project's conda
@@ -130,16 +129,16 @@ def subcommandRun(
         int: return code from run.sh
     """
     # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
+    args = args  # noqa: F841  # pylint: disable=self-assigning-variable
+    kwargs = kwargs  # noqa: F841  # pylint: disable=self-assigning-variable
 
     return batteries_forking_included_bfiRun(extras=extras)
 
 #-------------------------------------------------------------------------------
 def subcommandUpdate(
     extras: List[str],
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
+    *args: Any,
+    **kwargs: Any,
 ) -> int:
     """
     Call bfi-update.sh to update project's BFI files from BFI's template.
@@ -151,8 +150,8 @@ def subcommandUpdate(
         int: return code from bfi-update.sh
     """
     # silence the "variable not used" complaints in function signature
-    args = args  # noqa: F841
-    kwargs = kwargs  # noqa: F841
+    args = args  # noqa: F841  # pylint: disable=self-assigning-variable
+    kwargs = kwargs  # noqa: F841  # pylint: disable=self-assigning-variable
 
     return batteries_forking_included_bfiUpdate(extras=extras)
 
@@ -180,7 +179,7 @@ def __main(argv: List[str]) -> int:
         prog=MY_PROGRAM_NAME,
         description=f"batteries-forking-included {bfi_version}",
     )
-    parser.add_argument(
+    _ = parser.add_argument(
         "--version",
         action="version",
         version=f"batteries-forking-included {bfi_version}",
@@ -190,22 +189,22 @@ def __main(argv: List[str]) -> int:
         metavar="SUBCOMMAND",
     )
 
-    subparsers.add_parser(
+    _ = subparsers.add_parser(
         name="bootstrap",
         help="bootstrap current directory's project's environment",
     )
 
-    subparsers.add_parser(
+    _ = subparsers.add_parser(
         name="init",
         help="initialize current directory with template",
     )
 
-    subparsers.add_parser(
+    _ = subparsers.add_parser(
         name="run",
         help="run command in current directory's project's environment",
     )
 
-    subparsers.add_parser(
+    _ = subparsers.add_parser(
         name="update",
         help="update current directory from template",
     )
@@ -238,7 +237,7 @@ def __main(argv: List[str]) -> int:
 ################################################################################
 #region Script Entry Point
 
-def scriptEntryPoint() -> int:  # pragma: no cover
+def scriptEntryPoint() -> None:  # pragma: no cover
     """
     Script entry point. Used by tool.poetry.scripts.
 

@@ -1259,8 +1259,12 @@ RET_ERROR_UNKNOWN=1; export RET_ERROR_UNKNOWN
 # Local Errors 2-63 (61)
 # define these in individual scripts
 
-# Local Warnings 64-127 (63)
+# Local Warnings 64-125 (61)
 # define these in individual scripts
+
+# Important OS Errors 126-127 (2)
+RET_ERROR_SHELL_PERMISSION_DENIED=126; export RET_ERROR_SHELL_PERMISSION_DENIED  # Reserved by OS 'shellname: permission denied: path'
+RET_ERROR_SHELL_FILE_NOT_FOUND=127; export RET_ERROR_SHELL_FILE_NOT_FOUND  # Reserved by OS  'shellname: path: No such file or directory'
 
 # Global Errors 128-191 (63, but 16 are reserved, so really 47)
 RET_ERROR_UNKNOWN_128=128; export RET_ERROR_UNKNOWN_128
@@ -1358,7 +1362,7 @@ RET_ERROR_UNKNOWN_NEG1=-1; export RET_ERROR_UNKNOWN_NEG1
 RET_CODE_LOCAL_ERROR_RANGE_START=1; export RET_CODE_LOCAL_ERROR_RANGE_START
 RET_CODE_LOCAL_ERROR_RANGE_END=63; export RET_CODE_LOCAL_ERROR_RANGE_END
 RET_CODE_LOCAL_WARNING_RANGE_START=64; export RET_CODE_LOCAL_WARNING_RANGE_START
-RET_CODE_LOCAL_WARNING_RANGE_END=127; export RET_CODE_LOCAL_WARNING_RANGE_END
+RET_CODE_LOCAL_WARNING_RANGE_END=125; export RET_CODE_LOCAL_WARNING_RANGE_END
 RET_CODE_GLOBAL_ERROR_RANGE_START=128; export RET_CODE_GLOBAL_ERROR_RANGE_START
 RET_CODE_GLOBAL_ERROR_RANGE_END=191; export RET_CODE_GLOBAL_ERROR_RANGE_END
 RET_CODE_GLOBAL_WARNING_RANGE_START=192; export RET_CODE_GLOBAL_WARNING_RANGE_START
@@ -1384,6 +1388,8 @@ return_code_is_error() {
                 [ $val -ge "${RET_CODE_GLOBAL_ERROR_RANGE_START}" ] &&
                 [ $val -le "${RET_CODE_GLOBAL_ERROR_RANGE_END}" ]
             } ||
+            [ $val -eq "${RET_ERROR_SHELL_PERMISSION_DENIED}" ] ||
+            [ $val -eq "${RET_ERROR_SHELL_FILE_NOT_FOUND}" ] ||
             [ $val -eq "${RET_ERROR_UNKNOWN}" ] ||
             [ $val -eq "${RET_ERROR_UNKNOWN_128}" ] ||
             [ $val -eq "${RET_ERROR_UNKNOWN_255}" ] ||
@@ -1624,6 +1630,11 @@ ANSI_CODE_END="m"; export ANSI_CODE_END
 #-------------------------------------------------------------------------------
 get_ansi_code()
 {
+    # $1 = mode
+    # $2 = default color
+    # $3 = alternate color
+    # $4 = override trailing character
+
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1631,7 +1642,12 @@ get_ansi_code()
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        ending="$3"
+        mode_sep=";"
+        if [ "$1" = "" ]; then
+            mode_sep=""
+        fi
+
+        ending="$4"
         if [ "${ending}" = "" ]; then
             ending="${ANSI_CODE_END}"
         fi
@@ -1644,16 +1660,38 @@ get_ansi_code()
         fi
         # because "colorize_output" may or may not exist
         # shellcheck disable=SC2154
-        if [ "$(command echo "$TERM" | grep 'mono')" != "" ] ||
-            [ "${tput_colors}" -lt 16 ] ||
-            [ "${NO_COLOR}" != "" ] ||
-            [ "${colorized_output}" = false ];
-        then
-            command printf ""
-        elif [ "${colorized_output}" = "alt" ] && [ "$2" != "" ]; then
-            command printf "${ANSI_CODE_START}$2${ending}"
+        if {
+            [ "$ending" = "m" ] &&
+            {
+                [ "$(command echo "$TERM" | grep 'mono')" != "" ] ||
+                [ "${tput_colors}" -lt 16 ] ||
+                [ "${NO_COLOR}" != "" ] ||
+                [ "${colorized_output}" = false ]
+            }
+        }; then
+            # mode/color in monocolor terminal
+            if [ "$1" != "" ]; then
+                # mode specified
+                command printf "${ANSI_CODE_START}$1${ending}"
+            else
+                # no mode specified
+                command printf ""
+            fi
         else
-            command printf "${ANSI_CODE_START}$1${ending}"
+            # 16+ color terminal or not a color/mode
+            if [ "$ending" = "m" ] && [ "${colorized_output}" = "alt" ] && [ "$3" != "" ]; then
+                # a color or mode in alt-color w/ alt-value specified
+                command printf "${ANSI_CODE_START}$1${mode_sep}$3${ending}"
+            elif [ "$2" != "" ]; then
+                # anything in color w/ value specified
+                command printf "${ANSI_CODE_START}$1${mode_sep}$2${ending}"
+            elif [ "$1" != "" ]; then
+                # only a mode specified (no value specified)
+                command printf "${ANSI_CODE_START}$1${ending}"
+            else
+                # nothing specified
+                command printf ""
+            fi
         fi
 
         exit 0
@@ -1665,63 +1703,60 @@ get_ansi_code()
 }
 
 #-------------------------------------------------------------------------------
+get_ansi_code_cursor() {
+    get_ansi_code '' "$1" '' "$2"
+}
+
+#-------------------------------------------------------------------------------
 get_ansi_code_cursor_up() {
-    # shellcheck disable=SC2059
-    command printf "$(get_ansi_code "$1" '' 'A')"
+    get_ansi_code_cursor "$1" 'A'
 }
 
 #-------------------------------------------------------------------------------
 get_ansi_code_cursor_down() {
-    # shellcheck disable=SC2059
-    command printf "$(get_ansi_code "$1" '' 'B')"
+    get_ansi_code_cursor "$1" 'B'
 }
 
 #-------------------------------------------------------------------------------
 get_ansi_code_cursor_right() {
-    # shellcheck disable=SC2059
-    command printf "$(get_ansi_code "$1" '' 'C')"
+    get_ansi_code_cursor "$1" 'C'
 }
 
 #-------------------------------------------------------------------------------
 get_ansi_code_cursor_left() {
-    # shellcheck disable=SC2059
-    command printf "$(get_ansi_code "$1" '' 'D')"
+    get_ansi_code_cursor "$1" 'D'
 }
 
 #-------------------------------------------------------------------------------
 get_ansi_code_cursor_nextline() {
-    # shellcheck disable=SC2059
-    command printf "$(get_ansi_code "$1" '' 'E')"
+    get_ansi_code_cursor "$1" 'E'
 }
 
 #-------------------------------------------------------------------------------
 get_ansi_code_cursor_prevline() {
-    # shellcheck disable=SC2059
-    command printf "$(get_ansi_code "$1" '' 'F')"
+    get_ansi_code_cursor "$1" 'F'
 }
 
 #-------------------------------------------------------------------------------
 get_ansi_code_cursor_col() {
-    # shellcheck disable=SC2059
-    command printf "$(get_ansi_code "$1" '' 'G')"
+    get_ansi_code_cursor "$1" 'G'
 }
 
 #-------------------------------------------------------------------------------
 get_ansi_code_cursor_pos() {
-    # shellcheck disable=SC2059
-    command printf "$(get_ansi_code "$1;$2" '' 'H')"
+    get_ansi_code_cursor "$1;$2" 'H'
 }
 
 #-------------------------------------------------------------------------------
 set_ansi_code_constants() {
-    ANSI_FG_BLACK="$(get_ansi_code '0;30')"; export ANSI_FG_BLACK
-    ANSI_FG_RED="$(get_ansi_code '0;31')"; export ANSI_FG_RED
-    ANSI_FG_GREEN="$(get_ansi_code '0;32')"; export ANSI_FG_GREEN
-    ANSI_FG_YELLOW="$(get_ansi_code '0;33')"; export ANSI_FG_YELLOW
-    ANSI_FG_BLUE="$(get_ansi_code '0;34')"; export ANSI_FG_BLUE
-    ANSI_FG_MAGENTA="$(get_ansi_code '0;35')"; export ANSI_FG_MAGENTA
-    ANSI_FG_CYAN="$(get_ansi_code '0;36')"; export ANSI_FG_CYAN
-    ANSI_FG_WHITE="$(get_ansi_code '0;37')"; export ANSI_FG_WHITE
+    ANSI_FG_BLACK="$(get_ansi_code '0' '30')"; export ANSI_FG_BLACK
+    ANSI_FG_RED="$(get_ansi_code '0' '31')"; export ANSI_FG_RED
+    ANSI_FG_GREEN="$(get_ansi_code '0' '32')"; export ANSI_FG_GREEN
+    ANSI_FG_YELLOW="$(get_ansi_code '0' '33')"; export ANSI_FG_YELLOW
+    ANSI_FG_BLUE="$(get_ansi_code '0' '34')"; export ANSI_FG_BLUE
+    ANSI_FG_MAGENTA="$(get_ansi_code '0' '35')"; export ANSI_FG_MAGENTA
+    ANSI_FG_CYAN="$(get_ansi_code '0' '36')"; export ANSI_FG_CYAN
+    ANSI_FG_WHITE="$(get_ansi_code '0' '37')"; export ANSI_FG_WHITE
 
     ANSI_BLACK="${ANSI_FG_BLACK}"; export ANSI_BLACK
     ANSI_RED="${ANSI_FG_RED}"; export ANSI_RED
@@ -1732,14 +1767,14 @@ set_ansi_code_constants() {
     ANSI_CYAN="${ANSI_FG_CYAN}"; export ANSI_CYAN
     ANSI_WHITE="${ANSI_FG_WHITE}"; export ANSI_WHITE
 
-    ANSI_FG_BOLD_BLACK="$(get_ansi_code '1;30')"; export ANSI_FG_BOLD_BLACK
-    ANSI_FG_BOLD_RED="$(get_ansi_code '1;31')"; export ANSI_FG_BOLD_RED
-    ANSI_FG_BOLD_GREEN="$(get_ansi_code '1;32')"; export ANSI_FG_BOLD_GREEN
-    ANSI_FG_BOLD_YELLOW="$(get_ansi_code '1;33')"; export ANSI_FG_BOLD_YELLOW
-    ANSI_FG_BOLD_BLUE="$(get_ansi_code '1;34')"; export ANSI_FG_BOLD_BLUE
-    ANSI_FG_BOLD_MAGENTA="$(get_ansi_code '1;35')"; export ANSI_FG_BOLD_MAGENTA
-    ANSI_FG_BOLD_CYAN="$(get_ansi_code '1;36')"; export ANSI_FG_BOLD_CYAN
-    ANSI_FG_BOLD_WHITE="$(get_ansi_code '1;37')"; export ANSI_FG_BOLD_WHITE
+    ANSI_FG_BOLD_BLACK="$(get_ansi_code '1' '30')"; export ANSI_FG_BOLD_BLACK
+    ANSI_FG_BOLD_RED="$(get_ansi_code '1' '31')"; export ANSI_FG_BOLD_RED
+    ANSI_FG_BOLD_GREEN="$(get_ansi_code '1' '32')"; export ANSI_FG_BOLD_GREEN
+    ANSI_FG_BOLD_YELLOW="$(get_ansi_code '1' '33')"; export ANSI_FG_BOLD_YELLOW
+    ANSI_FG_BOLD_BLUE="$(get_ansi_code '1' '34')"; export ANSI_FG_BOLD_BLUE
+    ANSI_FG_BOLD_MAGENTA="$(get_ansi_code '1' '35')"; export ANSI_FG_BOLD_MAGENTA
+    ANSI_FG_BOLD_CYAN="$(get_ansi_code '1' '36')"; export ANSI_FG_BOLD_CYAN
+    ANSI_FG_BOLD_WHITE="$(get_ansi_code '1' '37')"; export ANSI_FG_BOLD_WHITE
 
     ANSI_BOLD_BLACK="${ANSI_FG_BOLD_BLACK}"; export ANSI_BOLD_BLACK
     ANSI_BOLD_RED="${ANSI_FG_BOLD_RED}"; export ANSI_BOLD_RED
@@ -1750,77 +1785,79 @@ set_ansi_code_constants() {
     ANSI_BOLD_CYAN="${ANSI_FG_BOLD_CYAN}"; export ANSI_BOLD_CYAN
     ANSI_BOLD_WHITE="${ANSI_FG_BOLD_WHITE}"; export ANSI_BOLD_WHITE
 
-    ANSI_BG_BLACK="$(get_ansi_code '0;40')"; export ANSI_BG_BLACK
-    ANSI_BG_RED="$(get_ansi_code '0;41')"; export ANSI_BG_RED
-    ANSI_BG_GREEN="$(get_ansi_code '0;42')"; export ANSI_BG_GREEN
-    ANSI_BG_YELLOW="$(get_ansi_code '0;43')"; export ANSI_BG_YELLOW
-    ANSI_BG_BLUE="$(get_ansi_code '0;44')"; export ANSI_BG_BLUE
-    ANSI_BG_MAGENTA="$(get_ansi_code '0;45')"; export ANSI_BG_MAGENTA
-    ANSI_BG_CYAN="$(get_ansi_code '0;46')"; export ANSI_BG_CYAN
-    ANSI_BG_WHITE="$(get_ansi_code '0;47')"; export ANSI_BG_WHITE
+    # NOTE: backgrounds do not use the mode arg
+    ANSI_BG_BLACK="$(get_ansi_code '' '0;40')"; export ANSI_BG_BLACK
+    ANSI_BG_RED="$(get_ansi_code '' '0;41')"; export ANSI_BG_RED
+    ANSI_BG_GREEN="$(get_ansi_code '' '0;42')"; export ANSI_BG_GREEN
+    ANSI_BG_YELLOW="$(get_ansi_code '' '0;43')"; export ANSI_BG_YELLOW
+    ANSI_BG_BLUE="$(get_ansi_code '' '0;44')"; export ANSI_BG_BLUE
+    ANSI_BG_MAGENTA="$(get_ansi_code '' '0;45')"; export ANSI_BG_MAGENTA
+    ANSI_BG_CYAN="$(get_ansi_code '' '0;46')"; export ANSI_BG_CYAN
+    ANSI_BG_WHITE="$(get_ansi_code '' '0;47')"; export ANSI_BG_WHITE
 
-    ANSI_BG_BOLD_BLACK="$(get_ansi_code '1;40')"; export ANSI_BG_BOLD_BLACK
-    ANSI_BG_BOLD_RED="$(get_ansi_code '1;41')"; export ANSI_BG_BOLD_RED
-    ANSI_BG_BOLD_GREEN="$(get_ansi_code '1;42')"; export ANSI_BG_BOLD_GREEN
-    ANSI_BG_BOLD_YELLOW="$(get_ansi_code '1;43')"; export ANSI_BG_BOLD_YELLOW
-    ANSI_BG_BOLD_BLUE="$(get_ansi_code '1;44')"; export ANSI_BG_BOLD_BLUE
-    ANSI_BG_BOLD_MAGENTA="$(get_ansi_code '1;45')"; export ANSI_BG_BOLD_MAGENTA
-    ANSI_BG_BOLD_CYAN="$(get_ansi_code '1;46')"; export ANSI_BG_BOLD_CYAN
-    ANSI_BG_BOLD_WHITE="$(get_ansi_code '1;47')"; export ANSI_BG_BOLD_WHITE
+    # NOTE: backgrounds do not use the mode arg
+    ANSI_BG_BOLD_BLACK="$(get_ansi_code '' '1;40')"; export ANSI_BG_BOLD_BLACK
+    ANSI_BG_BOLD_RED="$(get_ansi_code '' '1;41')"; export ANSI_BG_BOLD_RED
+    ANSI_BG_BOLD_GREEN="$(get_ansi_code '' '1;42')"; export ANSI_BG_BOLD_GREEN
+    ANSI_BG_BOLD_YELLOW="$(get_ansi_code '' '1;43')"; export ANSI_BG_BOLD_YELLOW
+    ANSI_BG_BOLD_BLUE="$(get_ansi_code '' '1;44')"; export ANSI_BG_BOLD_BLUE
+    ANSI_BG_BOLD_MAGENTA="$(get_ansi_code '' '1;45')"; export ANSI_BG_BOLD_MAGENTA
+    ANSI_BG_BOLD_CYAN="$(get_ansi_code '' '1;46')"; export ANSI_BG_BOLD_CYAN
+    ANSI_BG_BOLD_WHITE="$(get_ansi_code '' '1;47')"; export ANSI_BG_BOLD_WHITE
 
-    ANSI_UNDERLINE="$(get_ansi_code '4')"; export ANSI_UNDERLINE
-    ANSI_UNDERLINE_OFF="$(get_ansi_code '24')"; export ANSI_UNDERLINE_OFF
+    ANSI_UNDERLINE="$(get_ansi_code '4' '')"; export ANSI_UNDERLINE
+    ANSI_UNDERLINE_OFF="$(get_ansi_code '24' '')"; export ANSI_UNDERLINE_OFF
 
-    ANSI_FG_UNDERLINE_BLACK="$(get_ansi_code '0;4;30')"; export ANSI_FG_UNDERLINE_BLACK
-    ANSI_FG_UNDERLINE_RED="$(get_ansi_code '0;4;31')"; export ANSI_FG_UNDERLINE_RED
-    ANSI_FG_UNDERLINE_GREEN="$(get_ansi_code '0;4;32')"; export ANSI_FG_UNDERLINE_GREEN
-    ANSI_FG_UNDERLINE_YELLOW="$(get_ansi_code '0;4;33')"; export ANSI_FG_UNDERLINE_YELLOW
-    ANSI_FG_UNDERLINE_BLUE="$(get_ansi_code '0;4;34')"; export ANSI_FG_UNDERLINE_BLUE
-    ANSI_FG_UNDERLINE_MAGENTA="$(get_ansi_code '0;4;35')"; export ANSI_FG_UNDERLINE_MAGENTA
-    ANSI_FG_UNDERLINE_CYAN="$(get_ansi_code '0;4;36')"; export ANSI_FG_UNDERLINE_CYAN
-    ANSI_FG_UNDERLINE_WHITE="$(get_ansi_code '0;4;37')"; export ANSI_FG_UNDERLINE_WHITE
+    ANSI_FG_UNDERLINE_BLACK="$(get_ansi_code '0;4' '30')"; export ANSI_FG_UNDERLINE_BLACK
+    ANSI_FG_UNDERLINE_RED="$(get_ansi_code '0;4' '31')"; export ANSI_FG_UNDERLINE_RED
+    ANSI_FG_UNDERLINE_GREEN="$(get_ansi_code '0;4' '32')"; export ANSI_FG_UNDERLINE_GREEN
+    ANSI_FG_UNDERLINE_YELLOW="$(get_ansi_code '0;4' '33')"; export ANSI_FG_UNDERLINE_YELLOW
+    ANSI_FG_UNDERLINE_BLUE="$(get_ansi_code '0;4' '34')"; export ANSI_FG_UNDERLINE_BLUE
+    ANSI_FG_UNDERLINE_MAGENTA="$(get_ansi_code '0;4' '35')"; export ANSI_FG_UNDERLINE_MAGENTA
+    ANSI_FG_UNDERLINE_CYAN="$(get_ansi_code '0;4' '36')"; export ANSI_FG_UNDERLINE_CYAN
+    ANSI_FG_UNDERLINE_WHITE="$(get_ansi_code '0;4' '37')"; export ANSI_FG_UNDERLINE_WHITE
 
-    ANSI_FG_BOLD_UNDERLINE_BLACK="$(get_ansi_code '1;4;30')"; export ANSI_FG_BOLD_UNDERLINE_BLACK
-    ANSI_FG_BOLD_UNDERLINE_RED="$(get_ansi_code '1;4;31')"; export ANSI_FG_BOLD_UNDERLINE_RED
-    ANSI_FG_BOLD_UNDERLINE_GREEN="$(get_ansi_code '1;4;32')"; export ANSI_FG_BOLD_UNDERLINE_GREEN
-    ANSI_FG_BOLD_UNDERLINE_YELLOW="$(get_ansi_code '1;4;33')"; export ANSI_FG_BOLD_UNDERLINE_YELLOW
-    ANSI_FG_BOLD_UNDERLINE_BLUE="$(get_ansi_code '1;4;34')"; export ANSI_FG_BOLD_UNDERLINE_BLUE
-    ANSI_FG_BOLD_UNDERLINE_MAGENTA="$(get_ansi_code '1;4;35')"; export ANSI_FG_BOLD_UNDERLINE_MAGENTA
-    ANSI_FG_BOLD_UNDERLINE_CYAN="$(get_ansi_code '1;4;36')"; export ANSI_FG_BOLD_UNDERLINE_CYAN
-    ANSI_FG_BOLD_UNDERLINE_WHITE="$(get_ansi_code '1;4;37')"; export ANSI_FG_BOLD_UNDERLINE_WHITE
+    ANSI_FG_BOLD_UNDERLINE_BLACK="$(get_ansi_code '1;4' '30')"; export ANSI_FG_BOLD_UNDERLINE_BLACK
+    ANSI_FG_BOLD_UNDERLINE_RED="$(get_ansi_code '1;4' '31')"; export ANSI_FG_BOLD_UNDERLINE_RED
+    ANSI_FG_BOLD_UNDERLINE_GREEN="$(get_ansi_code '1;4' '32')"; export ANSI_FG_BOLD_UNDERLINE_GREEN
+    ANSI_FG_BOLD_UNDERLINE_YELLOW="$(get_ansi_code '1;4' '33')"; export ANSI_FG_BOLD_UNDERLINE_YELLOW
+    ANSI_FG_BOLD_UNDERLINE_BLUE="$(get_ansi_code '1;4' '34')"; export ANSI_FG_BOLD_UNDERLINE_BLUE
+    ANSI_FG_BOLD_UNDERLINE_MAGENTA="$(get_ansi_code '1;4' '35')"; export ANSI_FG_BOLD_UNDERLINE_MAGENTA
+    ANSI_FG_BOLD_UNDERLINE_CYAN="$(get_ansi_code '1;4' '36')"; export ANSI_FG_BOLD_UNDERLINE_CYAN
+    ANSI_FG_BOLD_UNDERLINE_WHITE="$(get_ansi_code '1;4' '37')"; export ANSI_FG_BOLD_UNDERLINE_WHITE
 
-    ANSI_CLEAR_LINE="$(get_ansi_code '2' '' 'K')"; export ANSI_CLEAR_LINE
-    ANSI_RESET_LINE="$(get_ansi_code '2' '' 'K')$(get_ansi_code '1' '' 'G')"; export ANSI_RESET_LINE
+    ANSI_CLEAR_LINE="$(get_ansi_code '' '2' '' 'K')"; export ANSI_CLEAR_LINE
+    ANSI_RESET_LINE="$(get_ansi_code '' '2' '' 'K')$(get_ansi_code '1' '' 'G')"; export ANSI_RESET_LINE
 
-    ANSI_CLEAR_SCREEN="$(get_ansi_code '2' '' 'J')"; export ANSI_CLEAR_SCREEN
-    ANSI_RESET_SCREEN="$(get_ansi_code '2' '' 'J')$(get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_SCREEN
+    ANSI_CLEAR_SCREEN="$(get_ansi_code '' '2' '' 'J')"; export ANSI_CLEAR_SCREEN
+    ANSI_RESET_SCREEN="$(get_ansi_code '' '2' '' 'J')$(get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_SCREEN
 
-    ANSI_CLEAR_HISTORY="$(get_ansi_code '3' '' 'J')"; export ANSI_CLEAR_HISTORY
-    ANSI_RESET_HISTORY="$(get_ansi_code '3' '' 'J')$(get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_HISTORY
+    ANSI_CLEAR_HISTORY="$(get_ansi_code '' '3' '' 'J')"; export ANSI_CLEAR_HISTORY
+    ANSI_RESET_HISTORY="$(get_ansi_code '' '3' '' 'J')$(get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_HISTORY
 
-    ANSI_RESET_CURSOR_LINE="$(get_ansi_code '1' '' 'G')"; export ANSI_RESET_CURSOR_LINE
-    ANSI_RESET_CURSOR_SCREEN="$(get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_CURSOR_SCREEN
+    ANSI_RESET_CURSOR_LINE="$(get_ansi_code '' '1' '' 'G')"; export ANSI_RESET_CURSOR_LINE
+    ANSI_RESET_CURSOR_SCREEN="$(get_ansi_code '' '1;1' '' 'H')"; export ANSI_RESET_CURSOR_SCREEN
 
-    ANSI_CURSOR_UP="$(get_ansi_code '1' '' 'A')"; export ANSI_CURSOR_UP
-    ANSI_CURSOR_DOWN="$(get_ansi_code '1' '' 'B')"; export ANSI_CURSOR_DOWN
-    ANSI_CURSOR_RIGHT="$(get_ansi_code '1' '' 'C')"; export ANSI_CURSOR_RIGHT
-    ANSI_CURSOR_LEFT="$(get_ansi_code '1' '' 'D')"; export ANSI_CURSOR_LEFT
-    ANSI_CURSOR_NEXTLINE="$(get_ansi_code '1' '' 'E')"; export ANSI_CURSOR_NEXTLINE
-    ANSI_CURSOR_PREVLINE="$(get_ansi_code '1' '' 'F')"; export ANSI_CURSOR_PREVLINE
+    ANSI_CURSOR_UP="$(get_ansi_code_cursor_up '1')"; export ANSI_CURSOR_UP
+    ANSI_CURSOR_DOWN="$(get_ansi_code_cursor_down '1')"; export ANSI_CURSOR_DOWN
+    ANSI_CURSOR_RIGHT="$(get_ansi_code_cursor_right '1')"; export ANSI_CURSOR_RIGHT
+    ANSI_CURSOR_LEFT="$(get_ansi_code_cursor_left '1')"; export ANSI_CURSOR_LEFT
+    ANSI_CURSOR_NEXTLINE="$(get_ansi_code_cursor_nextline '1')"; export ANSI_CURSOR_NEXTLINE
+    ANSI_CURSOR_PREVLINE="$(get_ansi_code_cursor_prevline '1')"; export ANSI_CURSOR_PREVLINE
 
     ANSI_BELL="\007🔔 "; export ANSI_BELL
-    ANSI_RESET="$(get_ansi_code '0')"; export ANSI_RESET
+    ANSI_RESET="${ANSI_CODE_START}0${ANSI_CODE_END}"; export ANSI_RESET
 
-    ANSI_COLOR_SUCCESS="$(get_ansi_code '1;32' '1;34')"; export ANSI_COLOR_SUCCESS          # bright green/blue
-    ANSI_COLOR_FATAL="$(get_ansi_code '1;31')"; export ANSI_COLOR_FATAL                     # bright red
-    ANSI_COLOR_ERROR="$(get_ansi_code '0;31')"; export ANSI_COLOR_ERROR                     # darkred
-    ANSI_COLOR_WARNING="$(get_ansi_code '1;33')"; export ANSI_COLOR_WARNING                 # bright yellow
-    ANSI_COLOR_HEADER="$(get_ansi_code '1;4;36')"; export ANSI_COLOR_HEADER                 # bright cyan, underlined
-    ANSI_COLOR_FOOTER="$(get_ansi_code '0;24;36')"; export ANSI_COLOR_FOOTER                # bright darkcyan, not underlined
-    ANSI_COLOR_INFO="$(get_ansi_code '1;37')"; export ANSI_COLOR_INFO                       # bright white
-    ANSI_COLOR_DEBUG="$(get_ansi_code '0;37')"; export ANSI_COLOR_DEBUG                     # lightgrey
-    ANSI_COLOR_SUPERDEBUG="$(get_ansi_code '1;30')"; export ANSI_COLOR_SUPERDEBUG           # grey
-    ANSI_COLOR_ULTRADEBUG="$(get_ansi_code '0;35' '0;33')"; export ANSI_COLOR_ULTRADEBUG    # darkmagenta/darkyellow
+    ANSI_COLOR_SUCCESS="$(get_ansi_code '1' '32' '34')"; export ANSI_COLOR_SUCCESS          # bright green/blue
+    ANSI_COLOR_FATAL="$(get_ansi_code '1' '31')"; export ANSI_COLOR_FATAL                     # bright red
+    ANSI_COLOR_ERROR="$(get_ansi_code '0' '31')"; export ANSI_COLOR_ERROR                     # darkred
+    ANSI_COLOR_WARNING="$(get_ansi_code '1' '33')"; export ANSI_COLOR_WARNING                 # bright yellow
+    ANSI_COLOR_HEADER="$(get_ansi_code '1;4' '36')"; export ANSI_COLOR_HEADER                 # bright cyan, underlined
+    ANSI_COLOR_FOOTER="$(get_ansi_code '0;24' '36')"; export ANSI_COLOR_FOOTER                # bright darkcyan, not underlined
+    ANSI_COLOR_INFO="$(get_ansi_code '1' '37')"; export ANSI_COLOR_INFO                       # bright white
+    ANSI_COLOR_DEBUG="$(get_ansi_code '0' '37')"; export ANSI_COLOR_DEBUG                     # lightgrey
+    ANSI_COLOR_SUPERDEBUG="$(get_ansi_code '1' '30')"; export ANSI_COLOR_SUPERDEBUG           # grey
+    ANSI_COLOR_ULTRADEBUG="$(get_ansi_code '0' '35' '33')"; export ANSI_COLOR_ULTRADEBUG    # darkmagenta/darkyellow
 
     ANSI_SUCCESS="${ANSI_COLOR_SUCCESS}"; export ANSI_SUCCESS
     ANSI_FATAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 "; export ANSI_FATAL
@@ -1857,110 +1894,6 @@ LOG_LEVEL_INFO=1; export LOG_LEVEL_INFO
 LOG_LEVEL_DEBUG=2; export LOG_LEVEL_DEBUG
 LOG_LEVEL_SUPERDEBUG=3; export LOG_LEVEL_SUPERDEBUG
 LOG_LEVEL_ULTRADEBUG=4; export LOG_LEVEL_ULTRADEBUG
-
-# #-------------------------------------------------------------------------------
-# teeoutput() {
-#     _stdout=$1
-#     _stderr=$2
-#     shift 2
-
-#     # Run the script through /bin/sh with fake tty
-#     if \
-#         { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
-#         [ "${OMEGA_DEBUG:-}" = true ] ||
-#         [ "${OMEGA_DEBUG:-}" = "all" ]
-#     then
-#         {
-#             {
-#                 {
-#                     "$@"
-#                     ret=$?
-#                 } | tee -a "${_stdout}";  # capture stdout to files
-#             } 2>&1 1>&3 | tee -a "${_stderr}";  # redirect stdout to 3, redirect stderr to stdout, capture "stdout(stderr)" to files
-#         } 3>&1 1>&2  # redirect stdout(stderr) to stderr, redirect 3(stdout) to stdout
-#     else
-#         "$@" 1>>"${_stdout}" 2>>"${_stderr}"
-#         # ret=$?
-#     fi
-
-#     # Return the status code
-#     return $ret
-# }
-
-# #-------------------------------------------------------------------------------
-# teetty_G() {
-#     _stdout=$1
-#     _stderr=$2
-#     shift 2
-
-#     # Create a temporary file for storing the status code
-#     tmp=$(mktemp)
-#     ret=$?
-#     if \
-#         [ $ret -ne 0 ] ||
-#         [ "$tmp" = "" ] ||
-#         [ ! -f "$tmp" ]
-#     then
-#         exit "${RET_ERROR_COULD_NOT_CREATE_TEMP_FILE}"
-#     fi
-
-#     # Produce a script that runs the command provided to teetty_G as
-#     # arguments and stores the status code in the temporary file
-#     esceval()
-#     {
-#         command printf '%s ' "$@" | sed "s/'/'\\\\''/g"
-#     }
-#     _cmd="$(esceval "$@"); command echo \$? > $tmp"
-
-#     # Run the script through /bin/sh with fake tty
-#     if \
-#         { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
-#         [ "${OMEGA_DEBUG:-}" = true ] ||
-#         [ "${OMEGA_DEBUG:-}" = "all" ]
-#     then
-#         {
-#             {
-#                 {
-#                     if [ "$(uname)" = "Darwin" ]; then
-#                         # MacOS
-#                         script -Fq /dev/null /bin/sh -c "$_cmd"
-#                     else
-#                         script -qfc "/bin/sh -c $(esceval "$_cmd")" /dev/null
-#                     fi
-#                 } | tee -a "${_stdout}";  # capture stdout to files
-#             } 2>&1 1>&3 | tee -a "${_stderr}";  # redirect stdout to 3, redirect stderr to stdout, capture "stdout(stderr)" to files
-#         } 3>&1 1>&2  # redirect stdout(stderr) to stderr, redirect 3(stdout) to stdout
-#     else
-#         {
-#             {
-#                 {
-#                     if [ "$(uname)" = "Darwin" ]; then
-#                         # MacOS
-#                         script -Fq /dev/null /bin/sh -c "$_cmd"
-#                     else
-#                         script -qfc "/bin/sh -c $(esceval "$_cmd")" /dev/null
-#                     fi
-#                 } | cat >> "${_stdout}";  # capture stdout to files
-#             } 2>&1 1>&3 | cat >> "${_stderr}";  # redirect stdout to 3, redirect stderr to stdout, capture "stdout(stderr)" to files
-#         } 3>&1 1>&2  # redirect stdout(stderr) to stderr, redirect 3(stdout) to stdout
-#     fi
-
-#     # Ensure that the status code was written to the temporary file or
-#     # fail with status 128
-#     if [ ! -s "$tmp" ]; then
-#         return "${RET_ERROR_GET_SUBCOMMAND_RETURN_CODE_FAILED}"
-#     fi
-
-#     # Collect the status code from the temporary file
-#     ret=$(cat "$tmp")
-#     ret=$(( ret + 0 ))
-
-#     # Remove the temporary file
-#     rm -f "$tmp"
-
-#     # Return the status code
-#     return $ret
-# }
 
 #-------------------------------------------------------------------------------
 create_fifo() {
@@ -1999,23 +1932,26 @@ cleanup_fifo() {
 
 #-------------------------------------------------------------------------------
 teetty_G() {
-    _stdout="$1"
-    _stderr="$2"
+    _stdout="$1"  # stdout log file
+    _stderr="$2"  # stderr log file
+    # first two args are the log files, shift them out of the command we
+    #   will run as our subprocess
     shift 2
 
     if [ "${my_tempdir}" = "" ]; then
         ensure_my_tempdir_G
     fi
 
+    # create fifos for subprocess to output to
     _stdout_fifo="$(create_fifo "${my_tempdir}/stdout_fifo")"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        return $ret
+    teetty_ret=$?
+    if [ $teetty_ret -ne 0 ]; then
+        return $teetty_ret
     fi
     _stderr_fifo="$(create_fifo "${my_tempdir}/stderr_fifo")"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        return $ret
+    teetty_ret=$?
+    if [ $teetty_ret -ne 0 ]; then
+        return $teetty_ret
     fi
 
     if \
@@ -2023,6 +1959,7 @@ teetty_G() {
         [ "${OMEGA_DEBUG:-}" = true ] ||
         [ "${OMEGA_DEBUG:-}" = "all" ]
     then
+        # output from fifo to console streams + files (in background processes)
         # shellcheck disable=SC2002
         ( cat "${_stdout_fifo}" | tee -a "${_stdout}" & )
         _stdout_bg_task=$!
@@ -2030,6 +1967,7 @@ teetty_G() {
         ( cat "${_stderr_fifo}" | tee -a "${_stderr}" & )
         _stderr_bg_task=$!
     else
+        # output from fifo to files (in background processes)
         # shellcheck disable=SC2002
         ( cat "${_stdout_fifo}" >> "${_stdout}" & )
         _stdout_bg_task=$!
@@ -2038,22 +1976,27 @@ teetty_G() {
         _stderr_bg_task=$!
     fi
 
+    # escapes command so we can use it in eval
     esceval()
     {
         command printf '%s ' "$@" | sed "s/'/'\\\\''/g"
     }
 
+    # run the subprocess outputingg to the fifos
     eval "$(esceval "$@")" > "${_stdout_fifo}" 2> "${_stderr_fifo}"
-    ret=$?
+    teetty_ret=$?
 
+    # process has ended, if the fifos background processes
+    # have not ended, end them
     kill -9 "${_stdout_bg_task}" 2>/dev/null
     kill -9 "${_stderr_bg_task}" 2>/dev/null
 
+    # remove the fifo files
     cleanup_fifo "${_stdout_fifo}"
     cleanup_fifo "${_stderr_fifo}"
 
-    # Return the status code
-    return $ret
+    # Return the status code of the subprocess
+    return $teetty_ret
 }
 
 #-------------------------------------------------------------------------------
@@ -3070,17 +3013,21 @@ export SHELL_SESSION_FILE
     #region Immediate
 
     if [ "${_IS_UNDER_TEST}" = "true" ]; then
-        inject_monkeypatch
+        type inject_monkeypatch >/dev/null 2>&1
+        monkeypatch_ret=$?
+        if [ $monkeypatch_ret -eq 0 ]; then
+            inject_monkeypatch
+        fi
     fi
 
     if \
         [ "$(array_get_last WAS_SOURCED)" = false ] ||
-        [ "${__OVERRIDE_SOURCED}" = true ]
+        [ "${_CALL_MAIN_ANYWAY}" = true ]
     then
         __main "$@"
         ret=$?
     else
-        __sourced_main
+        __sourced_main "$@"
         ret=$?
     fi
     exit $ret
@@ -3094,6 +3041,20 @@ export SHELL_SESSION_FILE
 
 ################################################################################
 #region Postamble
+
+#===============================================================================
+#region PytestShellTestHarness Postamble
+
+if [ "${_IS_UNDER_TEST}" = "true" ]; then
+    type inject_monkeypatch >/dev/null 2>&1
+    monkeypatch_ret=$?
+    if [ $monkeypatch_ret -eq 0 ]; then
+        inject_monkeypatch
+    fi
+fi
+
+#endregion PytestShellTestHarness Postamble
+#===============================================================================
 
 #===============================================================================
 #region Track Sourcing

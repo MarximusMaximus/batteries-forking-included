@@ -1307,17 +1307,21 @@ fi
     #region Immediate
 
     if [ "${_IS_UNDER_TEST}" = "true" ]; then
-        inject_monkeypatch
+        type inject_monkeypatch >/dev/null 2>&1
+        monkeypatch_ret=$?
+        if [ $monkeypatch_ret -eq 0 ]; then
+            inject_monkeypatch
+        fi
     fi
 
     if \
         [ "$(array_get_last WAS_SOURCED)" = false ] ||
-        [ "${__OVERRIDE_SOURCED}" = true ]
+        [ "${_CALL_MAIN_ANYWAY}" = true ]
     then
         __main "$@"
         ret=$?
     else
-        __sourced_main
+        __sourced_main "$@"
         ret=$?
     fi
     exit $ret
@@ -1330,6 +1334,20 @@ ret=$?
 
 ################################################################################
 #region Postamble
+
+#===============================================================================
+#region PytestShellTestHarness Postamble
+
+if [ "${_IS_UNDER_TEST}" = "true" ]; then
+    type inject_monkeypatch >/dev/null 2>&1
+    monkeypatch_ret=$?
+    if [ $monkeypatch_ret -eq 0 ]; then
+        inject_monkeypatch
+    fi
+fi
+
+#endregion PytestShellTestHarness Postamble
+#===============================================================================
 
 #===============================================================================
 #region Track Sourcing

@@ -12,6 +12,10 @@ tests/bin/test_batteries_dash_forking_dash_included.py (batteries-forking-includ
 from os import (
     environ                         as os_environ,
 )
+from os.path import (
+    dirname                         as os_path_dirname,
+    join                            as os_path_join,
+)
 from subprocess import (  # nosec
     run                             as subprocess_run,
 )
@@ -27,6 +31,7 @@ from typing import (
 #===============================================================================
 #region third party
 
+import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
@@ -70,7 +75,7 @@ class Test_CommandLine():
             "not_expected_stdout"
         ),
         [
-            (
+            pytest.param(
                 [],
                 2,
                 [
@@ -80,8 +85,9 @@ class Test_CommandLine():
                 [
                     b"Error: SUBCOMMAND required.",
                 ],
+                id="no_args",
             ),
-            (
+            pytest.param(
                 ["--help"],
                 0,
                 [
@@ -91,8 +97,9 @@ class Test_CommandLine():
                 [
                     b"Error: SUBCOMMAND required.",
                 ],
+                id="args_help",
             ),
-            (
+            pytest.param(
                 ["--version"],
                 0,
                 [
@@ -102,8 +109,9 @@ class Test_CommandLine():
                     b"usage:",
                     b"Error: SUBCOMMAND required.",
                 ],
+                id="args_version",
             ),
-            (
+            pytest.param(
                 ["run", "echo", "foo"],
                 0,
                 [
@@ -115,6 +123,7 @@ class Test_CommandLine():
                     b"usage:",
                     b"Error: SUBCOMMAND required.",
                 ],
+                id="args_echo_foo",
             ),
         ],
     )
@@ -131,7 +140,24 @@ class Test_CommandLine():
         """
         monkeypatch.delenv("_IS_UNDER_TEST", raising=False)
 
-        cmd = ["python", "./bin/batteries-forking-included.py"]
+        python_path: List[str] = []
+        python_path.append(
+            os_path_dirname(
+                os_environ.get(
+                    "CONDA_PREFIX",
+                    "/opt/conda/miniforge/envs/foo",
+                ),
+            ),
+        )
+        python_path.append("batteries-forking-included")
+        python_path.append("bin")
+        python_path.append("python")
+        python_path_str = os_path_join("", *python_path)
+
+        cmd = [
+            python_path_str,
+            "./bin/batteries-forking-included.py",
+        ]
         cmd = cmd + extra_args
         env: Dict[str, Any] = {
             "OMEGA_DEBUG": "true",

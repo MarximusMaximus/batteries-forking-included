@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# type: ignore[reportPrivateUsage]
 """
 tests/src/batteries_forking_included/test___impl.py (batteries-forking-included)
 """
@@ -11,16 +13,22 @@ tests/src/batteries_forking_included/test___impl.py (batteries-forking-included)
 from io import (
     TextIOWrapper                   as io_TextIOWrapper,
 )
+from os import (
+    environ                         as os_environ,
+)
 from os.path import (
+    dirname                         as os_path_dirname,
     join                            as os_path_join,
 )
 from subprocess import (
     run                             as subprocess_run,
 )
+from platform import (
+    python_version                  as platform_python_version,
+)
 from typing import (
     Any,
     Callable,
-    Dict,
     List,
     Optional,
     Union,
@@ -32,6 +40,9 @@ from typing import (
 #===============================================================================
 #region third party
 
+from packaging import (
+    version                         as packaging_version,
+)
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
@@ -44,9 +55,7 @@ from pytest import (
 #===============================================================================
 #region Ours
 
-from batteries_forking_included import (
-    __impl                          as MODULE_UNDER_TEST,
-)
+import batteries_forking_included.__impl as MODULE_UNDER_TEST
 
 #endregion Ours
 #===============================================================================
@@ -58,8 +67,8 @@ from batteries_forking_included import (
 #region Helper Functions
 
 def coerceSubprocessCommandToString(
-    *args: List[Any],
-    **kwargs: Dict[str, Any],
+    *args: Any,
+    **kwargs: Any,
 ) -> Union[str, None]:  # pragma: no cover
     """
     Coerce a subprocess's call into a str.
@@ -67,7 +76,7 @@ def coerceSubprocessCommandToString(
     Returns:
         Union[str, None]: The subprocess's command as a str if exists, or None.
     """
-    cmd = None
+    cmd: Optional[List[str]] = None
     if (
         len(args) > 0 and
         isinstance(args[0], list)
@@ -85,8 +94,6 @@ def coerceSubprocessCommandToString(
     cmd_str = None
     if isinstance(cmd, list):
         cmd_str = " ".join(cmd)
-    elif cmd is not None:
-        cmd_str = str(cmd)
 
     return cmd_str
 
@@ -115,8 +122,22 @@ class Test___main():
         """
         Tests that the library cannot be invoked directly.
         """
+        python_path: List[str] = []
+        python_path.append(
+            os_path_dirname(
+                os_environ.get(
+                    "CONDA_PREFIX",
+                    "/opt/conda/miniforge/envs/foo",
+                ),
+            ),
+        )
+        python_path.append("batteries-forking-included")
+        python_path.append("bin")
+        python_path.append("python")
+        python_path_str = os_path_join("", *python_path)
+
         cmd = [
-            "python",
+            python_path_str,
             "./src/batteries_forking_included/__impl.py",
         ]
 
@@ -143,8 +164,21 @@ class Test_bfiSubcommand:
     ) -> int:
     '''
 
+    MY_FUNC_TYPE = None
+    if (
+        packaging_version.parse(platform_python_version()) <
+        packaging_version.parse("3.9")
+    ):  # pragma: no cover
+        MY_FUNC_TYPE = Callable[[], int]
+    else:
+        MY_FUNC_TYPE = Callable[Optional[List[str]], int]
+
     #---------------------------------------------------------------------------
-    @pytest_mark.parametrize("expected_ret", [0, 1])
+    @pytest_mark.parametrize(
+        "expected_ret",
+        [0, 1],
+        ids=["ret0", "ret1"],
+    )
     @pytest_mark.parametrize(
         "input_args",
         [
@@ -152,6 +186,12 @@ class Test_bfiSubcommand:
             [],
             ["oneArg"],
             ["oneArg", "twoArg"],
+        ],
+        ids=[
+            "args_None",
+            "args_emptyList",
+            "args_oneArg",
+            "args_oneArg_twoArg",
         ],
     )
     @pytest_mark.parametrize(
@@ -162,12 +202,18 @@ class Test_bfiSubcommand:
             ("run.sh", MODULE_UNDER_TEST.bfiRun),
             ("bfi-update.sh", MODULE_UNDER_TEST.bfiUpdate),
         ],
+        ids=[
+            "bfiBootstrap",
+            "bfiInit",
+            "bfiRun",
+            "bfiUpdate",
+        ],
     )
     def test_bfiSubcommand(
         self,
         monkeypatch: pytest_MonkeyPatch,
         script_name: str,
-        func: Callable[[Optional[List[str]]], int],
+        func: MY_FUNC_TYPE,
         input_args: Union[List[str], None],
         expected_ret: int,
     ) -> None:
@@ -175,8 +221,8 @@ class Test_bfiSubcommand:
         _summary_
         """
         def mock_subprocess_call(
-            *args: List[Any],
-            **kwargs: Dict[str, Any],
+            *args: Any,
+            **kwargs: Any,
         ) -> int:
             expected_cmd = [script_name]
             if input_args:
@@ -201,7 +247,7 @@ class Test_bfiSubcommand:
 
         ret = None
         if input_args is None:
-            ret = func()  # type: ignore[call-arg]
+            ret = func()
         else:
             ret = func(input_args)
 
@@ -323,7 +369,7 @@ class Test_getVersionNumber():
         def mock_open(f: str, mode: str) -> io_TextIOWrapper:  # pragma: no cover
             raise Exception
         # create something that monkeypatch can override
-        MODULE_UNDER_TEST.open = lambda f, m: __builtins__.open(f, m)  # type: ignore[attr-defined]  # pragma: no cover  # noqa: E501,B950
+        MODULE_UNDER_TEST.open = lambda f, m: __builtins__.open(f, m)  # type: ignore[attr-defined]  # pylint: disable=unnecessary-lambda  # pragma: no cover  # noqa: E501,B950
         monkeypatch.setattr(MODULE_UNDER_TEST, "open", mock_open)
 
         monkeypatch.delenv("BFI_VERSION", raising=False)
@@ -372,7 +418,7 @@ class Test_getVersionNumber():
         def mock_open(f: str, mode: str) -> io_TextIOWrapper:  # pragma: no cover
             raise Exception
         # create something that monkeypatch can override
-        MODULE_UNDER_TEST.open = lambda f, mode: __builtins__.open(f, mode)  # type: ignore[attr-defined]  # pragma: no cover  # noqa: E501,B950
+        MODULE_UNDER_TEST.open = lambda f, mode: __builtins__.open(f, mode)  # type: ignore[attr-defined]  # pylint: disable=unnecessary-lambda  # pragma: no cover  # noqa: E501,B950
         monkeypatch.setattr(MODULE_UNDER_TEST, "open", mock_open)
 
         monkeypatch.setenv("BFI_VERSION", "x.y.z")
@@ -401,7 +447,11 @@ class Test__bfiExecute:
     '''
 
     #---------------------------------------------------------------------------
-    @pytest_mark.parametrize("expected_ret", [0, 1])
+    @pytest_mark.parametrize(
+        "expected_ret",
+        [0, 1],
+        ids=["ret0", "ret1"],
+    )
     @pytest_mark.parametrize(
         "input_args",
         [
@@ -409,6 +459,12 @@ class Test__bfiExecute:
             [],
             ["oneArg"],
             ["oneArg", "twoArg"],
+        ],
+        ids=[
+            "args_None",
+            "args_emptyList",
+            "args_oneArg",
+            "args_oneArg_twoArg",
         ],
     )
     def test__bfiExecute(
@@ -421,8 +477,8 @@ class Test__bfiExecute:
         Test _bfiExecute with no args that returns 0.
         """
         def mock_subprocess_call(
-            *args: List[Any],
-            **kwargs: Dict[str, Any],
+            *args: Any,
+            **kwargs: Any,
         ) -> int:
             expected_cmd = ["script.sh"]
             if input_args:

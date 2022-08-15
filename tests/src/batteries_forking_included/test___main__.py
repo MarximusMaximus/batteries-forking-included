@@ -13,6 +13,7 @@ from os import (
 )
 from os.path import (
     abspath                         as os_path_abspath,
+    dirname                         as os_path_dirname,
     expanduser                      as os_path_expanduser,
     join                            as os_path_join,
     relpath                         as os_path_relpath,
@@ -32,6 +33,7 @@ from typing import (
 #===============================================================================
 #region third party
 
+import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
@@ -68,15 +70,29 @@ class Test_CommandLine():
         """
         cwd = MODULE_UNDER_TEST.MY_REPO_FULLPATH
 
-        script_path = os_path_join(
+        python_path: List[str] = []
+        python_path.append(
+            os_path_dirname(
+                os_environ.get(
+                    "CONDA_PREFIX",
+                    "/opt/conda/miniforge/envs/foo",
+                ),
+            ),
+        )
+        python_path.append("batteries-forking-included")
+        python_path.append("bin")
+        python_path.append("python")
+        python_path_str = os_path_join("", *python_path)
+
+        script_path_str = os_path_join(
             ".",
             os_path_relpath(MODULE_UNDER_TEST.MY_DIR_FULLPATH, cwd),
             "__main__.py",
         )
 
         cmd = [
-            "python",
-            script_path,
+            python_path_str,
+            script_path_str,
             "--version",
         ]
 
@@ -96,15 +112,30 @@ class Test_CommandLine():
         Invoked from src dir.
         """
         cwd = os_path_abspath(os_path_join(MODULE_UNDER_TEST.MY_DIR_FULLPATH, ".."))
-        script_path = os_path_join(
+
+        python_path: List[str] = []
+        python_path.append(
+            os_path_dirname(
+                os_environ.get(
+                    "CONDA_PREFIX",
+                    "/opt/conda/miniforge/envs/foo",
+                ),
+            ),
+        )
+        python_path.append("batteries-forking-included")
+        python_path.append("bin")
+        python_path.append("python")
+        python_path_str = os_path_join("", *python_path)
+
+        script_path_str = os_path_join(
             ".",
             os_path_relpath(MODULE_UNDER_TEST.MY_DIR_FULLPATH, cwd),
             "__main__.py",
         )
 
         cmd = [
-            "python",
-            script_path,
+            python_path_str,
+            script_path_str,
             "--version",
         ]
 
@@ -125,8 +156,22 @@ class Test_CommandLine():
         """
         cwd = MODULE_UNDER_TEST.MY_DIR_FULLPATH
 
+        python_path: List[str] = []
+        python_path.append(
+            os_path_dirname(
+                os_environ.get(
+                    "CONDA_PREFIX",
+                    "/opt/conda/miniforge/envs/foo",
+                ),
+            ),
+        )
+        python_path.append("batteries-forking-included")
+        python_path.append("bin")
+        python_path.append("python")
+        python_path_str = os_path_join("", *python_path)
+
         cmd = [
-            "python",
+            python_path_str,
             "./__main__.py",
             "--version",
         ]
@@ -148,14 +193,28 @@ class Test_CommandLine():
         """
         cwd = os_path_expanduser("~")
 
-        script_path = os_path_join(
+        python_path: List[str] = []
+        python_path.append(
+            os_path_dirname(
+                os_environ.get(
+                    "CONDA_PREFIX",
+                    "/opt/conda/miniforge/envs/foo",
+                ),
+            ),
+        )
+        python_path.append("batteries-forking-included")
+        python_path.append("bin")
+        python_path.append("python")
+        python_path_str = os_path_join("", *python_path)
+
+        script_path_str = os_path_join(
             MODULE_UNDER_TEST.MY_DIR_FULLPATH,
             "__main__.py",
         )
 
         cmd = [
-            "python",
-            script_path,
+            python_path_str,
+            script_path_str,
             "--version",
         ]
 
@@ -172,12 +231,26 @@ class Test_CommandLine():
     #-------------------------------------------------------------------------------
     def test_CommandLine_RunEchoFoo_FromRepoRoot(
         self,
-        make_mock_repo: str,
-    ) -> None:  # pylint: disable: R0801
+        mock_repo: str,
+    ) -> None:
         """
         Invoke from repo root.
         """
-        script_path = os_path_join(
+        python_path: List[str] = []
+        python_path.append(
+            os_path_dirname(
+                os_environ.get(
+                    "CONDA_PREFIX",
+                    "/opt/conda/miniforge/envs/foo",
+                ),
+            ),
+        )
+        python_path.append("batteries-forking-included")
+        python_path.append("bin")
+        python_path.append("python")
+        python_path_str = os_path_join("", *python_path)
+
+        script_path_str_str = os_path_join(
             ".",
             "src",
             "batteries_forking_included",
@@ -185,8 +258,8 @@ class Test_CommandLine():
         )
 
         cmd = [
-            "python",
-            script_path,
+            python_path_str,
+            script_path_str_str,
             "run",
             "echo",
             "foo",
@@ -198,7 +271,7 @@ class Test_CommandLine():
         for k, v in os_environ.items():
             env[k] = v
 
-        p = subprocess_run(cmd, capture_output=True, cwd=make_mock_repo, env=env)
+        p = subprocess_run(cmd, capture_output=True, cwd=mock_repo, env=env)
 
         assert p.returncode == 0
 
@@ -216,53 +289,66 @@ class Test___main():
 
     #---------------------------------------------------------------------------
     @pytest_mark.parametrize(
-        "extra_args,expected_ret,func_to_mock",
+        (
+            "extra_args," +
+            "expected_ret," +
+            "func_to_mock"
+        ),
         [
-            [
+            pytest.param(
                 ["bootstrap"],
                 0,
                 "batteries_forking_included_bfiBootstrap",
-            ],
-            [
+                id="args_bootstrap",
+            ),
+            pytest.param(
                 ["bootstrap", "--project-dir=/some/fake/dir"],
                 0,
                 "batteries_forking_included_bfiBootstrap",
-            ],
-            [
+                id="args_bootstrap_projectDir",
+            ),
+            pytest.param(
                 ["init"],
                 0,
                 "batteries_forking_included_bfiInit",
-            ],
-            [
+                id="args_init",
+            ),
+            pytest.param(
                 ["init", "--project-dir=/some/fake/dir"],
                 0,
                 "batteries_forking_included_bfiInit",
-            ],
-            [
+                id="args_init_projectDir",
+            ),
+            pytest.param(
                 ["update"],
                 0,
                 "batteries_forking_included_bfiUpdate",
-            ],
-            [
+                id="args_update",
+            ),
+            pytest.param(
                 ["update", "--project-dir=/some/fake/dir"],
                 0,
                 "batteries_forking_included_bfiUpdate",
-            ],
-            [
+                id="args_update_projectDir",
+            ),
+            pytest.param(
                 ["run"],
                 0,
                 "batteries_forking_included_bfiRun",
-            ],
-            [
+                id="args_run",
+            ),
+            pytest.param(
                 ["run",  "--project-dir=/some/fake/dir"],
                 0,
                 "batteries_forking_included_bfiRun",
-            ],
-            [
+                id="args_run_projectDir",
+            ),
+            pytest.param(
                 ["run", "echo", "foo"],
                 0,
                 "batteries_forking_included_bfiRun",
-            ],
+                id="args_run_echo_foo",
+            ),
         ],
     )
     def test___main(
@@ -277,12 +363,12 @@ class Test___main():
         """
         def mock_func(
             extras: List[str],
-            *args: List[Any],
-            **kwargs: Dict[str, Any],
+            *args: Any,
+            **kwargs: Any,
         ) -> int:
             # ignore unused vars in function signature
-            args = args
-            kwargs = kwargs
+            args = args  # noqa: F841  # pylint: disable=self-assigning-variable
+            kwargs = kwargs  # noqa: F841  # pylint: disable=self-assigning-variable
 
             expected_extras = extra_args[1:]
             assert extras == expected_extras
