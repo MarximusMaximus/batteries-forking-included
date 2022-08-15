@@ -37,6 +37,7 @@
         "monkeypatched",
         "mypy",
         "ncipollo",
+        "nextline",
         "ngmodel",
         "ngrepeat",
         "noahsark",
@@ -49,6 +50,7 @@
         "numcollected",
         "pipefail",
         "posix",
+        "prevline",
         "printenv",
         "purebasename",
         "pydocstyle",
@@ -60,6 +62,7 @@
         "pyparsing",
         "pypi",
         "pyproject",
+        "pyright",
         "pytest",
         "pytester",
         "runneradmin",
@@ -69,11 +72,15 @@
         "setuptools",
         "shellcheck",
         "shfmt",
+        "SIGHUP",
+        "SIGTERM",
         "Slurper",
         "softlinks",
         "stylua",
         "subpackage",
+        "teetty",
         "tempdir",
+        "tput",
         "trackby",
         "ULTRADEBUG",
         "urlencode",
@@ -154,8 +161,26 @@
             "italic": false
         },
         {
-            "tag": "type: ignore",
+            "tag": "noqa",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "type: ignore[",
             "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "type: ignore",
+            "color": "#FF2D00",
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "transparent",
@@ -199,8 +224,26 @@
             "italic": false
         },
         {
-            "tag": "shellcheck",
+            "tag": "shellcheck disable=",
             "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "shellcheck source=",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "shellcheck",
+            "color": "#FF2D00",
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "transparent",
@@ -217,7 +260,25 @@
             "italic": false
         },
         {
+            "tag": "mypy: ignore-errors=",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
             "tag": "mypy: ignore-errors",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "flake8: noqa=",
             "color": "#9900CC",
             "strikethrough": false,
             "underline": false,
@@ -227,6 +288,15 @@
         },
         {
             "tag": "flake8: noqa",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "pylint: disable=",
             "color": "#9900CC",
             "strikethrough": false,
             "underline": false,
@@ -236,7 +306,43 @@
         },
         {
             "tag": "pylint: disable",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "cspell:disable-line",
             "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "cspell:disable-next-line",
+            "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "spellchecker: disable",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "spellchecker: enable",
+            "color": "#FF2D00",
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "transparent",
@@ -249,7 +355,7 @@
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "#000000",
-            "bold": true,
+            "bold": false,
             "italic": false
         },
         {
@@ -258,7 +364,7 @@
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "#333333",
-            "bold": true,
+            "bold": false,
             "italic": false
         },
         {
@@ -267,7 +373,7 @@
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "#666666",
-            "bold": true,
+            "bold": false,
             "italic": false
         },
         {
@@ -276,7 +382,34 @@
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "#999999",
-            "bold": true,
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "_____",
+            "color": "#DDDDDD",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "#BBBBBB",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "+++++",
+            "color": "#DDDDDD",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "#BBBBBB",
+            "bold": false,
+            "italic": false
+        },
+        {
+            "tag": "~~~~~",
+            "color": "#DDDDDD",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "#BBBBBB",
+            "bold": false,
             "italic": false
         },
         {
@@ -284,7 +417,7 @@
             "color": "#7F7F7F",
             "strikethrough": false,
             "underline": false,
-            "backgroundColor": "transparent",
+            "backgroundColor": "#000000",
             "bold": true,
             "italic": false
         },
@@ -294,7 +427,7 @@
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "transparent",
-            "bold": true,
+            "bold": false,
             "italic": false
         },
     ],
@@ -354,23 +487,18 @@
     "autoDocstring.startOnNewLine": true,
     "shellcheck.useWorkspaceRootAsCwd": true,
     "python.linting.mypyArgs": [
-        "--follow-imports=silent",
-        "--show-column-numbers",
+        // "--follow-imports=silent",
+        // "--show-column-numbers",
         "--no-pretty",
-        "--strict",
-        "--show-error-context",
-        "--show-error-codes"
+        // "--strict",
+        // "--show-error-context",
+        // "--show-error-codes"
     ],
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#1F312F",
-        "titleBar.activeBackground": "#2B4542",
-        "titleBar.activeForeground": "#F8FBFB"
-    },
     "todo-tree.filtering.excludeGlobs": [
         "**/node_modules",
         "**/src/batteries_forking_included/template/post-bootstrap.sh"
     ],
-    "python.defaultInterpreterPath": "/opt/conda/miniforge/envs/batteries-forking-included/bin/python",
+    "python.defaultInterpreterPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/python",
     "search.exclude": {
         "**/__pycache__": true,
         "**/.git": true,
@@ -398,6 +526,109 @@
     "coverage-gutters.coverageBaseDir": ".",
     "python.linting.pylintEnabled": true,
     "python.linting.banditEnabled": true,
+    "peacock.color": "#B07030",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#cd8946",
+        "activityBar.activeBorder": "#b4ebcf",
+        "activityBar.background": "#cd8946",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#b4ebcf",
+        "activityBarBadge.foreground": "#15202b",
+        "editorGroup.border": "#cd8946",
+        "panel.border": "#cd8946",
+        "sash.hoverBorder": "#cd8946",
+        "sideBar.border": "#cd8946",
+        "tab.activeBorder": "#cd8946",
+        "titleBar.activeBackground": "#b07030",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.border": "#b07030",
+        "titleBar.inactiveBackground": "#b0703099",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.logLevel": "Error",
+    "python.analysis.diagnosticSeverityOverrides": {
+        // strict settings, from https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+        // NOTE: Changes here need to be propagated to pyproject.toml.
+        "strictListInference": true,
+        "strictDictionaryInference": true,
+        "strictSetInference": true,
+        "strictParameterNoneValue": true,
+        "enableTypeIgnoreComments": true,
+        "reportMissingModuleSource": "error",  // was "warning"
+        "reportMissingImports": "error",
+        "reportUndefinedVariable": "error",
+        "reportAssertAlwaysTrue": "error",
+        "reportInvalidStringEscapeSequence": "error",
+        "reportInvalidTypeVarUse": "error",
+        "reportMissingTypeStubs": "error",
+        "reportSelfClsParameterName": "error",
+        "reportUnsupportedDunderAll": "error",
+        "reportUnusedExpression": "error",
+        "reportWildcardImportFromLibrary": "error",
+        "reportGeneralTypeIssues": "error",
+        "reportOptionalSubscript": "error",
+        "reportOptionalMemberAccess": "error",
+        "reportOptionalCall": "error",
+        "reportOptionalIterable": "error",
+        "reportOptionalContextManager": "error",
+        "reportOptionalOperand": "error",
+        "reportTypedDictNotRequiredAccess": "error",
+        "reportPrivateImportUsage": "error",
+        "reportUnboundVariable": "error",
+        "reportUnusedCoroutine": "error",
+        "reportConstantRedefinition": "error",
+        "reportDuplicateImport": "error",
+        "reportFunctionMemberAccess": "error",
+        "reportImportCycles": "error",
+        "reportIncompatibleMethodOverride": "error",
+        "reportIncompatibleVariableOverride": "error",
+        "reportIncompleteStub": "error",
+        "reportInconsistentConstructor": "error",
+        "reportInvalidStubStatement": "error",
+        "reportMatchNotExhaustive": "error",
+        "reportMissingParameterType": "error",
+        "reportMissingTypeArgument": "error",
+        "reportOverlappingOverload": "error",
+        "reportPrivateUsage": "error",
+        "reportTypeCommentUsage": "error",
+        "reportUnknownArgumentType": "error",
+        "reportUnknownLambdaType": "error",
+        "reportUnknownMemberType": "error",
+        "reportUnknownParameterType": "error",
+        "reportUnknownVariableType": "error",
+        "reportUnnecessaryCast": "error",
+        "reportUnnecessaryComparison": "error",
+        "reportUnnecessaryContains": "error",
+        "reportUnnecessaryIsInstance": "error",
+        "reportUnusedClass": "error",
+        "reportUnusedImport": "error",
+        "reportUnusedFunction": "error",
+        "reportUnusedVariable": "error",
+        "reportUntypedBaseClass": "error",
+        "reportUntypedClassDecorator": "error",
+        "reportUntypedFunctionDecorator": "error",
+        "reportUntypedNamedTuple": "error",
+        "reportCallInDefaultInitializer": "error",  // was "none"
+        "reportImplicitStringConcatenation": "none",
+        "reportMissingSuperCall": "error",  // was "none"
+        "reportPropertyTypeMismatch": "error",  // was "none"
+        "reportUninitializedInstanceVariable": "error",  // was "none"
+        "reportUnnecessaryTypeIgnoreComment": "error",  // was "none"
+        "reportUnusedCallResult": "error",  // was "none"
+    },
+    "python.linting.pylintCategorySeverity.warning": "Error",
+    "python.linting.pylintCategorySeverity.refactor": "Warning",
+    "python.linting.pylintCategorySeverity.convention": "Warning",
+    "python.linting.banditArgs": [
+        "--skip=B101,B603,B404"
+    ],
+    "python.linting.pylintPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/pylint",
+    "python.linting.banditPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/bandit",
+    "python.testing.pytestPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/pytest",
+    "shellcheck.executablePath": "/opt/conda/miniforge/envs/shellcheck/bin/shellcheck",
     // "bracketLens.minBracketScopeLines": 2,
     // "bracketLens.languageConfiguration": {
     // "ignoreCase": false,
