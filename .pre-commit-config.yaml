@@ -6,61 +6,142 @@ repos:
     - id: add-trailing-comma
       args: ["--py36-plus"]
 
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: "v1.3.0"
+    hooks:
+      - id: remove-crlf
+      - id: forbid-crlf
+      - id: remove-tabs
+        args: [ '--whitespaces-count', '4' ]
+      - id: forbid-tabs
+
+  - repo: local
+    hooks:
+      - id: replace-unicode-non-breaking-spaces
+        name: replace unicode non-breaking space character U+00A0 aka M-BM-
+        language: system
+        entry: perl -pi* -e 's/\xc2\xa0/ /g && ($t = 1) && print STDERR $_; END{{exit
+            $t}}'
+        files: ''
+      - id: forbid-unicode-non-breaking-spaces
+        name: Detect unicode non-breaking space character U+00A0 aka M-BM-
+        language: system
+        entry: perl -ne 'print if $m = /\xc2\xa0/; $t ||= $m; END{{exit $t}}'
+        files: ''
+      - id: replace-en-dashes
+        name: replace the EXTREMELY confusing unicode character U+2013
+        language: system
+        entry: perl -pi* -e 's/\xe2\x80\x93/-/g && ($t = 1) && print STDERR $_; END{{exit
+            $t}}'
+        files: ''
+      - id: forbid-en-dashes
+        name: Detect the EXTREMELY confusing unicode character U+2013
+        language: system
+        entry: perl -ne 'print if $m = /\xe2\x80\x93/; $t ||= $m; END{{exit $t}}'
+        files: ''
+
   # TODO: #8 (add additional linter? isort)
   # - repo: https://github.com/pycqa/isort
   #   rev: "5.10.1"
   #   hooks:
   #     - id: isort
   #       name: isort (python)
-  #       # args: ["--profile", "black"]
   #     - id: isort
   #       name: isort (cython)
   #       types: [cython]
-  #       # args: ["--profile", "black"]
   #     - id: isort
   #       name: isort (pyi)
   #       types: [pyi]
-  #       # args: ["--profile", "black"]
 
-  - repo: https://github.com/PyCQA/flake8
-    rev: "4.0.1"
+  - repo: https://github.com/python-poetry/poetry
+    rev: '1.2.0b3'
     hooks:
-      - id: flake8
-        additional_dependencies: [
-            # various potential bug checker
-            flake8-bugbear,
-            # trailing commas and such
-            flake8_commas,
-            # does pydocstyle -- style checks inside docstrings
-            flake8-docstrings,
-            # disabled b/c does not behave like regular mypy,
-            #   just use regular mypy
-            # flake8-mypy,
-            # python interface files
-            flake8-pyi,
-            # dependencies for libraries needed to check against
-            pytest,
-            pytest-subprocess,
+      - id: poetry-check
+      - id: poetry-lock
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: "v1.3.0"
+    hooks:
+    - id: python-safety-dependencies-check
+      files: ^pyproject\.toml
+      additional_dependencies: [safety<2]
+
+  - repo: local
+    hooks:
+    - id: flake8
+      name: flake8
+      description: '`flake8` is a command-line utility for enforcing style consistency across Python projects.'
+      entry: flake8
+      language: python
+      types: [python]
+      pass_filenames: false
+      require_serial: true
+      args: []
+      additional_dependencies: []
+
+  - repo: local
+    hooks:
+    - id: vulture
+      name: vulture
+      language: python
+      entry: vulture
+      description: Find unused Python code.
+      types: [python]
+      pass_filenames: false
+      require_serial: true
+
+  - repo: local
+    hooks:
+    - id: pylint
+      name: pylint
+      entry: pylint --verbose
+      language: python
+      types: [python]
+      require_serial: true
+      args: []
+      additional_dependencies: []
+
+  - repo: local
+    hooks:
+    - id: pyright
+      name: pyright
+      entry: pyright
+      language: node
+      types: [ python ]
+      pass_filenames: false
+
+  - repo: local
+    hooks:
+    - id: mypy
+      name: mypy
+      entry: mypy
+      language: python
+      types_or: [python, pyi]
+      args: []
+      require_serial: true
+      additional_dependencies: []
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: "1.7.4"
+    hooks:
+      - id: bandit
+        name: bandit-src
+        pass_filenames: false
+        args: [
+            "--recursive",
+            "src",
         ]
-
-  - repo: https://github.com/jendrikseipp/vulture
-    rev: 'v2.3'
-    hooks:
-      - id: vulture
-
-  - repo: https://github.com/PyCQA/pylint/
-    rev: 'v2.14.4'
-    hooks:
-      - id: pylint
-        entry: pylint --verbose
-        additional_dependencies: [
-            # dependencies for libraries needed to check against
-            pytest,
-            pytest-subprocess,
+      - id: bandit
+        name: bandit-tests
+        pass_filenames: false
+        args: [
+            "--recursive",
+            "tests",
+            "--skip=B101,B603,B404",
         ]
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: "v4.2.0"
+    rev: "v4.3.0"
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -82,25 +163,6 @@ repos:
       - id: check-ast
       - id: check-added-large-files
 
-  - repo: https://github.com/PyCQA/bandit
-    rev: "1.7.4"
-    hooks:
-      - id: bandit
-        name: bandit-src
-        pass_filenames: false
-        args: [
-            "--recursive",
-            "src",
-        ]
-      - id: bandit
-        name: bandit-tests
-        pass_filenames: false
-        args: [
-            "--recursive",
-            "tests",
-            "--skip=B101,B603,B404",
-        ]
-
   - repo: local
     hooks:
       - id: rst
@@ -116,25 +178,6 @@ repos:
     hooks:
     - id: rst-linter
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v0.902"
-    hooks:
-      - id: mypy
-        args: [
-            "--strict",
-            "--implicit-reexport",
-            "--show-error-context",
-            "--show-error-codes",
-            "--pretty",
-            "--color-output",
-            "--error-summary",
-          ]
-        additional_dependencies: [
-            # dependencies for libraries needed to check against
-            pytest,
-            pytest-subprocess,
-        ]
-
   - repo: https://gitlab.com/bmares/check-json5
     rev: "v1.0.0"
     hooks:
@@ -142,12 +185,11 @@ repos:
       types: [file]
       files: ^.*\.json[c5]?$
 
-  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: "v1.2.4"
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: "0.17.1"
     hooks:
-    - id: python-safety-dependencies-check
-      files: ^pyproject\.toml
-      additional_dependencies: [safety<2]
+      - id: check-renovate
+        additional_dependencies: ['pyjson5']
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: "v1.9.0"
@@ -179,8 +221,16 @@ repos:
     hooks:
       - id: shellcheck
 
+  - repo: local
+    hooks:
+      - id: check-dash-syntax
+        name: Check Shell scripts syntax correctness
+        language: system
+        entry: bash --posix -n
+        files: ^.*\.sh$
+
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: "v0.31.1"
+    rev: "v0.32.1"
     hooks:
       - id: markdownlint
 
@@ -190,7 +240,7 @@ repos:
       - id: curlylint
 
   - repo: https://github.com/cheshirekow/cmake-format-precommit
-    rev: "v0.6.10"
+    rev: "v0.6.13"
     hooks:
       - id: cmake-format
       - id: cmake-lint
@@ -199,25 +249,9 @@ repos:
     hooks:
       - id: cmakelint
 
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: "0.14.3"
-    hooks:
-      - id: check-renovate
-        additional_dependencies: ['pyjson5']
-
-  - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: "v1.1.13"
-    hooks:
-      - id: remove-crlf
-      - id: forbid-crlf
-      - id: remove-tabs
-        args: [ '--whitespaces-count', '4' ]
-      - id: forbid-tabs
-
-
   - repo: https://github.com/awebdeveloper/pre-commit-tslint
     # latest master as of 2022-04-25, commit date 2020-06-05
-    rev: "85cbb840e89401d6b4f9bbaa471529d303cccec3"
+    rev: "0.0.2"
     hooks:
       - id: tslint
         args: ['--project','tsconfig.json','--type-check']
@@ -234,39 +268,6 @@ repos:
     rev: "v0.17.0"
     hooks:
       - id: gitlint
-
-  - repo: local
-    hooks:
-      - id: replace-unicode-non-breaking-spaces
-        name: replace unicode non-breaking space character U+00A0 aka M-BM-
-        language: system
-        entry: perl -pi* -e 's/\xc2\xa0/ /g && ($t = 1) && print STDERR $_; END{{exit
-            $t}}'
-        files: ''
-      - id: forbid-unicode-non-breaking-spaces
-        name: Detect unicode non-breaking space character U+00A0 aka M-BM-
-        language: system
-        entry: perl -ne 'print if $m = /\xc2\xa0/; $t ||= $m; END{{exit $t}}'
-        files: ''
-      - id: replace-en-dashes
-        name: replace the EXTREMELY confusing unicode character U+2013
-        language: system
-        entry: perl -pi* -e 's/\xe2\x80\x93/-/g && ($t = 1) && print STDERR $_; END{{exit
-            $t}}'
-        files: ''
-      - id: forbid-en-dashes
-        name: Detect the EXTREMELY confusing unicode character U+2013
-        language: system
-        entry: perl -ne 'print if $m = /\xe2\x80\x93/; $t ||= $m; END{{exit $t}}'
-        files: ''
-
-  - repo: local
-    hooks:
-      - id: check-dash-syntax
-        name: Check Shell scripts syntax correctness
-        language: system
-        entry: bash --posix -n
-        files: ^.*\.sh$
 
   - repo: local
     hooks:

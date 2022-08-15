@@ -1,8 +1,10 @@
-name: batteries-forking-included
 channels:
   - nodefaults
   - conda-forge
 dependencies:
-  - python=3.10
+  - python<3.11
+  - pip
+  - wheel
+  - setuptools
   - poetry
-  - perl  # used by pre-commit tests
+  - perl
