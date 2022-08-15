@@ -30,8 +30,51 @@ post_bootstrap()
     # to prevent accidents when testing this script on it's own
     require_not_root_user_XY
 
+    # use
+    # teetty_G "${FULL_LOG}" "${FULL_LOG}" COMMANDHERE WITH ARGS
+    # to call an external program and hae it's output get routed to the logs
+
     # WARNING: DO NOT EDIT ABOVE THIS LINE
 
+    # install x86_64 shellcheck b/c shellcheck isn't available on arm64 (yet)
+    if [ "$REAL_PLATFORM" = "Darwin" ]; then
+        CONDA_SUBDIR=osx-64
+        export CONDA_SUBDIR
+    fi
+
+    log_header "Looking for shellcheck Conda Environment..."
+
+    found_env=$(conda env list | awk -v project_base_name="shellcheck" '{if ($1 == project_base_name) print $1}')
+
+    if [ "${found_env}" = "" ]; then
+        log_footer "shellcheck Conda Environment not found."
+    else
+        log_footer "shellcheck Conda Environment found."
+    fi
+
+    if [ "${found_env}" = "" ]; then
+        log_header "Installing shellcheck Conda Environment..."
+
+        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda create --name shellcheck shellcheck -v -y
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "'conda create --name \"shellcheck\"' exited with error code: %d" "$ret"
+            exit $ret
+        fi
+
+        log_footer "shellcheck Conda Environment Installed."
+    else
+        log_header "Updating shellcheck Conda Environment..."
+
+        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda update --name shellcheck shellcheck -v -y
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            log_fatal "'conda update --name \"shellcheck\"' exited with error code: %d" "$ret"
+            exit $ret
+        fi
+
+        log_footer "shellcheck Conda Environment Updated."
+    fi
 
     # WARNING: DO NOT EDIT BELOW THIS LINE
 
@@ -1303,17 +1346,21 @@ fi
     #region Immediate
 
     if [ "${_IS_UNDER_TEST}" = "true" ]; then
-        inject_monkeypatch
+        type inject_monkeypatch >/dev/null 2>&1
+        monkeypatch_ret=$?
+        if [ $monkeypatch_ret -eq 0 ]; then
+            inject_monkeypatch
+        fi
     fi
 
     if \
         [ "$(array_get_last WAS_SOURCED)" = false ] ||
-        [ "${__OVERRIDE_SOURCED}" = true ]
+        [ "${_CALL_MAIN_ANYWAY}" = true ]
     then
         __main "$@"
         ret=$?
     else
-        __sourced_main
+        __sourced_main "$@"
         ret=$?
     fi
     exit $ret
@@ -1325,6 +1372,20 @@ ret=$?
 
 ################################################################################
 #region Postamble
+
+#===============================================================================
+#region PytestShellTestHarness Postamble
+
+if [ "${_IS_UNDER_TEST}" = "true" ]; then
+    type inject_monkeypatch >/dev/null 2>&1
+    monkeypatch_ret=$?
+    if [ $monkeypatch_ret -eq 0 ]; then
+        inject_monkeypatch
+    fi
+fi
+
+#endregion PytestShellTestHarness Postamble
+#===============================================================================
 
 #===============================================================================
 #region Track Sourcing
