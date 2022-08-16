@@ -544,7 +544,8 @@
         "titleBar.activeForeground": "#e7e7e7",
         "titleBar.border": "#b07030",
         "titleBar.inactiveBackground": "#b0703099",
-        "titleBar.inactiveForeground": "#e7e7e799"
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "commandCenter.border": "#e7e7e799"
     },
     "python.analysis.diagnosticMode": "workspace",
     "python.analysis.typeCheckingMode": "strict",
