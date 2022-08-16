@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/src/batteries_forking_included/activate_sh/test_shell.py (batteries-forking-included)
 """  # noqa: E501,W505
@@ -19,10 +21,10 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
+    param                           as pytest_param,
 )
 
 #endregion third party
@@ -62,7 +64,7 @@ class Test_Invoke():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 None,
                 2,
                 [
@@ -82,7 +84,7 @@ class Test_Invoke():
                 ],
                 id="args_None",
             ),
-            pytest.param(
+            pytest_param(
                 [],
                 2,
                 [
@@ -102,7 +104,7 @@ class Test_Invoke():
                 ],
                 id="args_emptyList",
             ),
-            pytest.param(
+            pytest_param(
                 ["echo", "foo"],
                 0,
                 [
@@ -122,7 +124,7 @@ class Test_Invoke():
                 ],
                 id="args_echo_foo",
             ),
-            pytest.param(
+            pytest_param(
                 ["--version"],
                 0,
                 [

@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/src/batteries_forking_included/bfi_base_sh/test_teetty_G.py (batteries-forking-included)
 """  # noqa: E501,W505
@@ -19,9 +21,9 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
 from pytest import (
     mark                            as pytest_mark,
+    param                           as pytest_param,
 )
 
 #endregion third party
@@ -58,7 +60,7 @@ class Test_teetty_G():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "printf", "\"foo bar\n\"",  # cspell:disable-line # noqa: E501,B950
                 ],
@@ -78,7 +80,7 @@ class Test_teetty_G():
                 ],
                 id="args_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "printf", "\"foo bar\nbaz\nqwerty\n\"",  # cspell:disable-line # noqa: E501,B950
                 ],
@@ -98,7 +100,7 @@ class Test_teetty_G():
                 ],
                 id="args_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     ">&2", "printf", "\"foo bar\nbaz\nqwerty\n\"",  # cspell:disable-line # noqa: E501,B950
                 ],

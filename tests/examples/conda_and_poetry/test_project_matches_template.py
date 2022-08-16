@@ -1,7 +1,9 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/test_batteries_forking_included.py (batteries-forking-included)
 """
-# pylint: disable=duplicate-code
+
 ################################################################################
 #region Imports
 

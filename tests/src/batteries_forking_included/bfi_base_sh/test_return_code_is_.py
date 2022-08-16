@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/src/batteries_forking_included/bfi_base_sh/test_shell__return_code.py (batteries-forking-included)
 """  # noqa: E501,W505,B950
@@ -19,9 +21,9 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
 from pytest import (
     mark                            as pytest_mark,
+    param                           as pytest_param,
 )
 
 #endregion third party
@@ -58,7 +60,7 @@ class Test_return_code_is_error():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     0,  # RET_SUCCESS
                 ],
@@ -78,7 +80,7 @@ class Test_return_code_is_error():
                 ],
                 id="0_RET_SUCCESS",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     1,  # RET_ERROR_UNKNOWN
                 ],
@@ -98,7 +100,7 @@ class Test_return_code_is_error():
                 ],
                 id="1_RET_ERROR_UNKNOWN",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     2,  # first local error code
                 ],
@@ -118,7 +120,7 @@ class Test_return_code_is_error():
                 ],
                 id="2_first_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     10,  # a middle local error code
                 ],
@@ -138,7 +140,7 @@ class Test_return_code_is_error():
                 ],
                 id="10_middle_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     63,  # last local error code
                 ],
@@ -158,7 +160,7 @@ class Test_return_code_is_error():
                 ],
                 id="63_last_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     64,  # first local warning code
                 ],
@@ -178,7 +180,7 @@ class Test_return_code_is_error():
                 ],
                 id="64_first_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     100,  # middle local warning code
                 ],
@@ -198,7 +200,7 @@ class Test_return_code_is_error():
                 ],
                 id="100_middle_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     125,  # last local warning code
                 ],
@@ -218,7 +220,7 @@ class Test_return_code_is_error():
                 ],
                 id="125_last_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     126,  # RET_ERROR_SHELL_PERMISSION_DENIED
                 ],
@@ -238,7 +240,7 @@ class Test_return_code_is_error():
                 ],
                 id="126_RET_ERROR_SHELL_PERMISSION_DENIED",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     127,  # RET_ERROR_SHELL_FILE_NOT_FOUND
                 ],
@@ -258,7 +260,7 @@ class Test_return_code_is_error():
                 ],
                 id="127_RET_ERROR_SHELL_FILE_NOT_FOUND",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     128,  # RET_ERROR_UNKNOWN_128 (first global error code)
                 ],
@@ -278,7 +280,7 @@ class Test_return_code_is_error():
                 ],
                 id="128_RET_ERROR_UNKNOWN_128_first_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     129,  # RET_ERROR_SIGHUP
                 ],
@@ -298,7 +300,7 @@ class Test_return_code_is_error():
                 ],
                 id="129_RET_ERROR_SIGHUP_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     143,  # RET_ERROR_SIGTERM
                 ],
@@ -318,7 +320,7 @@ class Test_return_code_is_error():
                 ],
                 id="143_RET_ERROR_SIGTERM_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     144,  # RET_ERROR_CONDA_ACTIVATE_FAILED
                 ],
@@ -338,7 +340,7 @@ class Test_return_code_is_error():
                 ],
                 id="144_RET_ERROR_CONDA_ACTIVATE_FAILED_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     160,  # RET_ERROR_POETRY_INSTALL_FAILED
                 ],
@@ -358,7 +360,7 @@ class Test_return_code_is_error():
                 ],
                 id="160_RET_ERROR_POETRY_INSTALL_FAILED_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     191,  # last global error code
                 ],
@@ -378,7 +380,7 @@ class Test_return_code_is_error():
                 ],
                 id="191_last_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     192,  # RET_WARNING_UNKNOWN (first global warning code)
                 ],
@@ -398,7 +400,7 @@ class Test_return_code_is_error():
                 ],
                 id="192_RET_WARNING_UNKNOWN_first_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     225,  # middle global warning code
                 ],
@@ -418,7 +420,7 @@ class Test_return_code_is_error():
                 ],
                 id="225_middle_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     251,  # last global warning code
                 ],
@@ -438,7 +440,7 @@ class Test_return_code_is_error():
                 ],
                 id="251_last_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     253,  # RET_SUCCESS_SPECIAL
                 ],
@@ -458,7 +460,7 @@ class Test_return_code_is_error():
                 ],
                 id="253_RET_SUCCESS_SPECIAL",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     254,  # RET_TOMBSTONE
                 ],
@@ -478,7 +480,7 @@ class Test_return_code_is_error():
                 ],
                 id="254_RET_TOMBSTONE",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     255,  # RET_ERROR_UNKNOWN_255
                 ],
@@ -498,7 +500,7 @@ class Test_return_code_is_error():
                 ],
                 id="255_RET_ERROR_UNKNOWN_255",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -1,  # RET_ERROR_UNKNOWN_NEG1
                 ],
@@ -518,7 +520,7 @@ class Test_return_code_is_error():
                 ],
                 id="neg1_RET_ERROR_UNKNOWN_NEG1",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -127,  # middle negative return code
                 ],
@@ -538,7 +540,7 @@ class Test_return_code_is_error():
                 ],
                 id="neg127_middle_negative_return_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -255,  # high negative return code
                 ],
@@ -610,7 +612,7 @@ class Test_return_code_is_warning():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     0,  # RET_SUCCESS
                 ],
@@ -630,7 +632,7 @@ class Test_return_code_is_warning():
                 ],
                 id="0_RET_SUCCESS",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     1,  # RET_ERROR_UNKNOWN
                 ],
@@ -650,7 +652,7 @@ class Test_return_code_is_warning():
                 ],
                 id="1_RET_ERROR_UNKNOWN",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     2,  # first local error code
                 ],
@@ -670,7 +672,7 @@ class Test_return_code_is_warning():
                 ],
                 id="2_first_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     10,  # a middle local error code
                 ],
@@ -690,7 +692,7 @@ class Test_return_code_is_warning():
                 ],
                 id="10_middle_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     63,  # last local error code
                 ],
@@ -710,7 +712,7 @@ class Test_return_code_is_warning():
                 ],
                 id="63_last_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     64,  # first local warning code
                 ],
@@ -730,7 +732,7 @@ class Test_return_code_is_warning():
                 ],
                 id="64_first_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     100,  # middle local warning code
                 ],
@@ -750,7 +752,7 @@ class Test_return_code_is_warning():
                 ],
                 id="100_middle_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     125,  # last local warning code
                 ],
@@ -770,7 +772,7 @@ class Test_return_code_is_warning():
                 ],
                 id="125_last_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     126,  # RET_ERROR_SHELL_PERMISSION_DENIED
                 ],
@@ -790,7 +792,7 @@ class Test_return_code_is_warning():
                 ],
                 id="126_RET_ERROR_SHELL_PERMISSION_DENIED",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     127,  # RET_ERROR_SHELL_FILE_NOT_FOUND
                 ],
@@ -810,7 +812,7 @@ class Test_return_code_is_warning():
                 ],
                 id="127_RET_ERROR_SHELL_FILE_NOT_FOUND",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     128,  # RET_ERROR_UNKNOWN_128 (first global error code)
                 ],
@@ -830,7 +832,7 @@ class Test_return_code_is_warning():
                 ],
                 id="128_RET_ERROR_UNKNOWN_128_first_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     129,  # RET_ERROR_SIGHUP
                 ],
@@ -850,7 +852,7 @@ class Test_return_code_is_warning():
                 ],
                 id="129_RET_ERROR_SIGHUP_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     143,  # RET_ERROR_SIGTERM
                 ],
@@ -870,7 +872,7 @@ class Test_return_code_is_warning():
                 ],
                 id="143_RET_ERROR_SIGTERM_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     144,  # RET_ERROR_CONDA_ACTIVATE_FAILED
                 ],
@@ -890,7 +892,7 @@ class Test_return_code_is_warning():
                 ],
                 id="144_RET_ERROR_CONDA_ACTIVATE_FAILED_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     160,  # RET_ERROR_POETRY_INSTALL_FAILED
                 ],
@@ -910,7 +912,7 @@ class Test_return_code_is_warning():
                 ],
                 id="160_RET_ERROR_POETRY_INSTALL_FAILED_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     191,  # last global error code
                 ],
@@ -930,7 +932,7 @@ class Test_return_code_is_warning():
                 ],
                 id="191_last_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     192,  # RET_WARNING_UNKNOWN (first global warning code)
                 ],
@@ -950,7 +952,7 @@ class Test_return_code_is_warning():
                 ],
                 id="192_RET_WARNING_UNKNOWN_first_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     225,  # middle global warning code
                 ],
@@ -970,7 +972,7 @@ class Test_return_code_is_warning():
                 ],
                 id="225_middle_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     251,  # last global warning code
                 ],
@@ -990,7 +992,7 @@ class Test_return_code_is_warning():
                 ],
                 id="251_last_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     253,  # RET_SUCCESS_SPECIAL
                 ],
@@ -1010,7 +1012,7 @@ class Test_return_code_is_warning():
                 ],
                 id="253_RET_SUCCESS_SPECIAL",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     254,  # RET_TOMBSTONE
                 ],
@@ -1030,7 +1032,7 @@ class Test_return_code_is_warning():
                 ],
                 id="254_RET_TOMBSTONE",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     255,  # RET_ERROR_UNKNOWN_255
                 ],
@@ -1050,7 +1052,7 @@ class Test_return_code_is_warning():
                 ],
                 id="255_RET_ERROR_UNKNOWN_255",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -1,  # RET_ERROR_UNKNOWN_NEG1
                 ],
@@ -1070,7 +1072,7 @@ class Test_return_code_is_warning():
                 ],
                 id="neg1_RET_ERROR_UNKNOWN_NEG1",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -127,  # middle negative return code
                 ],
@@ -1090,7 +1092,7 @@ class Test_return_code_is_warning():
                 ],
                 id="neg127_middle_negative_return_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -255,  # high negative return code
                 ],
@@ -1162,7 +1164,7 @@ class Test_return_code_is_success():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     0,  # RET_SUCCESS
                 ],
@@ -1182,7 +1184,7 @@ class Test_return_code_is_success():
                 ],
                 id="0_RET_SUCCESS",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     1,  # RET_ERROR_UNKNOWN
                 ],
@@ -1202,7 +1204,7 @@ class Test_return_code_is_success():
                 ],
                 id="1_RET_ERROR_UNKNOWN",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     2,  # first local error code
                 ],
@@ -1222,7 +1224,7 @@ class Test_return_code_is_success():
                 ],
                 id="2_first_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     10,  # a middle local error code
                 ],
@@ -1242,7 +1244,7 @@ class Test_return_code_is_success():
                 ],
                 id="10_middle_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     63,  # last local error code
                 ],
@@ -1262,7 +1264,7 @@ class Test_return_code_is_success():
                 ],
                 id="63_last_local_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     64,  # first local warning code
                 ],
@@ -1282,7 +1284,7 @@ class Test_return_code_is_success():
                 ],
                 id="64_first_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     100,  # middle local warning code
                 ],
@@ -1302,7 +1304,7 @@ class Test_return_code_is_success():
                 ],
                 id="100_middle_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     125,  # last local warning code
                 ],
@@ -1322,7 +1324,7 @@ class Test_return_code_is_success():
                 ],
                 id="125_last_local_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     126,  # RET_ERROR_SHELL_PERMISSION_DENIED
                 ],
@@ -1342,7 +1344,7 @@ class Test_return_code_is_success():
                 ],
                 id="126_RET_ERROR_SHELL_PERMISSION_DENIED",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     127,  # RET_ERROR_SHELL_FILE_NOT_FOUND
                 ],
@@ -1362,7 +1364,7 @@ class Test_return_code_is_success():
                 ],
                 id="127_RET_ERROR_SHELL_FILE_NOT_FOUND",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     128,  # RET_ERROR_UNKNOWN_128 (first global error code)
                 ],
@@ -1382,7 +1384,7 @@ class Test_return_code_is_success():
                 ],
                 id="128_RET_ERROR_UNKNOWN_128_first_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     129,  # RET_ERROR_SIGHUP
                 ],
@@ -1402,7 +1404,7 @@ class Test_return_code_is_success():
                 ],
                 id="129_RET_ERROR_SIGHUP_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     143,  # RET_ERROR_SIGTERM
                 ],
@@ -1422,7 +1424,7 @@ class Test_return_code_is_success():
                 ],
                 id="143_RET_ERROR_SIGTERM_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     144,  # RET_ERROR_CONDA_ACTIVATE_FAILED
                 ],
@@ -1442,7 +1444,7 @@ class Test_return_code_is_success():
                 ],
                 id="144_RET_ERROR_CONDA_ACTIVATE_FAILED_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     160,  # RET_ERROR_POETRY_INSTALL_FAILED
                 ],
@@ -1462,7 +1464,7 @@ class Test_return_code_is_success():
                 ],
                 id="160_RET_ERROR_POETRY_INSTALL_FAILED_middle_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     191,  # last global error code
                 ],
@@ -1482,7 +1484,7 @@ class Test_return_code_is_success():
                 ],
                 id="191_last_global_error_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     192,  # RET_WARNING_UNKNOWN (first global warning code)
                 ],
@@ -1502,7 +1504,7 @@ class Test_return_code_is_success():
                 ],
                 id="192_RET_WARNING_UNKNOWN_first_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     225,  # middle global warning code
                 ],
@@ -1522,7 +1524,7 @@ class Test_return_code_is_success():
                 ],
                 id="225_middle_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     251,  # last global warning code
                 ],
@@ -1542,7 +1544,7 @@ class Test_return_code_is_success():
                 ],
                 id="251_last_global_warning_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     253,  # RET_SUCCESS_SPECIAL
                 ],
@@ -1562,7 +1564,7 @@ class Test_return_code_is_success():
                 ],
                 id="253_RET_SUCCESS_SPECIAL",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     254,  # RET_TOMBSTONE
                 ],
@@ -1582,7 +1584,7 @@ class Test_return_code_is_success():
                 ],
                 id="254_RET_TOMBSTONE",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     255,  # RET_ERROR_UNKNOWN_255
                 ],
@@ -1602,7 +1604,7 @@ class Test_return_code_is_success():
                 ],
                 id="255_RET_ERROR_UNKNOWN_255",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -1,  # RET_ERROR_UNKNOWN_NEG1
                 ],
@@ -1622,7 +1624,7 @@ class Test_return_code_is_success():
                 ],
                 id="neg1_RET_ERROR_UNKNOWN_NEG1",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -127,  # middle negative return code
                 ],
@@ -1642,7 +1644,7 @@ class Test_return_code_is_success():
                 ],
                 id="neg127_middle_negative_return_code",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     -255,  # high negative return code
                 ],

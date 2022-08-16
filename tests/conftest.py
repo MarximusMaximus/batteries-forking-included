@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/conftest.py (batteries-forking-included)
 """

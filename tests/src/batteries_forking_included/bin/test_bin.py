@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/bin/test_batteries_dash_forking_dash_included.py (batteries-forking-included)
 """
@@ -31,10 +33,10 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
+    param                           as pytest_param,
 )
 
 #endregion third party
@@ -51,10 +53,33 @@ from pytest import (
 ################################################################################
 
 ################################################################################
-#region Constants
+#region Helper Functions
 
+#-------------------------------------------------------------------------------
+def get_bfi_python_path() -> str:
+    """
+    Get the batteries-forking-included conda environment's python path.
 
-#endregion Constants
+    Returns:
+        str: batteries-forking-included conda environment's python path
+    """
+    python_path: List[str] = []
+    python_path.append(
+        os_path_dirname(
+            os_environ.get(
+                "CONDA_PREFIX",
+                "/opt/conda/miniforge/envs/placeholder",
+            ),
+        ),
+    )
+    python_path.append("batteries-forking-included")
+    python_path.append("bin")
+    python_path.append("python")
+    python_path_str = os_path_join("", *python_path)
+
+    return python_path_str
+
+#endregion Helper Functions
 ################################################################################
 
 ################################################################################
@@ -75,7 +100,7 @@ class Test_CommandLine():
             "not_expected_stdout"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [],
                 2,
                 [
@@ -87,7 +112,7 @@ class Test_CommandLine():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 ["--help"],
                 0,
                 [
@@ -99,7 +124,7 @@ class Test_CommandLine():
                 ],
                 id="args_help",
             ),
-            pytest.param(
+            pytest_param(
                 ["--version"],
                 0,
                 [
@@ -111,7 +136,7 @@ class Test_CommandLine():
                 ],
                 id="args_version",
             ),
-            pytest.param(
+            pytest_param(
                 ["run", "echo", "foo"],
                 0,
                 [
@@ -140,19 +165,7 @@ class Test_CommandLine():
         """
         monkeypatch.delenv("_IS_UNDER_TEST", raising=False)
 
-        python_path: List[str] = []
-        python_path.append(
-            os_path_dirname(
-                os_environ.get(
-                    "CONDA_PREFIX",
-                    "/opt/conda/miniforge/envs/foo",
-                ),
-            ),
-        )
-        python_path.append("batteries-forking-included")
-        python_path.append("bin")
-        python_path.append("python")
-        python_path_str = os_path_join("", *python_path)
+        python_path_str = get_bfi_python_path()
 
         cmd = [
             python_path_str,

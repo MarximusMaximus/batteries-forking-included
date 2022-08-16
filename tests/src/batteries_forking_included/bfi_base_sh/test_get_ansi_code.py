@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/src/batteries_forking_included/bfi_base_sh/test_get_ansi_code.py (batteries-forking-included)
 """  # noqa: E501,W505,B950
@@ -19,9 +21,9 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
 from pytest import (
     mark                            as pytest_mark,
+    param                           as pytest_param,
 )
 
 #endregion third party
@@ -58,7 +60,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -77,7 +79,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -97,7 +99,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -117,7 +119,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -137,7 +139,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -157,7 +159,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -177,7 +179,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -197,7 +199,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -217,7 +219,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -237,7 +239,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -257,7 +259,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -277,7 +279,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -297,7 +299,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -317,7 +319,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -337,7 +339,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -357,7 +359,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -377,7 +379,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -397,7 +399,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -417,7 +419,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -437,7 +439,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -457,7 +459,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -477,7 +479,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -497,7 +499,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -558,7 +560,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -577,7 +579,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -597,7 +599,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -617,7 +619,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -637,7 +639,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -657,7 +659,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -677,7 +679,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -697,7 +699,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -717,7 +719,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -737,7 +739,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -757,7 +759,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -777,7 +779,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -797,7 +799,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -817,7 +819,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -837,7 +839,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -857,7 +859,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -877,7 +879,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -897,7 +899,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -917,7 +919,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -937,7 +939,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -957,7 +959,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -977,7 +979,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -997,7 +999,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -1058,7 +1060,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -1077,7 +1079,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -1097,7 +1099,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -1117,7 +1119,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -1137,7 +1139,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -1157,7 +1159,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -1177,7 +1179,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -1197,7 +1199,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -1217,7 +1219,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -1237,7 +1239,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -1257,7 +1259,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -1277,7 +1279,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -1297,7 +1299,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -1317,7 +1319,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -1337,7 +1339,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -1357,7 +1359,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -1377,7 +1379,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -1397,7 +1399,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -1417,7 +1419,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -1437,7 +1439,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -1457,7 +1459,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -1477,7 +1479,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -1497,7 +1499,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -1558,7 +1560,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -1577,7 +1579,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -1597,7 +1599,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -1617,7 +1619,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -1637,7 +1639,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -1657,7 +1659,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -1677,7 +1679,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -1697,7 +1699,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -1717,7 +1719,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -1737,7 +1739,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -1757,7 +1759,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -1777,7 +1779,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -1797,7 +1799,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -1817,7 +1819,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -1837,7 +1839,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -1857,7 +1859,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -1877,7 +1879,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -1897,7 +1899,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -1917,7 +1919,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -1937,7 +1939,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -1957,7 +1959,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -1977,7 +1979,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -1997,7 +1999,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -2058,7 +2060,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -2077,7 +2079,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -2097,7 +2099,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -2117,7 +2119,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -2137,7 +2139,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -2157,7 +2159,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -2177,7 +2179,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -2197,7 +2199,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -2217,7 +2219,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -2237,7 +2239,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -2257,7 +2259,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -2277,7 +2279,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -2297,7 +2299,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -2317,7 +2319,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -2337,7 +2339,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -2357,7 +2359,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -2377,7 +2379,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -2397,7 +2399,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -2417,7 +2419,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -2437,7 +2439,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -2457,7 +2459,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -2477,7 +2479,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -2497,7 +2499,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -2558,7 +2560,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -2577,7 +2579,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -2597,7 +2599,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -2617,7 +2619,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -2637,7 +2639,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -2657,7 +2659,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -2677,7 +2679,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -2697,7 +2699,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -2717,7 +2719,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -2737,7 +2739,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -2757,7 +2759,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -2777,7 +2779,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -2797,7 +2799,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -2817,7 +2819,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -2837,7 +2839,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -2857,7 +2859,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -2877,7 +2879,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -2897,7 +2899,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -2917,7 +2919,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -2937,7 +2939,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -2957,7 +2959,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -2977,7 +2979,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -2997,7 +2999,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -3058,7 +3060,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -3077,7 +3079,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -3097,7 +3099,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -3117,7 +3119,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -3137,7 +3139,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -3157,7 +3159,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -3177,7 +3179,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -3197,7 +3199,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -3217,7 +3219,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -3237,7 +3239,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -3257,7 +3259,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -3277,7 +3279,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -3297,7 +3299,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -3317,7 +3319,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -3337,7 +3339,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -3357,7 +3359,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -3377,7 +3379,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -3397,7 +3399,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -3417,7 +3419,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -3437,7 +3439,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -3457,7 +3459,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -3477,7 +3479,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -3497,7 +3499,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -3558,7 +3560,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -3577,7 +3579,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -3597,7 +3599,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -3617,7 +3619,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -3637,7 +3639,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -3657,7 +3659,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -3677,7 +3679,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -3697,7 +3699,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -3717,7 +3719,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -3737,7 +3739,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -3757,7 +3759,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -3777,7 +3779,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -3797,7 +3799,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -3817,7 +3819,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -3837,7 +3839,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -3857,7 +3859,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -3877,7 +3879,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -3897,7 +3899,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -3917,7 +3919,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -3937,7 +3939,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -3957,7 +3959,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -3977,7 +3979,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -3997,7 +3999,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -4058,7 +4060,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -4077,7 +4079,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -4097,7 +4099,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -4117,7 +4119,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -4137,7 +4139,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -4157,7 +4159,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -4177,7 +4179,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -4197,7 +4199,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -4217,7 +4219,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -4237,7 +4239,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -4257,7 +4259,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -4277,7 +4279,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -4297,7 +4299,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -4317,7 +4319,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -4337,7 +4339,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -4357,7 +4359,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -4377,7 +4379,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -4397,7 +4399,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -4417,7 +4419,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -4437,7 +4439,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -4457,7 +4459,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -4477,7 +4479,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -4497,7 +4499,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -4558,7 +4560,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -4577,7 +4579,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -4597,7 +4599,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -4617,7 +4619,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -4637,7 +4639,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -4657,7 +4659,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -4677,7 +4679,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -4697,7 +4699,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -4717,7 +4719,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -4737,7 +4739,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -4757,7 +4759,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -4777,7 +4779,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -4797,7 +4799,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -4817,7 +4819,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -4837,7 +4839,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -4857,7 +4859,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -4877,7 +4879,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -4897,7 +4899,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -4917,7 +4919,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -4937,7 +4939,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -4957,7 +4959,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -4977,7 +4979,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -4997,7 +4999,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],
@@ -5058,7 +5060,7 @@ class Test_get_ansi_code():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                 ],
                 0,
@@ -5077,7 +5079,7 @@ class Test_get_ansi_code():
                 ],
                 id="no_args",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "",
                 ],
@@ -5097,7 +5099,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "",
                 ],
@@ -5117,7 +5119,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "",
                 ],
@@ -5137,7 +5139,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "", "", "",
                 ],
@@ -5157,7 +5159,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo",
                 ],
@@ -5177,7 +5179,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "",
                 ],
@@ -5197,7 +5199,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "",
                 ],
@@ -5217,7 +5219,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar",
                 ],
@@ -5237,7 +5239,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "",
                 ],
@@ -5257,7 +5259,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "bar", "A",
                 ],
@@ -5277,7 +5279,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "", "foo", "", "A",
                 ],
@@ -5297,7 +5299,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_empty_foo_empty_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0",
                 ],
@@ -5317,7 +5319,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "",
                 ],
@@ -5337,7 +5339,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "",
                 ],
@@ -5357,7 +5359,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "", "", "",
                 ],
@@ -5377,7 +5379,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_empty_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo",
                 ],
@@ -5397,7 +5399,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "",
                 ],
@@ -5417,7 +5419,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "",
                 ],
@@ -5437,7 +5439,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_empty_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar",
                 ],
@@ -5457,7 +5459,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "",
                 ],
@@ -5477,7 +5479,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_empty",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "bar", "A",
                 ],
@@ -5497,7 +5499,7 @@ class Test_get_ansi_code():
                 ],
                 id="args_0_foo_bar_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "0", "foo", "", "A",
                 ],

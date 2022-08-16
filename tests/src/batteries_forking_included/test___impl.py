@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # type: ignore[reportPrivateUsage]
+# pylint: disable=duplicate-code
 """
 tests/src/batteries_forking_included/test___impl.py (batteries-forking-included)
 """
@@ -97,6 +98,29 @@ def coerceSubprocessCommandToString(
 
     return cmd_str
 
+#-------------------------------------------------------------------------------
+def get_bfi_python_path() -> str:
+    """
+    Get the batteries-forking-included conda environment's python path.
+
+    Returns:
+        str: batteries-forking-included conda environment's python path
+    """
+    python_path: List[str] = []
+    python_path.append(
+        os_path_dirname(
+            os_environ.get(
+                "CONDA_PREFIX",
+                "/opt/conda/miniforge/envs/placeholder",
+            ),
+        ),
+    )
+    python_path.append("batteries-forking-included")
+    python_path.append("bin")
+    python_path.append("python")
+    python_path_str = os_path_join("", *python_path)
+
+    return python_path_str
 
 #endregion Helper Functions
 ################################################################################
@@ -122,19 +146,7 @@ class Test___main():
         """
         Tests that the library cannot be invoked directly.
         """
-        python_path: List[str] = []
-        python_path.append(
-            os_path_dirname(
-                os_environ.get(
-                    "CONDA_PREFIX",
-                    "/opt/conda/miniforge/envs/foo",
-                ),
-            ),
-        )
-        python_path.append("batteries-forking-included")
-        python_path.append("bin")
-        python_path.append("python")
-        python_path_str = os_path_join("", *python_path)
+        python_path_str = get_bfi_python_path()
 
         cmd = [
             python_path_str,

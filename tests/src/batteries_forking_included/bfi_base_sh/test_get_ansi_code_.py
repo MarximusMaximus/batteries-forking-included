@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/src/batteries_forking_included/bfi_base_sh/test_get_ansi_code_.py (batteries-forking-included)
 """  # noqa: E501,W505,B950
@@ -19,9 +21,9 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
 from pytest import (
     mark                            as pytest_mark,
+    param                           as pytest_param,
 )
 
 #endregion third party
@@ -58,7 +60,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -78,7 +80,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -139,7 +141,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -159,7 +161,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -220,7 +222,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -240,7 +242,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -301,7 +303,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -321,7 +323,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -382,7 +384,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -402,7 +404,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -463,7 +465,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -483,7 +485,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -544,7 +546,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -564,7 +566,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -625,7 +627,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -645,7 +647,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -706,7 +708,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -726,7 +728,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -787,7 +789,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -807,7 +809,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -868,7 +870,7 @@ class Test_get_ansi_code_cursor():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A",
                 ],
@@ -888,7 +890,7 @@ class Test_get_ansi_code_cursor():
                 ],
                 id="args_foo_A",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "A", "bar",
                 ],
@@ -961,7 +963,7 @@ class Test_get_ansi_code_cursor_up():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo",
                 ],
@@ -981,7 +983,7 @@ class Test_get_ansi_code_cursor_up():
                 ],
                 id="args_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar",
                 ],
@@ -1054,7 +1056,7 @@ class Test_get_ansi_code_cursor_down():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo",
                 ],
@@ -1074,7 +1076,7 @@ class Test_get_ansi_code_cursor_down():
                 ],
                 id="args_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar",
                 ],
@@ -1147,7 +1149,7 @@ class Test_get_ansi_code_cursor_right():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo",
                 ],
@@ -1167,7 +1169,7 @@ class Test_get_ansi_code_cursor_right():
                 ],
                 id="args_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar",
                 ],
@@ -1240,7 +1242,7 @@ class Test_get_ansi_code_cursor_left():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo",
                 ],
@@ -1260,7 +1262,7 @@ class Test_get_ansi_code_cursor_left():
                 ],
                 id="args_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar",
                 ],
@@ -1333,7 +1335,7 @@ class Test_get_ansi_code_cursor_nextline():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo",
                 ],
@@ -1353,7 +1355,7 @@ class Test_get_ansi_code_cursor_nextline():
                 ],
                 id="args_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar",
                 ],
@@ -1426,7 +1428,7 @@ class Test_get_ansi_code_cursor_prevline():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo",
                 ],
@@ -1446,7 +1448,7 @@ class Test_get_ansi_code_cursor_prevline():
                 ],
                 id="args_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar",
                 ],
@@ -1519,7 +1521,7 @@ class Test_get_ansi_code_cursor_col():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo",
                 ],
@@ -1539,7 +1541,7 @@ class Test_get_ansi_code_cursor_col():
                 ],
                 id="args_foo",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar",
                 ],
@@ -1612,7 +1614,7 @@ class Test_get_ansi_code_cursor_pos():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar",
                 ],
@@ -1632,7 +1634,7 @@ class Test_get_ansi_code_cursor_pos():
                 ],
                 id="args_foo_bar",
             ),
-            pytest.param(
+            pytest_param(
                 [
                     "foo", "bar", "baz",
                 ],

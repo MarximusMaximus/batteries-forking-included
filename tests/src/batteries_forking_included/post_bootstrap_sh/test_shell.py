@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/src/batteries_forking_included/activate_sh/test_shell.py (batteries-forking-included)
 """  # noqa: E501,W505
@@ -19,10 +21,10 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
+    param                           as pytest_param,
 )
 
 #endregion third party
@@ -59,7 +61,7 @@ class Test_Invoke():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 [],
                 151,  # RET_ERROR_SCRIPT_WAS_NOT_SOURCED
                 [
@@ -158,7 +160,7 @@ class Test_post_bootstrap():
             "expected_not_stderr"
         ),
         [
-            pytest.param(
+            pytest_param(
                 None,
                 0,
                 [
@@ -175,7 +177,7 @@ class Test_post_bootstrap():
                 ],
                 id="args_None",
             ),
-            pytest.param(
+            pytest_param(
                 [],
                 0,
                 [

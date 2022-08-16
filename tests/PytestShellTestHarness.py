@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/PytestShellTestHarness.py (batteries-forking-included)
 """
@@ -36,8 +38,6 @@ from typing import (
 
 from pytest import (
     FixtureRequest                  as pytest_FixtureRequest,
-    MonkeyPatch                     as pytest_MonkeyPatch,
-    TempPathFactory                 as pytest_TempPathFactory,
 )
 
 #endregion third party
@@ -59,18 +59,14 @@ class PytestShellTestHarness:
     def __init__(
         self,
         mock_repo: str,
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Initialize.
         """
         super().__init__()
         self.mock_repo = mock_repo
-        self.monkeypatch = monkeypatch
         self.request = request
-        self.tmp_path_factory = tmp_path_factory
 
     #---------------------------------------------------------------------------
     def run(

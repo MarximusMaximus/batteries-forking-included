@@ -1,7 +1,8 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/PytestShellTestHarness (batteries-forking-included)
 """
-# pylint: disable=duplicate-code
 
 ################################################################################
 #region Imports
@@ -47,9 +48,7 @@ from .PytestShellTestHarness import PytestShellTestHarness
 @pytest.fixture(name="shell_test_harness")
 def shell_test_harness(
     mock_repo: str,  # pylint: disable=redefined-outer-name
-    monkeypatch: pytest_MonkeyPatch,
     request: pytest_FixtureRequest,
-    tmp_path_factory: pytest_TempPathFactory,
 ) -> "PytestShellTestHarness":
     """
     Fixture wrapper for PytestShellTestHarness.
@@ -59,9 +58,7 @@ def shell_test_harness(
     """
     return PytestShellTestHarness(
         mock_repo=mock_repo,
-        monkeypatch=monkeypatch,
         request=request,
-        tmp_path_factory=tmp_path_factory,
     )
 
 #---------------------------------------------------------------------------

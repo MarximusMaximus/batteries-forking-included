@@ -1,3 +1,5 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/src/batteries_forking_included/test___main__.py (batteries-forking-included)
 """
@@ -33,10 +35,10 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
 from pytest import (
     mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
+    param                           as pytest_param,
 )
 
 #endregion third party
@@ -56,6 +58,36 @@ from batteries_forking_included import (
 ################################################################################
 
 ################################################################################
+#region Helper Functions
+
+#-------------------------------------------------------------------------------
+def get_bfi_python_path() -> str:
+    """
+    Get the batteries-forking-included conda environment's python path.
+
+    Returns:
+        str: batteries-forking-included conda environment's python path
+    """
+    python_path: List[str] = []
+    python_path.append(
+        os_path_dirname(
+            os_environ.get(
+                "CONDA_PREFIX",
+                "/opt/conda/miniforge/envs/placeholder",
+            ),
+        ),
+    )
+    python_path.append("batteries-forking-included")
+    python_path.append("bin")
+    python_path.append("python")
+    python_path_str = os_path_join("", *python_path)
+
+    return python_path_str
+
+#endregion Helper Functions
+################################################################################
+
+################################################################################
 #region Command Line Tests
 
 class Test_CommandLine():
@@ -70,19 +102,7 @@ class Test_CommandLine():
         """
         cwd = MODULE_UNDER_TEST.MY_REPO_FULLPATH
 
-        python_path: List[str] = []
-        python_path.append(
-            os_path_dirname(
-                os_environ.get(
-                    "CONDA_PREFIX",
-                    "/opt/conda/miniforge/envs/foo",
-                ),
-            ),
-        )
-        python_path.append("batteries-forking-included")
-        python_path.append("bin")
-        python_path.append("python")
-        python_path_str = os_path_join("", *python_path)
+        python_path_str = get_bfi_python_path()
 
         script_path_str = os_path_join(
             ".",
@@ -113,19 +133,7 @@ class Test_CommandLine():
         """
         cwd = os_path_abspath(os_path_join(MODULE_UNDER_TEST.MY_DIR_FULLPATH, ".."))
 
-        python_path: List[str] = []
-        python_path.append(
-            os_path_dirname(
-                os_environ.get(
-                    "CONDA_PREFIX",
-                    "/opt/conda/miniforge/envs/foo",
-                ),
-            ),
-        )
-        python_path.append("batteries-forking-included")
-        python_path.append("bin")
-        python_path.append("python")
-        python_path_str = os_path_join("", *python_path)
+        python_path_str = get_bfi_python_path()
 
         script_path_str = os_path_join(
             ".",
@@ -156,19 +164,7 @@ class Test_CommandLine():
         """
         cwd = MODULE_UNDER_TEST.MY_DIR_FULLPATH
 
-        python_path: List[str] = []
-        python_path.append(
-            os_path_dirname(
-                os_environ.get(
-                    "CONDA_PREFIX",
-                    "/opt/conda/miniforge/envs/foo",
-                ),
-            ),
-        )
-        python_path.append("batteries-forking-included")
-        python_path.append("bin")
-        python_path.append("python")
-        python_path_str = os_path_join("", *python_path)
+        python_path_str = get_bfi_python_path()
 
         cmd = [
             python_path_str,
@@ -193,19 +189,7 @@ class Test_CommandLine():
         """
         cwd = os_path_expanduser("~")
 
-        python_path: List[str] = []
-        python_path.append(
-            os_path_dirname(
-                os_environ.get(
-                    "CONDA_PREFIX",
-                    "/opt/conda/miniforge/envs/foo",
-                ),
-            ),
-        )
-        python_path.append("batteries-forking-included")
-        python_path.append("bin")
-        python_path.append("python")
-        python_path_str = os_path_join("", *python_path)
+        python_path_str = get_bfi_python_path()
 
         script_path_str = os_path_join(
             MODULE_UNDER_TEST.MY_DIR_FULLPATH,
@@ -236,19 +220,7 @@ class Test_CommandLine():
         """
         Invoke from repo root.
         """
-        python_path: List[str] = []
-        python_path.append(
-            os_path_dirname(
-                os_environ.get(
-                    "CONDA_PREFIX",
-                    "/opt/conda/miniforge/envs/foo",
-                ),
-            ),
-        )
-        python_path.append("batteries-forking-included")
-        python_path.append("bin")
-        python_path.append("python")
-        python_path_str = os_path_join("", *python_path)
+        python_path_str = get_bfi_python_path()
 
         script_path_str_str = os_path_join(
             ".",
@@ -295,55 +267,55 @@ class Test___main():
             "func_to_mock"
         ),
         [
-            pytest.param(
+            pytest_param(
                 ["bootstrap"],
                 0,
                 "batteries_forking_included_bfiBootstrap",
                 id="args_bootstrap",
             ),
-            pytest.param(
+            pytest_param(
                 ["bootstrap", "--project-dir=/some/fake/dir"],
                 0,
                 "batteries_forking_included_bfiBootstrap",
                 id="args_bootstrap_projectDir",
             ),
-            pytest.param(
+            pytest_param(
                 ["init"],
                 0,
                 "batteries_forking_included_bfiInit",
                 id="args_init",
             ),
-            pytest.param(
+            pytest_param(
                 ["init", "--project-dir=/some/fake/dir"],
                 0,
                 "batteries_forking_included_bfiInit",
                 id="args_init_projectDir",
             ),
-            pytest.param(
+            pytest_param(
                 ["update"],
                 0,
                 "batteries_forking_included_bfiUpdate",
                 id="args_update",
             ),
-            pytest.param(
+            pytest_param(
                 ["update", "--project-dir=/some/fake/dir"],
                 0,
                 "batteries_forking_included_bfiUpdate",
                 id="args_update_projectDir",
             ),
-            pytest.param(
+            pytest_param(
                 ["run"],
                 0,
                 "batteries_forking_included_bfiRun",
                 id="args_run",
             ),
-            pytest.param(
+            pytest_param(
                 ["run",  "--project-dir=/some/fake/dir"],
                 0,
                 "batteries_forking_included_bfiRun",
                 id="args_run_projectDir",
             ),
-            pytest.param(
+            pytest_param(
                 ["run", "echo", "foo"],
                 0,
                 "batteries_forking_included_bfiRun",

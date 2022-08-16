@@ -1,6 +1,11 @@
+#! false
+# pylint: disable=duplicate-code
 """
 tests/PytestShellTestHarness/test_PytestShellTestHarness.py (batteries-forking-included)
 """
+
+# NOTE: we cannot use the shell_test_harness fixture in this file, we must
+#   create the PytestShellTestHarness object manually
 
 ################################################################################
 #region Imports
@@ -27,12 +32,11 @@ from typing import (
 #===============================================================================
 #region third party
 
-import pytest
+import pytest  # required to use pytest.fixture which cannot be aliased via 'as'
 from pytest import (
     FixtureRequest                  as pytest_FixtureRequest,
     MonkeyPatch                     as pytest_MonkeyPatch,
     raises                          as pytest_raises,
-    TempPathFactory                 as pytest_TempPathFactory,
 )
 
 #endregion third party
@@ -60,9 +64,7 @@ from ..PytestShellTestHarness import (
 @pytest.fixture
 def mock_repo(
     mock_repo: str,  # pylint: disable=redefined-outer-name
-    # monkeypatch: pytest_MonkeyPatch,
     request: pytest_FixtureRequest,
-    # tmp_path_factory: pytest_TempPathFactory,
 ) -> str:
     """
     Create a mock repo to use that looks like a repo that uses
@@ -71,7 +73,7 @@ def mock_repo(
 
     Args:
         monkeypatch (pytest_MonkeyPatch): pytest monkeypatch fixture
-        tmp_path_factory (pytest_TempPathFactory): pytest tmp_path_factory fixture
+        request (pytest_FixtureRequest): pytest request fixture
 
     Returns:
         str: path of mock repo
@@ -140,9 +142,7 @@ class Test_PytestShellTestHarness____init__():
     def test_PytestShellTestHarness____init__(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test obj construction & initialization for PytestShellTestHarness.
@@ -150,21 +150,15 @@ class Test_PytestShellTestHarness____init__():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
 
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         assert obj.mock_repo == mock_repo
-        assert obj.monkeypatch == monkeypatch
         assert obj.request == request
-        assert obj.tmp_path_factory == tmp_path_factory
 
 #endregion PytestShellTestHarness::init
 ################################################################################
@@ -184,7 +178,6 @@ class Test_PytestShellTestHarness__run():
         mock_repo: str,  # pylint: disable=redefined-outer-name
         monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run python only during a successful test,
@@ -193,8 +186,6 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
 
         #.......................................................................
@@ -240,9 +231,7 @@ class Test_PytestShellTestHarness__run():
 
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -257,7 +246,6 @@ class Test_PytestShellTestHarness__run():
         mock_repo: str,  # pylint: disable=redefined-outer-name
         monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run python only during a failed test,
@@ -266,8 +254,6 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
 
         #.......................................................................
@@ -313,9 +299,7 @@ class Test_PytestShellTestHarness__run():
 
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         err = None
@@ -333,9 +317,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_success(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during a successful test.
@@ -343,14 +325,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -363,9 +341,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_assert_pass(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during a successful test,
@@ -374,14 +350,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -394,9 +366,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_assert_fail(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during a failed test,
@@ -405,14 +375,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         err = None
@@ -430,9 +396,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell___main_invoked(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during invoking a script
@@ -441,14 +405,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -467,9 +427,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell___main(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -478,14 +436,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -504,9 +458,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell___main_overridden(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -516,14 +468,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -542,9 +490,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell___main_overridden_custom(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -553,14 +499,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -583,9 +525,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell___sourced_main(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -594,14 +534,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -620,9 +556,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell___sourced_main_overridden(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -631,14 +565,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -657,9 +587,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell___sourced_main_overridden_custom(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -668,14 +596,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -698,9 +622,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_public_function(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -709,14 +631,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -743,9 +661,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_public_function_overridden(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -754,14 +670,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -788,9 +700,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_public_function_overridden_assert_pass(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -800,14 +710,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -834,9 +740,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_public_function_overridden_assert_fail(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -846,14 +750,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         err = None
@@ -871,9 +771,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_private_function(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -882,14 +780,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -916,9 +810,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_private_function_overridden(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -927,14 +819,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -961,9 +849,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_private_function_overridden_assert_pass(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -973,14 +859,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         p = obj.run(["echo", "foo"])
@@ -1007,9 +889,7 @@ class Test_PytestShellTestHarness__run():
     def test_PytestShellTestHarness__run__shell_private_function_overridden_assert_fail(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name
-        monkeypatch: pytest_MonkeyPatch,
         request: pytest_FixtureRequest,
-        tmp_path_factory: pytest_TempPathFactory,
     ) -> None:
         """
         Test PytestShellTestHarness::run with shell during sourcing a script
@@ -1019,14 +899,10 @@ class Test_PytestShellTestHarness__run():
         Args:
             monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
             request (pytest_FixtureRequest): pytest Request fixture
-            tmp_path_factory (pytest_TempPathFactory): pytest TempPathFactory
-                fixture
         """
         obj = PytestShellTestHarness_PytestShellTestHarness(
             mock_repo,
-            monkeypatch=monkeypatch,
             request=request,
-            tmp_path_factory=tmp_path_factory,
         )
 
         err = None
