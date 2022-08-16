@@ -2429,6 +2429,12 @@ conda_update_base()
     (
         log_header "Updating Base Conda Environment..."
 
+        # HACK: fix poetry removing important shit
+        (
+            conda activate base
+            CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -v -y pip wheel setuptools
+        )
+
         teetty_G "${FULL_LOG}" "${FULL_LOG}" conda activate base
         ret=$?
         if [ $ret -ne 0 ]; then
@@ -2495,6 +2501,9 @@ conda_setup_env()
 
             log_footer "%s Conda Environment Updated." "${project_base_name}"
         fi
+
+        # HACK: fix poetry removing important shit
+        CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -v -y pip wheel setuptools
 
         exit "${RET_SUCCESS}"
     )
@@ -2580,6 +2589,13 @@ poetry_install() {
             poetry_args="${poetry_ansi}${poetry_verbosity}${poetry_no_dev}"
 
             log_debug "poetry install args: ${poetry_args}"
+
+            # HACK: fix poetry removing important shit
+            (
+                conda activate base
+                CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -v -y pip wheel setuptools
+            )
+            CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -v -y pip wheel setuptools
 
             # shellcheck disable=SC2086  # we actually want the variable to get split
             teetty_G "${FULL_LOG}" "${FULL_LOG}" poetry install ${poetry_args} --extras fixes
