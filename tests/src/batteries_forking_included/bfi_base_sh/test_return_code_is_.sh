@@ -1265,7 +1265,7 @@ inject_monkeypatch() {
 test_harness_output() {
     (
         inner_text="$(command printf -- "$@"; command echo EOL)"
-        command printf -- "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
+        log_info_noprefix "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
     )
 }
 

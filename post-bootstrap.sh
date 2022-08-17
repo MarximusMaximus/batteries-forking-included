@@ -31,7 +31,7 @@ post_bootstrap()
     require_not_root_user_XY
 
     # use
-    # teetty_G "${FULL_LOG}" "${FULL_LOG}" COMMANDHERE WITH ARGS
+    # teetty_G COMMANDHERE WITH ARGS
     # to call an external program and hae it's output get routed to the logs
 
     # WARNING: DO NOT EDIT ABOVE THIS LINE
@@ -55,7 +55,7 @@ post_bootstrap()
     if [ "${found_env}" = "" ]; then
         log_header "Installing shellcheck Conda Environment..."
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda create --name shellcheck shellcheck -v -y
+        teetty_G "2>&1 conda create --name shellcheck shellcheck -v -y"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda create --name \"shellcheck\"' exited with error code: %d" "$ret"
@@ -66,7 +66,7 @@ post_bootstrap()
     else
         log_header "Updating shellcheck Conda Environment..."
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda update --name shellcheck shellcheck -v -y
+        teetty_G "2>&1 conda update --name shellcheck shellcheck -v -y"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda update --name \"shellcheck\"' exited with error code: %d" "$ret"

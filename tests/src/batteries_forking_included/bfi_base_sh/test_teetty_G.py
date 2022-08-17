@@ -10,6 +10,9 @@ tests/src/batteries_forking_included/bfi_base_sh/test_teetty_G.py (batteries-for
 #===============================================================================
 #region stdlib
 
+from os.path import (
+    abspath                         as os_path_abspath,
+)
 from typing import (
     List,
     Union,
@@ -66,10 +69,9 @@ class Test_teetty_G():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    b"foo bar\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
-                    b"PytestShellTestHarness: foo bar\n",  # cspell:disable-line # noqa: E501,B950
                     b"",
                 ],
                 [
@@ -78,7 +80,7 @@ class Test_teetty_G():
                 [
                     b"Error:",
                 ],
-                id="args_foo_bar",
+                id="printf_single_line",
             ),
             pytest_param(
                 [
@@ -86,8 +88,7 @@ class Test_teetty_G():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: foo bar\nbaz\nqwerty\n",  # cspell:disable-line # noqa: E501,B950
+                    b"foo bar\nbaz\nqwerty\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -98,7 +99,25 @@ class Test_teetty_G():
                 [
                     b"Error:",
                 ],
-                id="args_foo_bar",
+                id="printf_multi_line",
+            ),
+            pytest_param(
+                [
+                    "log_fatal", "\"foo bar\nbaz\nqwerty\n\"",  # cspell:disable-line # noqa: E501,B950
+                ],
+                0,
+                [
+                ],
+                [
+                    b"foo bar\nbaz\nqwerty\n",  # cspell:disable-line # noqa: E501,B950
+                ],
+                [
+                    b"Error:",
+                ],
+                [
+                    b"Error:",
+                ],
+                id="log_fatal",
             ),
             pytest_param(
                 [
@@ -106,11 +125,9 @@ class Test_teetty_G():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: foo bar\nbaz\nqwerty\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
-                    b"",
+                    b"foo bar\nbaz\nqwerty\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"Error:",
@@ -118,7 +135,7 @@ class Test_teetty_G():
                 [
                     b"Error:",
                 ],
-                id="args_foo_bar",
+                id="printf_to_stderr",
             ),
         ],
     )
@@ -133,21 +150,21 @@ class Test_teetty_G():
         shell_test_harness: PytestShellTestHarness,
     ) -> None:
         r"""
-        Check that get_ansi_code returns properly based on args and environment
-            vars.
+        Check that teetty_G runs the specified commands and correctly tees
+        output.
         """
-        if additional_args is None:
+        if additional_args is None:  # pragma: no cover
             additional_args = []
 
-        stdout_filepath = "stdout.txt"
-        stderr_filepath = "stderr.txt"
-        final_args = [
-            stdout_filepath,
-            stderr_filepath,
-        ] + additional_args
+        tempdir_path = os_path_abspath("")
+        full_log_filepath = os_path_abspath("log/log.txt")
+        error_and_fatal_log_filepath = os_path_abspath("log/errors_and_fatals_only.txt")
 
         p = shell_test_harness.run(
-            additional_args=final_args,
+            additional_args=additional_args,
+            additional_env_vars={
+                "my_tempdir": tempdir_path,
+            },
         )
 
         assert p.returncode == expected_ret
@@ -160,17 +177,15 @@ class Test_teetty_G():
         for x in expected_not_stderr:
             assert x not in p.stderr
 
-        with open(stdout_filepath, "rb") as f:
+        with open(full_log_filepath, "rb") as f:
             data = f.read()
             for x in expected_stdout:
-                if x.startswith(b"PytestShellTestHarness: "):
-                    assert x[len(b"PytestShellTestHarness: "):-1] in data
+                assert x in data
 
-        with open(stderr_filepath, "rb") as f:
+        with open(error_and_fatal_log_filepath, "rb") as f:
             data = f.read()
             for x in expected_stderr:
-                if x.startswith(b"PytestShellTestHarness: "):
-                    assert x[len(b"PytestShellTestHarness: "):-1] in data
+                assert x in data
 
 #endregion teetty_G, cleanup_fifo, create_fifo tests
 ################################################################################

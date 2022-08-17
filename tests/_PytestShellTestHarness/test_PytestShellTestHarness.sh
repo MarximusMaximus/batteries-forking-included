@@ -1265,7 +1265,7 @@ inject_monkeypatch() {
 test_harness_output() {
     (
         inner_text="$(command printf -- "$@"; command echo EOL)"
-        command printf -- "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
+        log_info_noprefix "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
     )
 }
 
@@ -1628,6 +1628,177 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_privat
 
         include_G ./example_shell_script.sh "$@"
         script_ret=$?
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add() {
+    (
+        assert "$( [ "$TEST_ENV_VAR" = "ADDED" ] )" \
+            "TEST_ENV_VAR was not 'ADDED' was $TEST_ENV_VAR"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite() {
+    (
+        assert "$( [ "$_IS_UNDER_TEST" = "alt" ] )" \
+            "_IS_UNDER_TEST was not 'alt' was $_IS_UNDER_TEST"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_remove() {
+    (
+        assert "$( [ "$_IS_UNDER_TEST" = "" ] )" \
+            "_IS_UNDER_TEST was not '' was $_IS_UNDER_TEST"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_harness_add() {
+    (
+        assert "$( [ "$TEST_ENV_VAR_2" = "ADDED" ] )" \
+            "TEST_ENV_VAR_2 was not 'ADDED' was $TEST_ENV_VAR_2"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_harness_overwrite() {
+    (
+        assert "$( [ "$_IS_UNDER_TEST" = "alt" ] )" \
+            "_IS_UNDER_TEST was not 'alt' was $_IS_UNDER_TEST"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_harness_remove() {
+    (
+        assert "$( [ "$_IS_UNDER_TEST" = "" ] )" \
+            "_IS_UNDER_TEST was not '' was $_IS_UNDER_TEST"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_add() {
+    (
+        assert "$( [ "$TEST_ENV_VAR" = "ADDED" ] )" \
+            "TEST_ENV_VAR was not 'ADDED' was $TEST_ENV_VAR"
+
+        assert "$( [ "$TEST_ENV_VAR_2" = "ADDED" ] )" \
+            "TEST_ENV_VAR_2 was not 'ADDED' was $TEST_ENV_VAR_2"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_overwrite() {
+    (
+        assert "$( [ "$TEST_ENV_VAR" = "OVERWRITTEN" ] )" \
+            "TEST_ENV_VAR was not 'OVERWRITTEN' was $TEST_ENV_VAR"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_remove() {
+    (
+        assert "$( [ "$TEST_ENV_VAR" = "" ] )" \
+            "TEST_ENV_VAR was not '' was $TEST_ENV_VAR"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite_harness_overwrite() {
+    (
+        assert "$( [ "$_IS_UNDER_TEST" = "alt2" ] )" \
+            "_IS_UNDER_TEST was not 'alt2' was $_IS_UNDER_TEST"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite_harness_remove() {
+    (
+        assert "$( [ "$_IS_UNDER_TEST" = "" ] )" \
+            "_IS_UNDER_TEST was not '' was $_IS_UNDER_TEST"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_remove_harness_add() {
+    (
+        assert "$( [ "$_IS_UNDER_TEST" = "alt2" ] )" \
+            "_IS_UNDER_TEST was not 'alt2' was $_IS_UNDER_TEST"
+
+        command printf "foo\n"
+
+        script_ret=0
+
         exit $script_ret
     )
 }

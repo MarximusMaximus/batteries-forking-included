@@ -2211,7 +2211,7 @@ download_url_to_path() {
 
         if [ "${curl_exists}" = true ]; then
             log_info "Using curl to download '${URL}' to '${output}'"
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" curl -# -L "${URL}" --fail --output "${output}"
+            teetty_G curl -# -L "${URL}" --fail --output "${output}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "failed to download ${URL} (curl)"
@@ -2219,7 +2219,7 @@ download_url_to_path() {
             fi
         elif [ "${wget_exists}" = true ]; then
             log_info "Using wget to download '${URL}' to '${output}'"
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" wget "${URL}" -O "${output}"
+            teetty_G wget "${URL}" -O "${output}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "failed to download ${URL} (wget)"
@@ -2246,7 +2246,7 @@ extract_tarball() {
             _dest=" -C "
         fi
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}"  tar -xzvf "${file}" --strip=1"${_dest}""${dest}"
+        teetty_G tar -xzvf "${file}" --strip=1"${_dest}""${dest}"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to extract ${file} compressed file (tar)"
@@ -2273,7 +2273,7 @@ extract_zipball() {
             exit $ret
         fi
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" unzip -v -d "${my_tempdir}/extracted" "${file}"
+        teetty_G unzip -v -d "${my_tempdir}/extracted" "${file}"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "failed to extract  ${file} compressed file (unzip)"
@@ -2391,7 +2391,7 @@ ensure_conda() {
                 exit $ret
             fi
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" chmod +x "${my_tempdir}/downloads/${file_to_download}"
+            teetty_G chmod +x "${my_tempdir}/downloads/${file_to_download}"
 
             dirname_CONDA_INSTALL_PATH="$(dirname "${CONDA_INSTALL_PATH}")"
             if [ ! -d "${dirname_CONDA_INSTALL_PATH}" ]; then
@@ -2405,7 +2405,7 @@ ensure_conda() {
 
             log_info "Installing Conda with PREFIX='${CONDA_INSTALL_PATH}'"
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true "${conda_installer}" -b -f -p "${CONDA_INSTALL_PATH}"
+            teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true \"${conda_installer}\" -b -f -p \"${CONDA_INSTALL_PATH}\""
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "Failed to install Conda."
@@ -2435,21 +2435,21 @@ conda_update_base()
             CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -v -y pip wheel setuptools
         )
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda activate base
+        teetty_G conda activate base
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda activate base' exited with error code: %d" "$ret"
             exit "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
         fi
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base conda -v -y --prune
+        teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base conda -v -y --prune"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda update -n base' exited with error code: %d" "$ret"
             exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
         fi
 
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base --all -v -y --prune
+        teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base --all -v -y --prune"
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda update -n base' exited with error code: %d" "$ret"
@@ -2481,7 +2481,7 @@ conda_setup_env()
         if [ "${found_env}" = "" ]; then
             log_header "Installing %s Conda Environment..." "${project_base_name}"
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env create --name "${project_base_name}" --file ./conda-environment.yml -v
+            teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env create --name \"${project_base_name}\" --file ./conda-environment.yml -v"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "'conda create --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
@@ -2492,7 +2492,7 @@ conda_setup_env()
         else
             log_header "Updating %s Conda Environment..." "${project_base_name}"
 
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env update --name "${project_base_name}" --file ./conda-environment.yml --prune -v
+            teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env update --name \"${project_base_name}\" --file ./conda-environment.yml --prune -v"
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "'conda update --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
@@ -2598,7 +2598,7 @@ poetry_install() {
             CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda install --force-reinstall -v -y pip wheel setuptools
 
             # shellcheck disable=SC2086  # we actually want the variable to get split
-            teetty_G "${FULL_LOG}" "${FULL_LOG}" poetry install ${poetry_args} --extras fixes
+            teetty_G poetry install ${poetry_args} --extras fixes
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "'poetry install' exited with error code: %d" "$ret"
@@ -2637,7 +2637,7 @@ pip_uninstall() {
 
                 log_header "Running 'pip uninstall'..."
 
-                teetty_G "${FULL_LOG}" "${FULL_LOG}" pip uninstall --yes --no-input --verbose --requirement pip-uninstall.txt
+                teetty_G pip uninstall --yes --no-input --verbose --requirement pip-uninstall.txt
                 ret=$?
                 if [ $ret -ne 0 ]; then
                     log_fatal "'pip uninstall' exited with error code: %d" "$ret"
@@ -2693,11 +2693,11 @@ pip_install() {
                 [ -f ./pip-requirements-dev.txt ]
             then
                 log_header "Running 'pip install' using 'pip-requirements-dev.txt'..."
-                teetty_G "${FULL_LOG}" "${FULL_LOG}" pip install --upgrade --no-input --verbose --requirement pip-requirements-dev.txt
+                teetty_G pip install --upgrade --no-input --verbose --requirement pip-requirements-dev.txt
                 ret=$?
             elif [ -f ./pip-requirements.txt ]; then
                 log_header "Running 'pip install' using 'pip-requirements.txt'..."
-                teetty_G "${FULL_LOG}" "${FULL_LOG}" pip install --upgrade --no-input --verbose --requirement pip-requirements.txt
+                teetty_G pip install --upgrade --no-input --verbose --requirement pip-requirements.txt
                 ret=$?
             fi
 
@@ -2761,7 +2761,7 @@ ensure_batteries_forking_included() {
             fi
 
             if [ "${git_exists}" = true ]; then
-                teetty_G "${FULL_LOG}" "${FULL_LOG}" git clone "https://github.com/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}.git"
+                teetty_G git clone "https://github.com/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}.git"
                 ret=$?
                 if [ $ret -ne 0 ]; then
                     log_fatal "failed to clone https://github.com/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}.git"
@@ -2826,14 +2826,14 @@ update_batteries_forking_included_repo() {
                 [ "${ahead_by}" -eq 0 ]
             then
                 # not dirty
-                teetty_G "${FULL_LOG}" "${FULL_LOG}" git fetch
+                teetty_G git fetch
                 ret=$?
                 if [ $ret -ne 0 ]; then
                     log_fatal "git fetch failed"
                     exit "${RET_ERROR_GIT_FETCH_FAILED}"
                 fi
 
-                teetty_G "${FULL_LOG}" "${FULL_LOG}" git reset --hard origin/main
+                teetty_G git reset --hard origin/main
                 ret=$?
                 if [ $ret -ne 0 ]; then
                     log_fatal "git reset failed"

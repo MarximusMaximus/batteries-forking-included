@@ -11,7 +11,7 @@ if [ "${DO_SET_X_ACTIVATE}" = true ]; then
 fi
 
 ################################################################################
-#region Preamble
+#region Reduced Preamble
 
 #===============================================================================
 #region Fallbacks
@@ -23,122 +23,6 @@ if [ $ret -ne 0 ]; then
     # NOTE: some basic definitions to fallback to if constants.sh failed to load
     #   if constant.sh loads, it will override these
 
-    RET_SUCCESS=0; export RET_SUCCESS
-    RET_ERROR_UNKNOWN=1; export RET_ERROR_UNKNOWN
-    RET_ERROR_SCRIPT_WAS_SOURCED=149; export RET_ERROR_SCRIPT_WAS_SOURCED
-    RET_ERROR_USER_IS_ROOT=150; export RET_ERROR_USER_IS_ROOT
-    RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151; export RET_ERROR_SCRIPT_WAS_NOT_SOURCED
-    RET_ERROR_USER_IS_NOT_ROOT=152; export RET_ERROR_USER_IS_NOT_ROOT
-    RET_ERROR_DIRECTORY_NOT_FOUND=153; export RET_ERROR_DIRECTORY_NOT_FOUND
-    RET_ERROR_COULD_NOT_SOURCE_FILE=161; export RET_ERROR_COULD_NOT_SOURCE_FILE
-
-    if [ "${verbosity}" = "" ]; then
-        verbosity=1; export verbosity
-    fi
-
-    #-------------------------------------------------------------------------------
-    date() {
-        if [ "$(uname)" = "Darwin" ]; then
-            command date -j "$@"
-        else
-            command date "$@"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_console() {
-        command printf -- "$@"
-        command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_success_final() {
-        log_success "$@"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_success() {
-        command printf -- "SUCCESS: "
-        command printf -- "$@"
-        command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_fatal() {
-        >&2 command printf -- "FATAL: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_error() {
-        >&2 command printf -- "ERROR: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_warning() {
-        >&2 command printf -- "WARNING: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_header() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "\n"
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_footer() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_info_important() {
-        log_info "$@"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_info() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "INFO: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_info_noprefix() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
     #-------------------------------------------------------------------------------
     log_debug() {
         if \
@@ -147,19 +31,6 @@ if [ $ret -ne 0 ]; then
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
             command printf -- "DEBUG: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_superdebug() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "SUPERDEBUG: "
             command printf -- "$@"
             command printf -- "\n"
         fi
@@ -176,11 +47,6 @@ if [ $ret -ne 0 ]; then
             command printf -- "$@"
             command printf -- "\n"
         fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_file() {
-        true
     }
 fi
 
@@ -256,130 +122,6 @@ rreadlink() {
 }
 
 #endregion RReadLink
-#===============================================================================
-
-#===============================================================================
-#region Root User Check
-
-#-------------------------------------------------------------------------------
-require_not_root_user_XY() {
-    # intentionally no local scope so it can exit script
-
-    if [ "${CI}" = true ] && [ "${PLATFORM_IS_WSL}" = true ]; then
-        # github runner's WSL user is always root
-        true
-    else
-        # shellcheck disable=SC3028
-        if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
-            log_fatal "$(get_my_real_basename) should not be run as root nor with sudo"
-            if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-                exit "${RET_ERROR_USER_IS_ROOT}"
-            else
-                return "${RET_ERROR_USER_IS_ROOT}"
-            fi
-        fi
-    fi
-}
-
-#-------------------------------------------------------------------------------
-require_root_user_XY() {
-    # intentionally no local scope so it can exit script
-
-    # shellcheck disable=SC3028
-    if [ $UID -ne 0 ] && [ $EUID -ne 0 ] && [ "$(id -u)" -ne 0 ]; then
-        log_fatal "$(get_my_real_basename) MUST be run as root or with sudo"
-        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-            exit "${RET_ERROR_USER_IS_NOT_ROOT}"
-        else
-            return "${RET_ERROR_USER_IS_NOT_ROOT}"
-        fi
-    fi
-}
-
-#endregion Root User Check
-#===============================================================================
-
-#===============================================================================
-#region Include/Invoke Directives
-
-#-------------------------------------------------------------------------------
-include_G() {
-    # intentionally no local scope so it modify globals
-    if [ ! -f "$1" ]; then
-        log_warning "Could not source because file is missing: %s" "$1"
-        return "${RET_ERROR_FILE_NOT_FOUND}"
-    fi
-
-    __LAST_INCLUDE="$(rreadlink "$1")"
-
-    log_ultradebug "Sourcing: %s as %s" "$1" "${__LAST_INCLUDE}"
-
-    array_append SHELL_SOURCE "${__LAST_INCLUDE}"
-    export SHELL_SOURCE
-    array_append WAS_SOURCED true
-    export WAS_SOURCED
-
-    # shifts off path we are sourcing, but leaves other args intact so they can
-    # be used by the sourced script, this is a feature that normal most shells
-    # do not support by default
-    shift
-
-    # shellcheck disable=SC1090
-    . "${__LAST_INCLUDE}"
-    ret=$?
-
-    array_remove_last WAS_SOURCED
-    export WAS_SOURCED
-    array_remove_last SHELL_SOURCE
-    export SHELL_SOURCE
-
-    return $ret
-}
-
-#-------------------------------------------------------------------------------
-ensure_include_GXY() {
-    # intentionally no local scope so it can modify globals AND exit script
-
-    include_G "$@"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "Failed to source '%s'" "$1"
-        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-            exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
-        else
-            return "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
-        fi
-    fi
-}
-
-#-------------------------------------------------------------------------------
-invoke() {
-    if [ ! -f "$1" ]; then
-        log_warning "Could not invoke because file is missing: %s" "$1"
-        return "${RET_ERROR_FILE_NOT_FOUND}"
-    fi
-
-    __LAST_INCLUDE="$(rreadlink "$1")"
-
-    log_ultradebug "Invoking: %s as %s" "$1" "${__LAST_INCLUDE}"
-
-    array_append SHELL_SOURCE "${__LAST_INCLUDE}"
-    export SHELL_SOURCE
-    array_append WAS_SOURCED false
-    export WAS_SOURCED
-
-    "$@"
-    ret=$?
-
-    array_remove_last WAS_SOURCED
-    export WAS_SOURCED
-    array_remove_last SHELL_SOURCE
-    export SHELL_SOURCE
-
-    return $ret
-}
-
-#endregion Include/Invoke Directives
 #===============================================================================
 
 #===============================================================================
@@ -649,357 +391,6 @@ array_for_each() {
 #region Helper Functions
 
 #-------------------------------------------------------------------------------
-windows_path_to_unix_path() {
-    if \
-        [ "${PLATFORM_IS_WSL}" = true ] &&
-        [  "$(command echo "$1" | cut -c1)" != "/" ]
-    then
-        command printf "/"
-        command printf "$(command echo "$1" | cut -c1 | tr '[:upper:]' '[:lower:]')"
-        command printf "$(command echo "$1" | cut -c3- | sed -e 's/\\/\//g')"
-    else
-        command printf "$1"
-    fi
-    command printf "\n"
-}
-
-#-------------------------------------------------------------------------------
-ensure_cd() {
-    # intentionally no local scope so that the cd command takes effect
-    log_superdebug "Changing current directory to '%s'" "$1"
-
-    # shellcheck disable=SC2164
-    cd "$1"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "Could not cd into '%s'" "$1"
-        return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
-    fi
-}
-
-#-------------------------------------------------------------------------------
-safe_rm() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        path_to_remove="$1"
-        print_rm_error_message="$2"
-
-        log_superdebug "Safely removing '%s'" "${path_to_remove}"
-
-        if \
-            [ "${path_to_remove}" != "/" ] &&
-            [ "${path_to_remove}" != "${HOME}" ] &&
-            [ "${path_to_remove}" != "${TMPDIR}" ] &&
-            [ "${path_to_remove}" != "/Applications" ] &&
-            [ "${path_to_remove}" != "/bin" ] &&
-            [ "${path_to_remove}" != "/boot" ] &&
-            [ "${path_to_remove}" != "/cores" ] &&
-            [ "${path_to_remove}" != "/dev" ] &&
-            [ "${path_to_remove}" != "/etc" ] &&
-            [ "${path_to_remove}" != "/home" ] &&
-            [ "${path_to_remove}" != "/lib" ] &&
-            [ "${path_to_remove}" != "/Library" ] &&
-            [ "${path_to_remove}" != "/local" ] &&
-            [ "${path_to_remove}" != "/media" ] &&
-            [ "${path_to_remove}" != "/mnt" ] &&
-            [ "${path_to_remove}" != "/opt" ] &&
-            [ "${path_to_remove}" != "/private" ] &&
-            [ "${path_to_remove}" != "/proc" ] &&
-            [ "${path_to_remove}" != "/sbin" ] &&
-            [ "${path_to_remove}" != "/srv" ] &&
-            [ "${path_to_remove}" != "/System" ] &&
-            [ "${path_to_remove}" != "/Users" ] &&
-            [ "${path_to_remove}" != "/usr" ] &&
-            [ "${path_to_remove}" != "/var" ] &&
-            [ "${path_to_remove}" != "/Volumes" ] &&
-            [ "${path_to_remove}" != "" ]
-        then
-            rm -rf "${path_to_remove}"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                if \
-                    [ "${print_rm_error_message}" = "" ] ||
-                    [ "${print_rm_error_message}" = true ]
-                then
-                    log_error "failed to rm '%s'" "${path_to_remove}"
-                fi
-                exit "${RET_ERROR_RM_FAILED}"
-            fi
-        else
-            log_fatal "unsafe rm path '%s'" "${path_to_remove}"
-            exit "${RET_ERROR_UNSAFE_RM_PATH}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-ensure_does_not_exist() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        path_to_remove="$1"
-
-        log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
-
-        if \
-            [ -f "${path_to_remove}" ] ||
-            [ -d "${path_to_remove}" ]
-        then
-            safe_rm "${path_to_remove}"
-            ret=$?
-            exit $ret
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-create_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        destdir="$1"
-
-        ensure_does_not_exist "${destdir}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to remove path '%s'" "${destdir}"
-            exit $ret
-        fi
-
-        log_superdebug "Creating directory '%s'" "${destdir}"
-
-        mkdir -p "${destdir}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to create directory '%s'" "${destdir}"
-            exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-ensure_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        destdir="$1"
-
-        log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
-
-        if [ ! -d "${destdir}" ]; then
-            create_dir "${destdir}"
-            ret=$?
-            exit $ret
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-get_datetime_stamp_human_formatted()
-{
-    date "${DATETIME_STAMP_HUMAN_FORMAT}"
-}
-
-#-------------------------------------------------------------------------------
-get_datetime_stamp_filename_formatted()
-{
-    date "${DATETIME_STAMP_FILENAME_FORMAT}"
-}
-
-#-------------------------------------------------------------------------------
-create_my_tempdir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        if [ "${CI}" = true ]; then
-            if [ "${GITHUB_ACTIONS}" = true ]; then
-                the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"
-            else
-                the_tempdir="${HOME}/bfi_temp/$(get_datetime_stamp_filename_formatted)"
-            fi
-        else
-            the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                log_fatal "failed to get temporary directory"
-                exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
-            fi
-        fi
-
-        the_tempdir="$(windows_path_to_unix_path "${the_tempdir}")"
-
-        command echo "${the_tempdir}"
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-ensure_my_tempdir_G() {
-    # intentionally no local scope b/c modifying a global
-
-    if [ "${my_tempdir}" = "" ]; then
-        my_tempdir="$(create_my_tempdir)"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            return $ret
-        fi
-    fi
-
-    ensure_dir "${my_tempdir}"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        return $ret
-    fi
-
-    export my_tempdir
-
-    return "${RET_SUCCESS}"
-}
-
-#-------------------------------------------------------------------------------
-move_file() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        source_filepath="$1"
-        dest_filepath="$2"
-
-        log_superdebug "Copying file '${source_filepath}' to '${dest_filepath}'"
-
-        mv "${source_filepath}" "${dest_filepath}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to move file from '%s' to '%s'" "${source_filepath}" "${dest_filepath}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-copy_file() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        source_filepath="$1"
-        dest="$2"
-
-        log_superdebug "Copying file '${source_filepath}' to '${dest}'"
-
-        cp "${source_filepath}" "${dest}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to copy file from '%s' to '%s'" "${source_filepath}" "${dest}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-copy_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        source_dir="$1"
-        dest_dir="$2"
-
-        log_superdebug "Copying all files from '${source_dir}' to '${dest_dir}'"
-
-        cp -r "${source_dir}"/. "${dest_dir}/"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to copy files from '%s' to '%s'" "${source_dir}" "${dest_dir}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-is_integer()
-{
-    case "${1#[+-]}"  in
-        *[!0123456789]*)
-            command echo "1"
-            return 1
-            ;;
-        '')
-            command echo "1"
-            return 1
-            ;;
-        *)
-            command echo "0"
-            return 0
-            ;;
-    esac
-    command echo "1"
-    return 1
-}
-
-#-------------------------------------------------------------------------------
 get_my_real_fullpath() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
@@ -1012,10 +403,10 @@ get_my_real_fullpath() {
             array_get_last SHELL_SOURCE
         else
             echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
+            exit 1 # "${RET_ERROR_UNKNOWN}"
         fi
 
-        exit "${RET_SUCCESS}"
+        exit 0 # "${RET_SUCCESS}"
     )
     exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
@@ -1036,34 +427,10 @@ get_my_real_basename() {
             basename "$(array_get_last SHELL_SOURCE)"
         else
             echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
+            exit 1 # "${RET_ERROR_UNKNOWN}"
         fi
 
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-get_my_real_dir_fullpath() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            dirname "$(array_get_last SHELL_SOURCE)"
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
-        fi
-
-        exit "${RET_SUCCESS}"
+        exit 0 # "${RET_SUCCESS}"
     )
     exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
@@ -1084,24 +451,15 @@ get_my_real_dir_basename() {
             basename "$(dirname "$(array_get_last SHELL_SOURCE)")"
         else
             echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
+            exit 1 # "${RET_ERROR_UNKNOWN}"
         fi
 
-        exit "${RET_SUCCESS}"
+        exit 0 # "${RET_SUCCESS}"
     )
     exit_ret=$?
     SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
     export SHELL_SESSION_FILE
     return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-unident_text() {
-    (
-        text="$1"
-        leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
-        echo "${text}" | sed -e "s/\(${leading}\)\(.*\)/\2/"
-    )
 }
 
 #endregion Helper Functions
@@ -1214,6 +572,12 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
     array_append SHELL_SOURCE "${TEMP_FILE_NAME}"
 fi
 
+unset x
+unset TEMP_ARG_ZERO
+unset TEMP_FILE_NAME
+unset TEMP_SHELL_SOURCE
+unset DOLLAR_UNDER
+
 export WAS_SOURCED
 export SHELL_SOURCE
 
@@ -1248,41 +612,51 @@ fi
 # environment, but pollute it as little as possible with private names (e.g. __main)
 
 __bfi_activate_environment() {
-    #===========================================================================
-    #region Includes
-
-    ensure_include_GXY "$(get_my_real_dir_fullpath)/bfi-base.sh"
-
-    #endregion Includes
-    #===========================================================================
-
     if [ "$(array_get_last WAS_SOURCED)" = false ]; then
-        log_fatal "$(get_my_real_basename) should not be invoked, only sourced"
-        return "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"
+        >&2 command printf "FATAL: $(get_my_real_basename) should not be invoked, only sourced\n"
+        return 151 # "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"
     fi
 
-    conda_init_G "quiet"
+    CONDA_INSTALL_PATH="/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+    if [ "${CI}" = true ]; then
+        if [ "${GITHUB_ACTIONS}" = true ]; then
+            CONDA_INSTALL_PATH="${HOME}/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+            mkdir -p "${CONDA_INSTALL_PATH}"
+        fi
+    fi
+
+    # shellcheck disable=SC1091
+    . "${CONDA_INSTALL_PATH}/etc/profile.d/conda.sh"
     ret=$?
     if [ $ret -ne 0 ]; then
-        return $ret
+        >&2 command printf "FATAL: '. conda.sh' failed with error code: %d\n" "$ret"
+        return 159 # "${RET_ERROR_CONDA_INIT_FAILED}"
     fi
+    PATH="${CONDA_INSTALL_PATH}/bin:$PATH"
+    export PATH
 
-    conda_full_deactivate_G "quiet"
+    type conda | head -n 1
+    conda --version
+
+    while [ "${CONDA_SHLVL}" -gt 0 ]; do
+        conda deactivate
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            >&2 command printf "FATAL: 'conda deactivate' exited with error code: %d\n" "$ret"
+            return 147 # "${RET_ERROR_CONDA_DEACTIVATE_FAILED}"
+        fi
+    done
+
+    conda activate "$(get_my_real_dir_basename)"
     ret=$?
     if [ $ret -ne 0 ]; then
-        return $ret
+        >&2 command printf "FATAL: 'conda activate \"%s\"' exited with error code: %d\n" "$(get_my_real_dir_basename)" "$ret"
+        return 144 # "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
     fi
 
-    conda_activate_env_G "$(get_my_real_dir_basename)" "quiet"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        return $ret
-    fi
+    command printf "%s Conda Environment Activated.\n" "$(get_my_real_dir_basename)"
 
-    my_tempdir=""
-    export my_tempdir
-
-    return "${RET_SUCCESS}"
+    return 0 # "${RET_SUCCESS}"
 }
 if [ "${_IS_UNDER_TEST}" = "true" ]; then
     type inject_monkeypatch >/dev/null 2>&1
@@ -1329,6 +703,9 @@ fi
 # NOTE: we have to return here if we were sourced otherwise we kill the shell
 _THIS_FILE_WAS_SOURCED="$(array_get_last WAS_SOURCED)"
 if [ "$(array_get_length WAS_SOURCED)" -eq 1 ]; then
+    unset WAS_SOURCED
+    unset SHELL_SOURCE
+else
     array_remove_last WAS_SOURCED
     array_remove_last SHELL_SOURCE
     export WAS_SOURCED

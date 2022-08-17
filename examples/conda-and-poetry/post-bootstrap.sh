@@ -31,7 +31,7 @@ post_bootstrap()
     require_not_root_user_XY
 
     # use
-    # teetty_G "${FULL_LOG}" "${FULL_LOG}" COMMANDHERE WITH ARGS
+    # teetty_G COMMANDHERE WITH ARGS
     # to call an external program and hae it's output get routed to the logs
 
     # WARNING: DO NOT EDIT ABOVE THIS LINE

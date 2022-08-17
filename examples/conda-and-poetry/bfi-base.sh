@@ -1932,12 +1932,6 @@ cleanup_fifo() {
 
 #-------------------------------------------------------------------------------
 teetty_G() {
-    _stdout="$1"  # stdout log file
-    _stderr="$2"  # stderr log file
-    # first two args are the log files, shift them out of the command we
-    #   will run as our subprocess
-    shift 2
-
     if [ "${my_tempdir}" = "" ]; then
         ensure_my_tempdir_G
     fi
@@ -1961,18 +1955,18 @@ teetty_G() {
     then
         # output from fifo to console streams + files (in background processes)
         # shellcheck disable=SC2002
-        ( cat "${_stdout_fifo}" | tee -a "${_stdout}" & )
+        ( cat "${_stdout_fifo}" | tee -a "${FULL_LOG}" & )
         _stdout_bg_task=$!
         # shellcheck disable=SC2002
-        ( cat "${_stderr_fifo}" | tee -a "${_stderr}" & )
+        ( cat "${_stderr_fifo}" | tee -a "${ERROR_LOG}" "${ERROR_AND_FATAL_LOG}" >&2 & )
         _stderr_bg_task=$!
     else
         # output from fifo to files (in background processes)
         # shellcheck disable=SC2002
-        ( cat "${_stdout_fifo}" >> "${_stdout}" & )
+        ( cat "${_stdout_fifo}" | tee -a "${FULL_LOG}" >/dev/null & )
         _stdout_bg_task=$!
         # shellcheck disable=SC2002
-        ( cat "${_stderr_fifo}" >> "${_stderr}" & )
+        ( cat "${_stderr_fifo}" | tee -a "${ERROR_LOG}" "${ERROR_AND_FATAL_LOG}" >/dev/null & )
         _stderr_bg_task=$!
     fi
 
@@ -2909,8 +2903,8 @@ conda_init_G() {
     PATH="${CONDA_INSTALL_PATH}/bin:$PATH"
     export PATH
 
-    teetty_G "${FULL_LOG}" "${FULL_LOG}" "type conda | head -n 1"
-    teetty_G "${FULL_LOG}" "${FULL_LOG}" conda --version
+    teetty_G "type conda | head -n 1"
+    teetty_G conda --version
 
     if [ "$1" != "quiet" ]; then
         log_footer "Conda Initialized."
@@ -2932,7 +2926,7 @@ conda_full_deactivate_G() {
     fi
 
     while [ "${CONDA_SHLVL}" -gt 0 ]; do
-        teetty_G "${FULL_LOG}" "${FULL_LOG}" conda deactivate
+        teetty_G conda deactivate
         ret=$?
         if [ $ret -ne 0 ]; then
             log_fatal "'conda deactivate' exited with error code: %d" "$ret"
@@ -2957,7 +2951,7 @@ conda_activate_env_G() {
         log_ultradebug "Activating %s Conda Environment..." "$1"
     fi
 
-    teetty_G "${FULL_LOG}" "${FULL_LOG}" conda activate "$1"
+    teetty_G conda activate "$1"
     ret=$?
     if [ $ret -ne 0 ]; then
         log_fatal "'conda activate \"%s\"' exited with error code: %d" "$1" "$ret"

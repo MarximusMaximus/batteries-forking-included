@@ -1265,7 +1265,7 @@ inject_monkeypatch() {
 test_harness_output() {
     (
         inner_text="$(command printf -- "$@"; command echo EOL)"
-        command printf -- "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
+        log_info_noprefix "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
     )
 }
 
@@ -1288,10 +1288,8 @@ Test_teetty_G__test_teetty_G() {
             exit $script_ret
         fi
 
-        output="$(teetty_G "$@")"
+        teetty_G "$@"
         func_ret=$?
-
-        test_harness_output "${output}"
 
         exit $func_ret
     )

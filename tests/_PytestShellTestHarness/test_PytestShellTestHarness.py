@@ -916,5 +916,353 @@ class Test_PytestShellTestHarness__run():
         assert isinstance(err, AssertionError)
         assert err.args[0] == b"FATAL: expected: asdf is not empty string"
 
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_add(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell adding an environment
+        variable via monkeypatch.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.setenv("TEST_ENV_VAR", "ADDED")
+
+        p = obj.run(["echo", "foo"])
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell overwriting an environment
+        variable via monkeypatch.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.setenv("_IS_UNDER_TEST", "alt")
+
+        p = obj.run(["echo", "foo"])
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_remove(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell removing an environment
+        variable via monkeypatch.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.delenv("_IS_UNDER_TEST")
+
+        p = obj.run(["echo", "foo"])
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_harness_add(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell adding an environment
+        variable via harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"TEST_ENV_VAR_2": "ADDED"},
+        )
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_harness_overwrite(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell overwriting an environment
+        variable via harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"_IS_UNDER_TEST": "alt"},
+        )
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_harness_remove(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell removing an environment
+        variable via harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"_IS_UNDER_TEST": None},
+        )
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_add(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell adding an environment
+        variable via monkeypatch and a adding second environment variable via
+        harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.setenv("TEST_ENV_VAR", "ADDED")
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"TEST_ENV_VAR_2": "ADDED"},
+        )
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_overwrite(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell adding an environment
+        variable via monkeypatch and overwriting it via harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.setenv("TEST_ENV_VAR", "ADDED")
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"TEST_ENV_VAR": "OVERWRITTEN"},
+        )
+
+        assert p.returncode == 0
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_remove(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell adding an environment
+        variable via monkeypatch and removing it via harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.setenv("TEST_ENV_VAR", "ADDED")
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"TEST_ENV_VAR": None},
+        )
+
+        assert p.returncode == 0
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite_harness_overwrite(  # noqa: E501,B950
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell overwriting an environment
+        variable via monkeypatch and overwriting it via harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.setenv("_IS_UNDER_TEST", "alt")
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"_IS_UNDER_TEST": "alt2"},
+        )
+
+        assert p.returncode == 0
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite_harness_remove(  # noqa: E501,B950
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell overwriting an environment
+        variable via monkeypatch and removing it via harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.setenv("_IS_UNDER_TEST", "alt")
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"_IS_UNDER_TEST": None},
+        )
+
+        assert p.returncode == 0
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_monkeypatch_remove_harness_add(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell removing an environment
+        variable via monkeypatch.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+            monkeypatch (pytest_MonkeyPatch): pytest MonkeyPatch fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        monkeypatch.delenv("_IS_UNDER_TEST")
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"_IS_UNDER_TEST": "alt2"},
+        )
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
 #endregion PytestShellTestHarness::run
 ################################################################################
