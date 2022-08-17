@@ -82,6 +82,7 @@ pytest-prefer-nested-dup-tests = "^0.1.0"
 pyright = "^1.1.264"
 packaging = ">1"
 pytest = "^7.1.2"
+pytest-xdist = "^2.5.0"
 
 [tool.poetry.extras]
 fixes = [
@@ -241,6 +242,7 @@ addopts = [
     "--html=.reports/test-report-coverage.html",
     # html report should be single file
     "--self-contained-html",
+    "-n=auto",
 ]
 filterwarnings = [
     "error",
