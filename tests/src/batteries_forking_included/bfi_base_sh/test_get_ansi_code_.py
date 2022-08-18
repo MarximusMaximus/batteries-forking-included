@@ -1116,6 +1116,10 @@ class Test_get_ansi_code_cursor_down():
             additional_args=additional_args,
         )
 
+        print(p.returncode)
+        print(p.stdout)
+        print(p.stderr)
+
         assert p.returncode == expected_ret
         for x in expected_stdout:
             assert x in p.stdout
