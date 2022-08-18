@@ -1323,6 +1323,11 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_assert
     (
         script_ret=0
 
+        # shellcheck disable=SC2016
+        command printf "%s" '$( [ \"asdf" = "" ] )'
+        # shellcheck disable=SC2050
+        command printf "%s" "$( [ "asdf" = "" ] )"
+
         # shellcheck disable=SC2050
         assert "$( [ "asdf" = "" ] )" \
             "asdf is not empty string"
@@ -1815,10 +1820,10 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 func_to_call="$1"
 shift
 (
-    command printf "Calling shell func '%s'" "${func_to_call}"
+    command printf "Calling shell func '%s'\n" "${func_to_call}"
     "${func_to_call}" "$@"
     ret=$?
-    command printf "func return code was %s" "$ret"
+    command printf "func return code was %s\n" "$ret"
     exit $ret
 )
 ret=$?
