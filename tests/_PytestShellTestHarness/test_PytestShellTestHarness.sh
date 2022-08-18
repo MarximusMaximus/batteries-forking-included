@@ -1242,6 +1242,7 @@ fi
 
 #-------------------------------------------------------------------------------
 assert() {
+    eval "$1"
     __assert_result="$?"  # get the return of the subshell used as first arg
     shift  # ignore first arg as it's the subshell that generates the $? used above
     if [ "${__assert_result}" -ne 0 ]; then
@@ -1311,7 +1312,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_assert
         script_ret=0
 
         # shellcheck disable=SC2050
-        assert "$( [ "asdf" = "asdf" ] )" \
+        assert '[ "asdf" = "asdf" ]' \
             "asdf is not asdf string"
 
         exit $script_ret
@@ -1323,13 +1324,8 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_assert
     (
         script_ret=0
 
-        # shellcheck disable=SC2016
-        command printf "%s" '$( [ "asdf" = "" ] ) = '
         # shellcheck disable=SC2050
-        command printf "%s\n" [ "asdf" = "" ]
-
-        # shellcheck disable=SC2050
-        assert [ "asdf" = "" ] \
+        assert '[ "asdf" = "" ]' \
             "asdf is not empty string"
 
         exit $script_ret
@@ -1484,7 +1480,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_public
                 test_harness_output "overridden public_function"
 
                 # shellcheck disable=SC2050
-                assert "$( [ "asdf" = "asdf" ] )" \
+                assert '[ "asdf" = "asdf" ]' \
                     "asdf is not asdf string"
 
                 return "$1"
@@ -1514,7 +1510,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_public
                 test_harness_output "overridden public_function"
 
                 # shellcheck disable=SC2050
-                assert "$( [ "asdf" = "" ] )" \
+                assert '[ "asdf" = "" ]' \
                     "asdf is not empty string"
 
                 return "$1"
@@ -1588,7 +1584,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_privat
                 test_harness_output "overridden private_function"
 
                 # shellcheck disable=SC2050
-                assert "$( [ "asdf" = "asdf" ] )" \
+                assert '[ "asdf" = "asdf" ]' \
                     "asdf is not asdf string"
 
                 return "$1"
@@ -1618,7 +1614,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_privat
                 test_harness_output "overridden private_function"
 
                 # shellcheck disable=SC2050
-                assert "$( [ "asdf" = "" ] )" \
+                assert '[ "asdf" = "" ]' \
                     "asdf is not empty string"
 
                 return "$1"
@@ -1640,7 +1636,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_privat
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add() {
     (
-        assert "$( [ "$TEST_ENV_VAR" = "ADDED" ] )" \
+        assert '[ "$TEST_ENV_VAR" = "ADDED" ]' \
             "TEST_ENV_VAR was not 'ADDED' was $TEST_ENV_VAR"
 
         command printf "foo\n"
@@ -1654,7 +1650,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite() {
     (
-        assert "$( [ "$_IS_UNDER_TEST" = "alt" ] )" \
+        assert '[ "$_IS_UNDER_TEST" = "alt" ]' \
             "_IS_UNDER_TEST was not 'alt' was $_IS_UNDER_TEST"
 
         command printf "foo\n"
@@ -1668,7 +1664,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_remove() {
     (
-        assert "$( [ "$_IS_UNDER_TEST" = "" ] )" \
+        assert '[ "$_IS_UNDER_TEST" = "" ]' \
             "_IS_UNDER_TEST was not '' was $_IS_UNDER_TEST"
 
         command printf "foo\n"
@@ -1682,7 +1678,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_harness_add() {
     (
-        assert "$( [ "$TEST_ENV_VAR_2" = "ADDED" ] )" \
+        assert '[ "$TEST_ENV_VAR_2" = "ADDED" ]' \
             "TEST_ENV_VAR_2 was not 'ADDED' was $TEST_ENV_VAR_2"
 
         command printf "foo\n"
@@ -1696,7 +1692,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_ha
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_harness_overwrite() {
     (
-        assert "$( [ "$_IS_UNDER_TEST" = "alt" ] )" \
+        assert '[ "$_IS_UNDER_TEST" = "alt" ]' \
             "_IS_UNDER_TEST was not 'alt' was $_IS_UNDER_TEST"
 
         command printf "foo\n"
@@ -1710,7 +1706,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_ha
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_harness_remove() {
     (
-        assert "$( [ "$_IS_UNDER_TEST" = "" ] )" \
+        assert '[ "$_IS_UNDER_TEST" = "" ]' \
             "_IS_UNDER_TEST was not '' was $_IS_UNDER_TEST"
 
         command printf "foo\n"
@@ -1724,10 +1720,10 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_ha
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_add() {
     (
-        assert "$( [ "$TEST_ENV_VAR" = "ADDED" ] )" \
+        assert '[ "$TEST_ENV_VAR" = "ADDED" ]' \
             "TEST_ENV_VAR was not 'ADDED' was $TEST_ENV_VAR"
 
-        assert "$( [ "$TEST_ENV_VAR_2" = "ADDED" ] )" \
+        assert '[ "$TEST_ENV_VAR_2" = "ADDED" ]' \
             "TEST_ENV_VAR_2 was not 'ADDED' was $TEST_ENV_VAR_2"
 
         command printf "foo\n"
@@ -1741,7 +1737,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_overwrite() {
     (
-        assert "$( [ "$TEST_ENV_VAR" = "OVERWRITTEN" ] )" \
+        assert '[ "$TEST_ENV_VAR" = "OVERWRITTEN" ]' \
             "TEST_ENV_VAR was not 'OVERWRITTEN' was $TEST_ENV_VAR"
 
         command printf "foo\n"
@@ -1755,7 +1751,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_remove() {
     (
-        assert "$( [ "$TEST_ENV_VAR" = "" ] )" \
+        assert '[ "$TEST_ENV_VAR" = "" ]' \
             "TEST_ENV_VAR was not '' was $TEST_ENV_VAR"
 
         command printf "foo\n"
@@ -1769,7 +1765,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite_harness_overwrite() {
     (
-        assert "$( [ "$_IS_UNDER_TEST" = "alt2" ] )" \
+        assert '[ "$_IS_UNDER_TEST" = "alt2" ]' \
             "_IS_UNDER_TEST was not 'alt2' was $_IS_UNDER_TEST"
 
         command printf "foo\n"
@@ -1783,7 +1779,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_overwrite_harness_remove() {
     (
-        assert "$( [ "$_IS_UNDER_TEST" = "" ] )" \
+        assert '[ "$_IS_UNDER_TEST" = "" ]' \
             "_IS_UNDER_TEST was not '' was $_IS_UNDER_TEST"
 
         command printf "foo\n"
@@ -1797,7 +1793,7 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 #-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_remove_harness_add() {
     (
-        assert "$( [ "$_IS_UNDER_TEST" = "alt2" ] )" \
+        assert '[ "$_IS_UNDER_TEST" = "alt2" ]' \
             "_IS_UNDER_TEST was not 'alt2' was $_IS_UNDER_TEST"
 
         command printf "foo\n"
