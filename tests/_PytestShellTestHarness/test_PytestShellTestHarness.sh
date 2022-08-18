@@ -1326,10 +1326,10 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_assert
         # shellcheck disable=SC2016
         command printf "%s" '$( [ "asdf" = "" ] ) = '
         # shellcheck disable=SC2050
-        command printf "%s" "$( [ "asdf" = "" ]); echo $?\n"
+        command printf "%s\n" [ "asdf" = "" ]
 
         # shellcheck disable=SC2050
-        assert "$( [ "asdf" = "" ] )" \
+        assert [ "asdf" = "" ] \
             "asdf is not empty string"
 
         exit $script_ret
