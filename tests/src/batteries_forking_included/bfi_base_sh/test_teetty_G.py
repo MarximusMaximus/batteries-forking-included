@@ -158,7 +158,7 @@ class Test_teetty_G():
         if additional_args is None:  # pragma: no cover
             additional_args = []
 
-        monkeypatch.delenv("CI")
+        monkeypatch.delenv("CI", raising=False)
 
         tempdir_path = os_path_abspath("")
         full_log_filepath = os_path_abspath("log/log.txt")
