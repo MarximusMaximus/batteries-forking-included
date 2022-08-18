@@ -27,6 +27,7 @@ from typing import (
 from pytest import (
     mark                            as pytest_mark,
     param                           as pytest_param,
+    MonkeyPatch                     as pytest_MonkeyPatch,
 )
 
 #endregion third party
@@ -139,7 +140,7 @@ class Test_teetty_G():
             ),
         ],
     )
-    def test_teetty_G(
+    def test_teetty_G(  # pylint: disable=too-many-locals
         self,
         additional_args: Union[List[str], None],
         expected_ret: int,
@@ -148,6 +149,7 @@ class Test_teetty_G():
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
         shell_test_harness: PytestShellTestHarness,
+        monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
         Check that teetty_G runs the specified commands and correctly tees
@@ -155,6 +157,8 @@ class Test_teetty_G():
         """
         if additional_args is None:  # pragma: no cover
             additional_args = []
+
+        monkeypatch.delenv("CI")
 
         tempdir_path = os_path_abspath("")
         full_log_filepath = os_path_abspath("log/log.txt")
