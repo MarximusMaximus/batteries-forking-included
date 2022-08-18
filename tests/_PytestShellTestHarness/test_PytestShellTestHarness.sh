@@ -1106,6 +1106,8 @@ unident_text() {
 #===============================================================================
 #region Source/Invoke Check For Top Level File
 
+log_ultradebug "env vars:\n%s" "$(env -0 | sort -z | tr '\0' '\n')"
+
 if [ "${WAS_SOURCED}" = "" ]; then
     WAS_SOURCED=""
     array_init WAS_SOURCED
