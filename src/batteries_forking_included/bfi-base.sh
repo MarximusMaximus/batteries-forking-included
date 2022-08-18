@@ -2826,7 +2826,7 @@ then
     CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_DIR}"/log
 
     if [ "${CI}" = true ]; then
-        CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_LOG_DIR}"/$(get_datetime_stamp_filename_formatted)
+        CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_LOG_DIR}"/$(get_datetime_stamp_filename_formatted)_$$
     fi
 
     ensure_dir "${CONSTANTS_TEMP_LOG_DIR}"
