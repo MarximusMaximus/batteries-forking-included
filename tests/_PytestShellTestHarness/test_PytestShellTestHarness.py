@@ -197,9 +197,14 @@ class Test_PytestShellTestHarness__run():
                     "batteries-forking-included/" +
                     "tests/" +
                     "_PytestShellTestHarness/" +
-                    "test_PytestShellTestHarness.sh' " +
-                    "Test_PytestShellTestHarness__run_" +
-                    "_test_PytestShellTestHarness__run__success " +
+                    "test_PytestShellTestHarness.sh"
+                ) in cmd_str
+            assert \
+                (
+                    "Test_PytestShellTestHarness__run" +
+                    "__" +
+                    "test_PytestShellTestHarness__run__success" +
+                    " " +
                     "echo foo"
                 ) in cmd_str
 
@@ -265,9 +270,14 @@ class Test_PytestShellTestHarness__run():
                     "batteries-forking-included/" +
                     "tests/" +
                     "_PytestShellTestHarness/" +
-                    "test_PytestShellTestHarness.sh' " +
-                    "Test_PytestShellTestHarness__run_" +
-                    "_test_PytestShellTestHarness__run__assert " +
+                    "test_PytestShellTestHarness.sh"
+                ) in cmd_str
+            assert \
+                (
+                    "Test_PytestShellTestHarness__run" +
+                    "__" +
+                    "test_PytestShellTestHarness__run__assert" +
+                    " " +
                     "echo foo"
                 ) in cmd_str
 
