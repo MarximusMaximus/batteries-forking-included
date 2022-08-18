@@ -1815,8 +1815,10 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_mo
 func_to_call="$1"
 shift
 (
+    command printf "Calling shell func '%s'" "${func_to_call}"
     "${func_to_call}" "$@"
     ret=$?
+    command printf "func return code was %s" "$ret"
     exit $ret
 )
 ret=$?
