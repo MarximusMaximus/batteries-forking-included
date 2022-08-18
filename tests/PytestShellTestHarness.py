@@ -129,6 +129,10 @@ class PytestShellTestHarness:
             shell=True,  # nosec
         )
 
+        print(p.returncode)
+        print(p.stdout)
+        print(p.stderr)
+
         if p.returncode == 255:
             raise AssertionError(p.stderr.strip().split(b"\n")[-1])
 
