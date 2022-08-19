@@ -70,7 +70,11 @@ class Test_Invoke():
                     b"ULTRADEBUG: WAS_SOURCED: false\n",
                 ],
                 [
-                    b"./bfi-base.sh: Permission denied\n",
+                    (
+                        b"FATAL: bfi-base.sh must be sourced" \
+                        if PytestShellTestHarness.is_actually_windows_fs() else \
+                        b"./bfi-base.sh: Permission denied\n"
+                    ),
                 ],
                 [
                     b"Error:",
