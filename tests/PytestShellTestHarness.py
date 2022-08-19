@@ -16,7 +16,11 @@ from os import (
 from os.path import (
     join                            as os_path_join,
 )
+from platform import (
+    uname                           as platform_uname,
+)
 from subprocess import (  # noqa: F401
+    call                            as subprocess_call,
     CompletedProcess                as subprocess_CompletedProcess,
     run                             as subprocess_run,
 )
@@ -141,6 +145,39 @@ class PytestShellTestHarness:
             raise AssertionError(p.stderr.strip().split(b"\n")[-1])
 
         return p
+
+    @staticmethod
+    def is_actually_windows_fs() -> bool:
+        """
+        Check if we are probably actually on Windows.
+
+        Returns:
+            bool: true if Windowsy, false if not Windowsy
+        """
+        if (
+            any(
+                x in " ".join(platform_uname()).casefold()
+                for x in ["microsoft", "wsl"]
+            ) or
+            os_environ.get("REAL_PLATFORM", "") == "MINGW64NT" or
+            os_environ.get("WSL_DISTRO_NAME", "") != ""
+        ):
+            return True
+
+        # we don't care if this fails b/c if it does,
+        # we've got many other problems
+        windows_fs = 0
+        try:
+            windows_fs = subprocess_call(  # nosec
+                "mount | grep -e '[A-Z]:\\\\'",
+                shell=True,
+            )
+        except Exception:  # pylint: disable=broad-except # noqa:E722 # nosec
+            pass
+        if windows_fs != 0:
+            return True
+
+        return False
 
 #endregion Public Classes
 ################################################################################
