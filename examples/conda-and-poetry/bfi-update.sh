@@ -1109,6 +1109,7 @@ unident_text() {
 #===============================================================================
 #region Source/Invoke Check For Top Level File
 
+# shellcheck disable=SC2218
 log_ultradebug "env vars:\n%s" "$(env -0 | sort -z | tr '\0' '\n')"
 
 if [ "${WAS_SOURCED}" = "" ]; then
