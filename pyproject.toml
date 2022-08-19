@@ -133,6 +133,18 @@ warn_unreachable=true
 module="pyparsing"
 ignore_missing_imports=true
 
+[[tool.mypy.overrides]]
+module="pyparsing.*"
+ignore_missing_imports=true
+
+[[tool.mypy.overrides]]
+module="jinja2"
+ignore_missing_imports=true
+
+[[tool.mypy.overrides]]
+module="jinja2.*"
+ignore_missing_imports=true
+
 [tool.pyright]
 pythonVersion=3.8
 typeCheckingMode="strict"
