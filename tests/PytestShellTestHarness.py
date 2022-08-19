@@ -172,7 +172,7 @@ class PytestShellTestHarness:
                 "mount | grep -e '[A-Z]:\\\\'",
                 shell=True,
             )
-        except Exception:  # pylint: disable=broad-except # noqa:E722 # nosec
+        except Exception:  # pylint: disable=broad-except # noqa: E722 # nosec
             pass
         if windows_fs == 0:
             return True
