@@ -1245,10 +1245,19 @@ fi
 
 #-------------------------------------------------------------------------------
 assert() {
-    __assert_result="$?"  # get the return of the subshell used as first arg
-    shift  # ignore first arg as it's the subshell that generates the $? used above
+    __assert_message=""
+    eval __assert_message='$'$#
+    __assert_test="\"$1\""
+    shift
+    while [ $# -gt 1 ]; do
+        __assert_test="$__assert_test \"$1\""
+        shift
+    done
+    eval
+    eval "$__assert_test"
+    __assert_result="$?"
     if [ "${__assert_result}" -ne 0 ]; then
-        log_fatal "expected: %s" "$@"
+        log_fatal "expected: %s" "$__assert_message"
         exit 255
     fi
 }

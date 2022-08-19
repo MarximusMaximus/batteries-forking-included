@@ -1245,10 +1245,19 @@ fi
 
 #-------------------------------------------------------------------------------
 assert() {
-    __assert_result="$?"  # get the return of the subshell used as first arg
-    shift  # ignore first arg as it's the subshell that generates the $? used above
+    __assert_message=""
+    eval __assert_message='$'$#
+    __assert_test="\"$1\""
+    shift
+    while [ $# -gt 1 ]; do
+        __assert_test="$__assert_test \"$1\""
+        shift
+    done
+    eval
+    eval "$__assert_test"
+    __assert_result="$?"
     if [ "${__assert_result}" -ne 0 ]; then
-        log_fatal "expected: %s" "$@"
+        log_fatal "expected: %s" "$__assert_message"
         exit 255
     fi
 }
@@ -1290,7 +1299,7 @@ Test_Invoke__test_Invoke() {
             conda activate .
         fi
 
-        assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+        assert [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] \
             "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
 
         inject_monkeypatch() { true; }
@@ -1298,7 +1307,7 @@ Test_Invoke__test_Invoke() {
         invoke ./bfi-update.sh "$@"
         script_ret=$?
 
-        assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+        assert [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] \
             "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
 
         exit $script_ret
@@ -1323,13 +1332,13 @@ Test_Source__test_Source() {
             conda activate .
         fi
 
-        assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+        assert [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] \
             "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
 
         include_G ./bfi-update.sh "$@"
         script_ret=$?
 
-        assert "$( [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] )" \
+        assert [ "${CONDA_DEFAULT_ENV}" != "batteries-forking-included" ] \
             "CONDA_DEFAULT_ENV != 'batteries-forking-included' (was '${CONDA_DEFAULT_ENV}')"
 
         exit $script_ret
