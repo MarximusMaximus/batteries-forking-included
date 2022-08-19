@@ -121,6 +121,8 @@ class PytestShellTestHarness:
             else:
                 del env[k]
 
+        print(f"Running Command:\n{cmd_str}\n")
+
         p = subprocess_run(
             cmd_str,
             capture_output=True,
@@ -129,9 +131,11 @@ class PytestShellTestHarness:
             shell=True,  # nosec
         )
 
-        print(p.returncode)
-        print(p.stdout)
-        print(p.stderr)
+        print(f"\nRaw stdout bytes:\n{repr(p.stdout)}\n")
+        print(f"\nRaw stderr bytes:\n{repr(p.stderr)}\n")
+        print(f"\nstdout:\n{str(p.stdout)}\n")
+        print(f"\nstderr:\n{str(p.stderr)}\n")
+        print(f"\nReturn Code: {p.returncode}\n")
 
         if p.returncode == 255:
             raise AssertionError(p.stderr.strip().split(b"\n")[-1])
