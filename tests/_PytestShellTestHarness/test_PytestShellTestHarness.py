@@ -395,9 +395,6 @@ class Test_PytestShellTestHarness__run():
         with pytest_raises(AssertionError):
             try:
                 _ = obj.run(["echo", "foo"])
-                print(_.returncode)
-                print(_.stdout)
-                print(_.stderr)
             except Exception as e:
                 err = e
                 raise
