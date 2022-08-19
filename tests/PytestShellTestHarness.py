@@ -166,7 +166,7 @@ class PytestShellTestHarness:
 
         # we don't care if this fails b/c if it does,
         # we've got many other problems
-        windows_fs = 0
+        windows_fs = 1
         try:
             windows_fs = subprocess_call(  # nosec
                 "mount | grep -e '[A-Z]:\\\\'",
@@ -174,7 +174,7 @@ class PytestShellTestHarness:
             )
         except Exception:  # pylint: disable=broad-except # noqa:E722 # nosec
             pass
-        if windows_fs != 0:
+        if windows_fs == 0:
             return True
 
         return False
