@@ -263,7 +263,7 @@ jobs:
         run: |
           echo "BEFORE:"
           cat ./conda-environment.yml
-          sed -i.old -e 's/  - python=.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
+          sed -i.old -e 's/  - python[<>=]\{1,5\}.*/  - python=${{ matrix.python-version }}/' ./conda-environment.yml
           echo ""
           echo "AFTER:"
           cat ./conda-environment.yml
