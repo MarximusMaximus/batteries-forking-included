@@ -155,8 +155,17 @@
             "italic": false
         },
         {
-            "tag": "noqa:",
+            "tag": "noqa: ",
             "color": "#9900CC",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "noqa:",
+            "color": "#FF2D00",
             "strikethrough": false,
             "underline": false,
             "backgroundColor": "transparent",
