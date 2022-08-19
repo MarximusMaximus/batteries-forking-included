@@ -63,9 +63,9 @@ class Test_Invoke():
         [
             pytest_param(
                 [],
-                # RET_ERROR_SHELL_PERMISSION_DENIED=126
                 # RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151
-                126 if PytestShellTestHarness.is_actually_windows_fs() else 151,
+                # RET_ERROR_SHELL_PERMISSION_DENIED=126
+                151 if PytestShellTestHarness.is_actually_windows_fs() else 126,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\n",
                 ],
