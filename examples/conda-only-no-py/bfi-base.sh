@@ -1602,7 +1602,8 @@ esac
 PLATFORM_IS_WSL=false
 if \
     [ "$(uname -a | grep '\(microsoft\|Microsoft\|WSL\)')" != "" ] ||
-    [ "$(echo "${REAL_PLATFORM}" | grep -e 'MINGW64_NT' )" != "" ]
+    [ "$(echo "${REAL_PLATFORM}" | grep -e 'MINGW64_NT' )" != "" ] ||
+    [ "${WSL_DISTRO_NAME}" != "" ]
 then
     PLATFORM_IS_WSL=true
 fi
