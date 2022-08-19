@@ -1,12 +1,18 @@
 .DEFAULT_GOAL := help
 
+all: build
+
 .PHONY:
 install:  ## setup user environment
 	./bootstrap.sh
 
+setup: install
+
 .PHONY:
 install-dev:  ## setup development environment
 	./bootstrap.sh --dev
+
+setup-dev: install-dev
 
 .PHONY:
 build: ## build wheels and sdists
@@ -51,6 +57,8 @@ lint: ## run all linters
 .PHONY:
 test: ## run all tests for all python versions, linters, and gather coverage
 	./run.sh tox
+
+check: test
 
 .PHONY:
 help: ## show this help message
