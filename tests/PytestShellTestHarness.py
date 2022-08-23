@@ -147,7 +147,7 @@ class PytestShellTestHarness:
         return p
 
     @staticmethod
-    def is_actually_windows_fs() -> bool:
+    def isActuallyWindowsFileSystem() -> bool:
         """
         Check if we are probably actually on Windows.
 
@@ -166,7 +166,7 @@ class PytestShellTestHarness:
 
         # we don't care if this fails b/c if it does,
         # we've got many other problems
-        windows_fs = 1
+        windows_fs = 1  # 1 is False
         try:
             windows_fs = subprocess_call(  # nosec
                 "mount | grep -e '[A-Z]:\\\\'",

@@ -16,6 +16,9 @@ tests/PytestShellTestHarness/test_PytestShellTestHarness.py (batteries-forking-i
 from os.path import (
     join                            as os_path_join,
 )
+from platform import (
+    uname_result                    as platform_uname_result,
+)
 from shutil import (
     copy2                           as shutil_copy2,
 )
@@ -35,7 +38,9 @@ from typing import (
 import pytest  # required to use pytest.fixture which cannot be aliased via 'as'
 from pytest import (
     FixtureRequest                  as pytest_FixtureRequest,
+    mark                            as pytest_mark,
     MonkeyPatch                     as pytest_MonkeyPatch,
+    param                           as pytest_param,
     raises                          as pytest_raises,
 )
 
@@ -1275,4 +1280,241 @@ class Test_PytestShellTestHarness__run():
         assert b"error: " not in p.stderr
 
 #endregion PytestShellTestHarness::run
+################################################################################
+
+################################################################################
+#region PytestShellTestHarness::isActuallyWindowsFileSystem
+
+class Test_PytestShellTestHarness_isActuallyWindowsFileSystem():
+    """
+    Test PytestShellTestHarness::isActuallyWindowsFileSystem function.
+    """
+
+    @pytest_mark.parametrize(
+        (
+            "mock_uname," +
+            "mock_uname_expected_result"
+        ),
+        [
+            # macOS Apple Silicon
+            pytest_param(
+                platform_uname_result(
+                    system="Darwin",
+                    node="my-machine",
+                    release="21.6.0",
+                    version=(
+                        "Darwin Kernel Version 21.6.0: " +
+                        "Wed Aug 10 14:28:23 PDT 2022; " +
+                        "root:xnu-8020.141.5~2/RELEASE_ARM64_T6000"
+                    ),
+                    machine="arm64",
+                    # processor="arm",  # uname_result doesn't take this arg
+                ),  # type: ignore[call-arg]
+                False,
+                id="macOSAppleSilicon",
+            ),
+            # macOS Intel
+            pytest_param(
+                platform_uname_result(
+                    system="Darwin",
+                    node="my-machine",
+                    release="11.0.0",
+                    version=(
+                        "Darwin Kernel Version 11.0.0 " +
+                        "Sat Jun 18 12:56:35 PDT 2011; " +
+                        "root:xnu-1699.22.73~1/RELEASE_X86_64"
+                    ),
+                    machine="x86_64",
+                    # processor="i386",  # uname_result doesn't take this arg
+                ),  # type: ignore[call-arg]
+                False,
+                id="macOSIntel",
+            ),
+            # Linux AMD
+            pytest_param(
+                platform_uname_result(
+                    system="Linux",
+                    node="my-machine",
+                    release="2.6.32-21-generic",
+                    version=(
+                        "2.6.32-21-generic #32-Ubuntu SMP " +
+                        "Fri Apr 16 08:09:38 UTC 2010"
+                    ),
+                    machine="x86_64",
+                    # processor="x86_64",  # uname_result doesn't take this arg
+                ),  # type: ignore[call-arg]
+                False,
+                id="LinuxAMD",
+            ),
+            # Linux Intel
+            pytest_param(
+                platform_uname_result(
+                    system="Linux",
+                    node="my-machine",
+                    release="2.6.18-194.e15PAE",
+                    version=(
+                        "2.6.18-194.e15PAE #1 SMP " +
+                        "Fri Apr 2 15:37:44 EDT 2010 i686"
+                    ),
+                    machine="i686",
+                    # processor="i386",  # uname_result doesn't take this arg
+                ),  # type: ignore[call-arg]
+                False,
+                id="LinuxIntel",
+            ),
+            # WSL1 Intel
+            pytest_param(
+                platform_uname_result(
+                    system="Linux",
+                    node="my-machine",
+                    release="4.4.0-19041-Microsoft",
+                    version=(
+                        "4.4.0-19041-Microsoft #1-Microsoft " +
+                        "Sat Sep 11 14:32:00 PST 2021"
+                    ),
+                    machine="x86_64",
+                    # processor="x86_64",  # uname_result doesn't take this arg
+                ),  # type: ignore[call-arg]
+                True,
+                id="WSL1Intel",
+            ),
+            # WSL2 Intel
+            pytest_param(
+                platform_uname_result(
+                    system="Linux",
+                    node="my-machine",
+                    release="2.6.32-21-microsoft-standard-WSL2",
+                    version=(
+                        "2.6.32-21-microsoft-standard-WSL2 #1-Microsoft " +
+                        "Sat Sep 11 14:32:00 PST 2021"
+                    ),
+                    machine="x86_64",
+                    # processor="x86_64",  # uname_result doesn't take this arg
+                ),  # type: ignore[call-arg]
+                True,
+                id="WSL2Intel",
+            ),
+        ],
+    )
+    @pytest_mark.parametrize(
+        (
+            "mock_subprocess_return_code," +
+            "mock_subprocess_return_code_expected_result"
+        ),
+        [
+            pytest_param(
+                0,  # mounts of C:\ exist
+                True,
+                id="mountRet0",
+            ),
+            pytest_param(
+                1,  # mounts of C:\ do NOT exist
+                False,
+                id="mountRet1",
+            ),
+            pytest_param(
+                -1,  # there was an Exception
+                False,
+                id="mountRetNeg1",
+            ),
+        ],
+    )
+    @pytest_mark.parametrize(
+        (
+            "mock_real_platform," +
+            "mock_real_platform_expected_result"
+        ),
+        [
+            pytest_param(
+                "Linux",
+                False,
+                id="PlatformLinux",
+            ),
+            pytest_param(
+                "Darwin",
+                False,
+                id="PlatformDarwin",
+            ),
+            pytest_param(
+                "MINGW64NT",  # "Windows
+                True,
+                id="PlatformMINGW64NT",
+            ),
+        ],
+    )
+    @pytest_mark.parametrize(
+        (
+            "mock_wsl_distro_name," +
+            "mock_wsl_distro_name_expected_result"
+        ),
+        [
+            pytest_param(
+                "",
+                False,
+                id="DistroEmpty",
+            ),
+            pytest_param(
+                "NotEmpty",  # e.g. Ubuntu, Debian, CentOS, etc
+                True,
+                id="DistroNotEmpty",
+            ),
+        ],
+    )
+    def test_PytestShellTestHarness_isActuallyWindowsFileSystem(
+        self,
+        mock_uname: platform_uname_result,
+        mock_uname_expected_result: bool,
+        mock_subprocess_return_code: int,
+        mock_subprocess_return_code_expected_result: bool,
+        mock_real_platform: str,
+        mock_real_platform_expected_result: bool,
+        mock_wsl_distro_name: str,
+        mock_wsl_distro_name_expected_result: bool,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::isActuallyWindowsFileSystem when
+        """
+        # if any of the expected results are True,
+        # then the final expected result is also True
+        expected_result = (
+            mock_uname_expected_result or
+            mock_subprocess_return_code_expected_result or
+            mock_real_platform_expected_result or
+            mock_wsl_distro_name_expected_result
+        )
+
+        def mock_platform_uname() -> platform_uname_result:
+            return mock_uname
+
+        monkeypatch.setattr(
+            MODULE_UNDER_TEST,
+            "platform_uname",
+            mock_platform_uname,
+        )
+
+        def mock_subprocess_call(*args: Any, **kwargs: Any) -> int:
+            # silence the "variable not used" complaints in function signature
+            args = args  # noqa: F841  # pylint: disable=self-assigning-variable
+            kwargs = kwargs  # noqa: F841  # pylint: disable=self-assigning-variable
+
+            if mock_subprocess_return_code == -1:
+                raise Exception("generic unit test exception")
+            return mock_subprocess_return_code
+
+        monkeypatch.setattr(
+            MODULE_UNDER_TEST,
+            "subprocess_call",
+            mock_subprocess_call,
+        )
+
+        monkeypatch.setenv("REAL_PLATFORM", mock_real_platform)
+        monkeypatch.setenv("WSL_DISTRO_NAME", mock_wsl_distro_name)
+
+        res = PytestShellTestHarness_PytestShellTestHarness\
+            .isActuallyWindowsFileSystem()
+
+        assert res is expected_result
+
+#endregion PytestShellTestHarness::isActuallyWindowsFileSystem
 ################################################################################

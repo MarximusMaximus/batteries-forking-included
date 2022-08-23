@@ -65,14 +65,14 @@ class Test_Invoke():
                 [],
                 # RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151
                 # RET_ERROR_SHELL_PERMISSION_DENIED=126
-                151 if PytestShellTestHarness.is_actually_windows_fs() else 126,
+                151 if PytestShellTestHarness.isActuallyWindowsFileSystem() else 126,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\n",
                 ],
                 [
                     (
                         b"FATAL: bfi-base.sh must be sourced" \
-                        if PytestShellTestHarness.is_actually_windows_fs() else \
+                        if PytestShellTestHarness.isActuallyWindowsFileSystem() else \
                         b"./bfi-base.sh: Permission denied\n"
                     ),
                 ],
