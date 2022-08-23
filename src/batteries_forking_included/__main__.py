@@ -17,7 +17,7 @@ MY_LIB_FULLPATH = os_path.join(MY_REPO_FULLPATH, "src")
 sys.path.insert(0, MY_LIB_FULLPATH)
 
 MY_PROGRAM_NAME = os.environ.get("BFI_ORIGINAL_EXEC_NAME", os_path.basename(sys.argv[0]))
-if (  # pragma: no branch
+if (  # pragma: no cover
     "." not in os_path.basename(MY_PROGRAM_NAME) or
     ".py" in os_path.basename(MY_PROGRAM_NAME)
 ):
