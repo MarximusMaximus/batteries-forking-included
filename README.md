@@ -4,16 +4,16 @@
 
 by Marximus Maximus (<https://marximus.com>)
 
-Helper tools for setting up conda environments for projects. Supports poetry and pip for extra environment config, as well as custom post-setup steps.
+Single command installer for users and developers for git repos/projects. Sets up either a user environment or development environment for running or contributing to a project. There is no longer a need for a whole readme file with many steps of setup.
 
 ## Features
 
 - `bootstrap.sh` - Automatically downloads and installs/updates to latest miniforge, sets up/updates project env.
 - `activate.sh` - Activates conda environment for project.
 - `run.sh` - Runs command within conda environment for project. (Will try default command if first arg is not a path to an executable file.)
-- Python File Preamble - Automatically activates conda env when attempting to run python script directly.
+- Python File Preamble - Automatically activates conda env when attempting to run python script directly. (Optional)
 - `bfi-update.sh` - Updates stub files within your project to latest versions
-- `post-bootstrap.sh` - Any additional commands to run after main environment setup provided by conda, pip, or poetry.
+- `post-bootstrap.sh` - Any additional commands to run after main environment setup provided by conda, pip, or poetry. (Optional)
 
 Additional Files:
 
@@ -33,33 +33,44 @@ Additional Files:
 
 ### Initial Addition To Project
 
-1. Copy latest `bfi-update.sh` to your project root.
-2. Run `bfi-update.sh` from within your project root.
+1. Create a `conda-environment.yml` file in the root of your project with these contents:
+
+```yaml
+channels:
+  - nodefaults
+  - conda-forge
+dependencies:
+  - python<3.11
+```
+
+2. If you plan to use poetry (recommended), add this line to the end of `conda-environment.yml`:
+
+```yaml
+  - poetry
+```
+
+2. Copy latest `bfi-update.sh` to your project root.
+3. Run `bfi-update.sh` from within your project root.
    1. `cd YOUR_PROJECT_ROOT_FOLDER`
    2. `./bfi-update.sh`
-3. Select options as presented.
-4. (Optional) Modify `conda-environment.yml` and `pip-*.txt` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
-5. Run `bootstrap.sh` to create environment.
+5. (Optional) Modify `conda-environment.yml` and `pip-*.txt` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
+6. (Optional) Modify `post-bootstrap.sh` with any additional commands you wish to run during bootstrapping an environment (such as creating additional conda envs or running npm commands.)
+7. Run `bootstrap.sh --dev` to create environment.
 
 ### Initial Setup for New Developer
 
-1. Copy latest `bfi-update.sh` to your project root.
-2. Run `bfi-update.sh` from within your project root.
-   1. `cd YOUR_PROJECT_ROOT_FOLDER`
-   2. `./bfi-update.sh --yes`
-3. Run `bootstrap.sh` to create environment.
+1. Run `bootstrap.sh --dev` to create environment.
 
 ### Update batteries-forking-included Stubs
 
 1. Run `bfi-update.sh` from within your project root.
-2. Select options (if presented).
-3. Run `bootstrap.sh` to update environment.
+2. Run `bootstrap.sh --dev` to update environment.
 
 ### Update Project Environment
 
 1. (Optional) Modify `conda-environment.yaml` and `pip-*` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
    1. NOTE: If using `poetry`, remember to run `poetry update` if you want your dependencies' pinned versions updated!
-2. Run `bootstrap.sh` to create environment.
+2. Run `bootstrap.sh --dev` to create environment.
 
 ### Raw Deployments (i.e. Direct To Metal)
 
