@@ -10,6 +10,9 @@ tests/src/batteries_forking_included/bfi_base_sh/test_teetty_G.py (batteries-for
 #===============================================================================
 #region stdlib
 
+from glob import (
+    glob                            as glob_glob,
+)
 from os.path import (
     abspath                         as os_path_abspath,
 )
@@ -164,12 +167,30 @@ class Test_teetty_G():
         full_log_filepath = os_path_abspath("log/log.txt")
         error_and_fatal_log_filepath = os_path_abspath("log/errors_and_fatals_only.txt")
 
+        # check how many fifo files we're ending with
+        # (hopefully 0, but might not be true)
+        # because we want to make sure we delete any we create
+        before_fifo_files = glob_glob(
+            "std*.*.*",
+            recursive=False,
+        )
+
         p = shell_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
             },
         )
+
+        # check how many fifo files we're ending with
+        # (hopefully 0, but might not be true, based on starting value)
+        # because we want to make sure we deleted any we created
+        after_fifo_files = glob_glob(
+            "std*.*.*",
+            recursive=False,
+        )
+
+        assert len(after_fifo_files) == len(before_fifo_files)
 
         assert p.returncode == expected_ret
         for x in expected_stdout:
