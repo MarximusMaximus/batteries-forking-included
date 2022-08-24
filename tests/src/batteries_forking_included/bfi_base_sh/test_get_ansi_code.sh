@@ -1287,7 +1287,6 @@ test_harness_output() {
 ################################################################################
 #region Tests
 
-
 #===============================================================================
 #region Test_get_ansi_code
 
@@ -1368,6 +1367,44 @@ Test_get_ansi_code__test_get_ansi_code__terminal_mono() {
 }
 
 #-------------------------------------------------------------------------------
+Test_get_ansi_code__test_get_ansi_code__terminal_mono__colorized_output_alt() {
+    (
+        inject_monkeypatch() {
+            default_inject_monkeypatch
+
+            tput() {
+                if [ "$1" = "colors" ]; then
+                    command printf "256\n"
+                else
+                    command tput "$@"
+                fi
+            }
+        }
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
+
+        TERM=ansi-mono
+        export TERM
+        NO_COLOR=""
+        export NO_COLOR
+        colorized_output="alt"
+        export colorized_output
+
+        output="$(get_ansi_code "$@")"
+        func_ret=$?
+
+        test_harness_output "${output}"
+
+        exit $func_ret
+    )
+    return $?
+}
+
+#-------------------------------------------------------------------------------
 Test_get_ansi_code__test_get_ansi_code__tput_colors_8() {
     (
         inject_monkeypatch() {
@@ -1393,6 +1430,44 @@ Test_get_ansi_code__test_get_ansi_code__tput_colors_8() {
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
+        export colorized_output
+
+        output="$(get_ansi_code "$@")"
+        func_ret=$?
+
+        test_harness_output "${output}"
+
+        exit $func_ret
+    )
+    return $?
+}
+
+#-------------------------------------------------------------------------------
+Test_get_ansi_code__test_get_ansi_code__tput_colors_8__colorized_output_alt() {
+    (
+        inject_monkeypatch() {
+            default_inject_monkeypatch
+
+            tput() {
+                if [ "$1" = "colors" ]; then
+                    command printf "8\n"
+                else
+                    command tput "$@"
+                fi
+            }
+        }
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
+
+        TERM=xterm-256color
+        export TERM
+        NO_COLOR=""
+        export NO_COLOR
+        colorized_output="alt"
         export colorized_output
 
         output="$(get_ansi_code "$@")"
@@ -1545,6 +1620,44 @@ Test_get_ansi_code__test_get_ansi_code__NO_COLOR_nonempty() {
         NO_COLOR="NO_COLOR"
         export NO_COLOR
         colorized_output=true
+        export colorized_output
+
+        output="$(get_ansi_code "$@")"
+        func_ret=$?
+
+        test_harness_output "${output}"
+
+        exit $func_ret
+    )
+    return $?
+}
+
+#-------------------------------------------------------------------------------
+Test_get_ansi_code__test_get_ansi_code__NO_COLOR_nonempty__colorized_output_alt() {
+    (
+        inject_monkeypatch() {
+            default_inject_monkeypatch
+
+            tput() {
+                if [ "$1" = "colors" ]; then
+                    command printf "256\n"
+                else
+                    command tput "$@"
+                fi
+            }
+        }
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
+
+        TERM=xterm-256color
+        export TERM
+        NO_COLOR="NO_COLOR"
+        export NO_COLOR
+        colorized_output="alt"
         export colorized_output
 
         output="$(get_ansi_code "$@")"
