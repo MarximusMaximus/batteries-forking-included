@@ -1995,8 +1995,11 @@ teetty_G() {
 }
 
 #-------------------------------------------------------------------------------
-format_log_message()
-{
+format_log_message() {
+    # $1 = prefix
+    # $2 = suffix
+    # $3 = string or format
+    # ... = string
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
