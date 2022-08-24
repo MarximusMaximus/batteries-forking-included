@@ -1860,22 +1860,24 @@ set_ansi_code_constants() {
     ANSI_COLOR_SUPERDEBUG="$(get_ansi_code '1' '30')"; export ANSI_COLOR_SUPERDEBUG           # grey
     ANSI_COLOR_ULTRADEBUG="$(get_ansi_code '0' '35' '33')"; export ANSI_COLOR_ULTRADEBUG    # darkmagenta/darkyellow
 
-    ANSI_SUCCESS="${ANSI_COLOR_SUCCESS}"; export ANSI_SUCCESS
-    ANSI_FATAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 "; export ANSI_FATAL
-    ANSI_ERROR="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ "; export ANSI_ERROR
-    ANSI_WARNING="${ANSI_COLOR_WARNING}⚠️ "; export ANSI_WARNING
-    ANSI_IMPORTANT="${ANSI_COLOR_WARNING}"; export ANSI_WARNING
+    ANSI_SUCCESS="${ANSI_COLOR_SUCCESS}SUCCESS: "; export ANSI_SUCCESS
+    ANSI_FATAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 FATAL: "; export ANSI_FATAL
+    ANSI_ERROR="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ ERROR: "; export ANSI_ERROR
+    ANSI_WARNING="${ANSI_COLOR_WARNING}⚠️ WARNING: "; export ANSI_WARNING
     ANSI_HEADER="${ANSI_COLOR_HEADER}"; export ANSI_HEADER
     ANSI_FOOTER="${ANSI_COLOR_FOOTER}"; export ANSI_FOOTER
-    ANSI_INFO="${ANSI_COLOR_INFO}"; export ANSI_INFO
-    ANSI_DEBUG="${ANSI_COLOR_DEBUG}"; export ANSI_DEBUG
-    ANSI_SUPERDEBUG="${ANSI_COLOR_SUPERDEBUG}"; export ANSI_SUPERDEBUG
-    ANSI_ULTRADEBUG="${ANSI_COLOR_ULTRADEBUG}"; export ANSI_ULTRADEBUG
+    ANSI_IMPORTANT="${ANSI_COLOR_WARNING}INFO: "; export ANSI_WARNING
+    ANSI_INFO="${ANSI_COLOR_INFO}INFO: "; export ANSI_INFO
+    ANSI_CONSOLE="${ANSI_COLOR_INFO}"; export ANSI_CONSOLE
+    ANSI_DEBUG="${ANSI_COLOR_DEBUG} DEBUG:"; export ANSI_DEBUG
+    ANSI_SUPERDEBUG="${ANSI_COLOR_SUPERDEBUG}SUPERDEBUG: "; export ANSI_SUPERDEBUG
+    ANSI_ULTRADEBUG="${ANSI_COLOR_ULTRADEBUG}ULTRADEBUG: "; export ANSI_ULTRADEBUG
+    ANSI_FILE="${ANSI_COLOR_ULTRADEBUG}"; export ANSI_FILE
 
-    ANSI_SUCCESS_FINAL="${ANSI_COLOR_SUCCESS}${ANSI_BELL}✅ "; export ANSI_SUCCESS_FINAL
-    ANSI_FATAL_FINAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 "; export ANSI_FATAL_FINAL
-    ANSI_ERROR_FINAL="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ "; export ANSI_ERROR_FINAL
-    ANSI_WARNING_FINAL="${ANSI_COLOR_WARNING}${ANSI_BELL}⚠️ "; export ANSI_WARNING_FINAL
+    ANSI_SUCCESS_FINAL="${ANSI_COLOR_SUCCESS}${ANSI_BELL}✅ SUCCESS: "; export ANSI_SUCCESS_FINAL
+    ANSI_FATAL_FINAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 FATAL: "; export ANSI_FATAL_FINAL
+    ANSI_ERROR_FINAL="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ ERROR: "; export ANSI_ERROR_FINAL
+    ANSI_WARNING_FINAL="${ANSI_COLOR_WARNING}${ANSI_BELL}⚠️ WARNING: "; export ANSI_WARNING_FINAL
 }
 set_ansi_code_constants
 
@@ -2034,7 +2036,7 @@ log_console()
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_CONSOLE}" "${ANSI_RESET}" "$@"; command echo EOL)"
         command printf -- "${message%EOL}"
 
         exit "${RET_SUCCESS}"
@@ -2055,7 +2057,7 @@ log_success() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_SUCCESS}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_SUCCESS}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_SUCCESS}" ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -2085,7 +2087,7 @@ log_success_final() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_SUCCESS_FINAL}SUCCESS: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_SUCCESS_FINAL}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             [ "${quiet:-}" != true ] ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -2115,7 +2117,7 @@ log_fatal() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_FATAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_FATAL}" "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             [ "${verbosity:-0}" -ge "${LOG_LEVEL_FATAL}" ] ||
@@ -2153,7 +2155,7 @@ log_fatal_final() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_FATAL_FINAL}FATAL: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_FATAL_FINAL}" "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             [ "${verbosity:-0}" -ge "${LOG_LEVEL_FATAL}" ] ||
@@ -2191,7 +2193,7 @@ log_error() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_ERROR}ERROR: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_ERROR}" "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             [ "${verbosity:-0}" -ge "${LOG_LEVEL_ERROR}" ] ||
@@ -2229,7 +2231,7 @@ log_error_final() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_ERROR_FINAL}ERROR: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_ERROR_FINAL}" "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             [ "${verbosity:-0}" -ge "${LOG_LEVEL_ERROR}" ] ||
@@ -2267,7 +2269,7 @@ log_warning() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_WARNING}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_WARNING}" "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_WARNING}" ]  ;} ||
@@ -2302,7 +2304,7 @@ log_warning_final() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_WARNING_FINAL}WARNING: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_WARNING_FINAL}" "${ANSI_RESET}" "$@"; command echo EOL)"
 
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_WARNING}" ]  ;} ||
@@ -2399,7 +2401,7 @@ log_info_important() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_IMPORTANT}INFO: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_IMPORTANT}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -2429,7 +2431,7 @@ log_info() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_INFO}INFO: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -2459,7 +2461,7 @@ log_info_noprefix() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_COLOR_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -2489,7 +2491,7 @@ log_debug() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_DEBUG}DEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_DEBUG}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_DEBUG}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -2519,7 +2521,7 @@ log_superdebug() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_SUPERDEBUG}SUPERDEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_SUPERDEBUG}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_SUPERDEBUG}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -2549,7 +2551,7 @@ log_ultradebug() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_ULTRADEBUG}ULTRADEBUG: " "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_ULTRADEBUG}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_ULTRADEBUG}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -2579,7 +2581,7 @@ log_file() {
         export SHELL_SESSION_FILE
 
         # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${ANSI_INFO}" "${ANSI_RESET}" "$@"; command echo EOL)"
+        message="$(format_log_message "${ANSI_FILE}" "${ANSI_RESET}" "$@"; command echo EOL)"
         if [ "${FULL_LOG}" != "" ]; then
             >>"${FULL_LOG}" command printf -- "${message%EOL}"
         fi
