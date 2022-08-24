@@ -1305,18 +1305,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__regular_terminal() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1343,18 +1343,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__mono_terminal() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=ansi-mono
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1381,18 +1381,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__tput_colors_8() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1419,18 +1419,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__tput_colors_16() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1457,18 +1457,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__tput_colors_256() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1495,18 +1495,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__NO_COLOR_empty() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1533,18 +1533,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__NO_COLOR_nonempty() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR="NO_COLOR"
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1571,18 +1571,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__colorized_output_empty() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=""
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1609,18 +1609,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__colorized_output_true() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1647,18 +1647,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__colorized_output_alt() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output="alt"
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?
@@ -1685,18 +1685,18 @@ Test_get_ansi_code_cursor__test_get_ansi_code_cursor__colorized_output_false() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=false
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(get_ansi_code_cursor "$@")"
         func_ret=$?

@@ -1264,14 +1264,12 @@ assert() {
 
 #-------------------------------------------------------------------------------
 default_inject_monkeypatch() {
-    printf "\n\n\nDEFAULT INJECTION\n\n\n"
     __main() { return 0; }
     __sourced_main() { return 0; }
 }
 
 #-------------------------------------------------------------------------------
 inject_monkeypatch() {
-    printf "\n\n\nREGULAR INJECTION\n\n\n"
     default_inject_monkeypatch
 }
 
@@ -1311,18 +1309,18 @@ Test_format_log_message__test_format_log_message() {
             }
         }
 
-        include_G ./bfi-base.sh "$@"
-        script_ret=$?
-        if [ "${script_ret}" -ne 0 ]; then
-            exit $script_ret
-        fi
-
         TERM=xterm-256color
         export TERM
         NO_COLOR=""
         export NO_COLOR
         colorized_output=true
         export colorized_output
+
+        include_G ./bfi-base.sh "$@"
+        script_ret=$?
+        if [ "${script_ret}" -ne 0 ]; then
+            exit $script_ret
+        fi
 
         output="$(format_log_message "$@")"
         func_ret=$?
