@@ -21,7 +21,7 @@ if (  # pragma: no cover
     "." not in os_path.basename(MY_PROGRAM_NAME) or
     ".py" in os_path.basename(MY_PROGRAM_NAME)
 ):
-    MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)  # type: ignore[reportConstantRedefinition]  # noqa: E501,B950
+    MY_PROGRAM_NAME = os_path.basename(MY_PROGRAM_NAME)  # type: ignore[reportConstantRedefinition]  # noqa: E501,B950  # pragma: no cover
 del os
 del os_path
 
