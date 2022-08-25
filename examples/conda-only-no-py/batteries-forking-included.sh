@@ -1659,7 +1659,7 @@ parse_args__common_doubledash() {
 
         --?*)
             log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found unknown arg"
-            log_warning " Unknown option (ignored): %s" "$1" >&2
+            log_warning " Unknown option (ignored): %s" "$1"
             ;;
     esac
 
