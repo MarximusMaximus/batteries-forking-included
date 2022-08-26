@@ -17,6 +17,7 @@ from os.path import (
     join                            as os_path_join,
 )
 from platform import (
+    python_version                  as platform_python_version,
     uname_result                    as platform_uname_result,
 )
 from shutil import (
@@ -24,6 +25,7 @@ from shutil import (
 )
 from typing import (
     Any,
+    Dict,
     List,
     Optional,
     Union,
@@ -35,6 +37,9 @@ from typing import (
 #===============================================================================
 #region third party
 
+from packaging import (
+    version                         as packaging_version,
+)
 import pytest  # required to use pytest.fixture which cannot be aliased via 'as'
 from pytest import (
     FixtureRequest                  as pytest_FixtureRequest,
@@ -1292,105 +1297,99 @@ class Test_PytestShellTestHarness_isActuallyWindowsFileSystem():
 
     @pytest_mark.parametrize(
         (
-            "mock_uname," +
-            "mock_uname_expected_result"
+            "mock_uname_dict," +
+            "mock_uname_dict_expected_result"
         ),
         [
             # macOS Apple Silicon
             pytest_param(
-                platform_uname_result(
-                    system="Darwin",
-                    node="my-machine",
-                    release="21.6.0",
-                    version=(
+                {
+                    "system": "Darwin",
+                    "node": "my-machine",
+                    "release": "21.6.0",
+                    "version": (
                         "Darwin Kernel Version 21.6.0: " +
                         "Wed Aug 10 14:28:23 PDT 2022; " +
                         "root:xnu-8020.141.5~2/RELEASE_ARM64_T6000"
                     ),
-                    machine="arm64",
-                    # processor="arm",  # uname_result doesn't take this arg
-                ),  # type: ignore[call-arg]
+                    "machine": "arm64",
+                },
                 False,
                 id="macOSAppleSilicon",
             ),
             # macOS Intel
             pytest_param(
-                platform_uname_result(
-                    system="Darwin",
-                    node="my-machine",
-                    release="11.0.0",
-                    version=(
+                {
+                    "system": "Darwin",
+                    "node": "my-machine",
+                    "release": "11.0.0",
+                    "version": (
                         "Darwin Kernel Version 11.0.0 " +
                         "Sat Jun 18 12:56:35 PDT 2011; " +
                         "root:xnu-1699.22.73~1/RELEASE_X86_64"
                     ),
-                    machine="x86_64",
-                    # processor="i386",  # uname_result doesn't take this arg
-                ),  # type: ignore[call-arg]
+                    "machine": "x86_64",
+                },
                 False,
                 id="macOSIntel",
             ),
             # Linux AMD
             pytest_param(
-                platform_uname_result(
-                    system="Linux",
-                    node="my-machine",
-                    release="2.6.32-21-generic",
-                    version=(
+                {
+                    "system": "Linux",
+                    "node": "my-machine",
+                    "release": "2.6.32-21-generic",
+                    "version": (
                         "2.6.32-21-generic #32-Ubuntu SMP " +
                         "Fri Apr 16 08:09:38 UTC 2010"
                     ),
-                    machine="x86_64",
-                    # processor="x86_64",  # uname_result doesn't take this arg
-                ),  # type: ignore[call-arg]
+                    "machine": "x86_64",
+                },
                 False,
                 id="LinuxAMD",
             ),
             # Linux Intel
             pytest_param(
-                platform_uname_result(
-                    system="Linux",
-                    node="my-machine",
-                    release="2.6.18-194.e15PAE",
-                    version=(
+                {
+                    "system": "Linux",
+                    "node": "my-machine",
+                    "release": "2.6.18-194.e15PAE",
+                    "version": (
                         "2.6.18-194.e15PAE #1 SMP " +
                         "Fri Apr 2 15:37:44 EDT 2010 i686"
                     ),
-                    machine="i686",
-                    # processor="i386",  # uname_result doesn't take this arg
-                ),  # type: ignore[call-arg]
+                    "machine": "i686",
+                },
                 False,
                 id="LinuxIntel",
             ),
             # WSL1 Intel
             pytest_param(
-                platform_uname_result(
-                    system="Linux",
-                    node="my-machine",
-                    release="4.4.0-19041-Microsoft",
-                    version=(
+                {
+                    "system": "Linux",
+                    "node": "my-machine",
+                    "release": "4.4.0-19041-Microsoft",
+                    "version": (
                         "4.4.0-19041-Microsoft #1-Microsoft " +
                         "Sat Sep 11 14:32:00 PST 2021"
                     ),
-                    machine="x86_64",
-                    # processor="x86_64",  # uname_result doesn't take this arg
-                ),  # type: ignore[call-arg]
+                    "machine": "x86_64",
+                },
                 True,
                 id="WSL1Intel",
             ),
             # WSL2 Intel
             pytest_param(
-                platform_uname_result(
-                    system="Linux",
-                    node="my-machine",
-                    release="2.6.32-21-microsoft-standard-WSL2",
-                    version=(
+                {
+                    "system": "Linux",
+                    "node": "my-machine",
+                    "release": "2.6.32-21-microsoft-standard-WSL2",
+                    "version": (
                         "2.6.32-21-microsoft-standard-WSL2 #1-Microsoft " +
                         "Sat Sep 11 14:32:00 PST 2021"
                     ),
-                    machine="x86_64",
-                    # processor="x86_64",  # uname_result doesn't take this arg
-                ),  # type: ignore[call-arg]
+                    "machine": "x86_64",
+                },
                 True,
                 id="WSL2Intel",
             ),
@@ -1462,8 +1461,8 @@ class Test_PytestShellTestHarness_isActuallyWindowsFileSystem():
     )
     def test_PytestShellTestHarness_isActuallyWindowsFileSystem(
         self,
-        mock_uname: platform_uname_result,
-        mock_uname_expected_result: bool,
+        mock_uname_dict: Dict[str, str],
+        mock_uname_dict_expected_result: bool,
         mock_subprocess_return_code: int,
         mock_subprocess_return_code_expected_result: bool,
         mock_real_platform: str,
@@ -1478,14 +1477,20 @@ class Test_PytestShellTestHarness_isActuallyWindowsFileSystem():
         # if any of the expected results are True,
         # then the final expected result is also True
         expected_result = (
-            mock_uname_expected_result or
+            mock_uname_dict_expected_result or
             mock_subprocess_return_code_expected_result or
             mock_real_platform_expected_result or
             mock_wsl_distro_name_expected_result
         )
 
         def mock_platform_uname() -> platform_uname_result:
-            return mock_uname
+            if (
+                packaging_version.parse(platform_python_version()) <
+                packaging_version.parse("3.9")
+            ):  # pragma: no cover
+                mock_uname_dict["processor"] = "cpu"
+
+            return platform_uname_result(**mock_uname_dict)
 
         monkeypatch.setattr(
             MODULE_UNDER_TEST,
