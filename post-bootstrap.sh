@@ -36,46 +36,6 @@ post_bootstrap()
 
     # WARNING: DO NOT EDIT ABOVE THIS LINE
 
-    # install x86_64 shellcheck b/c shellcheck isn't available on arm64 (yet)
-    if [ "$REAL_PLATFORM" = "Darwin" ]; then
-        CONDA_SUBDIR=osx-64
-        export CONDA_SUBDIR
-    fi
-
-    log_header "Looking for shellcheck Conda Environment..."
-
-    found_env=$(conda env list | awk -v project_base_name="shellcheck" '{if ($1 == project_base_name) print $1}')
-
-    if [ "${found_env}" = "" ]; then
-        log_footer "shellcheck Conda Environment not found."
-    else
-        log_footer "shellcheck Conda Environment found."
-    fi
-
-    if [ "${found_env}" = "" ]; then
-        log_header "Installing shellcheck Conda Environment..."
-
-        teetty_G "2>&1 conda create --name shellcheck shellcheck -v -y"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "'conda create --name \"shellcheck\"' exited with error code: %d" "$ret"
-            exit $ret
-        fi
-
-        log_footer "shellcheck Conda Environment Installed."
-    else
-        log_header "Updating shellcheck Conda Environment..."
-
-        teetty_G "2>&1 conda update --name shellcheck shellcheck -v -y"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "'conda update --name \"shellcheck\"' exited with error code: %d" "$ret"
-            exit $ret
-        fi
-
-        log_footer "shellcheck Conda Environment Updated."
-    fi
-
     # WARNING: DO NOT EDIT BELOW THIS LINE
 
     return "${RET_SUCCESS}"
@@ -205,7 +165,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_info_noprefix() {
+    log_info_no_prefix() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
