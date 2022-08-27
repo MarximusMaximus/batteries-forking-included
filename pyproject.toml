@@ -215,7 +215,7 @@ reportImplicitStringConcatenation="none"
 reportMissingSuperCall="error"  # was "none"
 reportPropertyTypeMismatch="error"  # was "none"
 reportUninitializedInstanceVariable="error"  # was "none"
-reportUnnecessaryTypeIgnoreComment="error"  # was "none"
+reportUnnecessaryTypeIgnoreComment="none"
 reportUnusedCallResult="error"  # was "none"
 
 # these options are used when running pytest directly on the command line,
