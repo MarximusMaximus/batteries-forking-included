@@ -14,6 +14,7 @@ from math import (
     floor                           as math_floor,
 )
 from os import (
+    cpu_count                       as os_cpu_count,
     environ                         as os_environ,
 )
 from typing import (
@@ -27,9 +28,6 @@ from typing import (
 #===============================================================================
 #region Third Party
 
-from psutil import (  # type: ignore[import]
-    cpu_count                       as psutil_cpu_count,
-)
 
 #endregion Third Party
 #===============================================================================
@@ -47,8 +45,11 @@ def pytest_xdist_auto_num_workers() -> int:
     Returns:
         int: Number of cores to use.
     """
-    physical_cores = psutil_cpu_count(logical=False)
+    physical_cores = os_cpu_count()
+    if physical_cores is None:
+        physical_cores = 1
     usable_cores = math_floor(physical_cores * 0.6)
+    usable_cores = max(1, usable_cores)
     return usable_cores
 
 

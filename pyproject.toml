@@ -83,7 +83,6 @@ packaging = ">1"
 pytest = "^7.1.2"
 pytest-xdist = "^2.5.0"
 pytest-subprocess = "^1.4.1"
-psutil = "^5.9.1"
 
 [tool.poetry.extras]
 fixes = [
