@@ -54,6 +54,7 @@
         "posix",
         "prevline",
         "printenv",
+        "psutil",
         "purebasename",
         "pydocstyle",
         "pygments",
@@ -90,7 +91,8 @@
         "Windowsy",
         "WSL's",
         "WSLENV",
-        "xcodeproj"
+        "xcodeproj",
+        "xdist"
     ],
     "files.eol": "\n",
     "files.insertFinalNewline": true,
