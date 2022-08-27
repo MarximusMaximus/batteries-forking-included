@@ -124,7 +124,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_info_noprefix() {
+    log_info_no_prefix() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -1277,7 +1277,7 @@ inject_monkeypatch() {
 test_harness_output() {
     (
         inner_text="$(command printf -- "$@"; command echo EOL)"
-        log_info_noprefix "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
+        log_info_no_prefix "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
     )
 }
 
