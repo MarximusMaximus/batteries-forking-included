@@ -40,6 +40,7 @@ channels:
   - nodefaults
   - conda-forge
 dependencies:
+  - git
   - python<3.11
 ```
 
