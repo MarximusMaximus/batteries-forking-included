@@ -48,14 +48,10 @@ include = [
 poetry = ">1"  # conda controls poetry version
 pyOpenSSL = ">1"  # conda congtrol pyOpenSSL version
 PySocks = ">1"  # conda control PySocks version
-pip = ">1"  # prevent poetry from breaking conda
-setuptools = ">1"  # prevent poetry from breaking conda
 python = ">=3.8,<4"
 packaging = ">1"
 
 [tool.poetry.dev-dependencies]
-pip = ">1"  # prevent poetry from breaking conda
-setuptools = ">1"  # prevent poetry from breaking conda
 pytest-cov = "^3.0.0"
 pipdeptree = "^2.2.1"
 tox = "^3.25.0"
