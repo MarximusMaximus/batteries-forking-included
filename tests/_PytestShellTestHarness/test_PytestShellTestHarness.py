@@ -1102,6 +1102,33 @@ class Test_PytestShellTestHarness__run():
         assert b"error: " not in p.stderr
 
     #---------------------------------------------------------------------------
+    def test_PytestShellTestHarness__run__shell_env_harness_remove_non_existing(
+        self,
+        mock_repo: str,  # pylint: disable=redefined-outer-name
+        request: pytest_FixtureRequest,
+    ) -> None:
+        """
+        Test PytestShellTestHarness::run with shell removing an environment
+        variable via harness.
+
+        Args:
+            request (pytest_FixtureRequest): pytest Request fixture
+        """
+        obj = PytestShellTestHarness_PytestShellTestHarness(
+            mock_repo,
+            request=request,
+        )
+
+        p = obj.run(
+            ["echo", "foo"],
+            additional_env_vars={"___ENV_VAR_THAT_SHOULD_NOT_EXIST": None},
+        )
+
+        assert p.returncode == 0
+        assert b"foo\n" in p.stdout
+        assert b"error: " not in p.stderr
+
+    #---------------------------------------------------------------------------
     def test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_add(
         self,
         mock_repo: str,  # pylint: disable=redefined-outer-name

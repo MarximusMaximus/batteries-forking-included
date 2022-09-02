@@ -123,7 +123,8 @@ class PytestShellTestHarness:
             if v is not None:
                 env[k] = v
             else:
-                del env[k]
+                if k in env:
+                    del env[k]
 
         print(f"Running Command:\n{cmd_str}\n")
 

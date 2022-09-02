@@ -1729,6 +1729,20 @@ Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_ha
 }
 
 #-------------------------------------------------------------------------------
+Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_harness_remove_non_existing() {
+    (
+        assert [ "$___ENV_VAR_THAT_SHOULD_NOT_EXIST" = "" ] \
+            "___ENV_VAR_THAT_SHOULD_NOT_EXIST was not '' was $___ENV_VAR_THAT_SHOULD_NOT_EXIST"
+
+        command printf "foo\n"
+
+        script_ret=0
+
+        exit $script_ret
+    )
+}
+
+#-------------------------------------------------------------------------------
 Test_PytestShellTestHarness__run__test_PytestShellTestHarness__run__shell_env_monkeypatch_add_harness_add() {
     (
         assert [ "$TEST_ENV_VAR" = "ADDED" ] \
