@@ -2443,10 +2443,24 @@ report_all() {
 }
 
 #-------------------------------------------------------------------------------
-if \
+# need to make sure these are the REAL paths, so we can compare them
+if [ "${CONSTANTS_TEMP_DIR}" != "" ]; then
+    CONSTANTS_TEMP_DIR="$(rreadlink "${CONSTANTS_TEMP_DIR}")"
+fi
+if [ "${my_tempdir}" != "" ]; then
+    my_tempdir="$(rreadlink "${my_tempdir}")"
+fi
+
+if {
+    [ "${CONSTANTS_TEMP_DIR}" = "" ] ||
+    # if we are directly included by the top level file,
+    # we do not want to inherit the tempdir or logs from
+    # whatever may have invoked that top level file
     [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    [ "${CONSTANTS_TEMP_DIR}" = "" ]
-then
+    # if my_tempdir was changed, we want to use the new
+    # tempdir for everything
+    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+} then
     ensure_my_tempdir_G
     ret=$?
     if [ $ret -ne 0 ]; then
@@ -2469,46 +2483,83 @@ then
     fi
     export CONSTANTS_TEMP_LOG_DIR
 fi
-if \
+if {
+    [ "${FATAL_LOG}" = "" ] ||
+    # if we are directly included by the top level file,
+    # we do not want to inherit the tempdir or logs from
+    # whatever may have invoked that top level file
     [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    [ "${FATAL_LOG}" = "" ]
-then
+    # if my_tempdir was changed, we want to use the new
+    # tempdir for everything
+    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+} then
     FATAL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/fatal_only.txt
     export FATAL_LOG
     command printf '' >"${FATAL_LOG}"
 fi
-if \
+if {
+    [ "${ERROR_LOG}" = "" ] ||
+    # if we are directly included by the top level file,
+    # we do not want to inherit the tempdir or logs from
+    # whatever may have invoked that top level file
     [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    [ "${ERROR_LOG}" = "" ]
-then
+    # if my_tempdir was changed, we want to use the new
+    # tempdir for everything
+    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+} then
     ERROR_LOG="${CONSTANTS_TEMP_LOG_DIR}"/errors_only.txt
     export ERROR_LOG
     command printf '' >"${ERROR_LOG}"
 fi
-if \
+if {
+    [ "${ERROR_AND_FATAL_LOG}" = "" ] ||
+    # if we are directly included by the top level file,
+    # we do not want to inherit the tempdir or logs from
+    # whatever may have invoked that top level file
     [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    [ "${ERROR_AND_FATAL_LOG}" = "" ]
-then
+    # if my_tempdir was changed, we want to use the new
+    # tempdir for everything
+    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+} then
     ERROR_AND_FATAL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/errors_and_fatals_only.txt
     export ERROR_AND_FATAL_LOG
     command printf '' >"${ERROR_AND_FATAL_LOG}"
 fi
-if \
+if {
+    [ "${WARNING_LOG}" = "" ] ||
+    # if we are directly included by the top level file,
+    # we do not want to inherit the tempdir or logs from
+    # whatever may have invoked that top level file
     [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    [ "${WARNING_LOG}" = "" ]
-then
+    # if my_tempdir was changed, we want to use the new
+    # tempdir for everything
+    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+} then
     WARNING_LOG="${CONSTANTS_TEMP_LOG_DIR}"/warnings_only.txt
     export WARNING_LOG
     command printf '' >"${WARNING_LOG}"
 fi
-if \
+if {
+    [ "${FULL_LOG}" = "" ] ||
+    # if we are directly included by the top level file,
+    # we do not want to inherit the tempdir or logs from
+    # whatever may have invoked that top level file
     [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    [ "${FULL_LOG}" = "" ]
-then
+    # if my_tempdir was changed, we want to use the new
+    # tempdir for everything
+    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+} then
     FULL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/log.txt
     export FULL_LOG
     command printf '' >"${FULL_LOG}"
 fi
+
+log_ultradebug "CONSTANTS_TEMP_LOG_DIR=%s" "${CONSTANTS_TEMP_LOG_DIR}"
+log_ultradebug "FULL_LOG=%s" "${FULL_LOG}"
+log_ultradebug "ERROR_AND_FATAL_LOG=%s" "${ERROR_AND_FATAL_LOG}"
+log_ultradebug "FATAL_LOG=%s" "${FATAL_LOG}"
+log_ultradebug "ERROR_LOG=%s" "${ERROR_LOG}"
+log_ultradebug "WARNING_LOG=%s" "${WARNING_LOG}"
 
 #endregion Logging Helpers
 #===============================================================================
