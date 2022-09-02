@@ -179,6 +179,12 @@ class Test_teetty_G():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 

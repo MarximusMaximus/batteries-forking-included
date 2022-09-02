@@ -257,6 +257,12 @@ class Test_log_console():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -358,6 +364,12 @@ class Test_log_success():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -458,6 +470,12 @@ class Test_log_success_final():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -558,6 +576,12 @@ class Test_log_fatal():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -659,6 +683,12 @@ class Test_log_fatal_final():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -760,6 +790,12 @@ class Test_log_error():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -861,6 +897,12 @@ class Test_log_error_final():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -962,6 +1004,12 @@ class Test_log_warning():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1063,6 +1111,12 @@ class Test_log_warning_final():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1164,6 +1218,12 @@ class Test_log_header():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1264,6 +1324,12 @@ class Test_log_footer():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1364,6 +1430,12 @@ class Test_log_info_important():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1464,6 +1536,12 @@ class Test_log_info():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1564,6 +1642,12 @@ class Test_log_info_no_prefix():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1664,6 +1748,12 @@ class Test_log_debug():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1764,6 +1854,12 @@ class Test_log_superdebug():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1864,6 +1960,12 @@ class Test_log_ultradebug():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
@@ -1964,6 +2066,12 @@ class Test_log_file():
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
             },
         )
 
