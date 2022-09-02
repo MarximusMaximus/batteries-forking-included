@@ -79,10 +79,14 @@ class Test_teetty_G():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="printf_single_line",
             ),
@@ -98,10 +102,14 @@ class Test_teetty_G():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="printf_multi_line",
             ),
@@ -116,10 +124,13 @@ class Test_teetty_G():
                     b"foo bar\nbaz\nqwerty\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="log_fatal",
             ),
@@ -134,10 +145,14 @@ class Test_teetty_G():
                     b"foo bar\nbaz\nqwerty\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="printf_to_stderr",
             ),

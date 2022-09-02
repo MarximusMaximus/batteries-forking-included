@@ -77,10 +77,14 @@ class Test_Invoke():
                     ),
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -176,10 +180,14 @@ class Test_Fence():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),

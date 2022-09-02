@@ -72,10 +72,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -92,10 +96,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -112,10 +120,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -132,10 +144,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -152,10 +168,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -172,10 +192,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -192,10 +216,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -212,10 +240,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -232,10 +264,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -252,10 +288,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -272,10 +312,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -292,10 +336,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -312,10 +360,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -332,10 +384,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -352,10 +408,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -372,10 +432,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -392,10 +456,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -412,10 +480,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -432,10 +504,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -452,10 +528,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -472,10 +552,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -492,10 +576,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -512,10 +600,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -572,10 +664,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -592,10 +688,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -612,10 +712,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -632,10 +736,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -652,10 +760,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -672,10 +784,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -692,10 +808,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -712,10 +832,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -732,10 +856,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -752,10 +880,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -772,10 +904,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -792,10 +928,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -812,10 +952,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -832,10 +976,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -852,10 +1000,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -872,10 +1024,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -892,10 +1048,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -912,10 +1072,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -932,10 +1096,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -952,10 +1120,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -972,10 +1144,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -992,10 +1168,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -1012,10 +1192,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -1072,10 +1256,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -1092,10 +1280,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -1112,10 +1304,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -1132,10 +1328,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -1152,10 +1352,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -1172,10 +1376,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -1192,10 +1400,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -1212,10 +1424,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -1232,10 +1448,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -1252,10 +1472,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -1272,10 +1496,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -1292,10 +1520,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -1312,10 +1544,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -1332,10 +1568,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -1352,10 +1592,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -1372,10 +1616,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -1392,10 +1640,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -1412,10 +1664,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -1432,10 +1688,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -1452,10 +1712,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -1472,10 +1736,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -1492,10 +1760,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -1512,10 +1784,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -1572,10 +1848,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -1592,10 +1872,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -1612,10 +1896,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -1632,10 +1920,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -1652,10 +1944,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -1672,10 +1968,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -1692,10 +1992,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -1712,10 +2016,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -1732,10 +2040,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -1752,10 +2064,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -1772,10 +2088,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -1792,10 +2112,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -1812,10 +2136,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -1832,10 +2160,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -1852,10 +2184,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -1872,10 +2208,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -1892,10 +2232,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -1912,10 +2256,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -1932,10 +2280,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -1952,10 +2304,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -1972,10 +2328,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -1992,10 +2352,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -2012,10 +2376,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -2072,10 +2440,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -2092,10 +2464,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -2112,10 +2488,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -2132,10 +2512,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -2152,10 +2536,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -2172,10 +2560,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -2192,10 +2584,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -2212,10 +2608,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -2232,10 +2632,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -2252,10 +2656,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -2272,10 +2680,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -2292,10 +2704,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -2312,10 +2728,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -2332,10 +2752,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -2352,10 +2776,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -2372,10 +2800,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -2392,10 +2824,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -2412,10 +2848,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -2432,10 +2872,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -2452,10 +2896,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -2472,10 +2920,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -2492,10 +2944,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -2512,10 +2968,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -2572,10 +3032,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -2592,10 +3056,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -2612,10 +3080,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -2632,10 +3104,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -2652,10 +3128,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -2672,10 +3152,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -2692,10 +3176,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -2712,10 +3200,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -2732,10 +3224,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -2752,10 +3248,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -2772,10 +3272,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -2792,10 +3296,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -2812,10 +3320,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -2832,10 +3344,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -2852,10 +3368,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -2872,10 +3392,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -2892,10 +3416,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -2912,10 +3440,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -2932,10 +3464,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -2952,10 +3488,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -2972,10 +3512,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -2992,10 +3536,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -3012,10 +3560,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -3072,10 +3624,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -3092,10 +3648,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -3112,10 +3672,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -3132,10 +3696,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -3152,10 +3720,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -3172,10 +3744,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -3192,10 +3768,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -3212,10 +3792,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -3232,10 +3816,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -3252,10 +3840,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -3272,10 +3864,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -3292,10 +3888,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -3312,10 +3912,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -3332,10 +3936,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -3352,10 +3960,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -3372,10 +3984,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -3392,10 +4008,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -3412,10 +4032,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -3432,10 +4056,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -3452,10 +4080,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -3472,10 +4104,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -3492,10 +4128,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -3512,10 +4152,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -3572,10 +4216,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -3592,10 +4240,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -3612,10 +4264,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -3632,10 +4288,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -3652,10 +4312,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -3672,10 +4336,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -3692,10 +4360,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -3712,10 +4384,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -3732,10 +4408,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -3752,10 +4432,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -3772,10 +4456,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -3792,10 +4480,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -3812,10 +4504,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -3832,10 +4528,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -3852,10 +4552,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -3872,10 +4576,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -3892,10 +4600,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -3912,10 +4624,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -3932,10 +4648,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -3952,10 +4672,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -3972,10 +4696,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -3992,10 +4720,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -4012,10 +4744,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -4072,10 +4808,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -4092,10 +4832,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -4112,10 +4856,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -4132,10 +4880,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -4152,10 +4904,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -4172,10 +4928,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -4192,10 +4952,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -4212,10 +4976,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -4232,10 +5000,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -4252,10 +5024,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -4272,10 +5048,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -4292,10 +5072,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -4312,10 +5096,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -4332,10 +5120,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -4352,10 +5144,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -4372,10 +5168,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -4392,10 +5192,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -4412,10 +5216,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -4432,10 +5240,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -4452,10 +5264,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -4472,10 +5288,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -4492,10 +5312,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -4512,10 +5336,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -4572,10 +5400,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -4592,10 +5424,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -4612,10 +5448,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -4632,10 +5472,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -4652,10 +5496,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -4672,10 +5520,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -4692,10 +5544,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -4712,10 +5568,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -4732,10 +5592,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -4752,10 +5616,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -4772,10 +5640,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -4792,10 +5664,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -4812,10 +5688,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -4832,10 +5712,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -4852,10 +5736,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -4872,10 +5760,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -4892,10 +5784,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -4912,10 +5808,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -4932,10 +5832,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -4952,10 +5856,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -4972,10 +5880,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -4992,10 +5904,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -5012,10 +5928,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -5072,10 +5992,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -5092,10 +6016,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -5112,10 +6040,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -5132,10 +6064,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -5152,10 +6088,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -5172,10 +6112,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -5192,10 +6136,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -5212,10 +6160,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -5232,10 +6184,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -5252,10 +6208,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -5272,10 +6232,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -5292,10 +6256,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -5312,10 +6280,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -5332,10 +6304,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -5352,10 +6328,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -5372,10 +6352,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -5392,10 +6376,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -5412,10 +6400,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -5432,10 +6424,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -5452,10 +6448,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -5472,10 +6472,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -5492,10 +6496,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -5512,10 +6520,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -5572,10 +6584,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -5592,10 +6608,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -5612,10 +6632,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -5632,10 +6656,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -5652,10 +6680,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -5672,10 +6704,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -5692,10 +6728,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -5712,10 +6752,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -5732,10 +6776,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -5752,10 +6800,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -5772,10 +6824,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -5792,10 +6848,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -5812,10 +6872,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -5832,10 +6896,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -5852,10 +6920,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -5872,10 +6944,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -5892,10 +6968,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -5912,10 +6992,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -5932,10 +7016,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -5952,10 +7040,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -5972,10 +7064,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -5992,10 +7088,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -6012,10 +7112,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -6072,10 +7176,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -6092,10 +7200,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -6112,10 +7224,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -6132,10 +7248,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -6152,10 +7272,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -6172,10 +7296,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -6192,10 +7320,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -6212,10 +7344,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -6232,10 +7368,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -6252,10 +7392,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -6272,10 +7416,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -6292,10 +7440,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -6312,10 +7464,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -6332,10 +7488,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -6352,10 +7512,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -6372,10 +7536,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -6392,10 +7560,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -6412,10 +7584,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -6432,10 +7608,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -6452,10 +7632,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -6472,10 +7656,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -6492,10 +7680,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -6512,10 +7704,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -6572,10 +7768,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="no_args",
             ),
@@ -6592,10 +7792,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty",
             ),
@@ -6612,10 +7816,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty",
             ),
@@ -6632,10 +7840,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -6652,10 +7864,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -6672,10 +7888,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo",
             ),
@@ -6692,10 +7912,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -6712,10 +7936,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -6732,10 +7960,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -6752,10 +7984,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -6772,10 +8008,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -6792,10 +8032,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -6812,10 +8056,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0",
             ),
@@ -6832,10 +8080,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty",
             ),
@@ -6852,10 +8104,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty",
             ),
@@ -6872,10 +8128,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -6892,10 +8152,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo",
             ),
@@ -6912,10 +8176,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty",
             ),
@@ -6932,10 +8200,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -6952,10 +8224,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar",
             ),
@@ -6972,10 +8248,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -6992,10 +8272,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -7012,10 +8296,14 @@ class Test_get_ansi_code():
                     b"",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 [
-                    b"Error:",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
                 ],
                 id="args_0_foo_empty_A",
             ),
