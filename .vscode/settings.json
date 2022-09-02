@@ -644,7 +644,7 @@
     "python.linting.pylintPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/pylint",
     "python.linting.banditPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/bandit",
     "python.testing.pytestPath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/pytest",
-    "shellcheck.executablePath": "/opt/conda/miniforge/envs/${workspaceFolderBasename}/bin/shellcheck",
+    "shellcheck.executablePath": "/opt/conda/miniforge/envs/batteries-forking-included/bin/shellcheck",
     // "bracketLens.minBracketScopeLines": 2,
     // "bracketLens.languageConfiguration": {
     // "ignoreCase": false,
