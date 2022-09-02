@@ -46,9 +46,9 @@ def pytest_xdist_auto_num_workers() -> int:
         int: Number of cores to use.
     """
     physical_cores = os_cpu_count()
-    if physical_cores is None:
+    if physical_cores is None:  # pragma: no cover
         physical_cores = 1
-    usable_cores = math_floor(physical_cores * 0.6)
+    usable_cores = math_floor(physical_cores * 0.5)
     usable_cores = max(1, usable_cores)
     return usable_cores
 
