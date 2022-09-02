@@ -3424,10 +3424,15 @@ batteries_forking_included__update() {
         fi
     fi
 
-    if \
+    if {
         [ "$(array_get_last WAS_SOURCED)" = false ] ||
-        [ "${_CALL_MAIN_ANYWAY}" = true ]
-    then
+        {
+            [ "${_CALL_MAIN_ANYWAY}" = true ] &&
+            # only if we are directly sourced from the shell,
+            # or we were directly sourced by a PytestShellTestHarness script
+            [ "$(array_get_length WAS_SOURCED)" -le 2 ]
+        }
+    } then
         __main "$@"
         ret=$?
     else
