@@ -80,13 +80,6 @@ pytest = "^7.1.2"
 pytest-xdist = "^2.5.0"
 pytest-subprocess = "^1.4.1"
 
-[tool.poetry.extras]
-fixes = [
-    "pip>22",
-    "wheel",
-    "setuptools>63",
-]
-
 [tool.poetry.scripts]
 bfi = "batteries_forking_included.__main__:scriptEntryPoint"
 batteries-forking-included = "batteries_forking_included.__main__:scriptEntryPoint"

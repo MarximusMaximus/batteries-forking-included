@@ -7,6 +7,7 @@ dependencies:
   - pip
   - wheel
   - setuptools
-  - poetry
   - perl
   - shellcheck
+  - pip:
+    - poetry>=1.2.0
