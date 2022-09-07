@@ -615,7 +615,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__terminal_regular(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1207,7 +1207,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__terminal_mono(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1799,7 +1799,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__terminal_mono__colorized_output_alt(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -2391,7 +2391,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__tput_colors_8(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -2983,7 +2983,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__tput_colors_8__colorized_output_alt(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -3575,7 +3575,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__tput_colors_16(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -4167,7 +4167,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__tput_colors_256(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -4759,7 +4759,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__NO_COLOR_empty(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -5351,7 +5351,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__NO_COLOR_nonempty(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -5943,7 +5943,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__NO_COLOR_nonempty__colorized_output_alt(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -6535,7 +6535,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__colorized_output_empty(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -7127,7 +7127,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__colorized_output_true(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -7719,7 +7719,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__colorized_output_alt(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -8311,7 +8311,7 @@ class Test_get_ansi_code():
     )
     def test_get_ansi_code__colorized_output_false(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],

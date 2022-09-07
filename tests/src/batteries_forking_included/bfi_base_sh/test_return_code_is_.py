@@ -664,7 +664,7 @@ class Test_return_code_is_error():
     )
     def test_return_code_is_error(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1316,7 +1316,7 @@ class Test_return_code_is_warning():
     )
     def test_return_code_is_warning(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1968,7 +1968,7 @@ class Test_return_code_is_success():
     )
     def test_return_code_is_success(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],

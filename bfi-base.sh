@@ -2234,7 +2234,7 @@ log_file() {
 }
 
 #-------------------------------------------------------------------------------
-report_errors() {
+report_() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -2242,18 +2242,27 @@ report_errors() {
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        should_print="$1"
+        report_name="$1"
+        report_log="$2"
+        should_print="$3"
+
+        if [ "${should_print}" = "" ]; then
+            should_print=true
+        fi
+
+        prefix="$(eval echo "\${ANSI_COLOR_$(echo "${report_name}" | tr "[:lower:]" "[:upper:]")}EOL")"
+
         if [ "${should_print}" = true ]; then
-            if [ "$(wc -c <"${ERROR_AND_FATAL_LOG}")" -gt 0 ]; then
-                message="${ANSI_COLOR_ERROR}The following errors occurred:${ANSI_RESET}\n"
+            if [ "$(wc -c <"${report_log}")" -gt 0 ]; then
+                message="${prefix%EOL}The following ${report_name}(s) occurred:${ANSI_RESET}\n"
                 >&2 command printf -- "${message}"
                 >>"${FULL_LOG}" command printf -- "${message}"
 
-                >&2 command sed 's/^/\t/' "${ERROR_AND_FATAL_LOG}"
-                >>"${FULL_LOG}" command sed 's/^/\t/' "${ERROR_AND_FATAL_LOG}"
+                >&2 command sed 's/^/\t/' "${report_log}"
+                >>"${FULL_LOG}" command sed 's/^/\t/' "${report_log}"
             fi
         else
-            log_ultradebug "Skipping Error Report b/c should_print is '%s'." "${should_print}"
+            log_ultradebug "Skipping ${report_name} Report b/c should_print is '%s'." "${should_print}"
         fi
 
         exit "${RET_SUCCESS}"
@@ -2265,34 +2274,13 @@ report_errors() {
 }
 
 #-------------------------------------------------------------------------------
+report_errors() {
+    report_ "Error" "${ERROR_AND_FATAL_LOG}" "$1"
+}
+
+#-------------------------------------------------------------------------------
 report_warnings() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        should_print="$1"
-        if [ "${should_print}" = true ]; then
-            if [ "$(wc -c <"${WARNING_LOG}")" -gt 0 ]; then
-                message="${ANSI_COLOR_WARNING}The following warnings occurred:${ANSI_RESET}\n"
-                >&2 command printf -- "${message}"
-                >>"${FULL_LOG}" command printf "${message}"
-
-                >&2 sed 's/^/\t/' "${WARNING_LOG}"
-                >>"${FULL_LOG}" sed 's/^/\t/' "${WARNING_LOG}"
-            fi
-        else
-            log_ultradebug "Skipping Warning Report b/c should_print is '%s'." "${should_print}"
-        fi
-
-        exit "${RET_SUCCESS}"
-    )
-    report_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $report_ret
+    report_ "Warning" "${WARNING_LOG}" "$1"
 }
 
 #-------------------------------------------------------------------------------
@@ -2358,27 +2346,27 @@ report_final_status() {
 
             before_error_text=""
             before_warning_text=""
-            if \
+            if {
                 [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
                 [ "${LOG_ERROR_COUNT}" -gt 0 ] &&
                 [ "${LOG_WARNING_COUNT}" -gt 0 ]
-            then
+            }; then
                 before_error_text=", "
                 before_warning_text=", and "
-            elif \
+            elif {
                 [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
                 [ "${LOG_WARNING_COUNT}" -gt 0 ]
-            then
+            }; then
                 before_warning_text=" and "
-            elif \
+            elif {
                 [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
                 [ "${LOG_ERROR_COUNT}" -gt 0 ]
-            then
+            }; then
                 before_error_text=" and "
-            elif \
+            elif {
                 [ "${LOG_ERROR_COUNT}" -gt 0 ] &&
                 [ "${LOG_WARNING_COUNT}" -gt 0 ]
-            then
+            }; then
                 before_warning_text=" and "
             fi
 
@@ -2414,8 +2402,9 @@ report_all() {
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
 
-        # input_ret="$1"
+        input_ret="$1"
         should_print="$2"
+        program_name="$3"
 
         if [ "${should_print}" = true ]; then
             log_header "Report:"
@@ -2425,14 +2414,14 @@ report_all() {
 
         report_warnings "${should_print}"
         report_errors "${should_print}"
-        report_final_status "$@"
+        report_final_status "${input_ret}" "${should_print}" "${program_name}"
         ret=$?
         if [ "${should_print}" = true ]; then
             message="$(command printf "Fully detailed log is available at '%s'\n" "${FULL_LOG}")"
             >&2 command printf "${message}\n"
             >>"${FULL_LOG}" command printf "${message}\n"
         else
-            log_ultradebug "Skipping Full Log path b/c should_print is '%s'." "${should_print}"
+            log_ultradebug "Skipping Full Report b/c should_print is '%s'." "${should_print}"
         fi
         exit $ret
     )

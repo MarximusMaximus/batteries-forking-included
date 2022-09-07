@@ -160,7 +160,7 @@ class Test_teetty_G():
     )
     def test_teetty_G(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -173,9 +173,6 @@ class Test_teetty_G():
         Check that teetty_G runs the specified commands and correctly tees
         output.
         """
-        if additional_args is None:  # pragma: no cover
-            additional_args = []
-
         monkeypatch.delenv("CI", raising=False)
 
         tempdir_path = os_path_abspath("")

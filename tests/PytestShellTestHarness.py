@@ -32,6 +32,7 @@ from typing import (
     List,
     Dict,
     Optional,
+    Union,
 )
 
 #endregion stdlib
@@ -75,7 +76,7 @@ class PytestShellTestHarness:
     #---------------------------------------------------------------------------
     def run(
         self,
-        additional_args: Optional[List[str]] = None,
+        additional_args: Optional[List[Union[str, int]]] = None,
         additional_env_vars: Optional[Dict[str, Optional[str]]] = None,
     ) -> "subprocess_CompletedProcess[bytes]":
         """
@@ -106,8 +107,8 @@ class PytestShellTestHarness:
             script_path,
             f"{self.request.cls.__name__}__{self.request.function.__name__}",  # type: ignore[reportUnknownMemberType]  # noqa: E501,B950
         ]
-        cmd.extend(additional_args)
-        cmd = [str(x) for x in cmd]
+        str_additional_args = [str(x) for x in additional_args]
+        cmd.extend(str_additional_args)
 
         cmd_str = shlex_join(cmd)
 
@@ -155,9 +156,10 @@ class PytestShellTestHarness:
         Returns:
             bool: true if Windowsy, false if not Windowsy
         """
+        platform_uname_str = " ".join(platform_uname()).casefold()
         if (
             any(
-                x in " ".join(platform_uname()).casefold()
+                x in platform_uname_str
                 for x in ["microsoft", "wsl"]
             ) or
             os_environ.get("REAL_PLATFORM", "") == "MINGW64NT" or

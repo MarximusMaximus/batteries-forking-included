@@ -39,7 +39,7 @@ from pytest import (
 #region Ours
 
 from ....PytestShellTestHarness import PytestShellTestHarness
-from ...conftest import check_log_data
+from ...helper_functions import check_log_data
 
 #endregion Ours
 #===============================================================================
@@ -117,7 +117,7 @@ class Test_log_console():
     )
     def test_log_console(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -232,7 +232,7 @@ class Test_log_success():
     )
     def test_log_success(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -344,7 +344,7 @@ class Test_log_success_final():
     )
     def test_log_success_final(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -456,7 +456,7 @@ class Test_log_fatal():
     )
     def test_log_fatal(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -495,7 +495,6 @@ class Test_log_fatal():
             expected_not_stderr=expected_not_stderr,
             stdout=p.stdout,
             stderr=p.stderr,
-            is_fatal=True,
         )
 
 #endregion log_fatal Tests
@@ -569,7 +568,7 @@ class Test_log_fatal_final():
     )
     def test_log_fatal_final(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -608,7 +607,6 @@ class Test_log_fatal_final():
             expected_not_stderr=expected_not_stderr,
             stdout=p.stdout,
             stderr=p.stderr,
-            is_fatal=True,
         )
 
 #endregion log_fatal_final Tests
@@ -682,7 +680,7 @@ class Test_log_error():
     )
     def test_log_error(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -721,7 +719,6 @@ class Test_log_error():
             expected_not_stderr=expected_not_stderr,
             stdout=p.stdout,
             stderr=p.stderr,
-            is_error=True,
         )
 
 #endregion log_error Tests
@@ -795,7 +792,7 @@ class Test_log_error_final():
     )
     def test_log_error_final(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -834,7 +831,6 @@ class Test_log_error_final():
             expected_not_stderr=expected_not_stderr,
             stdout=p.stdout,
             stderr=p.stderr,
-            is_error=True,
         )
 
 #endregion log_error_final Tests
@@ -908,7 +904,7 @@ class Test_log_warning():
     )
     def test_log_warning(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -947,7 +943,6 @@ class Test_log_warning():
             expected_not_stderr=expected_not_stderr,
             stdout=p.stdout,
             stderr=p.stderr,
-            is_warning=True,
         )
 
 #endregion log_warning Tests
@@ -1023,7 +1018,7 @@ class Test_log_warning_final():
     )
     def test_log_warning_final(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1062,7 +1057,6 @@ class Test_log_warning_final():
             expected_not_stderr=expected_not_stderr,
             stdout=p.stdout,
             stderr=p.stderr,
-            is_warning=True,
         )
 
 #endregion log_warning_final Tests
@@ -1138,7 +1132,7 @@ class Test_log_header():
     )
     def test_log_header(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1252,7 +1246,7 @@ class Test_log_footer():
     )
     def test_log_footer(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1366,7 +1360,7 @@ class Test_log_info_important():
     )
     def test_log_info_important(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1480,7 +1474,7 @@ class Test_log_info():
     )
     def test_log_info(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1594,7 +1588,7 @@ class Test_log_info_no_prefix():
     )
     def test_log_info_no_prefix(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1708,7 +1702,7 @@ class Test_log_debug():
     )
     def test_log_debug(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1822,7 +1816,7 @@ class Test_log_superdebug():
     )
     def test_log_superdebug(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1936,7 +1930,7 @@ class Test_log_ultradebug():
     )
     def test_log_ultradebug(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -2050,7 +2044,7 @@ class Test_log_file():
     )
     def test_log_file(  # pylint: disable=too-many-locals
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],

@@ -110,7 +110,7 @@ class Test_format_log_message():
     )
     def test_format_log_message(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],

@@ -86,7 +86,7 @@ class Test_Invoke():
     )
     def test_Invoke(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -210,7 +210,7 @@ class Test_post_bootstrap():
     )
     def test_post_bootstrap(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],

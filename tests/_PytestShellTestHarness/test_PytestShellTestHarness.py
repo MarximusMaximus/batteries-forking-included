@@ -13,6 +13,9 @@ tests/PytestShellTestHarness/test_PytestShellTestHarness.py (batteries-forking-i
 #===============================================================================
 #region stdlib
 
+from copy import (
+    deepcopy                        as copy_deepcopy,
+)
 from os.path import (
     join                            as os_path_join,
 )
@@ -136,7 +139,6 @@ def coerceSubprocessCommandToString(
         cmd_str = " ".join(cmd)
 
     return cmd_str
-
 
 #endregion Helper Functions
 ################################################################################
@@ -1510,14 +1512,16 @@ class Test_PytestShellTestHarness_isActuallyWindowsFileSystem():
             mock_wsl_distro_name_expected_result
         )
 
+        mock_uname_dict_copy = copy_deepcopy(mock_uname_dict)
+
         def mock_platform_uname() -> platform_uname_result:
             if (
                 packaging_version.parse(platform_python_version()) <
                 packaging_version.parse("3.9")
             ):  # pragma: no cover
-                mock_uname_dict["processor"] = "cpu"
+                mock_uname_dict_copy["processor"] = "cpu"
 
-            return platform_uname_result(**mock_uname_dict)
+            return platform_uname_result(**mock_uname_dict_copy)
 
         monkeypatch.setattr(
             MODULE_UNDER_TEST,

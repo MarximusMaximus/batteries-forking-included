@@ -112,7 +112,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__regular_terminal(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -201,7 +201,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__mono_terminal(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -290,7 +290,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__tput_colors_8(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -379,7 +379,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__tput_colors_16(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -468,7 +468,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__tput_colors_256(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -557,7 +557,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__NO_COLOR_empty(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -646,7 +646,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__NO_COLOR_nonempty(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -735,7 +735,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__colorized_output_empty(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -824,7 +824,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__colorized_output_true(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -913,7 +913,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__colorized_output_alt(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1002,7 +1002,7 @@ class Test_get_ansi_code_cursor():
     )
     def test_get_ansi_code_cursor__colorized_output_false(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1103,7 +1103,7 @@ class Test_get_ansi_code_cursor_up():
     )
     def test_get_ansi_code_cursor_up(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1204,7 +1204,7 @@ class Test_get_ansi_code_cursor_down():
     )
     def test_get_ansi_code_cursor_down(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1305,7 +1305,7 @@ class Test_get_ansi_code_cursor_right():
     )
     def test_get_ansi_code_cursor_right(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1406,7 +1406,7 @@ class Test_get_ansi_code_cursor_left():
     )
     def test_get_ansi_code_cursor_left(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1507,7 +1507,7 @@ class Test_get_ansi_code_cursor_nextline():
     )
     def test_get_ansi_code_cursor_nextline(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1608,7 +1608,7 @@ class Test_get_ansi_code_cursor_prevline():
     )
     def test_get_ansi_code_cursor_prevline(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1709,7 +1709,7 @@ class Test_get_ansi_code_cursor_col():
     )
     def test_get_ansi_code_cursor_col(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
@@ -1810,7 +1810,7 @@ class Test_get_ansi_code_cursor_pos():
     )
     def test_get_ansi_code_cursor_pos(
         self,
-        additional_args: Union[List[str], None],
+        additional_args: List[Union[str, int]],
         expected_ret: int,
         expected_stdout: List[bytes],
         expected_stderr: List[bytes],
