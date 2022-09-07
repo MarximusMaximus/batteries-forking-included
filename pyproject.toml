@@ -218,17 +218,19 @@ xfail_strict = true
 addopts = [
     # report details (verbose)
     "-v",
-    # report the local variables for every failure with the stacktrace
-    "-l",
     # report the reasons for all tests that skipped, xfailed, xpassed, etc EXCEPT passed/Passed w/ Output
     "-ra",
+    # colorize
+    "--force-sugar",
+    "--color=yes",
     # HACK: temporarily disable doctests until PytestShellTestHarness is
     #   extracted to it's own project
     # # execute doctests directly from docstrings of your classes and functions
     # "--doctest-modules",
     # "--doctest-continue-on-failure",
-    # show local variable values in traceback
+    # show complete traceback
     "--tb=long",
+    # show local variable values in traceback
     "--showlocals",
     # raise errors if using an unregistered marker
     "--strict-markers",
@@ -257,7 +259,7 @@ filterwarnings = [
 log_cli_level = "debug"
 testpaths = ["."]
 pythonpath = ["."]
-norecursedirs = ["examples/batteries-forking-included/*", "dist/*"]
+norecursedirs = ["dist/*"]
 
 # [tool.isort]
 # verbose = true
