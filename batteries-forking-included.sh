@@ -2577,7 +2577,7 @@ poetry_install() {
 
             poetry_no_dev=""
             if [ "${dev_mode}" = false ] && [ "${BFI_DEV_MODE:-false}" = false ]; then
-                poetry_no_dev=" --no-root"
+                poetry_no_dev=" --without dev"
             fi
 
             poetry_args="${poetry_ansi}${poetry_verbosity}${poetry_no_dev}"
@@ -2585,7 +2585,7 @@ poetry_install() {
             log_debug "poetry install args: ${poetry_args}"
 
             # shellcheck disable=SC2086  # we actually want the variable to get split
-            teetty_G poetry install ${poetry_args}
+            teetty_G poetry install --sync ${poetry_args}
             ret=$?
             if [ $ret -ne 0 ]; then
                 log_fatal "'poetry install' exited with error code: %d" "$ret"

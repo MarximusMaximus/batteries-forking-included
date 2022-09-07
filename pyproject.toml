@@ -48,10 +48,16 @@ include = [
 poetry = ">1"  # conda controls poetry version
 pyOpenSSL = ">1"  # conda congtrol pyOpenSSL version
 PySocks = ">1"  # conda control PySocks version
+pip = ">1"  # prevents poetry from removing it
+setuptools = ">1"  # prevents poetry from removing it
 python = ">=3.8,<4"
 packaging = ">1"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.scripts]
+bfi = "batteries_forking_included.__main__:scriptEntryPoint"
+batteries-forking-included = "batteries_forking_included.__main__:scriptEntryPoint"
+
+[tool.poetry.group.dev.dependencies]
 pytest-cov = "^3.0.0"
 pipdeptree = "^2.2.1"
 tox = "^3.25.0"
@@ -79,10 +85,7 @@ packaging = ">1"
 pytest = "^7.1.2"
 pytest-xdist = "^2.5.0"
 pytest-subprocess = "^1.4.1"
-
-[tool.poetry.scripts]
-bfi = "batteries_forking_included.__main__:scriptEntryPoint"
-batteries-forking-included = "batteries_forking_included.__main__:scriptEntryPoint"
+esbonio = "^0.14.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

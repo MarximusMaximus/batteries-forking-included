@@ -16,5 +16,4 @@ export bfi_dir
     cd src/batteries_forking_included || exit 1
     ../../bfi-update.sh --project-dir="$(pwd)" --bfi-dir="${bfi_dir}"
 )
-./run.sh poetry update
-./run.sh poetry install
+./run.sh poetry install --only-root
