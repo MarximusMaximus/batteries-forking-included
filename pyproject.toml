@@ -222,9 +222,6 @@ addopts = [
     "-l",
     # report the reasons for all tests that skipped, xfailed, xpassed, etc EXCEPT passed/Passed w/ Output
     "-ra",
-    # execute doctests directly from docstrings of your classes and functions
-    "--doctest-modules",
-    "--doctest-continue-on-failure",
     # coverage (configured via .coveragerc)
     "--cov",
     # output coverage to terminal
@@ -233,6 +230,11 @@ addopts = [
     "--cov-report=html",
     # output coverage as xml report (for CI reporting and VSCode reporting)
     "--cov-report=xml",
+    # HACK: temporarily disable doctests until PytestShellTestHarness is
+    #   extracted to it's own project
+    # # execute doctests directly from docstrings of your classes and functions
+    # "--doctest-modules",
+    # "--doctest-continue-on-failure",
     # show local variable values in traceback
     "--tb=long",
     "--showlocals",
