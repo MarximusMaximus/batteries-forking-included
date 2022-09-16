@@ -1359,7 +1359,7 @@ fi
                             fi
                         else
                             # .sh or other
-                            # What about python scripts that do not end in .py? AND use a non-python shebang?
+                            # TODO: What about python scripts that do not end in .py? AND use a non-python shebang?
                             if [ "$(echo "${shebang}" | grep "#!")" = "" ]; then
                                 # no shebang, wtf?!
                                 log_error "First arg is an executable script, but does not have a shebang.\n"
@@ -1426,10 +1426,13 @@ fi
             fi
 
             if [ "${RUN_ARGS}" = "" ]; then
+                # used when directly executing a binary executable,
+                # shell builtin, or function
                 echo Executing: /usr/bin/env "${RUN_EXEC}" "$*"
                 /usr/bin/env "${RUN_EXEC}" "$@"
                 ret=$?
             else
+                # used when executing a script via a binary executable
                 echo Executing: /usr/bin/env "${RUN_EXEC}" "${RUN_ARGS}" "$*"
                 /usr/bin/env "${RUN_EXEC}" "${RUN_ARGS}" "$@"
                 ret=$?
