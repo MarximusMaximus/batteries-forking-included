@@ -27,6 +27,8 @@ p2pid=$(echo "$p2pid" | awk '{ print $1 }')
 p3pid=$(ps -o ppid= -o command= -p "$p2pid")
 echo "p3pid=$p3pid"
 
+my_shell_exec=$(ps -o comm= -p $$)
+
 test_offset() { echo "$LINENO"; }
 LINENO_OFFSET=$(test_offset)
 echo "LINENO_OFFSET=$LINENO_OFFSET"
@@ -35,17 +37,52 @@ echo
 env | sort
 echo
 
-mkdir -p ./tmp
+set -x
+PS4="+ \$0:\$LINENO - "
 
-test_shell() {
-    echo "$1":
-    ln -sf "$(which "$1")" ./tmp/sh
-    ./tmp/sh shell-test-toplevel.sh
-    echo
+#def_G() {
+#    sh -c "echo = $1:$2:\$(head -n $2 $1 | tail -n 1 | awk '{ print \$2 }' | tr -d '()')"
+#}
+#alias def="def_G \"\$0\" \"\$LINENO\" "
+
+alias def="sh -c \"echo = \$0:\$LINENO:\\\$(head -n \$LINENO \$0 | tail -n 1 | awk '{ print \\\$2 }' | tr -d '()')\""
+
+#call_G () {
+#    >&2 echo "- $1:$2"
+#    shift
+#    $@
+#    return $?
+#}
+#alias call="call_G \"\$0:\$LINENO\""
+
+
+alias call="true \"- \$0:\$LINENO\"; "
+
+
+def; foo() {
+	echo foo "$@";
+}
+def; bar() {
+	call foo "$@";
+}
+def; baz() { (
+	call bar "$@" );
+}
+def; asdf() {
+	echo asdf "$(call baz "$@")";
+}
+def; qwerty() {
+	echo qwerty "$(call asdf "$@")";
 }
 
-if [ "$1" = "" ]; then
-    test_shell bash
-    test_shell dash
-    test_shell zsh
-fi
+
+call qwerty 1 2 3 4 5
+
+echo INVOKE: shell-test-module.sh
+"$my_shell_exec" ./shell-test-module.sh
+
+echo SOURCE: shell-test-module.sh
+. ./shell-test-module.sh
+
+echo FROM TOP LEVEL:
+call qwerty2 11 12 13 14 15

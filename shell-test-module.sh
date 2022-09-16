@@ -35,17 +35,33 @@ echo
 env | sort
 echo
 
-mkdir -p ./tmp
+set -x
+PS4="+ \$0:\$LINENO - "
 
-test_shell() {
-    echo "$1":
-    ln -sf "$(which "$1")" ./tmp/sh
-    ./tmp/sh shell-test-toplevel.sh
-    echo
+alias def="sh -c \"echo = \$0:\$LINENO:\\\$(head -n \$LINENO \$0 | tail -n 1 | awk '{ print \\\$2 }' | tr -d '()')\""
+alias call="true \"- \$0:\$LINENO\"; "
+
+
+def; foo2() {
+	true
+	echo foo2 "$@";
+}
+def; bar2() {
+	true
+	call foo2 "$@";
+}
+def; baz2() { (
+	true
+	call bar2 "$@" );
+}
+def; asdf2() {
+	true
+	echo asdf2 "$(call baz2 "$@")";
+}
+def; qwerty2() {
+	true
+	echo qwerty2 "$(call asdf2 "$@")";
 }
 
-if [ "$1" = "" ]; then
-    test_shell bash
-    test_shell dash
-    test_shell zsh
-fi
+echo FROM SUB MODULE:
+call qwerty2 21 22 23 24 25
