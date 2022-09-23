@@ -20,19 +20,35 @@ build: ## build wheels and sdists
 
 .PHONY:
 clean: ## clean all temp, cache, and build files
-	rm -rf .tox
 	rm -rf .mypy_cache
 	rm -rf .pytest_cache
 	rm -rf .reports
 	rm -rf dist
 	rm -rf htmlcov
 	rm -f .coverage
+	rm -f .coverage.*
+	rm -f cov.xml
+	rm -f coverage.cobertura.xml
+	rm -f coverage.json
+	rm -f coverage.html
 	rm -f coverage.xml
+	rm -f jacoco.xml
+	rm -f lcov.info
+	rm -f lcov.xml
 	find . \( -name '__pycache__' -or -name '*.pyc' -or -name '*.pyo' -or -name '*.pyd' \) -print0 | xargs -r0 rm -rf
 
-.PHONE:
+.PHONY:
 clean-old: ## remove all *.old files
 	find . -name '*.old' -print0 | xargs -r0 rm -f
+
+.PHONY:
+clean-tox: ## remove tox environments
+	rm -rf .tox
+
+.PHONY:
+sterile: clean clean-old clean-tox ## clean EVERYTHING
+
+superclean: sterile
 
 .PHONY:
 run: ## run software
