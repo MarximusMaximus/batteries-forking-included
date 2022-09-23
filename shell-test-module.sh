@@ -39,28 +39,34 @@ set -x
 PS4="+ \$0:\$LINENO - "
 
 alias def="sh -c \"echo = \$0:\$LINENO:\\\$(head -n \$LINENO \$0 | tail -n 1 | awk '{ print \\\$2 }' | tr -d '()')\""
-alias call="true \"- \$0:\$LINENO\"; "
 
+call_G () {
+    >&2 echo "- $1:$2"
+    shift
+    "$@"
+    return $?
+}
+alias call="call_G \"\$0:\$LINENO\""
 
 def; foo2() {
-	true
-	echo foo2 "$@";
+    true
+    echo foo2 "$@";
 }
 def; bar2() {
-	true
-	call foo2 "$@";
+    true
+    call foo2 "$@";
 }
 def; baz2() { (
-	true
-	call bar2 "$@" );
+    true
+    call bar2 "$@" );
 }
 def; asdf2() {
-	true
-	echo asdf2 "$(call baz2 "$@")";
+    true
+    echo asdf2 "$(call baz2 "$@")";
 }
 def; qwerty2() {
-	true
-	echo qwerty2 "$(call asdf2 "$@")";
+    true
+    echo qwerty2 "$(call asdf2 "$@")";
 }
 
 echo FROM SUB MODULE:

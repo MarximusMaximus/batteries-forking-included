@@ -47,32 +47,32 @@ PS4="+ \$0:\$LINENO - "
 
 alias def="sh -c \"echo = \$0:\$LINENO:\\\$(head -n \$LINENO \$0 | tail -n 1 | awk '{ print \\\$2 }' | tr -d '()')\""
 
-#call_G () {
-#    >&2 echo "- $1:$2"
-#    shift
-#    $@
-#    return $?
-#}
-#alias call="call_G \"\$0:\$LINENO\""
+call_G () {
+    >&2 echo "- $1:$2"
+    shift
+    "$@"
+    return $?
+}
+alias call="call_G \"\$0:\$LINENO\""
 
 
-alias call="true \"- \$0:\$LINENO\"; "
+# alias call="true \"- \$0:\$LINENO\";"
 
 
 def; foo() {
-	echo foo "$@";
+    echo foo "$@";
 }
 def; bar() {
-	call foo "$@";
+    call foo "$@";
 }
 def; baz() { (
-	call bar "$@" );
+    call bar "$@" );
 }
 def; asdf() {
-	echo asdf "$(call baz "$@")";
+    echo asdf "$(call baz "$@")";
 }
 def; qwerty() {
-	echo qwerty "$(call asdf "$@")";
+    echo qwerty "$(call asdf "$@")";
 }
 
 
