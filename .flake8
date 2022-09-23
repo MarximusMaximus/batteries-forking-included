@@ -55,7 +55,7 @@
         # (not ideal, but makes sense to use for certain frameworks)
         W503,
         # line break after binary operator
-        # (black will split long lines like this)
+        # (useful for splitting very long lines, such as long strings)
         W504,
     select =
         # provided by flake8-bugbear
