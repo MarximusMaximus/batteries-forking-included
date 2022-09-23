@@ -827,14 +827,12 @@ ensure_dir() {
 }
 
 #-------------------------------------------------------------------------------
-get_datetime_stamp_human_formatted()
-{
+get_datetime_stamp_human_formatted() {
     date "${DATETIME_STAMP_HUMAN_FORMAT}"
 }
 
 #-------------------------------------------------------------------------------
-get_datetime_stamp_filename_formatted()
-{
+get_datetime_stamp_filename_formatted() {
     date "${DATETIME_STAMP_FILENAME_FORMAT}"
 }
 
@@ -978,8 +976,7 @@ copy_dir() {
 }
 
 #-------------------------------------------------------------------------------
-is_integer()
-{
+is_integer() {
     case "${1#[+-]}"  in
         *[!0123456789]*)
             command echo "1"
