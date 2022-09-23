@@ -39,11 +39,18 @@
         # two lines before definitions
         # (conflicts with region directives)
         E302, E305,
+        # continuation line unaligned for hanging indent
+        # (disabling because it recommendes hanging indents greater than
+        # 4 spaces, as well as 0 spaces)
+        E131,
         # module level import not at top of file
         # (file preamble comes before includes)
         E402,
         ; # 'from module import *' used; unable to detect undefined names
         ; F403,
+        # the backslash is redundant between brackets
+        # (we use this to make obj. line continuations more obvious)
+        E502,
         # line break before binary operator
         # (not ideal, but makes sense to use for certain frameworks)
         W503,
