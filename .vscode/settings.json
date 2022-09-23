@@ -450,9 +450,9 @@
     "coverage-gutters.showRulerCoverage": true,
     "koverage.coverageFileNames": [
         "lcov.info",
-        "cov.xml",
-        "coverage.xml",
-        "jacoco.xml"
+        // "cov.xml",
+        // "coverage.xml",
+        // "jacoco.xml"
     ],
     "koverage.sufficientCoverageThreshold": 100,
     "koverage.coverageFilePaths": [
