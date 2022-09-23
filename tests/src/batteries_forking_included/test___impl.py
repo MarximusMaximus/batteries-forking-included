@@ -378,11 +378,21 @@ class Test_getVersionNumber():
             mock_importlib_metadata_version,
         )
 
-        def mock_open(f: str, mode: str) -> io_TextIOWrapper:  # pragma: no cover
+        def mock_open(
+            f: str,
+            mode: str,
+            encoding: str = None,
+        ) -> io_TextIOWrapper:
+            # silence vulture about unused arguments
+            f = f  # pylint: disable=self-assigning-variable
+            mode = mode  # pylint: disable=self-assigning-variable
+            encoding = encoding  # pylint: disable=self-assigning-variable
             raise Exception
-        # create something that monkeypatch can override
-        MODULE_UNDER_TEST.open = lambda f, m: __builtins__.open(f, m)  # type: ignore[attr-defined]  # pylint: disable=unnecessary-lambda  # pragma: no cover  # noqa: E501,B950
-        monkeypatch.setattr(MODULE_UNDER_TEST, "open", mock_open)
+        monkeypatch.setitem(
+            MODULE_UNDER_TEST.getVersionNumber.__globals__,
+            "open",
+            mock_open,
+        )
 
         monkeypatch.delenv("BFI_VERSION", raising=False)
 
@@ -427,11 +437,21 @@ class Test_getVersionNumber():
             mock_importlib_metadata_version,
         )
 
-        def mock_open(f: str, mode: str) -> io_TextIOWrapper:  # pragma: no cover
+        def mock_open(
+            f: str,
+            mode: str,
+            encoding: str = None,
+        ) -> io_TextIOWrapper:
+            # silence vulture about unused arguments
+            f = f  # pylint: disable=self-assigning-variable
+            mode = mode  # pylint: disable=self-assigning-variable
+            encoding = encoding  # pylint: disable=self-assigning-variable
             raise Exception
-        # create something that monkeypatch can override
-        MODULE_UNDER_TEST.open = lambda f, mode: __builtins__.open(f, mode)  # type: ignore[attr-defined]  # pylint: disable=unnecessary-lambda  # pragma: no cover  # noqa: E501,B950
-        monkeypatch.setattr(MODULE_UNDER_TEST, "open", mock_open)
+        monkeypatch.setitem(
+            MODULE_UNDER_TEST.getVersionNumber.__globals__,
+            "open",
+            mock_open,
+        )
 
         monkeypatch.setenv("BFI_VERSION", "x.y.z")
 
