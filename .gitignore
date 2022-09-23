@@ -227,14 +227,20 @@ cache/
 # coverage data
 .coverage
 .coverage.*
-htmlcov/
+cov.xml
+coverage.cobertura.xml
 coverage.json
-coverage.xml
 coverage.html
+coverage.xml
+jacoco.xml
+htmlcov/
+lcov.info
+lcov.xml
 
 # test & other report data
 .reports/
 .pylint.d/
+junit.xml
 
 # codeql
 .codeql/
