@@ -440,7 +440,7 @@ _array_escape() {
 #-------------------------------------------------------------------------------
 _array_unescape() {
     # NOTE: This doesn't look like the inverse of what _array_escape does, but
-    #   it works correctly
+    #   it works correctly, so don't try to "fix" it
     #                                           x1234x12x           x12345678x
     command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
 }
