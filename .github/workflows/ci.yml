@@ -309,6 +309,7 @@ jobs:
           path: |
             coverage.xml
             htmlcov/**
+            lcov.info
 
   github-release:
     if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/heads/release')

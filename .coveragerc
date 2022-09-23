@@ -34,3 +34,6 @@ directory = htmlcov
 
 [xml]
 output = coverage.xml
+
+[lcov]
+output = lcov.info
