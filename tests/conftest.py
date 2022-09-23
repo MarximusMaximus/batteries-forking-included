@@ -61,7 +61,6 @@ def pytest_xdist_auto_num_workers() -> int:
 
 pytest_plugins: Union[str, Sequence[str]] = [
     "pytester",
-    "tests.PytestShellTestHarnessFixture",
 ]
 
 os_environ["_IS_UNDER_TEST"] = "true"

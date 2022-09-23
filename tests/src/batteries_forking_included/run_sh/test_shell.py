@@ -32,11 +32,11 @@ from pytest import (
 
 #===============================================================================
 #region Ours
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
 from batteries_forking_included import (
     getVersionNumber                as batteries_forking_included_getVersionNumber,
 )
-from ....PytestShellTestHarness import PytestShellTestHarness
 
 #endregion Ours
 #===============================================================================
@@ -168,7 +168,7 @@ class Test_Invoke():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         """
@@ -176,7 +176,7 @@ class Test_Invoke():
         """
         monkeypatch.delenv("_IS_UNDER_TEST", raising=False)
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -205,7 +205,7 @@ class Test_Source():
     #---------------------------------------------------------------------------
     def test_Source(
         self,
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         """
@@ -213,7 +213,7 @@ class Test_Source():
         """
         monkeypatch.delenv("_IS_UNDER_TEST", raising=False)
 
-        p = shell_test_harness.run()
+        p = shell_script_test_harness.run()
 
         assert p.returncode == 149
         assert b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n" in p.stdout

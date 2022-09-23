@@ -32,7 +32,7 @@ from pytest import (
 #===============================================================================
 #region Ours
 
-from ....PytestShellTestHarness import PytestShellTestHarness
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
 #endregion Ours
 #===============================================================================
@@ -65,21 +65,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -89,21 +89,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -113,21 +113,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",   # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -137,21 +137,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -161,21 +161,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -185,21 +185,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -209,21 +209,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -233,21 +233,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -257,21 +257,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -281,21 +281,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -305,21 +305,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -329,21 +329,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -353,21 +353,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -377,21 +377,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -401,21 +401,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -425,21 +425,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -449,21 +449,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -473,21 +473,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -497,21 +497,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -521,21 +521,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -545,21 +545,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -569,21 +569,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -593,21 +593,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -621,13 +621,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -657,21 +657,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -681,21 +681,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -705,21 +705,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -729,21 +729,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -753,21 +753,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -777,21 +777,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -801,21 +801,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -825,21 +825,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -849,21 +849,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -873,21 +873,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -897,21 +897,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -921,21 +921,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -945,21 +945,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -969,21 +969,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -993,21 +993,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -1017,21 +1017,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -1041,21 +1041,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -1065,21 +1065,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -1089,21 +1089,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -1113,21 +1113,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -1137,21 +1137,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -1161,21 +1161,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -1185,21 +1185,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -1213,13 +1213,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1249,21 +1249,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -1273,21 +1273,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -1297,21 +1297,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -1321,21 +1321,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -1345,21 +1345,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -1369,21 +1369,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -1393,21 +1393,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -1417,21 +1417,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -1441,21 +1441,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -1465,21 +1465,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -1489,21 +1489,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -1513,21 +1513,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -1537,21 +1537,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -1561,21 +1561,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -1585,21 +1585,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -1609,21 +1609,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -1633,21 +1633,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -1657,21 +1657,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -1681,21 +1681,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -1705,21 +1705,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -1729,21 +1729,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -1753,21 +1753,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -1777,21 +1777,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -1805,13 +1805,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1841,21 +1841,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -1865,21 +1865,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -1889,21 +1889,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -1913,21 +1913,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -1937,21 +1937,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -1961,21 +1961,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -1985,21 +1985,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -2009,21 +2009,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -2033,21 +2033,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -2057,21 +2057,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -2081,21 +2081,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -2105,21 +2105,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -2129,21 +2129,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -2153,21 +2153,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -2177,21 +2177,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -2201,21 +2201,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -2225,21 +2225,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -2249,21 +2249,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -2273,21 +2273,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -2297,21 +2297,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -2321,21 +2321,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -2345,21 +2345,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -2369,21 +2369,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -2397,13 +2397,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -2433,21 +2433,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -2457,21 +2457,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -2481,21 +2481,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -2505,21 +2505,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -2529,21 +2529,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -2553,21 +2553,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -2577,21 +2577,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -2601,21 +2601,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -2625,21 +2625,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -2649,21 +2649,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -2673,21 +2673,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -2697,21 +2697,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -2721,21 +2721,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -2745,21 +2745,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -2769,21 +2769,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -2793,21 +2793,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -2817,21 +2817,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -2841,21 +2841,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -2865,21 +2865,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -2889,21 +2889,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -2913,21 +2913,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -2937,21 +2937,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -2961,21 +2961,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -2989,13 +2989,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -3025,21 +3025,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -3049,21 +3049,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -3073,21 +3073,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -3097,21 +3097,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -3121,21 +3121,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -3145,21 +3145,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -3169,21 +3169,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -3193,21 +3193,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -3217,21 +3217,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -3241,21 +3241,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -3265,21 +3265,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -3289,21 +3289,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -3313,21 +3313,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -3337,21 +3337,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -3361,21 +3361,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -3385,21 +3385,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -3409,21 +3409,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -3433,21 +3433,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -3457,21 +3457,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -3481,21 +3481,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -3505,21 +3505,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -3529,21 +3529,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -3553,21 +3553,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -3581,13 +3581,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -3617,21 +3617,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -3641,21 +3641,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -3665,21 +3665,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -3689,21 +3689,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -3713,21 +3713,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -3737,21 +3737,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -3761,21 +3761,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -3785,21 +3785,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -3809,21 +3809,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -3833,21 +3833,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -3857,21 +3857,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -3881,21 +3881,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -3905,21 +3905,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -3929,21 +3929,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -3953,21 +3953,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -3977,21 +3977,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -4001,21 +4001,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -4025,21 +4025,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -4049,21 +4049,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -4073,21 +4073,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -4097,21 +4097,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -4121,21 +4121,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -4145,21 +4145,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -4173,13 +4173,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -4209,21 +4209,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -4233,21 +4233,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -4257,21 +4257,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -4281,21 +4281,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -4305,21 +4305,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -4329,21 +4329,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -4353,21 +4353,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -4377,21 +4377,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -4401,21 +4401,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -4425,21 +4425,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -4449,21 +4449,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -4473,21 +4473,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -4497,21 +4497,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -4521,21 +4521,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -4545,21 +4545,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -4569,21 +4569,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -4593,21 +4593,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -4617,21 +4617,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -4641,21 +4641,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -4665,21 +4665,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -4689,21 +4689,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -4713,21 +4713,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -4737,21 +4737,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -4765,13 +4765,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -4801,21 +4801,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -4825,21 +4825,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -4849,21 +4849,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -4873,21 +4873,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -4897,21 +4897,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -4921,21 +4921,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -4945,21 +4945,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -4969,21 +4969,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -4993,21 +4993,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -5017,21 +5017,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -5041,21 +5041,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -5065,21 +5065,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -5089,21 +5089,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -5113,21 +5113,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -5137,21 +5137,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -5161,21 +5161,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -5185,21 +5185,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -5209,21 +5209,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -5233,21 +5233,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -5257,21 +5257,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -5281,21 +5281,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -5305,21 +5305,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -5329,21 +5329,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -5357,13 +5357,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -5393,21 +5393,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -5417,21 +5417,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -5441,21 +5441,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -5465,21 +5465,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -5489,21 +5489,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -5513,21 +5513,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -5537,21 +5537,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -5561,21 +5561,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -5585,21 +5585,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -5609,21 +5609,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -5633,21 +5633,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -5657,21 +5657,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -5681,21 +5681,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -5705,21 +5705,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -5729,21 +5729,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -5753,21 +5753,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -5777,21 +5777,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -5801,21 +5801,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -5825,21 +5825,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -5849,21 +5849,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -5873,21 +5873,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -5897,21 +5897,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -5921,21 +5921,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -5949,13 +5949,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -5985,21 +5985,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -6009,21 +6009,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -6033,21 +6033,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -6057,21 +6057,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -6081,21 +6081,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -6105,21 +6105,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -6129,21 +6129,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -6153,21 +6153,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -6177,21 +6177,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -6201,21 +6201,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -6225,21 +6225,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -6249,21 +6249,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -6273,21 +6273,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -6297,21 +6297,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -6321,21 +6321,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -6345,21 +6345,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -6369,21 +6369,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -6393,21 +6393,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -6417,21 +6417,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -6441,21 +6441,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -6465,21 +6465,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -6489,21 +6489,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -6513,21 +6513,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -6541,13 +6541,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -6577,21 +6577,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -6601,21 +6601,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -6625,21 +6625,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -6649,21 +6649,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -6673,21 +6673,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -6697,21 +6697,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -6721,21 +6721,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -6745,21 +6745,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -6769,21 +6769,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -6793,21 +6793,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -6817,21 +6817,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -6841,21 +6841,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -6865,21 +6865,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -6889,21 +6889,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -6913,21 +6913,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -6937,21 +6937,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -6961,21 +6961,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -6985,21 +6985,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -7009,21 +7009,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -7033,21 +7033,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -7057,21 +7057,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -7081,21 +7081,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -7105,21 +7105,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -7133,13 +7133,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -7169,21 +7169,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -7193,21 +7193,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -7217,21 +7217,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -7241,21 +7241,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -7265,21 +7265,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -7289,21 +7289,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -7313,21 +7313,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -7337,21 +7337,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -7361,21 +7361,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[barm\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[barm\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -7385,21 +7385,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[barm\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[barm\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -7409,21 +7409,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -7433,21 +7433,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -7457,21 +7457,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -7481,21 +7481,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -7505,21 +7505,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -7529,21 +7529,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -7553,21 +7553,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -7577,21 +7577,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -7601,21 +7601,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;foom\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -7625,21 +7625,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;barm\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;barm\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -7649,21 +7649,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;barm\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;barm\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -7673,21 +7673,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -7697,21 +7697,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -7725,13 +7725,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -7761,21 +7761,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="no_args",
             ),
@@ -7785,21 +7785,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty",
             ),
@@ -7809,21 +7809,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty",
             ),
@@ -7833,21 +7833,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty",
             ),
@@ -7857,21 +7857,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_empty_empty_empty",
             ),
@@ -7881,21 +7881,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo",
             ),
@@ -7905,21 +7905,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty",
             ),
@@ -7929,21 +7929,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_empty",
             ),
@@ -7953,21 +7953,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar",
             ),
@@ -7977,21 +7977,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_empty",
             ),
@@ -8001,21 +8001,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_bar_A",
             ),
@@ -8025,21 +8025,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_empty_foo_empty_A",
             ),
@@ -8049,21 +8049,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0",
             ),
@@ -8073,21 +8073,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty",
             ),
@@ -8097,21 +8097,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty",
             ),
@@ -8121,21 +8121,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_empty_empty_empty",
             ),
@@ -8145,21 +8145,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo",
             ),
@@ -8169,21 +8169,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty",
             ),
@@ -8193,21 +8193,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_empty",
             ),
@@ -8217,21 +8217,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar",
             ),
@@ -8241,21 +8241,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0m\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_empty",
             ),
@@ -8265,21 +8265,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_bar_A",
             ),
@@ -8289,21 +8289,21 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[0;fooA\n",  # cspell:disable-line
+                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
                     b"",
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
-                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
-                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
-                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                    b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[0m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",  # cspell:disable-line  # noqa: E501,W505,B950
+                    b" \x1b[1m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 id="args_0_foo_empty_A",
             ),
@@ -8317,13 +8317,13 @@ class Test_get_ansi_code():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 

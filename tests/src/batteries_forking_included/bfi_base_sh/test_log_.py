@@ -37,8 +37,8 @@ from pytest import (
 
 #===============================================================================
 #region Ours
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
-from ....PytestShellTestHarness import PytestShellTestHarness
 from ...helper_functions import check_log_data
 
 #endregion Ours
@@ -123,7 +123,7 @@ class Test_log_console():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -134,7 +134,7 @@ class Test_log_console():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -238,7 +238,7 @@ class Test_log_success():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -249,7 +249,7 @@ class Test_log_success():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -350,7 +350,7 @@ class Test_log_success_final():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -361,7 +361,7 @@ class Test_log_success_final():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -462,7 +462,7 @@ class Test_log_fatal():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -473,7 +473,7 @@ class Test_log_fatal():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -574,7 +574,7 @@ class Test_log_fatal_final():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -585,7 +585,7 @@ class Test_log_fatal_final():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -686,7 +686,7 @@ class Test_log_error():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -697,7 +697,7 @@ class Test_log_error():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -798,7 +798,7 @@ class Test_log_error_final():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -809,7 +809,7 @@ class Test_log_error_final():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -910,7 +910,7 @@ class Test_log_warning():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -921,7 +921,7 @@ class Test_log_warning():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1024,7 +1024,7 @@ class Test_log_warning_final():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1035,7 +1035,7 @@ class Test_log_warning_final():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1138,7 +1138,7 @@ class Test_log_header():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1149,7 +1149,7 @@ class Test_log_header():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1252,7 +1252,7 @@ class Test_log_footer():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1263,7 +1263,7 @@ class Test_log_footer():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1366,7 +1366,7 @@ class Test_log_info_important():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1377,7 +1377,7 @@ class Test_log_info_important():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1480,7 +1480,7 @@ class Test_log_info():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1491,7 +1491,7 @@ class Test_log_info():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1594,7 +1594,7 @@ class Test_log_info_no_prefix():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1605,7 +1605,7 @@ class Test_log_info_no_prefix():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1708,7 +1708,7 @@ class Test_log_debug():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1719,7 +1719,7 @@ class Test_log_debug():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1822,7 +1822,7 @@ class Test_log_superdebug():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1833,7 +1833,7 @@ class Test_log_superdebug():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1936,7 +1936,7 @@ class Test_log_ultradebug():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1947,7 +1947,7 @@ class Test_log_ultradebug():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -2050,7 +2050,7 @@ class Test_log_file():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -2061,7 +2061,7 @@ class Test_log_file():
 
         tempdir_path = os_path_abspath("")
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,

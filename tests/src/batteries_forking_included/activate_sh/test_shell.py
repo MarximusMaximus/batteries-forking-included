@@ -20,7 +20,7 @@ from pytest import (
 #===============================================================================
 #region Ours
 
-from ....PytestShellTestHarness import PytestShellTestHarness
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
 #endregion Ours
 #===============================================================================
@@ -40,7 +40,7 @@ class Test_Invoke():
     #---------------------------------------------------------------------------
     def test_Invoke(
         self,
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         """
@@ -48,7 +48,7 @@ class Test_Invoke():
         """
         monkeypatch.delenv("_IS_UNDER_TEST", raising=False)
 
-        p = shell_test_harness.run()
+        p = shell_script_test_harness.run()
 
         assert p.returncode == 151
         assert b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n" in p.stdout
@@ -69,7 +69,7 @@ class Test_Source():
     #---------------------------------------------------------------------------
     def test_Source(
         self,
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         """
@@ -77,7 +77,7 @@ class Test_Source():
         """
         monkeypatch.delenv("_IS_UNDER_TEST", raising=False)
 
-        p = shell_test_harness.run()
+        p = shell_script_test_harness.run()
 
         assert p.returncode == 0
         assert b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n" in p.stdout

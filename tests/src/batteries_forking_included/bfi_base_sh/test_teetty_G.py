@@ -39,7 +39,7 @@ from pytest import (
 #===============================================================================
 #region Ours
 
-from ....PytestShellTestHarness import PytestShellTestHarness
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
 #endregion Ours
 #===============================================================================
@@ -166,7 +166,7 @@ class Test_teetty_G():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -187,7 +187,7 @@ class Test_teetty_G():
             recursive=False,
         )
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,

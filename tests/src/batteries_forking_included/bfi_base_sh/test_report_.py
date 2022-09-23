@@ -35,8 +35,8 @@ from pytest import (
 
 #===============================================================================
 #region Ours
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
-from ....PytestShellTestHarness import PytestShellTestHarness
 from ...helper_functions import check_log_data
 
 #endregion Ours
@@ -172,7 +172,7 @@ class Test_report_errors():
         expected_not_stderr: List[bytes],
         expected_report_header: List[bytes],
         additional_args_2: List[Union[str, int]],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -193,7 +193,7 @@ class Test_report_errors():
         final_additional_args.extend(additional_args)
         final_additional_args.extend(additional_args_2)
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=final_additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -368,7 +368,7 @@ class Test_report_warnings():
         expected_not_stderr: List[bytes],
         expected_report_header: List[bytes],
         additional_args_2: List[Union[str, int]],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -390,7 +390,7 @@ class Test_report_warnings():
         final_additional_args.extend(additional_args)
         final_additional_args.extend(additional_args_2)
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=final_additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,
@@ -1351,7 +1351,7 @@ class Test_report_final_status():
         expected_not_stderr: List[bytes],
         additional_args: List[Union[str, int]],
         expected_stdout: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
     ) -> None:
         r"""
@@ -1406,7 +1406,7 @@ class Test_report_final_status():
                 ),
             ])
 
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=final_additional_args,
             additional_env_vars={
                 "my_tempdir": tempdir_path,

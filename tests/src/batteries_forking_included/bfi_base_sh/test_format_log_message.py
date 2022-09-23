@@ -32,7 +32,7 @@ from pytest import (
 #===============================================================================
 #region Ours
 
-from ....PytestShellTestHarness import PytestShellTestHarness
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
 #endregion Ours
 #===============================================================================
@@ -66,7 +66,7 @@ class Test_format_log_message():
                 ],
                 0,
                 [
-                    b"PytestShellTestHarness: YYYY-mm-dd HH:MM:SS prefixasdfsuffix\n",  # cspell:disable-line  # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: YYYY-mm-dd HH:MM:SS prefixasdfsuffix\n",  # cspell:disable-line  # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -89,7 +89,7 @@ class Test_format_log_message():
                 ],
                 0,
                 [
-                    b"PytestShellTestHarness: YYYY-mm-dd HH:MM:SS prefixqwerty42suffix\n",  # cspell:disable-line  # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: YYYY-mm-dd HH:MM:SS prefixqwerty42suffix\n",  # cspell:disable-line  # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -116,13 +116,13 @@ class Test_format_log_message():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that format_log_message returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 

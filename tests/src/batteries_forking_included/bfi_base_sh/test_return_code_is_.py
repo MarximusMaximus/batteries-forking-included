@@ -32,7 +32,7 @@ from pytest import (
 #===============================================================================
 #region Ours
 
-from ....PytestShellTestHarness import PytestShellTestHarness
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
 #endregion Ours
 #===============================================================================
@@ -67,7 +67,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -91,7 +91,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -115,7 +115,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -139,7 +139,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -163,7 +163,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -187,7 +187,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -211,7 +211,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -235,7 +235,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -259,7 +259,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -283,7 +283,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -307,7 +307,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -331,7 +331,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -355,7 +355,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -379,7 +379,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -403,7 +403,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -427,7 +427,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -451,7 +451,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -475,7 +475,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -499,7 +499,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -523,7 +523,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -547,7 +547,7 @@ class Test_return_code_is_error():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -571,7 +571,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -595,7 +595,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -619,7 +619,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -643,7 +643,7 @@ class Test_return_code_is_error():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -670,12 +670,12 @@ class Test_return_code_is_error():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that return_code_is_error returns properly based on args.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -719,7 +719,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -743,7 +743,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -767,7 +767,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -791,7 +791,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -815,7 +815,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -839,7 +839,7 @@ class Test_return_code_is_warning():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -863,7 +863,7 @@ class Test_return_code_is_warning():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -887,7 +887,7 @@ class Test_return_code_is_warning():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -911,7 +911,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -935,7 +935,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -959,7 +959,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -983,7 +983,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1007,7 +1007,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1031,7 +1031,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1055,7 +1055,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1079,7 +1079,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1103,7 +1103,7 @@ class Test_return_code_is_warning():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -1127,7 +1127,7 @@ class Test_return_code_is_warning():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -1151,7 +1151,7 @@ class Test_return_code_is_warning():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -1175,7 +1175,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1199,7 +1199,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1223,7 +1223,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1247,7 +1247,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1271,7 +1271,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1295,7 +1295,7 @@ class Test_return_code_is_warning():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1322,12 +1322,12 @@ class Test_return_code_is_warning():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that return_code_is_error returns properly based on args.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1371,7 +1371,7 @@ class Test_return_code_is_success():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -1395,7 +1395,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1419,7 +1419,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1443,7 +1443,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1467,7 +1467,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1491,7 +1491,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1515,7 +1515,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1539,7 +1539,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1563,7 +1563,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1587,7 +1587,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1611,7 +1611,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1635,7 +1635,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1659,7 +1659,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1683,7 +1683,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1707,7 +1707,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1731,7 +1731,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1755,7 +1755,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1779,7 +1779,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1803,7 +1803,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1827,7 +1827,7 @@ class Test_return_code_is_success():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: true\n",
+                    b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
                     b"",
@@ -1851,7 +1851,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1875,7 +1875,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1899,7 +1899,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1923,7 +1923,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1947,7 +1947,7 @@ class Test_return_code_is_success():
                 1,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: false\n",
+                    b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
                     b"",
@@ -1974,12 +1974,12 @@ class Test_return_code_is_success():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that return_code_is_error returns properly based on args.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 

@@ -32,7 +32,7 @@ from pytest import (
 #===============================================================================
 #region Ours
 
-from ....PytestShellTestHarness import PytestShellTestHarness
+from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
 #endregion Ours
 #===============================================================================
@@ -67,7 +67,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -91,7 +91,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -118,13 +118,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -156,7 +156,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -180,7 +180,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -207,13 +207,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -245,7 +245,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -269,7 +269,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -296,13 +296,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -334,7 +334,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -358,7 +358,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -385,13 +385,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -423,7 +423,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -447,7 +447,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -474,13 +474,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -512,7 +512,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -536,7 +536,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -563,13 +563,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -601,7 +601,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -625,7 +625,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -652,13 +652,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -690,7 +690,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -714,7 +714,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -741,13 +741,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -779,7 +779,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -803,7 +803,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -830,13 +830,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -868,7 +868,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -892,7 +892,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -919,13 +919,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -957,7 +957,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -981,7 +981,7 @@ class Test_get_ansi_code_cursor():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: \033[fooA\n",  # cspell:disable-line
+                    b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line
                 ],
                 [
                     b"",
@@ -1008,13 +1008,13 @@ class Test_get_ansi_code_cursor():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1058,7 +1058,7 @@ class Test_get_ansi_code_cursor_up():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo A\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo A\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1082,7 +1082,7 @@ class Test_get_ansi_code_cursor_up():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo A\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo A\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1109,13 +1109,13 @@ class Test_get_ansi_code_cursor_up():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1159,7 +1159,7 @@ class Test_get_ansi_code_cursor_down():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo B\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo B\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1183,7 +1183,7 @@ class Test_get_ansi_code_cursor_down():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo B\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo B\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1210,13 +1210,13 @@ class Test_get_ansi_code_cursor_down():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1260,7 +1260,7 @@ class Test_get_ansi_code_cursor_right():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo C\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo C\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1284,7 +1284,7 @@ class Test_get_ansi_code_cursor_right():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo C\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo C\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1311,13 +1311,13 @@ class Test_get_ansi_code_cursor_right():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1361,7 +1361,7 @@ class Test_get_ansi_code_cursor_left():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo D\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo D\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1385,7 +1385,7 @@ class Test_get_ansi_code_cursor_left():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo D\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo D\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1412,13 +1412,13 @@ class Test_get_ansi_code_cursor_left():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1462,7 +1462,7 @@ class Test_get_ansi_code_cursor_nextline():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo E\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo E\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1486,7 +1486,7 @@ class Test_get_ansi_code_cursor_nextline():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo E\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo E\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1513,13 +1513,13 @@ class Test_get_ansi_code_cursor_nextline():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1563,7 +1563,7 @@ class Test_get_ansi_code_cursor_prevline():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo F\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo F\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1587,7 +1587,7 @@ class Test_get_ansi_code_cursor_prevline():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo F\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo F\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1614,13 +1614,13 @@ class Test_get_ansi_code_cursor_prevline():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1664,7 +1664,7 @@ class Test_get_ansi_code_cursor_col():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo G\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo G\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1688,7 +1688,7 @@ class Test_get_ansi_code_cursor_col():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo G\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo G\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1715,13 +1715,13 @@ class Test_get_ansi_code_cursor_col():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
@@ -1765,7 +1765,7 @@ class Test_get_ansi_code_cursor_pos():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo;bar H\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo;bar H\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1789,7 +1789,7 @@ class Test_get_ansi_code_cursor_pos():
                 0,
                 [
                     b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
-                    b"PytestShellTestHarness: get_ansi_code_cursor foo;bar H\n",  # cspell:disable-line # noqa: E501,B950
+                    b"PytestShellScriptTestHarness: get_ansi_code_cursor foo;bar H\n",  # cspell:disable-line # noqa: E501,B950
                 ],
                 [
                     b"",
@@ -1816,13 +1816,13 @@ class Test_get_ansi_code_cursor_pos():
         expected_stderr: List[bytes],
         expected_not_stdout: List[bytes],
         expected_not_stderr: List[bytes],
-        shell_test_harness: PytestShellTestHarness,
+        shell_script_test_harness: PytestShellScriptTestHarness,
     ) -> None:
         r"""
         Check that get_ansi_code returns properly based on args and environment
             vars.
         """
-        p = shell_test_harness.run(
+        p = shell_script_test_harness.run(
             additional_args=additional_args,
         )
 
