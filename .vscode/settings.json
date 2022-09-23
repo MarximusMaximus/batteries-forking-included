@@ -311,6 +311,15 @@
             "italic": false
         },
         {
+            "tag": "pylint: disable=all",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
             "tag": "pylint: disable=",
             "color": "#9900CC",
             "strikethrough": false,
