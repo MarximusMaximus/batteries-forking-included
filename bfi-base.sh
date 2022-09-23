@@ -1347,6 +1347,9 @@ RET_WARNING_MULTIPLE=193; export RET_WARNING_MULTIPLE
 RET_WARNING_NOT_A_FILE=194; export RET_WARNING_NOT_A_FILE
 RET_WARNING_NOT_A_DIRECTORY=195; export RET_WARNING_NOT_A_DIRECTORY
 
+# Special code for unit testing to use to raise an assertion error
+RET_UNIT_TEST_ASSERTION=252; export RET_UNIT_TEST_ASSERTION
+
 # Special code for a special success (for use by functions to return
 #   success + other state)
 RET_SUCCESS_SPECIAL=253; export RET_SUCCESS_SPECIAL
@@ -2692,7 +2695,7 @@ export SHELL_SESSION_FILE
         {
             [ "${_CALL_MAIN_ANYWAY}" = true ] &&
             # only if we are directly sourced from the shell,
-            # or we were directly sourced by a PytestShellTestHarness script
+            # or we were directly sourced by a PytestShellScriptTestHarness script
             [ "$(array_get_length WAS_SOURCED)" -le 2 ]
         }
     } then
@@ -2715,7 +2718,7 @@ export SHELL_SESSION_FILE
 #region Postamble
 
 #===============================================================================
-#region PytestShellTestHarness Postamble
+#region PytestShellScriptTestHarness Postamble
 
 if [ "${_IS_UNDER_TEST}" = "true" ]; then
     type inject_monkeypatch >/dev/null 2>&1
@@ -2725,7 +2728,7 @@ if [ "${_IS_UNDER_TEST}" = "true" ]; then
     fi
 fi
 
-#endregion PytestShellTestHarness Postamble
+#endregion PytestShellScriptTestHarness Postamble
 #===============================================================================
 
 #===============================================================================

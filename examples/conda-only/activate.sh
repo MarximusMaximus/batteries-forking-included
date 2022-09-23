@@ -678,7 +678,7 @@ ret=$?
 #region Postamble
 
 #===============================================================================
-#region PytestShellTestHarness Postamble
+#region PytestShellScriptTestHarness Postamble
 
 if [ "${_IS_UNDER_TEST}" = "true" ]; then
     type inject_monkeypatch >/dev/null 2>&1
@@ -688,7 +688,7 @@ if [ "${_IS_UNDER_TEST}" = "true" ]; then
     fi
 fi
 
-#endregion PytestShellTestHarness Postamble
+#endregion PytestShellScriptTestHarness Postamble
 #===============================================================================
 
 #===============================================================================

@@ -1241,7 +1241,7 @@ fi
 ################################################################################
 
 ################################################################################
-#region PytestShellTestHarness Preamble
+#region PytestShellScriptTestHarness Preamble
 
 #-------------------------------------------------------------------------------
 assert() {
@@ -1258,7 +1258,7 @@ assert() {
     __assert_result="$?"
     if [ "${__assert_result}" -ne 0 ]; then
         log_fatal "expected: %s" "$__assert_message"
-        exit 255
+        exit 252  # RET_UNIT_TEST_ASSERTION
     fi
 }
 
@@ -1277,11 +1277,11 @@ inject_monkeypatch() {
 test_harness_output() {
     (
         inner_text="$(command printf -- "$@"; command echo EOL)"
-        log_info_no_prefix "PytestShellTestHarness: %s\n" "${inner_text%EOL}"
+        log_info_no_prefix "PytestShellScriptTestHarness: %s\n" "${inner_text%EOL}"
     )
 }
 
-#endregion PytestShellTestHarness Preamble
+#endregion PytestShellScriptTestHarness Preamble
 ################################################################################
 
 ################################################################################
@@ -1312,7 +1312,7 @@ Test_teetty_G__test_teetty_G() {
 ################################################################################
 
 ################################################################################
-#region PytestShellTestHarness Postamble
+#region PytestShellScriptTestHarness Postamble
 
 func_to_call="$1"
 shift
@@ -1324,5 +1324,5 @@ shift
 ret=$?
 exit $ret
 
-#endregion PytestShellTestHarness Postamble
+#endregion PytestShellScriptTestHarness Postamble
 ################################################################################

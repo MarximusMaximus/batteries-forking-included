@@ -1322,7 +1322,7 @@ fi
         {
             [ "${_CALL_MAIN_ANYWAY}" = true ] &&
             # only if we are directly sourced from the shell,
-            # or we were directly sourced by a PytestShellTestHarness script
+            # or we were directly sourced by a PytestShellScriptTestHarness script
             [ "$(array_get_length WAS_SOURCED)" -le 2 ]
         }
     } then
@@ -1344,7 +1344,7 @@ ret=$?
 #region Postamble
 
 #===============================================================================
-#region PytestShellTestHarness Postamble
+#region PytestShellScriptTestHarness Postamble
 
 if [ "${_IS_UNDER_TEST}" = "true" ]; then
     type inject_monkeypatch >/dev/null 2>&1
@@ -1354,7 +1354,7 @@ if [ "${_IS_UNDER_TEST}" = "true" ]; then
     fi
 fi
 
-#endregion PytestShellTestHarness Postamble
+#endregion PytestShellScriptTestHarness Postamble
 #===============================================================================
 
 #===============================================================================
