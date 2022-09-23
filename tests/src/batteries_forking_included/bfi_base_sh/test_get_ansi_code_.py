@@ -30,11 +30,11 @@ from pytest import (
 #===============================================================================
 
 #===============================================================================
-#region Ours
+#region ours (external)
 
 from pytest_shell_script_test_harness import PytestShellScriptTestHarness
 
-#endregion Ours
+#endregion ours (external)
 #===============================================================================
 
 #endregion Imports

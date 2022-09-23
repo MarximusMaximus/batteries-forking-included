@@ -36,12 +36,19 @@ from pytest import (
 #===============================================================================
 
 #===============================================================================
-#region Ours
+#region ours (external)
+
 from pytest_shell_script_test_harness import PytestShellScriptTestHarness
+
+#endregion ours (external)
+#===============================================================================
+
+#===============================================================================
+#region ours (internal)
 
 from ...helper_functions import check_log_data
 
-#endregion Ours
+#endregion ours (internal)
 #===============================================================================
 
 #endregion Imports

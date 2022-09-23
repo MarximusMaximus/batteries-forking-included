@@ -31,14 +31,21 @@ from pytest import (
 #===============================================================================
 
 #===============================================================================
-#region Ours
+#region ours (external)
+
 from pytest_shell_script_test_harness import PytestShellScriptTestHarness
+
+#endregion Outs (External)
+#===============================================================================
+
+#===============================================================================
+#region ours (internal)
 
 from batteries_forking_included import (
     getVersionNumber                as batteries_forking_included_getVersionNumber,
 )
 
-#endregion Ours
+#endregion ours (internal)
 #===============================================================================
 
 #endregion Imports

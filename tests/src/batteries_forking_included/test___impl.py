@@ -54,11 +54,11 @@ from pytest import (
 #===============================================================================
 
 #===============================================================================
-#region Ours
+#region ours (internal)
 
 import batteries_forking_included.__impl as MODULE_UNDER_TEST
 
-#endregion Ours
+#endregion ours (internal)
 #===============================================================================
 
 #endregion Imports
