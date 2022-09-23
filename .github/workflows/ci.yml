@@ -298,6 +298,7 @@ jobs:
           if-no-files-found: error
           path: |
             .reports/**
+            junit.xml
 
       - name: Upload Coverage Artifacts
         id: upload-coverage-artifacts

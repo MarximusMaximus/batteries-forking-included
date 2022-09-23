@@ -252,6 +252,8 @@ addopts = [
     "--cov-report=html",
     # output coverage as xml report (for CI reporting and VSCode reporting)
     "--cov-report=xml",
+    # output xunit2/junit report
+    "--junit-xml=junit.xml",
 ]
 filterwarnings = [
     "error",
