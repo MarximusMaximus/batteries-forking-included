@@ -12,8 +12,4 @@ export bfi_dir
         fi
     done
 )
-(
-    cd src/batteries_forking_included || exit 1
-    ../../bfi-update.sh --project-dir="$(pwd)" --bfi-dir="${bfi_dir}"
-)
 ./run.sh poetry install --only-root
