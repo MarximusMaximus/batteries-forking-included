@@ -224,11 +224,9 @@ addopts = [
     # colorize
     "--force-sugar",
     "--color=yes",
-    # HACK: temporarily disable doctests until PytestShellTestHarness is
-    #   extracted to it's own project
-    # # execute doctests directly from docstrings of your classes and functions
-    # "--doctest-modules",
-    # "--doctest-continue-on-failure",
+    # execute doctests directly from docstrings of your classes and functions
+    "--doctest-modules",
+    "--doctest-continue-on-failure",
     # show complete traceback
     "--tb=long",
     # show local variable values in traceback
