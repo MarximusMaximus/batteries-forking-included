@@ -2843,6 +2843,8 @@ update_batteries_forking_included_repo() {
             [ "${curl_exists}" = true ] ||
             [ "${wget_exists}" = true ]
         then
+            # check all files in "repo" if their date is newer than
+            # our timestamp file, if yes, is_dirty will be true
             # shellcheck disable=SC2012
             is_dirty="$(ls -lt | head -2 | tail -1 | grep -v "LAST_DOWNLOADED")"
 
