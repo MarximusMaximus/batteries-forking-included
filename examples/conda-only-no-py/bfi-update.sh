@@ -1129,28 +1129,32 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
     TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"
     log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     case "${TEMP_ARG_ZERO}" in
-        bash|dash|sh|sw-bash|sw-dash|sw-sh)  # zsh handled later
+        bash|dash|sh|wsl-bash|wsl-dash|wsl-sh)  # zsh sourced handled later
             log_ultradebug "\$0 was a known shell (not zsh)."
-            # # bash, dash, sh(bash), sh(dash), sh(zsh) sourced
+            # bash sourced, dash sourced, sh(bash) sourced, sh(dash) sourced,
+            # sh(zsh) sourced
             # shellcheck disable=SC2128
             if [ -n "${BASH_SOURCE}" ]; then
-                # bash, sh(bash) sourced
+                # bash sourced, sh(bash) sourced
                 log_ultradebug "\$BASH_SOURCE exists."
                 # shellcheck disable=SC3054
                 log_ultradebug "\${BASH_SOURCE[0]}=${BASH_SOURCE[0]}"
                 # shellcheck disable=SC3054
                 TEMP_FILE_NAME="${BASH_SOURCE[0]}"
             else
+                # dash sourced, sh(dash) sourced, sh(zsh) sourced
                 log_ultradebug "\$BASH_SOURCE does NOT exist."
                 log_ultradebug "\(which lsof)=$(which lsof)"
                 log_ultradebug "\$?=$?"
-                # dash, sh(dash) sourced
                 x="$(lsof -p $$ -Fn0 | tail -1)"
                 TEMP_FILE_NAME="${x#n}"
                 if [ "$(command echo "${TEMP_FILE_NAME}" | grep -e "^->0x")" != "" ]; then
                     # sh(zsh) sourced
                     log_ultradebug "TEMP_FILE_NAME starts with '->0x', this is zsh sourced."
                     TEMP_FILE_NAME="${DOLLAR_UNDER}"
+                # else
+                #     # dash sourced, sh(dash) sourced
+                #     true
                 fi
             fi
             array_append WAS_SOURCED true
@@ -1161,26 +1165,30 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
             array_append WAS_SOURCED true
             log_ultradebug "$0"
             log_ultradebug "$*"
-            env | sort
+            log_ultradebug "env | sort:\n%s" "$(env | sort)"
             if [ "${TEMP_SHELL_SOURCE}" != "" ]; then
                 TEMP_FILE_NAME="${TEMP_SHELL_SOURCE}"
             fi
-            printenv | sort
+            log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
             ;;
         *)
-            # bash, dash, sh(bash), zsh invoked
+            # bash invoked, dash invoked, sh(bash) invoked, zsh invoked
             # zsh sourced
             log_ultradebug "Some other shell?"
             log_ultradebug "\(which lsof)=$(which lsof)"
             log_ultradebug "\$?=$?"
             if [ "$(which lsof)" != "" ]; then
                 x="$(lsof -p $$ -Fn0 | tail -1)"
+                log_ultradebug "\$x=$x"
                 x="${x#*n}"
+                log_ultradebug "\$x=$x"
             else
                 x="NONE"
+                log_ultradebug "\$x=$x"
             fi
             if [ -f "$x" ]; then
                 x="$(rreadlink "$x")"
+                log_ultradebug "\$x=$x"
             fi
             TEMP_FILE_NAME="$(rreadlink "$0")"
             log_ultradebug "TEMP_FILE_NAME: ${TEMP_FILE_NAME}"
@@ -1196,14 +1204,15 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
                     # wsl doesn't always have lsof, so invoked
                     array_append WAS_SOURCED false
                 else
-                    log_ultradebug "x is NOT 'pipe', probably zsh sourced."
                     # zsh sourced
+                    log_ultradebug "x is NOT 'pipe', probably zsh sourced."
                     array_append WAS_SOURCED true
                 fi
             else
                 log_ultradebug "TEMP_FILE_NAME and x are the SAME, likely invoked."
-                # bash, dash, sh(bash), zsh invoked
+                # bash invoked, dash invoked, sh(bash) invoked, zsh invoked
                 array_append WAS_SOURCED false
+                log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
             fi
             ;;
     esac
@@ -1212,6 +1221,12 @@ if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
     log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
     array_append SHELL_SOURCE "${TEMP_FILE_NAME}"
 fi
+
+unset x
+unset TEMP_ARG_ZERO
+unset TEMP_FILE_NAME
+unset TEMP_SHELL_SOURCE
+unset DOLLAR_UNDER
 
 export WAS_SOURCED
 export SHELL_SOURCE
