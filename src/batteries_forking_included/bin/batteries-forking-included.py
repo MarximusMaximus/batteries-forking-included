@@ -89,7 +89,7 @@ export MY_DIR_BASENAME
 run_dir_fullpath="${MY_DIR_FULLPATH}"
 found=false
 while [ $found = false ]; do
-    if [ -f "${run_dir_fullpath}/run.sh" ]; then
+    if [ -f "${run_dir_fullpath}/conda-environment.yml" ]; then
         found=true
         break
     fi
