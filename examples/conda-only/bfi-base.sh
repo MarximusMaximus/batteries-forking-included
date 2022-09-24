@@ -1369,7 +1369,6 @@ RET_UNIT_TEST_ASSERTION=252; export RET_UNIT_TEST_ASSERTION
 #   success + other state)
 RET_SUCCESS_SPECIAL=253; export RET_SUCCESS_SPECIAL
 
-# Special code for when Usage gets printed out
 #RET_TOMBSTONE=254; export RET_TOMBSTONE
 
 # Reserved b/c shell weirdness

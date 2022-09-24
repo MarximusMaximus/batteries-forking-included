@@ -1366,7 +1366,6 @@ RET_WARNING_NOT_A_DIRECTORY=195; export RET_WARNING_NOT_A_DIRECTORY
 #   success + other state)
 RET_SUCCESS_SPECIAL=253; export RET_SUCCESS_SPECIAL
 
-# Special code for when Usage gets printed out
 #RET_TOMBSTONE=254; export RET_TOMBSTONE
 
 # Reserved b/c shell weirdness
