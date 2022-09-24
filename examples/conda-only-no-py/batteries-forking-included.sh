@@ -1642,6 +1642,7 @@ parse_args__common_doubledash() {
                 project_dir="$2"
                 log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
                 shift
+                __parse_args_shift_by=$(( __parse_args_shift_by + 1 ))
             else
                 print_usage
                 log_error "\"--project-dir\" requires a non-empty option argument."
