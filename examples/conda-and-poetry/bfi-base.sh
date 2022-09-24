@@ -1362,6 +1362,9 @@ RET_WARNING_MULTIPLE=193; export RET_WARNING_MULTIPLE
 RET_WARNING_NOT_A_FILE=194; export RET_WARNING_NOT_A_FILE
 RET_WARNING_NOT_A_DIRECTORY=195; export RET_WARNING_NOT_A_DIRECTORY
 
+# Special code for unit testing to use to raise an assertion error
+RET_UNIT_TEST_ASSERTION=252; export RET_UNIT_TEST_ASSERTION
+
 # Special code for a special success (for use by functions to return
 #   success + other state)
 RET_SUCCESS_SPECIAL=253; export RET_SUCCESS_SPECIAL
