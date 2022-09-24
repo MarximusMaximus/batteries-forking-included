@@ -2835,7 +2835,7 @@ update_batteries_forking_included_repo() {
 
                 log_footer "batteries-forking-included updated."
             else
-                log_warning "batteries-forking-included has local changes"
+                log_warning "batteries-forking-included has local changes, did not update from the upstream"
                 # this is fine, so just bail early
                 exit "${RET_SUCCESS}"
             fi
@@ -2863,7 +2863,7 @@ update_batteries_forking_included_repo() {
 
                 log_footer "batteries-forking-included updated."
             else
-                log_warning "batteries-forking-included has local changes"
+                log_warning "batteries-forking-included has local changes, did not update from the upstream"
                 # this is fine, so just bail early
                 exit "${RET_SUCCESS}"
             fi
