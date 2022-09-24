@@ -1301,8 +1301,6 @@ test_harness_output() {
 
 set_report_files() { true; }
 
-extra_inject_monkeypatch() { true; }
-
 do_basic_count_report_test() {
     (
         log_type=$1
@@ -1323,8 +1321,6 @@ do_basic_count_report_test() {
                     command tput "$@"
                 fi
             }
-
-            extra_inject_monkeypatch
         }
 
         TERM=xterm-256color
@@ -1498,16 +1494,40 @@ Test_report_final_status__test_report_final_status() {
 
 #-------------------------------------------------------------------------------
 Test_report_all__test_report_all() {
-    (
-        extra_inject_monkeypatch() {
-            report_warnings() { return 0; }
-            report_errors() { return 0; }
-            report_final_status() { return "$1"; }
+    inject_monkeypatch() {
+        default_inject_monkeypatch
+
+        date() {
+            printf "YYYY-mm-dd HH:MM:SS"
         }
 
-        do_basic_count_report_test all "$@"
-        exit $?
-    )
+        tput() {
+            if [ "$1" = "colors" ]; then
+                command printf "256\n"
+            else
+                command tput "$@"
+            fi
+        }
+
+        report_warnings() { return 0; }
+        report_errors() { return 0; }
+        report_final_status() { return "$1"; }
+    }
+
+    TERM=xterm-256color
+    export TERM
+    NO_COLOR=""
+    export NO_COLOR
+    colorized_output=true
+    export colorized_output
+
+    include_G ./bfi-base.sh
+    script_ret=$?
+    if [ "${script_ret}" -ne 0 ]; then
+        exit $script_ret
+    fi
+
+    report_all "$@"
     return $?
 }
 

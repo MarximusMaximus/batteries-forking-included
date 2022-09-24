@@ -1469,3 +1469,191 @@ class Test_report_final_status():
 
 #endregion report_final_status Tests
 ################################################################################
+
+################################################################################
+#region report_all Tests
+
+#===============================================================================
+class Test_report_all():
+    """
+    Test report_all.
+    """
+
+    #---------------------------------------------------------------------------
+    @pytest_mark.parametrize(
+        "expected_ret",
+        [
+            pytest_param(
+                0,
+                id="ret0",
+            ),
+            pytest_param(
+                1,
+                id="ret1",
+            ),
+            pytest_param(
+                2,
+                id="ret2",
+            ),
+            pytest_param(
+                63,
+                id="ret63",
+            ),
+            pytest_param(
+                64,
+                id="ret64",
+            ),
+            pytest_param(
+                127,
+                id="ret127",
+            ),
+            pytest_param(
+                128,
+                id="ret128",
+            ),
+            pytest_param(
+                191,
+                id="ret191",
+            ),
+            pytest_param(
+                192,
+                id="ret192",
+            ),
+            pytest_param(
+                251,
+                id="ret251",
+            ),
+            # NOTE: cannot test 252 b/c it is used for raising assertions
+            # pytest_param(
+            #     252,
+            #     id="ret252",
+            # ),
+            pytest_param(
+                253,
+                id="ret253",
+            ),
+            pytest_param(
+                254,
+                id="ret254",
+            ),
+            pytest_param(
+                255,
+                id="ret255",
+            ),
+            pytest_param(
+                -1,
+                id="retNeg1",
+            ),
+        ],
+    )
+    @pytest_mark.parametrize(
+        (
+            "additional_args," +
+            "expected_stdout," +
+            "expected_stderr," +
+            "expected_not_stdout," +
+            "expected_not_stderr"
+        ),
+        [
+            pytest_param(
+                [
+                    "true", "SOME_PROGRAM",
+                ],
+                [
+                    b"YYYY-mm-dd HH:MM:SS \033[1;4;36mReport:\033[0m\n",  # cspell:disable-line  # noqa: E501,B950
+                    b"Fully detailed log is available at",  # cspell:disable-line  # noqa: E501,B950
+                ],
+                [
+                    b"",
+                ],
+                [
+                    b" \x1b[1;31m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",
+                    b" \x1b[0;31m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1;33m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                ],
+                [
+                    b" \x1b[1;31m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",
+                    b" \x1b[0;31m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1;33m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                ],
+                id="should_print_true",
+            ),
+            pytest_param(
+                [
+                    "false", "SOME_PROGRAM",
+                ],
+                [
+                    b"YYYY-mm-dd HH:MM:SS \033[0;35mULTRADEBUG: Skipping Report header b/c should_print is 'false'.\033[0m\n",  # cspell:disable-line  # noqa: E501,B950
+                    b"YYYY-mm-dd HH:MM:SS \033[0;35mULTRADEBUG: Skipping Full Report b/c should_print is 'false'.\033[0m\n",  # cspell:disable-line  # noqa: E501,B950
+                ],
+                [
+                    b"",
+                ],
+                [
+                    b" \x1b[1;31m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",
+                    b" \x1b[0;31m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1;33m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                ],
+                [
+                    b" \x1b[1;31m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: ",
+                    b" \x1b[0;31m\x07\xf0\x9f\x94\x94 \xe2\x9d\x8c ERROR: ",
+                    b" \x1b[1;33m\xe2\x9a\xa0\xef\xb8\x8f WARNING: ",
+                ],
+                id="should_print_false",
+            ),
+        ],
+    )
+    def test_report_all(  # pylint: disable=too-many-locals
+        self,
+        additional_args: List[Union[str, int]],
+        expected_ret: int,
+        expected_stdout: List[bytes],
+        expected_stderr: List[bytes],
+        expected_not_stdout: List[bytes],
+        expected_not_stderr: List[bytes],
+        shell_script_test_harness: PytestShellScriptTestHarness,
+        monkeypatch: pytest_MonkeyPatch,
+    ) -> None:
+        r"""
+        Check that report_all returns properly based on args and environment
+            vars.
+        """
+        monkeypatch.delenv("CI", raising=False)
+
+        tempdir_path = os_path_abspath("")
+
+        final_additional_args: List[Union[str, int]] = [
+            expected_ret,
+        ]
+        final_additional_args.extend(additional_args)
+
+        p = shell_script_test_harness.run(
+            additional_args=final_additional_args,
+            additional_env_vars={
+                "my_tempdir": tempdir_path,
+                "CONSTANTS_TEMP_DIR": None,
+                "FATAL_LOG": None,
+                "ERROR_LOG": None,
+                "ERROR_AND_FATAL_LOG": None,
+                "WARNING_LOG": None,
+                "FULL_LOG": None,
+            },
+        )
+
+        if expected_ret == -1:
+            expected_ret = 255
+
+        assert p.returncode == expected_ret
+
+        check_log_data(
+            expected_stdout=expected_stdout,
+            expected_stderr=expected_stderr,
+            expected_not_stdout=expected_not_stdout,
+            expected_not_stderr=expected_not_stderr,
+            stdout=p.stdout,
+            stderr=p.stderr,
+            is_file_only=True,
+        )
+
+#endregion report_all Tests
+################################################################################
