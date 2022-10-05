@@ -84,7 +84,7 @@ jobs:
 
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.1.0
 
       - name: batteries-forking-included
         id: batteries-forking-included
