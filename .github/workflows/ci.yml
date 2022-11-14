@@ -150,7 +150,7 @@ jobs:
     runs-on: ${{ matrix.os-image }}
     steps:
       - if: matrix.windows-wsl != 'not_windows'
-        uses: Vampire/setup-wsl@v1.3.1
+        uses: Vampire/setup-wsl@v1.3.4
         name: Setup WSL
         id: setup-wsl
         with:
