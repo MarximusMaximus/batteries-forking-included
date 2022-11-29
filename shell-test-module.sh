@@ -28,8 +28,8 @@ p3pid=$(ps -o ppid= -o command= -p "$p2pid")
 echo "p3pid=$p3pid"
 
 test_offset() { echo "$LINENO"; }
-LINENO_OFFSET=$(test_offset)
-echo "LINENO_OFFSET=$LINENO_OFFSET"
+LINENO_GLOBAL_OFFSET=$(test_offset)
+echo "LINENO_GLOBAL_OFFSET=$LINENO_GLOBAL_OFFSET"
 
 echo
 env | sort

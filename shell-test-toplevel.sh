@@ -30,8 +30,8 @@ echo "p3pid=$p3pid"
 my_shell_exec=$(ps -o comm= -p $$)
 
 test_offset() { echo "$LINENO"; }
-LINENO_OFFSET=$(test_offset)
-echo "LINENO_OFFSET=$LINENO_OFFSET"
+LINENO_GLOBAL_OFFSET=$(test_offset)
+echo "LINENO_GLOBAL_OFFSET=$LINENO_GLOBAL_OFFSET"
 
 echo
 env | sort
@@ -82,6 +82,7 @@ echo INVOKE: shell-test-module.sh
 "$my_shell_exec" ./shell-test-module.sh
 
 echo SOURCE: shell-test-module.sh
+# shellcheck disable=SC1091
 . ./shell-test-module.sh
 
 echo FROM TOP LEVEL:

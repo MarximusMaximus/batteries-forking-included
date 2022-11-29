@@ -128,1250 +128,2314 @@ export usage_text__bootstrap
 ################################################################################
 
 ################################################################################
-#region Preamble
+#region marximus-shell-extensions Base Preamble
 
-#===============================================================================
-#region Fallbacks
+if [ "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}" = "" ]; then
+    __MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD="${-:+"-$-"}"
+fi
+if [ "$ZSH_VERSION" != "" ]; then
+    # shellcheck disable=3041
+    set -y
+fi
 
-type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
+__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD="${-:+"-$-"}"
+set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
 ret=$?
 if [ $ret -ne 0 ]; then
+    # NOTE: fence is created later
 
-    # NOTE: some basic definitions to fallback to if constants.sh failed to load
-    #   if constant.sh loads, it will override these
+    # Call Stack Tracking needs to be in multiple parts, because aliases
+    #   cannot be declared and used within the same if block
 
-    RET_SUCCESS=0; export RET_SUCCESS
-    RET_ERROR_UNKNOWN=1; export RET_ERROR_UNKNOWN
-    RET_ERROR_SCRIPT_WAS_SOURCED=149; export RET_ERROR_SCRIPT_WAS_SOURCED
-    RET_ERROR_USER_IS_ROOT=150; export RET_ERROR_USER_IS_ROOT
-    RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151; export RET_ERROR_SCRIPT_WAS_NOT_SOURCED
-    RET_ERROR_USER_IS_NOT_ROOT=152; export RET_ERROR_USER_IS_NOT_ROOT
-    RET_ERROR_DIRECTORY_NOT_FOUND=153; export RET_ERROR_DIRECTORY_NOT_FOUND
-    RET_ERROR_COULD_NOT_SOURCE_FILE=161; export RET_ERROR_COULD_NOT_SOURCE_FILE
+    #===============================================================================
+    #region Call Stack Tracking Part 1
 
-    if [ "${verbosity}" = "" ]; then
-        verbosity=1; export verbosity
+    PS4="+ \$(set +x; nullcall array_peek SHELL_CALL_STACK_DEST_PUUID 2>/dev/null || echo $0):\$LINENO: "
+
+    #-------------------------------------------------------------------------------
+    # line offset checking
+    test_LINENO_GLOBAL_OFFSET() { echo "$LINENO"; }
+    LINENO_GLOBAL_OFFSET="$(test_LINENO_GLOBAL_OFFSET)"
+    LINENO_IS_RELATIVE=false
+    if [ "$LINENO_GLOBAL_OFFSET" -le 1 ]; then
+        LINENO_IS_RELATIVE=true
+    else
+        LINENO_GLOBAL_OFFSET=0
     fi
+    unset -f test_LINENO_GLOBAL_OFFSET
+    export LINENO_GLOBAL_OFFSET
+    export LINENO_IS_RELATIVE
+
+    OPTION_SETTRACE=false
+    if [ "$(echo "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD}" | grep -e 'x')" != "" ]; then
+        OPTION_SETTRACE=true
+    fi
+    export OPTION_SETTRACE
 
     #-------------------------------------------------------------------------------
-    date() {
-        if [ "$(uname)" = "Darwin" ]; then
-            command date -j "$@"
-        else
-            command date "$@"
-        fi
-    }
+    # nulldef; keyword
+    # 'true' is a command that returns 0 and is effectively a no-op command
+    # so when 'nulldef;' used to declare a function:
+    #   nulldef; foo() {}
+    #          ^ NOTE: the semicolon
+    # it will do essentially nothing (which is what we want!)
+    alias nulldef="true"
 
-    #-------------------------------------------------------------------------------
-    log_console() {
-        command printf -- "$@"
-        command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_success_final() {
-        log_success "$@"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_success() {
-        command printf -- "SUCCESS: "
-        command printf -- "$@"
-        command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_fatal() {
-        >&2 command printf -- "FATAL: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_error() {
-        >&2 command printf -- "ERROR: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_warning() {
-        >&2 command printf -- "WARNING: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_header() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "\n"
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_footer() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_info_important() {
-        log_info "$@"
-    }
-
-    #-------------------------------------------------------------------------------
-    log_info() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "INFO: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_info_no_prefix() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_debug() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "DEBUG: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_superdebug() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "SUPERDEBUG: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_ultradebug() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "ULTRADEBUG: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    log_file() {
-        true
-    }
+    #endregion Call Stack Tracking Part 1
+    #===============================================================================
 fi
 
-#endregion Fallbacks
-#===============================================================================
+# NOTE: Separation b/c cannot define and then use aliases in same block
 
-#===============================================================================
-#region RReadLink
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
+    # NOTE: fence is created later
 
-#-------------------------------------------------------------------------------
-rreadlink() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    ( # Execute the function in a *subshell* to localize variables and the effect of 'cd'.
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
+    #===============================================================================
+    #region Call Stack Tracking Part 2
 
-        target=$1
-        fname=
-        targetDir=
-        CDPATH=
+    #-------------------------------------------------------------------------------
+    # nullcall keyword
+    # emulates how 'call' works, but does not modify shell options nor track
+    # the call stack
+    nulldef; nullcall() {
+        "$@"
+        _nullcall_ret=$?
+        return $_nullcall_ret
+    }
 
-        # Try to make the execution environment as predictable as possible:
-        # All commands below are invoked via 'command', so we must make sure that 'command'
-        # itself is not redefined as an alias or shell function.
-        # (NOTE: that command is too inconsistent across shells, so we don't use it.)
-        # 'command' is a *builtin* in bash, dash, ksh, zsh, and some platforms do not even have
-        # an external utility version of it (e.g, Ubuntu).
-        # 'command' bypasses aliases and shell functions and also finds builtins
-        # in bash, dash, and ksh. In zsh, option POSIX_BUILTINS must be turned on for that
-        # to happen.
-        { \unalias command; \unset -f command; } >/dev/null 2>&1
-        # shellcheck disable=SC2034
-        [ -n "$ZSH_VERSION" ] && options[POSIX_BUILTINS]=on # make zsh find *builtins* with 'command' too.
+    #-------------------------------------------------------------------------------
+    # "def;" keyword
+    # when 'def;' used to declare a function:
+    #   def; foo() {}
+    #      ^ NOTE: the semicolon
+    # it will track the puuid of the file where the function is declared and
+    # the true line number where the function is declared in that file
+    nulldef; def_G() {
+        __MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD="${-:+"-$-"}"
+        set +x
 
-        while :; do # Resolve potential symlinks until the ultimate target is found.
-                [ -L "$target" ] || [ -e "$target" ] || { command printf '%s\n' "ERROR: '$target' does not exist." >&2; return 1; }
-                # shellcheck disable=SC2164
-                command cd "$(command dirname -- "$target")" # Change to target dir; necessary for correct resolution of target path.
-                fname=$(command basename -- "$target") # Extract filename.
-                [ "$fname" = '/' ] && fname='' # WARNING: curiously, 'basename /' returns '/'
-                if [ -L "$fname" ]; then
-                    # Extract [next] target path, which may be defined
-                    # relative to the symlink's own directory.
-                    # NOTE: We parse 'ls -l' output to find the symlink target
-                    # NOTE:     which is the only POSIX-compliant, albeit somewhat fragile, way.
-                    target=$(command ls -l "$fname")
-                    target=${target#* -> }
-                    continue # Resolve [next] symlink target.
-                fi
-                break # Ultimate target reached.
-        done
-        targetDir=$(command pwd -P) # Get canonical dir. path
-        # Output the ultimate target's canonical path.
-        # NOTE: that we manually resolve paths ending in /. and /.. to make sure we have a normalized path.
-        if [ "$fname" = '.' ]; then
-            command printf '%s\n' "${targetDir%/}"
-        elif [ "$fname" = '..' ]; then
-            # NOTE: something like /var/.. will resolve to /private (assuming /var@ -> /private/var),
-            # NOTE:     i.e. the '..' is applied AFTER canonicalization.
-            command printf '%s\n' "$(command dirname -- "${targetDir}")"
-        else
-            command printf '%s\n' "${targetDir%/}/$fname"
+        # incoming $LINENO
+        __def_G_lineno=$1
+
+        # get the current context's puuid from the call stack
+        __def_G_puuid="$(nullcall array_peek SHELL_CALL_STACK_SOURCE_PUUID)"
+        # get the real filepath of the puuid
+        __def_G_filepath="$(nullcall dict_get_key SHELL_SOURCE_PUUID_DICT "${__def_G_puuid}")"
+        # get the context's func name from the call stack
+        __def_G_parent_funcname="$(nullcall array_peek SHELL_CALL_STACK_FUNCNAME)"
+        if [ "${LINENO_IS_RELATIVE}" = true ]; then
+            # get the current parent's lineno
+            __def_G_parent_lineno_offset=$(nullcall dict_get_key SHELL_DEF_LINENO "${__def_G_parent_funcname}")
+            # recalculate lineno to account for parent's lineno and the global offset
+            __def_G_lineno=$(( __def_G_lineno + __def_G_parent_lineno_offset - LINENO_GLOBAL_OFFSET ))
+        fi
+        # get the func's real name
+        # echo __def_G_funcname="\$(head -n \"$__def_G_lineno\" \"$__def_G_filepath\" | tail -n 1 | awk '{ print $2 }' | tr -d '()')"
+        __def_G_funcname="$(head -n "$__def_G_lineno" "$__def_G_filepath" | tail -n 1 | awk '{ print $2 }' | tr -d '()')"
+
+        nullcall dict_set_key SHELL_DEF_SOURCE_PUUID "$__def_G_funcname" "$__def_G_puuid"
+        nullcall dict_export SHELL_DEF_SOURCE_PUUID
+        nullcall dict_set_key SHELL_DEF_LINENO "$__def_G_funcname" "$__def_G_lineno"
+        nullcall dict_export SHELL_DEF_LINENO
+
+        if [ "${OPTION_SETTRACE}" = true ]; then
+            echo "= ${__def_G_puuid}:${__def_G_lineno}:${__def_G_funcname}"
         fi
 
-        return 0
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+        unset __def_G_funcname
+        unset __def_G_parent_lineno_offset
+        unset __def_G_parent_funcname
+        unset __def_G_filepath
+        unset __def_G_puuid
+        unset __def_G_lineno
+        unset __def_G_puuid_temp
 
-#endregion RReadLink
-#===============================================================================
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD
+    }
+    # normally aliases cannot use positional parameters BUT
+    # this works in bash, dash, zsh b/c we're just using $0
+    # shellcheck disable=SC2142
+    # alias def="sh -c \"echo = \$(get_my_puuid_basename):\$LINENO:\\\$(head -n \$LINENO \\\"\$(get_my_real_fullpath)\\\" | tail -n 1 | awk '{ print \\\$2 }' | tr -d '()')\""
+    alias def="def_G \"\$LINENO\""
 
-#===============================================================================
-#region Root User Check
-
-#-------------------------------------------------------------------------------
-require_not_root_user_XY() {
-    # intentionally no local scope so it can exit script
-
-    if [ "${CI}" = true ] && [ "${PLATFORM_IS_WSL}" = true ]; then
-        # github runner's WSL user is always root
-        true
-    else
-        # shellcheck disable=SC3028
-        if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
-            log_fatal "$(get_my_real_basename) should not be run as root nor with sudo"
-            if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-                exit "${RET_ERROR_USER_IS_ROOT}"
-            else
-                return "${RET_ERROR_USER_IS_ROOT}"
-            fi
-        fi
-    fi
-}
-
-#-------------------------------------------------------------------------------
-require_root_user_XY() {
-    # intentionally no local scope so it can exit script
-
-    # shellcheck disable=SC3028
-    if [ $UID -ne 0 ] && [ $EUID -ne 0 ] && [ "$(id -u)" -ne 0 ]; then
-        log_fatal "$(get_my_real_basename) MUST be run as root or with sudo"
-        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-            exit "${RET_ERROR_USER_IS_NOT_ROOT}"
-        else
-            return "${RET_ERROR_USER_IS_NOT_ROOT}"
-        fi
-    fi
-}
-
-#endregion Root User Check
-#===============================================================================
-
-#===============================================================================
-#region Include/Invoke Directives
-
-#-------------------------------------------------------------------------------
-include_G() {
-    # intentionally no local scope so it modify globals
-    if [ ! -f "$1" ]; then
-        log_warning "Could not source because file is missing: %s" "$1"
-        return "${RET_ERROR_FILE_NOT_FOUND}"
-    fi
-
-    __LAST_INCLUDE="$(rreadlink "$1")"
-
-    log_ultradebug "Sourcing: %s as %s" "$1" "${__LAST_INCLUDE}"
-
-    array_append SHELL_SOURCE "${__LAST_INCLUDE}"
-    export SHELL_SOURCE
-    array_append WAS_SOURCED true
-    export WAS_SOURCED
-
-    # shifts off path we are sourcing, but leaves other args intact so they can
-    # be used by the sourced script, this is a feature that normal most shells
-    # do not support by default
-    shift
-
-    # shellcheck disable=SC1090
-    . "${__LAST_INCLUDE}"
-    ret=$?
-
-    array_remove_last WAS_SOURCED
-    export WAS_SOURCED
-    array_remove_last SHELL_SOURCE
-    export SHELL_SOURCE
-
-    return $ret
-}
-
-#-------------------------------------------------------------------------------
-ensure_include_GXY() {
-    # intentionally no local scope so it can modify globals AND exit script
-
-    include_G "$@"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "Failed to source '%s'" "$1"
-        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-            exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
-        else
-            return "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
-        fi
-    fi
-}
-
-#-------------------------------------------------------------------------------
-invoke() {
-    if [ ! -f "$1" ]; then
-        log_warning "Could not invoke because file is missing: %s" "$1"
-        return "${RET_ERROR_FILE_NOT_FOUND}"
-    fi
-
-    __LAST_INCLUDE="$(rreadlink "$1")"
-
-    log_ultradebug "Invoking: %s as %s" "$1" "${__LAST_INCLUDE}"
-
-    array_append SHELL_SOURCE "${__LAST_INCLUDE}"
-    export SHELL_SOURCE
-    array_append WAS_SOURCED false
-    export WAS_SOURCED
-
-    "$@"
-    ret=$?
-
-    array_remove_last WAS_SOURCED
-    export WAS_SOURCED
-    array_remove_last SHELL_SOURCE
-    export SHELL_SOURCE
-
-    return $ret
-}
-
-#endregion Include/Invoke Directives
-#===============================================================================
-
-#===============================================================================
-#region Array Implementation
-
-# # initialize an array:
-# NOTE: no $ sign on my_array_name
-# array_init my_array_name
-
-# # manually iterating an array:
-# OIFS="$IFS"
-# IFS="${_ARRAY__SEP}"
-# NOTE: there IS a $ sign on my_array_name
-# for item in $my_array_name; do
-#     echo $item
-# done
-# IFS="$OIFS"
-
-# # append to array:
-# NOTE: no $ sign on my_array_name
-# array_append my_array_name "my value"
-
-# # get item by index:
-# NOTE: no $ sign on my_array_name
-# array_get_index my_array_name $index
-
-# # get last item:
-# NOTE: no $ sign on my_array_name
-# array_get_last my_array_name
-
-# # copy an array:
-# NOTE: no $ sign on my_source_array_name
-# NOTE: no $ sign on my_destination_array_name
-# array_copy my_source_array_name my_destination_array_name
-
-# # remove last item:
-# NOTE: no $ sign on my_array_name
-# array_remove_last my_array_name
-
-# # get length:
-# NOTE: no $ sign on my_array_name
-# array_get_length my_array_name
-
-if [ "$ZSH_VERSION" != "" ]; then
-    setopt sh_word_split
+    #endregion Call Stack Tracking Part 2
+    #===============================================================================
 fi
 
-_ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
-#                                      x12345678x
-_ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
+# NOTE: Separation b/c cannot define and then use aliases in same block
 
-#-------------------------------------------------------------------------------
-_array_escape() {
-    #                                        x1234x                                  x12x1234567890123456x
-    command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
-}
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
+    # NOTE: fence is created later
 
-#-------------------------------------------------------------------------------
-_array_unescape() {
-    # NOTE: This doesn't look like the inverse of what _array_escape does, but
-    #   it works correctly, so don't try to "fix" it
-    #                                           x1234x12x           x12345678x
-    command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
-}
+    #===============================================================================
+    #region Call Stack Tracking Part 3
 
-#-------------------------------------------------------------------------------
-_array_fix_index() {
-    __ARRAY__ARRAY_FIX_INDEX__LENGTH="$(array_get_length "$1")"
+    #-------------------------------------------------------------------------------
+    # pushes function call context onto call stack
+    nulldef; _call_stack_push_G() {
+        # __call_G_source_puuid="$1"
+        # __call_G_lineno="$2"
+        # __call_G_dest_puuid="$3"
+        # __call_G_dest_lineno="$4"
+        # __call_G_funcname="$5"
 
-    __ARRAY__ARRAY_FIX_INDEX__INDEX="$2"
+        nullcall array_push SHELL_CALL_STACK "$1:$2:$3:$4:$5"
+        nullcall array_export SHELL_CALL_STACK
 
-    if [ "${__ARRAY__ARRAY_FIX_INDEX__INDEX}" -lt 0 ]; then
-        __ARRAY__ARRAY_FIX_INDEX__INDEX="$(( __ARRAY__ARRAY_FIX_INDEX__LENGTH + __ARRAY__ARRAY_FIX_INDEX__INDEX ))"
-        # __ARRAY__ARRAY_FIX_INDEX__INDEX="$(( __ARRAY__ARRAY_FIX_INDEX__INDEX + 1 ))"
-    fi
+        nullcall array_push SHELL_CALL_STACK_SOURCE_PUUID "$1"
+        nullcall array_export SHELL_CALL_STACK_SOURCE_PUUID
 
-    command printf "%d" "${__ARRAY__ARRAY_FIX_INDEX__INDEX}"
-}
+        nullcall array_push SHELL_CALL_STACK_SOURCE_LINENO "$2"
+        nullcall array_export SHELL_CALL_STACK_SOURCE_LINENO
 
-#-------------------------------------------------------------------------------
-array_init() {
-    eval "$1=\"\""
-}
+        nullcall array_push SHELL_CALL_STACK_DEST_PUUID "$3"
+        nullcall array_export SHELL_CALL_STACK_DEST_PUUID
 
-#-------------------------------------------------------------------------------
-array_append() {
-    __ARRAY__ARRAY_APPEND__TEMP_VALUE=$(_array_escape "$2")
-    __ARRAY__ARRAY_APPEND__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-    if [ "${__ARRAY__ARRAY_APPEND__TEMP_STORAGE}" = "" ]; then
-        eval "$1=\"${__ARRAY__ARRAY_APPEND__TEMP_VALUE}\""
-    else
-        # WARNING: DO NOT ESCAPE THE { } AROUND $1 HERE
-        eval "$1=\"\${$1}$_ARRAY__SEP${__ARRAY__ARRAY_APPEND__TEMP_VALUE}\""
-    fi
-}
+        nullcall array_push SHELL_CALL_STACK_DEST_LINENO "$4"
+        nullcall array_export SHELL_CALL_STACK_DEST_LINENO
 
-#-------------------------------------------------------------------------------
-array_append_back() {
-    array_append "$1" "$2"
-}
+        nullcall array_push SHELL_CALL_STACK_FUNCNAME "$5"
+        nullcall array_export SHELL_CALL_STACK_FUNCNAME
+    }
 
-#-------------------------------------------------------------------------------
-array_append_front() {
-    array_insert_index "$1" 0 "$2"
-}
+    #-------------------------------------------------------------------------------
+    # pops function call context off of call stack
+    nulldef; _call_stack_pop_G() {
+        nullcall array_pop SHELL_CALL_STACK
+        nullcall array_export SHELL_CALL_STACK
 
-#-------------------------------------------------------------------------------
-array_get_first() {
-    array_get_index "$1" 0
-}
+        nullcall array_pop SHELL_CALL_STACK_SOURCE_PUUID
+        nullcall array_export SHELL_CALL_STACK_SOURCE_PUUID
 
-#-------------------------------------------------------------------------------
-array_get_last() {
-    array_get_index "$1" -1
-}
+        nullcall array_pop SHELL_CALL_STACK_SOURCE_LINENO
+        nullcall array_export SHELL_CALL_STACK_SOURCE_LINENO
 
-#-------------------------------------------------------------------------------
-array_copy() {
-    __ARRAY__ARRAY_COPY__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
+        nullcall array_pop SHELL_CALL_STACK_DEST_PUUID
+        nullcall array_export SHELL_CALL_STACK_DEST_PUUID
 
-    array_init "$2"
+        nullcall array_pop SHELL_CALL_STACK_DEST_LINENO
+        nullcall array_export SHELL_CALL_STACK_DEST_LINENO
 
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    for item in ${__ARRAY__ARRAY_COPY__TEMP_STORAGE}; do
-        item="$(_array_unescape "${item}")"
-        array_append "$2" "${item}"
-    done
-    IFS="$OIFS"
-}
+        nullcall array_pop SHELL_CALL_STACK_FUNCNAME
+        nullcall array_export SHELL_CALL_STACK_FUNCNAME
+    }
 
-#-------------------------------------------------------------------------------
-array_remove_first() {
-    array_remove_index "$1" 0
-}
+    #-------------------------------------------------------------------------------
+    # "call" keyword
+    # calls specified function with args, tracking it via call stack
+    nulldef; call_G() {
+        # NOTE: intentionally not using call inside this function
+        __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+        set +x
 
-#-------------------------------------------------------------------------------
-array_remove_last() {
-    array_remove_index "$1" -1
-}
+        __call_G_lineno="$1"
+        __call_G_funcname="$2"
+        shift 1
 
-#-------------------------------------------------------------------------------
-array_insert_index() {
-    array_copy "$1" __ARRAY__ARRAY_INSERT_INDEX__TEMP_ARRAY
+        __call_G_parent_funcname="$(nullcall array_peek SHELL_CALL_STACK_FUNCNAME)"
 
-    __ARRAY__ARRAY_INSERT_INDEX__LAST_INDEX="$(array_get_length "$1")"
-
-    __ARRAY__ARRAY_INSERT_INDEX__COUNT=0
-
-    __ARRAY__ARRAY_INSERT_INDEX__INDEX="$2"
-    __ARRAY__ARRAY_INSERT_INDEX__INDEX="$(_array_fix_index "$1" "${__ARRAY__ARRAY_INSERT_INDEX__INDEX}")"
-
-    __ARRAY__ARRAY_INSERT_INDEX__INSERTED=false
-
-    array_init "$1"
-
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    for item in ${__ARRAY__ARRAY_INSERT_INDEX__TEMP_ARRAY}; do
-        item="$(_array_unescape "${item}")"
-        if [ "${__ARRAY__ARRAY_INSERT_INDEX__COUNT}" -eq "${__ARRAY__ARRAY_INSERT_INDEX__INDEX}"  ]; then
-            array_append "$1" "$3"
-            __ARRAY__ARRAY_INSERT_INDEX__INSERTED=true
+        __call_G_source_puuid=""
+        if [ "${__call_G_parent_funcname}" = "_" ]; then
+            __call_G_source_puuid="$(nullcall array_peek SHELL_CALL_STACK_SOURCE_PUUID)"
+        else
+            __call_G_source_puuid="$(nullcall dict_get_key SHELL_DEF_SOURCE_PUUID "${__call_G_parent_funcname}")"
         fi
-        array_append "$1" "${item}"
-        __ARRAY__ARRAY_INSERT_INDEX__COUNT=$(( __ARRAY__ARRAY_INSERT_INDEX__COUNT + 1 ))
-    done
 
-    if \
-        [ "${__ARRAY__ARRAY_INSERT_INDEX__LAST_INDEX}" -eq "${__ARRAY__ARRAY_INSERT_INDEX__COUNT}" ] &&
-        [ "${__ARRAY__ARRAY_INSERT_INDEX__INSERTED}" = false  ]
-    then
-        array_append "$1" "$3"
-    fi
+        __call_G_dest_puuid="$(nullcall dict_get_key SHELL_DEF_SOURCE_PUUID "${__call_G_funcname}")"
+        __call_G_dest_lineno="$(nullcall dict_get_key SHELL_DEF_LINENO "${__call_G_funcname}")"
 
-    IFS="$OIFS"
-}
-
-#-------------------------------------------------------------------------------
-array_remove_index() {
-    array_copy "$1" __ARRAY__ARRAY_REMOVE_INDEX__TEMP_ARRAY
-
-    __ARRAY__ARRAY_REMOVE_INDEX__INDEX="$2"
-    __ARRAY__ARRAY_REMOVE_INDEX__INDEX="$(_array_fix_index "$1" "${__ARRAY__ARRAY_REMOVE_INDEX__INDEX}")"
-
-    __ARRAY__ARRAY_REMOVE_INDEX__COUNT=0
-
-    array_init "$1"
-
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    for item in ${__ARRAY__ARRAY_REMOVE_INDEX__TEMP_ARRAY}; do
-        item="$(_array_unescape "${item}")"
-        if [ "${__ARRAY__ARRAY_REMOVE_INDEX__COUNT}" -ne  "${__ARRAY__ARRAY_REMOVE_INDEX__INDEX}"  ]; then
-            array_append "$1" "${item}"
+        if [ "${LINENO_IS_RELATIVE}" = true ]; then
+            # get the current parent's lineno
+            __call_G_parent_lineno_offset=$(nullcall dict_get_key SHELL_DEF_LINENO "${__call_G_parent_funcname}")
+            # recalculate lineno to account for parent's lineno and the global offset
+            __call_G_lineno=$(( __call_G_lineno + __call_G_parent_lineno_offset - LINENO_GLOBAL_OFFSET ))
         fi
-        __ARRAY__ARRAY_REMOVE_INDEX__COUNT=$(( __ARRAY__ARRAY_REMOVE_INDEX__COUNT + 1 ))
-    done
-    IFS="$OIFS"
-}
 
-#-------------------------------------------------------------------------------
-array_get_length() {
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    __ARRAY__ARRAY_GET_LENGTH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-    __ARRAY__ARRAY_GET_LENGTH__COUNT=0
-    for item in $__ARRAY__ARRAY_GET_LENGTH__TEMP_STORAGE; do
-        __ARRAY__ARRAY_GET_LENGTH__COUNT=$(( __ARRAY__ARRAY_GET_LENGTH__COUNT + 1 ))
-    done
-    IFS="$OIFS"
-    command echo "${__ARRAY__ARRAY_GET_LENGTH__COUNT}"
-}
+        if [ "${OPTION_SETTRACE}" = true ]; then
+            # print number of dashes equal to call stack depth
+            for _i in $(seq 1 "$(nullcall array_get_length SHELL_CALL_STACK)"); do
+                >&2 command printf -- "-"
+            done
 
-#-------------------------------------------------------------------------------
-array_get_index() {
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-
-    __ARRAY__ARRAY_GET_INDEX__INDEX="$2"
-    __ARRAY__ARRAY_GET_INDEX__INDEX="$(_array_fix_index "$1" "${__ARRAY__ARRAY_GET_INDEX__INDEX}")"
-
-    __ARRAY__ARRAY_GET_INDEX__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-    __ARRAY__ARRAY_GET_INDEX__COUNT=0
-    __ARRAY__ARRAY_GET_INDEX__FOUND=false
-
-    for item in $__ARRAY__ARRAY_GET_INDEX__TEMP_STORAGE; do
-        if [ "${__ARRAY__ARRAY_GET_INDEX__COUNT}" -eq "${__ARRAY__ARRAY_GET_INDEX__INDEX}" ]; then
-            item="$(_array_unescape "$item")"
-            command printf "%s" "${item}"
-            __ARRAY__ARRAY_GET_INDEX__FOUND=true
-            break
+            >&2 printf -- " %s:%s:%s:%s %s\n" \
+                "${__call_G_source_puuid}" \
+                "${__call_G_lineno}" \
+                "${__call_G_dest_puuid}" \
+                "${__call_G_dest_lineno}" \
+                "$*"
         fi
-        __ARRAY__ARRAY_GET_INDEX__COUNT=$(( __ARRAY__ARRAY_GET_INDEX__COUNT + 1 ))
-    done
-    IFS="$OIFS"
 
-    if [ "${__ARRAY__ARRAY_GET_INDEX__FOUND}" = true ]; then
-        return 0
-    fi
-    return 1
-}
+        nullcall _call_stack_push_G \
+            "${__call_G_source_puuid}" \
+            "${__call_G_lineno}" \
+            "${__call_G_dest_puuid}" \
+            "${__call_G_dest_lineno}" \
+            "${__call_G_funcname}"
 
-# # using array_for_each:
-# my_func() {
-#     echo "${item}"
-# }
-# array_for_each the_array_name my_func
-## NOTE: no $ on 'the_array_name' nor 'my_func'
+        unset __call_G_parent_lineno_offset
+        unset __call_G_parent_funcname
+        unset __call_G_funcname
+        unset __call_G_lineno
+        unset __call_G_source_puuid
 
-#-------------------------------------------------------------------------------
-array_for_each() {
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    __ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-    for item in $__ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE; do
-        item="$(_array_unescape "$item")"
-        eval "$2"
-    done
-    IFS="$OIFS"
-}
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD
 
-#endregion Arrays
-#===============================================================================
+        "$@"
+        __call_ret=$?
 
-#===============================================================================
-#region Helper Functions
+        __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+        set +x
 
-#-------------------------------------------------------------------------------
-windows_path_to_unix_path() {
-    if \
-        [ "${PLATFORM_IS_WSL}" = true ] &&
-        [  "$(command echo "$1" | cut -c1)" != "/" ]
-    then
-        command printf "/"
-        command printf "$(command echo "$1" | cut -c1 | tr '[:upper:]' '[:lower:]')"
-        command printf "$(command echo "$1" | cut -c3- | sed -e 's/\\/\//g')"
-    else
-        command printf "$1"
-    fi
-    command printf "\n"
-}
+        nullcall _call_stack_pop_G
 
-#-------------------------------------------------------------------------------
-ensure_cd() {
-    # intentionally no local scope so that the cd command takes effect
-    log_superdebug "Changing current directory to '%s'" "$1"
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD
 
-    # shellcheck disable=SC2164
-    cd "$1"
+        return $__call_ret
+    }
+    # normally aliases cannot use positional parameters BUT
+    # this works in bash, dash, zsh b/c we're just using $0
+    # shellcheck disable=SC2142
+    alias call="call_G \"\$LINENO\""
+
+    #-------------------------------------------------------------------------------
+    nulldef; print_call_stack() {
+        __MARXIMUS_SHELL_EXTENSIONS__print_call_stack__OPTIONS_OLD="${-:+"-$-"}"
+        set +x
+
+        nulldef; _print_call_stack() {
+            >&2 command printf -- "%s\n" "${item}"
+        }
+        nullcall array_for_each SHELL_CALL_STACK _print_call_stack
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__print_call_stack__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS__print_call_stack__OPTIONS_OLD
+    }
+
+    #endregion Call Stack Tracking Part 3
+    #===============================================================================
+fi
+
+# NOTE: Separation b/c cannot define and then use aliases in same block
+
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
+    #===============================================================================
+    #region Create Fence
+
+    nulldef; MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE() { true; }
+
+    #endregion Create Fence
+    #===============================================================================
+
+    #===============================================================================
+    #region Fallbacks
+
+    type BATTERIES_FORKING_INCLUDED_BASE_FENCE >/dev/null 2>&1
     ret=$?
     if [ $ret -ne 0 ]; then
-        log_fatal "Could not cd into '%s'" "$1"
-        return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
-    fi
-}
 
-#-------------------------------------------------------------------------------
-safe_rm() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
+        # NOTE: some basic definitions to fallback to if bfi-base.sh failed to load
+        #   if bfi-base.sh loads later, it will override these
 
-        path_to_remove="$1"
-        print_rm_error_message="$2"
+        RET_SUCCESS=0; export RET_SUCCESS
+        RET_ERROR_UNKNOWN=1; export RET_ERROR_UNKNOWN
+        RET_ERROR_SCRIPT_WAS_SOURCED=149; export RET_ERROR_SCRIPT_WAS_SOURCED
+        RET_ERROR_USER_IS_ROOT=150; export RET_ERROR_USER_IS_ROOT
+        RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151; export RET_ERROR_SCRIPT_WAS_NOT_SOURCED
+        RET_ERROR_USER_IS_NOT_ROOT=152; export RET_ERROR_USER_IS_NOT_ROOT
+        RET_ERROR_DIRECTORY_NOT_FOUND=153; export RET_ERROR_DIRECTORY_NOT_FOUND
+        RET_ERROR_COULD_NOT_SOURCE_FILE=161; export RET_ERROR_COULD_NOT_SOURCE_FILE
 
-        log_superdebug "Safely removing '%s'" "${path_to_remove}"
-
-        if \
-            [ "${path_to_remove}" != "/" ] &&
-            [ "${path_to_remove}" != "${HOME}" ] &&
-            [ "${path_to_remove}" != "${TMPDIR}" ] &&
-            [ "${path_to_remove}" != "/Applications" ] &&
-            [ "${path_to_remove}" != "/bin" ] &&
-            [ "${path_to_remove}" != "/boot" ] &&
-            [ "${path_to_remove}" != "/cores" ] &&
-            [ "${path_to_remove}" != "/dev" ] &&
-            [ "${path_to_remove}" != "/etc" ] &&
-            [ "${path_to_remove}" != "/home" ] &&
-            [ "${path_to_remove}" != "/lib" ] &&
-            [ "${path_to_remove}" != "/Library" ] &&
-            [ "${path_to_remove}" != "/local" ] &&
-            [ "${path_to_remove}" != "/media" ] &&
-            [ "${path_to_remove}" != "/mnt" ] &&
-            [ "${path_to_remove}" != "/opt" ] &&
-            [ "${path_to_remove}" != "/private" ] &&
-            [ "${path_to_remove}" != "/proc" ] &&
-            [ "${path_to_remove}" != "/sbin" ] &&
-            [ "${path_to_remove}" != "/srv" ] &&
-            [ "${path_to_remove}" != "/System" ] &&
-            [ "${path_to_remove}" != "/Users" ] &&
-            [ "${path_to_remove}" != "/usr" ] &&
-            [ "${path_to_remove}" != "/var" ] &&
-            [ "${path_to_remove}" != "/Volumes" ] &&
-            [ "${path_to_remove}" != "" ]
-        then
-            rm -rf "${path_to_remove}"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                if \
-                    [ "${print_rm_error_message}" = "" ] ||
-                    [ "${print_rm_error_message}" = true ]
-                then
-                    log_error "failed to rm '%s'" "${path_to_remove}"
-                fi
-                exit "${RET_ERROR_RM_FAILED}"
-            fi
-        else
-            log_fatal "unsafe rm path '%s'" "${path_to_remove}"
-            exit "${RET_ERROR_UNSAFE_RM_PATH}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-ensure_does_not_exist() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        path_to_remove="$1"
-
-        log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
-
-        if \
-            [ -f "${path_to_remove}" ] ||
-            [ -d "${path_to_remove}" ]
-        then
-            safe_rm "${path_to_remove}"
-            ret=$?
-            exit $ret
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-create_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        destdir="$1"
-
-        ensure_does_not_exist "${destdir}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to remove path '%s'" "${destdir}"
-            exit $ret
+        if [ "${verbosity}" = "" ]; then
+            verbosity=1; export verbosity
         fi
 
-        log_superdebug "Creating directory '%s'" "${destdir}"
+        #-------------------------------------------------------------------------------
+        nulldef; date() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-        mkdir -p "${destdir}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to create directory '%s'" "${destdir}"
-            exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-ensure_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        destdir="$1"
-
-        log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
-
-        if [ ! -d "${destdir}" ]; then
-            create_dir "${destdir}"
-            ret=$?
-            exit $ret
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-get_datetime_stamp_human_formatted() {
-    date "${DATETIME_STAMP_HUMAN_FORMAT}"
-}
-
-#-------------------------------------------------------------------------------
-get_datetime_stamp_filename_formatted() {
-    date "${DATETIME_STAMP_FILENAME_FORMAT}"
-}
-
-#-------------------------------------------------------------------------------
-create_my_tempdir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        if [ "${CI}" = true ]; then
-            if [ "${GITHUB_ACTIONS}" = true ]; then
-                the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"
+            if [ "$(uname)" = "Darwin" ]; then
+                command date -j "$@"
             else
-                the_tempdir="${HOME}/bfi_temp/$(get_datetime_stamp_filename_formatted)"
+                command date "$@"
             fi
-        else
-            the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                log_fatal "failed to get temporary directory"
-                exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_console() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            command printf -- "$@"
+            command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_success_final() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            nullcall log_success "$@"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_success() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            command printf -- "SUCCESS: "
+            command printf -- "$@"
+            command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_fatal() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            >&2 command printf -- "FATAL: "
+            >&2 command printf -- "$@"
+            >&2 command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_error() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            >&2 command printf -- "ERROR: "
+            >&2 command printf -- "$@"
+            >&2 command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_warning() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            >&2 command printf -- "WARNING: "
+            >&2 command printf -- "$@"
+            >&2 command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_header() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "\n"
+                command printf -- "$@"
+                command printf -- "\n"
             fi
-        fi
 
-        the_tempdir="$(windows_path_to_unix_path "${the_tempdir}")"
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD
+        }
 
-        command echo "${the_tempdir}"
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+        #-------------------------------------------------------------------------------
+        nulldef; log_footer() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-#-------------------------------------------------------------------------------
-ensure_my_tempdir_G() {
-    # intentionally no local scope b/c modifying a global
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
 
-    if [ "${my_tempdir}" = "" ]; then
-        my_tempdir="$(create_my_tempdir)"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            return $ret
-        fi
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_info_important() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            nullcall log_info "$@"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_info() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "INFO: "
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_info_no_prefix() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_debug() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "DEBUG: "
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_superdebug() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "SUPERDEBUG: "
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_ultradebug() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "ULTRADEBUG: " &&
+                    command printf -- "$@" &&
+                    command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_file() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            true
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD
+        }
     fi
 
-    ensure_dir "${my_tempdir}"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        return $ret
-    fi
+    #endregion Fallbacks
+    #===============================================================================
 
-    export my_tempdir
+    #===============================================================================
+    #region RReadLink
 
-    return "${RET_SUCCESS}"
-}
+    #-------------------------------------------------------------------------------
+    nulldef; rreadlink() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-#-------------------------------------------------------------------------------
-move_file() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
+        # Hide zsh subshell session closure spam (macOS only?)
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
+        # Execute the function in a *subshell* to localize variables and the
+        #   effect of 'cd'.
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-        source_filepath="$1"
-        dest_filepath="$2"
+            target=$1
+            fname=
+            targetDir=
+            CDPATH=
 
-        log_superdebug "Copying file '${source_filepath}' to '${dest_filepath}'"
+            # Try to make the execution environment as predictable as possible:
+            # All commands below are invoked via 'command', so we must make sure
+            # that 'command' itself is not redefined as an alias or shell function.
+            # (NOTE: that command is too inconsistent across shells, so we don't
+            # use it.)
+            # 'command' is a *builtin* in bash, dash, ksh, zsh, and some platforms
+            # do not even have an external utility version of it (e.g, Ubuntu).
+            # 'command' bypasses aliases and shell functions and also finds builtins
+            # in bash, dash, and ksh. In zsh, option POSIX_BUILTINS must be turned
+            # on for that #to happen.
+            { \unalias command; \unset -f command; } >/dev/null 2>&1
+            # shellcheck disable=SC2034
+            # make zsh find *builtins* with 'command' too.
+            [ -n "$ZSH_VERSION" ] && options[POSIX_BUILTINS]=on
 
-        mv "${source_filepath}" "${dest_filepath}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to move file from '%s' to '%s'" "${source_filepath}" "${dest_filepath}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+            # Resolve potential symlinks until the ultimate target is found.
+            while :; do
+                    [ -L "$target" ] || [ -e "$target" ] || { command printf '%s\n' "ERROR: '$target' does not exist." >&2; return 1; }
+                    # Change to target dir; necessary for correct resolution of
+                    #   target path.
+                    # shellcheck disable=SC2164
+                    command cd "$(command dirname -- "$target")"
+                    # Extract filename.
+                    fname=$(command basename -- "$target")
+                    [ "$fname" = '/' ] && fname='' # WARNING: curiously, 'basename /' returns '/'
+                    if [ -L "$fname" ]; then
+                        # Extract [next] target path, which may be defined
+                        # relative to the symlink's own directory.
+                        # NOTE: We parse 'ls -l' output to find the symlink target
+                        #   which is the only POSIX-compliant, albeit
+                        #   somewhat fragile, way.
+                        target=$(command ls -l "$fname")
+                        target=${target#* -> }
+                        continue # Resolve [next] symlink target.
+                    fi
+                    break # Ultimate target reached.
+            done
+            targetDir=$(command pwd -P) # Get canonical dir. path
+            # Output the ultimate target's canonical path.
+            # NOTE: that we manually resolve paths ending in /. and /.. to make
+            #   sure we have a normalized path.
+            if [ "$fname" = '.' ]; then
+                command printf '%s\n' "${targetDir%/}"
+            elif [ "$fname" = '..' ]; then
+                # NOTE: something like /var/.. will resolve to /private (assuming
+                #   /var@ -> /private/var), i.e. the '..' is applied AFTER
+                #   canonicalization.
+                command printf '%s\n' "$(command dirname -- "${targetDir}")"
+            else
+                command printf '%s\n' "${targetDir%/}/$fname"
+            fi
 
-#-------------------------------------------------------------------------------
-copy_file() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        source_filepath="$1"
-        dest="$2"
-
-        log_superdebug "Copying file '${source_filepath}' to '${dest}'"
-
-        cp "${source_filepath}" "${dest}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to copy file from '%s' to '%s'" "${source_filepath}" "${dest}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-copy_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        source_dir="$1"
-        dest_dir="$2"
-
-        log_superdebug "Copying all files from '${source_dir}' to '${dest_dir}'"
-
-        cp -r "${source_dir}"/. "${dest_dir}/"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to copy files from '%s' to '%s'" "${source_dir}" "${dest_dir}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-is_integer() {
-    case "${1#[+-]}"  in
-        *[!0123456789]*)
-            command echo "1"
-            return 1
-            ;;
-        '')
-            command echo "1"
-            return 1
-            ;;
-        *)
-            command echo "0"
             return 0
-            ;;
-    esac
-    command echo "1"
-    return 1
-}
-
-#-------------------------------------------------------------------------------
-get_my_real_fullpath() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
+        )
+        # Store exit code to use later
+        rreadlink_ret=$?
+        # Undo hiding zsh subshell session closure spam (macOS only?)
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            array_get_last SHELL_SOURCE
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD
+
+        # use exit code
+        return $rreadlink_ret
+    }
+
+    #endregion RReadLink
+    #===============================================================================
+
+    #===============================================================================
+    #region puuid - Pseudo UUID
+
+    #-------------------------------------------------------------------------------
+    nulldef; puuid() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}'
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; push_puuid_for_abspath() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        if [ "${SHELL_SOURCE_PUUID}" = "" ]; then
+            SHELL_SOURCE_PUUID=""
+            nullcall array_init SHELL_SOURCE_PUUID
+        fi
+        if [ "${SHELL_SOURCE_PUUID_DICT}" = "" ]; then
+            SHELL_SOURCE_PUUID_DICT=""
+            nullcall dict_init SHELL_SOURCE_PUUID_DICT
         fi
 
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+        __puuid="$(puuid)"
+        __puuid__basename="${__puuid}_$(basename "$1")"
+        if [ "${OPTION_SETTRACE}" = true ]; then
+            command printf "# %s:'%s'\n" "${__puuid__basename}" "$1"
+        fi
+        nullcall array_append SHELL_SOURCE_PUUID "${__puuid__basename}"
+        nullcall array_export SHELL_SOURCE_PUUID
+        nullcall dict_set_key SHELL_SOURCE_PUUID_DICT "${__puuid__basename}" "$1"
+        nullcall dict_export SHELL_SOURCE_PUUID_DICT
+        unset __puuid__basename
+        unset __puuid
 
-#-------------------------------------------------------------------------------
-get_my_real_basename() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD
+    }
+
+    #endregion puuid - Pseudo UUID
+    #===============================================================================
+
+    #===============================================================================
+    #region Array Implementation
+
+    # # initialize an array:
+    # NOTE: no $ sign on my_array_name below
+    # array_init my_array_name
+
+    # # manually iterating an array:
+    # OIFS="$IFS"
+    # IFS="${_ARRAY__SEP}"
+    # NOTE: there IS a $ sign on my_array_name below
+    # for item in $my_array_name; do
+    #     echo $item
+    # done
+    # IFS="$OIFS"
+
+    # # append to array:
+    # NOTE: no $ sign on my_array_name
+    # array_append my_array_name "my value"
+
+    # # get item by index:
+    # NOTE: no $ sign on my_array_name
+    # array_get_at_index my_array_name $index
+
+    # # get last item:
+    # NOTE: no $ sign on my_array_name
+    # array_get_last my_array_name
+
+    # # copy an array:
+    # NOTE: no $ sign on my_source_array_name
+    # NOTE: no $ sign on my_destination_array_name
+    # array_copy my_source_array_name my_destination_array_name
+
+    # # remove last item:
+    # NOTE: no $ sign on my_array_name
+    # array_remove_last my_array_name
+
+    # # get length:
+    # NOTE: no $ sign on my_array_name
+    # array_get_length my_array_name
+
+    # # find index of item
+    # NOTE: no $ sign on my_array_name
+    # array_find_index_of my_array_name value_to_find
+    # returns -1 if not found
+
+    # # check if array contains item
+    # NOTE: no $ sign on my_array_name
+    # array_contains my_array_name value_to_find
+    # returns 1 if not found
+    # returns 0 if found
+
+    # # using array_for_each:
+    # def; my_func() {
+    #     echo "${item}"
+    # }
+    # array_for_each the_array_name my_func
+    ## NOTE: no $ on 'the_array_name' nor 'my_func'
+
+    _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
+    #                                      x12345678x
+    _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
+
+    #-------------------------------------------------------------------------------
+    nulldef; __array_escape() {
+        #                                        x1234x                                  x12x1234567890123456x
+        command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; __array_unescape() {
+        # NOTE: This doesn't look like the inverse of what __array_escape does, but
+        #   it works correctly, so don't try to "fix" it
+        #                                           x1234x12x           x12345678x
+        command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; __array_fix_index() {
+        __array__array_fix_index__length="$(nullcall array_get_length "$1")"
+
+        __array__array_fix_index__index="$2"
+
+        if [ "${__array__array_fix_index__index}" -lt 0 ]; then
+            __array__array_fix_index__index="$(( __array__array_fix_index__length + __array__array_fix_index__index ))"
+        fi
+
+        command printf "%d" "${__array__array_fix_index__index}"
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_init() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        eval "$1=\"\""
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_destroy() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        eval "unset $1"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_export() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        eval "export $1"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_append() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_append__temp_value=$(nullcall __array_escape "$2")
+        __array__array_append__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
+        if [ "${__array__array_append__temp_storage}" = "" ]; then
+            eval "$1=\"${__array__array_append__temp_value}\""
+        else
+            # WARNING: DO NOT ESCAPE THE { } AROUND $1 HERE
+            eval "$1=\"\${$1}$_ARRAY__SEP${__array__array_append__temp_value}\""
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_push() {
+        nullcall array_append "$@"
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_append_back() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_back__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_append "$1" "$2"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_back__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_back__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_append_front() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_front__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_insert_index "$1" 0 "$2"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_front__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_front__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_get_first() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_get_at_index "$1" 0
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_get_last() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_get_at_index "$1" -1
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_peek() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_get_last "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_copy() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_copy__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
+
+        nullcall array_init "$2"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        for item in ${__array__array_copy__temp_storage}; do
+            item="$(nullcall __array_unescape "${item}")"
+            nullcall array_append "$2" "${item}"
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_remove_first() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_remove_index "$1" 0
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_remove_last() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_remove_index "$1" -1
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_pop() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_remove_last "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_insert_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_insert_index__temp_array=""
+        nullcall array_copy "$1" __array__array_insert_index__temp_array
+
+        __array__array_insert_index__last_index="$(nullcall array_get_length "$1")"
+
+        __array__array_insert_index__count=0
+
+        __array__array_insert_index__index="$2"
+        __array__array_insert_index__index="$(nullcall __array_fix_index "$1" "${__array__array_insert_index__index}")"
+
+        __array__array_insert_index__inserted=false
+
+        nullcall array_init "$1"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        for item in ${__array__array_insert_index__temp_array}; do
+            item="$(nullcall __array_unescape "${item}")"
+            if [ "${__array__array_insert_index__count}" -eq "${__array__array_insert_index__index}"  ]; then
+                nullcall array_append "$1" "$3"
+                __array__array_insert_index__inserted=true
+            fi
+            nullcall array_append "$1" "${item}"
+            __array__array_insert_index__count=$(( __array__array_insert_index__count + 1 ))
+        done
+
+        if \
+            [ "${__array__array_insert_index__last_index}" -eq "${__array__array_insert_index__count}" ] &&
+            [ "${__array__array_insert_index__inserted}" = false  ]
+        then
+            nullcall array_append "$1" "$3"
+        fi
+
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_remove_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_remove_index__temp_array=""
+        nullcall array_copy "$1" __array__array_remove_index__temp_array
+
+        __array__array_remove_index__index="$2"
+        __array__array_remove_index__index="$(nullcall __array_fix_index "$1" "${__array__array_remove_index__index}")"
+
+        __array__array_remove_index__count=0
+
+        nullcall array_init "$1"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        for item in ${__array__array_remove_index__temp_array}; do
+            item="$(nullcall __array_unescape "${item}")"
+            if [ "${__array__array_remove_index__count}" -ne "${__array__array_remove_index__index}" ]; then
+                nullcall array_append "$1" "${item}"
+            fi
+            __array__array_remove_index__count=$(( __array__array_remove_index__count + 1 ))
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_get_length() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __array__array_get_length__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
+        __array__array_get_length__count=0
+        for item in $__array__array_get_length__temp_storage; do
+            __array__array_get_length__count=$(( __array__array_get_length__count + 1 ))
+        done
+        IFS="$OIFS"
+        command echo "${__array__array_get_length__count}"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_get_at_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+
+        __array__array_get_index__index="$2"
+        __array__array_get_index__index="$(nullcall __array_fix_index "$1" "${__array__array_get_index__index}")"
+
+        __array__array_get_index__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
+        __array__array_get_index__count=0
+        __array__array_get_index__found=false
+
+        for item in $__array__array_get_index__temp_storage; do
+            if [ "${__array__array_get_index__count}" -eq "${__array__array_get_index__index}" ]; then
+                item="$(nullcall __array_unescape "$item")"
+                command printf "%s" "${item}"
+                __array__array_get_index__found=true
+                break
+            fi
+            __array__array_get_index__count=$(( __array__array_get_index__count + 1 ))
+        done
+        IFS="$OIFS"
+
+        __array_get_at_index_ret=1
+        if [ "${__array__array_get_index__found}" = true ]; then
+            __array_get_at_index_ret=0
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD
+
+        return $__array_get_at_index_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_find_index_of() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_find_index_of__return=-1
+        __array__array_find_index_of__index=0
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __array__array_find_index_of__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
+        for item in $__array__array_find_index_of__temp_storage; do
+            item="$(nullcall __array_unescape "$item")"
+            if [ "$item" = "$2" ]; then
+                __array__array_find_index_of__return=$__array__array_find_index_of__index
+                break
+            fi
+            __array__array_find_index_of__index=$(( __array__array_find_index_of__index + 1 ))
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD
+
+        return $__array__array_find_index_of__return
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_contains() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__contains__return=1  # false value
+
+        if [ "$(array_find_index_of "$1" "$2")" -ne -1 ]; then
+            __array__contains__return=0  # true value
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD
+
+        return $__array__contains__return
+    }
+
+    # # using array_for_each:
+    # def; my_func() {
+    #     echo "${item}"
+    # }
+    # array_for_each the_array_name my_func
+    ## NOTE: no $ on 'the_array_name' nor 'my_func'
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_for_each() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
+        for item in $__ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE; do
+            item="$(nullcall __array_unescape "$item")"
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
+            eval "$2"
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
+    }
+
+    #endregion Array Implementation
+    #===============================================================================
+
+    #===============================================================================
+    #region Dict Implementation
+
+    #-------------------------------------------------------------------------------
+    nulldef; __dict_hash_key() {
+        (printf "%s" "$1" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "$1" | shasum -a 1) | cut -d' ' -f1
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_init() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        eval "$1=\"__dict__\""
+        eval "__dict__$1=\"__dict__\""
+        eval "__dict__$1__length=0"
+        nullcall array_init "__dict__$1__keys"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD
+
+        return 0
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_destroy() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        for __dict__destroy_var in $(set | sort | grep "__dict__$1__" | awk -F= '{ print $1 }' ); do
+            eval "unset $__dict__destroy_var"
+        done
+        unset __dict__destroy_var
+        eval "unset __dict__$1"
+        eval "unset $1"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD
+
+        return 0
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_export() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        for __dict__export_var in $(set | sort | grep "__dict__$1__" | awk -F= '{ print $1 }' ); do
+            eval "export $__dict__export_var"
+        done
+        unset __dict__export_var
+        eval "export __dict__$1"
+        eval "export $1"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_set_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict_set_key_ret=0
+
+        if eval "[ ! -n \"\$__dict__$1\" ]"; then
+            # dict not initialized
+            __dict_set_key_ret=1
+        else
+            nullcall array_append "__dict__$1__keys" "$2"
+            eval "__dict__$1__key_$(nullcall __dict_hash_key "$2")=\"$3\""
+            eval "__dict__$1__length=\$(( __dict__$1__length + 1 ))"
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD
+
+        return $__dict_set_key_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_get_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict_get_key_ret=0
+
+        if dict_has_key "$1" "$2"; then
+            eval "printf \"%s\" \"\$__dict__$1__key_$(__dict_hash_key "$2")\""
+        else
+            __dict_get_key_ret=1
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD
+
+        return $__dict_get_key_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_unset_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict_unset_key_ret=0
+
+        if eval "[ ! -n \"\$__dict__$1\" ]"; then
+            # dict not initialized
+            __dict_unset_key_ret=1
+        fi
+
+        if dict_has_key "$1" "$2"; then
+            eval "unset __dict__$1__key_$(__dict_hash_key "$2")"
+            eval "__dict__$1__length=\$(( __dict__$1__length - 1 ))"
+        else
+            __dict_unset_key_ret=1
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD
+
+        return $__dict_unset_key_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_has_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict_has_key_ret=0
+
+        if eval "[ -n \"\$__dict__$1__key_$(__dict_hash_key "$2")\" ]"; then
+            __dict_has_key_ret=0
+        else
+            __dict_has_key_ret=1
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD
+
+        return $__dict_has_key_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_for_each_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __dict__dict_for_each_key__temp_storage="$(eval command echo \"\$\{__dict__"$1"__keys\}\")"
+        for key in $__dict__dict_for_each_key__temp_storage; do
+            key="$(nullcall __array_unescape "$key")"
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD
+            eval "$2"
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_for_each_value() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __dict__dict_for_each_value__temp_storage="$(eval command echo \"\$\{__dict__"$1"__keys\}\")"
+        for key in $__dict__dict_for_each_value__temp_storage; do
+            key="$(nullcall __array_unescape "$key")"
+            # shellcheck disable=SC2034
+            value="$(dict_get_key "$key")"
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
+            eval "$2"
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_for_each_pair() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall dict_for_each_value "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; dict_has_value() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict__dict_has_value__return=1 # false
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __dict__dict_for_each_value__temp_storage="$(eval command echo \"\$\{__dict__"$1"__keys\}\")"
+        for key in $__dict__dict_for_each_value__temp_storage; do
+            key="$(nullcall __array_unescape "$key")"
+            # shellcheck disable=SC2034
+            value="$(dict_get_key "$key")"
+            if [ "${value}" = "$2" ]; then
+                __dict__dict_has_value__return=0 # true
+                break
+            fi
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
+
+        return $__dict__dict_has_value__return
+    }
+
+    #endregion Dict Implementation
+    #===============================================================================
+
+    #===============================================================================
+    #region Reflection Info Functions
+
+    #-------------------------------------------------------------------------------
+    nulldef; get_my_real_fullpath() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            basename "$(array_get_last SHELL_SOURCE)"
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
-        fi
+            if [ "$(nullcall array_get_length SHELL_SOURCE)" -gt 0 ]; then
+                nullcall array_get_last SHELL_SOURCE
+            else
+                echo "UNKNOWN"
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
 
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-get_my_real_dir_fullpath() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            dirname "$(array_get_last SHELL_SOURCE)"
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
-        fi
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD
 
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+        return $exit_ret
+    }
 
-#-------------------------------------------------------------------------------
-get_my_real_dir_basename() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
+    #-------------------------------------------------------------------------------
+    nulldef; get_my_real_basename() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            basename "$(dirname "$(array_get_last SHELL_SOURCE)")"
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
-        fi
+            if [ "$(nullcall array_get_length SHELL_SOURCE)" -gt 0 ]; then
+                basename "$(nullcall array_get_last SHELL_SOURCE)"
+            else
+                echo "UNKNOWN"
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
 
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
 
-#-------------------------------------------------------------------------------
-unident_text() {
-    (
-        text="$1"
-        leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
-        echo "${text}" | sed -e "s/\(${leading}\)\(.*\)/\2/"
-    )
-}
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD
 
-#endregion Helper Functions
-#===============================================================================
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; get_my_real_dir_fullpath() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "$(nullcall array_get_length SHELL_SOURCE)" -gt 0 ]; then
+                dirname "$(nullcall array_get_last SHELL_SOURCE)"
+            else
+                echo "UNKNOWN"
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD
+
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; get_my_real_dir_basename() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "$(nullcall array_get_length SHELL_SOURCE)" -gt 0 ]; then
+                basename "$(dirname "$(nullcall array_get_last SHELL_SOURCE)")"
+            else
+                echo "UNKNOWN"
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD
+
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; get_my_puuid_basename() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "$(nullcall array_get_length SHELL_SOURCE_PUUID)" -gt 0 ]; then
+                nullcall array_get_last SHELL_SOURCE_PUUID
+            else
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD
+
+        return $exit_ret
+    }
+
+    #endregion Reflection Info Functions
+    #===============================================================================
+fi
 
 #===============================================================================
 #region Source/Invoke Check For Top Level File
 
+#-------------------------------------------------------------------------------
+nulldef; _shell_source_push_G() {
+    # $1 == TEMP_WAS_SOURCED
+    # $2 == TEMP_FILE_NAME
+
+    nullcall array_append WAS_SOURCED "$1"
+    nullcall array_export WAS_SOURCED
+    nullcall array_append SHELL_SOURCE "$2"
+    nullcall array_export SHELL_SOURCE
+    nullcall push_puuid_for_abspath "$2"
+    nullcall array_export SHELL_SOURCE_PUUID
+
+    temp_puuid="$(nullcall array_peek SHELL_SOURCE_PUUID)"
+    nullcall _call_stack_push_G "${temp_puuid}" "0" "${temp_puuid}" "1" "_"
+}
+
+#-------------------------------------------------------------------------------
+nulldef; _shell_source_pop_G() {
+    nullcall _call_stack_pop_G
+
+    nullcall array_remove_last SHELL_SOURCE_PUUID
+    nullcall array_export SHELL_SOURCE_PUUID
+    nullcall array_remove_last SHELL_SOURCE
+    nullcall array_export SHELL_SOURCE
+    nullcall array_remove_last WAS_SOURCED
+    nullcall array_export WAS_SOURCED
+}
+
 # shellcheck disable=SC2218
-log_ultradebug "env vars:\n%s" -- "$(env -0 | sort -z | tr '\0' '\n' | sed -e 's/%/%%/g')"
+nullcall log_ultradebug "env vars:\n%s" -- "$(env -0 | sort -z | tr '\0' '\n' | sed -e 's/%/%%/g')"
 
 if [ "${WAS_SOURCED}" = "" ]; then
     WAS_SOURCED=""
-    array_init WAS_SOURCED
+    nullcall array_init WAS_SOURCED
 fi
 if [ "${SHELL_SOURCE}" = "" ]; then
     SHELL_SOURCE=""
-    array_init SHELL_SOURCE
+    nullcall array_init SHELL_SOURCE
+fi
+if [ "${SHELL_SOURCE_PUUID}" = "" ]; then
+    SHELL_SOURCE_PUUID=""
+    nullcall array_init SHELL_SOURCE_PUUID
 fi
 
 # NOTE: that all these detection methods only work for the FIRST file
 #   that is invoked or sourced, all others must be handled by the
 #   include_G, ensure_include_GXY, and invoke functions.
-if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
+if [ "$(nullcall array_get_length SHELL_SOURCE)" -eq 0 ]; then
     TEMP_FILE_NAME=""
-    log_ultradebug "\$0=$0"
+    TEMP_WAS_SOURCED="unknown"
+    nullcall log_ultradebug "\$0=$0"
     TEMP_ARG_ZERO="$0"
-    log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
+    nullcall log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"
-    log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
+    nullcall log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     case "${TEMP_ARG_ZERO}" in
         bash|dash|sh|wsl-bash|wsl-dash|wsl-sh)  # zsh sourced handled later
-            log_ultradebug "\$0 was a known shell (not zsh)."
+            nullcall log_ultradebug "\$0 was a known shell (not zsh)."
             # bash sourced, dash sourced, sh(bash) sourced, sh(dash) sourced,
             # sh(zsh) sourced
             # shellcheck disable=SC2128
             if [ -n "${BASH_SOURCE}" ]; then
                 # bash sourced, sh(bash) sourced
-                log_ultradebug "\$BASH_SOURCE exists."
+                nullcall log_ultradebug "\$BASH_SOURCE exists."
                 # shellcheck disable=SC3054
-                log_ultradebug "\${BASH_SOURCE[0]}=${BASH_SOURCE[0]}"
+                nullcall log_ultradebug "\${BASH_SOURCE[0]}=${BASH_SOURCE[0]}"
                 # shellcheck disable=SC3054
                 TEMP_FILE_NAME="${BASH_SOURCE[0]}"
             else
                 # dash sourced, sh(dash) sourced, sh(zsh) sourced
-                log_ultradebug "\$BASH_SOURCE does NOT exist."
-                log_ultradebug "\(which lsof)=$(which lsof)"
-                log_ultradebug "\$?=$?"
+                nullcall log_ultradebug "\$BASH_SOURCE does NOT exist."
+                nullcall log_ultradebug "\(which lsof)=$(which lsof)"
+                nullcall log_ultradebug "\$?=$?"
                 x="$(lsof -p $$ -Fn0 | tail -1)"
                 TEMP_FILE_NAME="${x#n}"
                 if [ "$(command echo "${TEMP_FILE_NAME}" | grep -e "^->0x")" != "" ]; then
                     # sh(zsh) sourced
-                    log_ultradebug "TEMP_FILE_NAME starts with '->0x', this is zsh sourced."
+                    nullcall log_ultradebug "TEMP_FILE_NAME starts with '->0x', this is zsh sourced."
                     TEMP_FILE_NAME="${DOLLAR_UNDER}"
                 # else
                 #     # dash sourced, sh(dash) sourced
                 #     true
                 fi
             fi
-            array_append WAS_SOURCED true
+            TEMP_WAS_SOURCED=true
             ;;
         ????????-????-????-????-????????????.sh|????????-????-????-????-????????????)
-            log_ultradebug "\$0 resembles a uuid, probably is github sourced."
+            nullcall log_ultradebug "\$0 resembles a uuid, probably is github sourced."
             # github sourced, multi-command
-            array_append WAS_SOURCED true
-            log_ultradebug "$0"
-            log_ultradebug "$*"
-            log_ultradebug "env | sort:\n%s" "$(env | sort)"
+            TEMP_WAS_SOURCED=true
+            nullcall log_ultradebug "$0"
+            nullcall log_ultradebug "$*"
+            nullcall log_ultradebug "env | sort:\n%s" "$(env | sort)"
             if [ "${TEMP_SHELL_SOURCE}" != "" ]; then
                 TEMP_FILE_NAME="${TEMP_SHELL_SOURCE}"
             fi
-            log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
+            nullcall log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
             ;;
         *)
             # bash invoked, dash invoked, sh(bash) invoked, zsh invoked
             # zsh sourced
-            log_ultradebug "Some other shell?"
-            log_ultradebug "\(which lsof)=$(which lsof)"
-            log_ultradebug "\$?=$?"
+            nullcall log_ultradebug "Some other shell?"
+            nullcall log_ultradebug "\(which lsof)=$(which lsof)"
+            nullcall log_ultradebug "\$?=$?"
             if [ "$(which lsof)" != "" ]; then
                 x="$(lsof -p $$ -Fn0 | tail -1)"
-                log_ultradebug "\$x=$x"
+                nullcall log_ultradebug "\$x=$x"
                 x="${x#*n}"
-                log_ultradebug "\$x=$x"
+                nullcall log_ultradebug "\$x=$x"
             else
                 x="NONE"
-                log_ultradebug "\$x=$x"
+                nullcall log_ultradebug "\$x=$x"
             fi
             if [ -f "$x" ]; then
-                x="$(rreadlink "$x")"
-                log_ultradebug "\$x=$x"
+                x="$(nullcall rreadlink "$x")"
+                nullcall log_ultradebug "\$x=$x"
             fi
-            TEMP_FILE_NAME="$(rreadlink "$0")"
-            log_ultradebug "TEMP_FILE_NAME: ${TEMP_FILE_NAME}"
-            log_ultradebug "x:              ${x}"
+            TEMP_FILE_NAME="$(nullcall rreadlink "$0")"
+            nullcall log_ultradebug "TEMP_FILE_NAME: ${TEMP_FILE_NAME}"
+            nullcall log_ultradebug "x:              ${x}"
             if [ "${TEMP_FILE_NAME}" != "${x}" ]; then
-                log_ultradebug "TEMP_FILE_NAME and x are different."
+                nullcall log_ultradebug "TEMP_FILE_NAME and x are different."
                 if [ "$(echo "${x}" | grep -e 'pipe')" != "" ]; then
-                    log_ultradebug "x is 'pipe', probably github invoked."
+                    nullcall log_ultradebug "x is 'pipe', probably github invoked."
                     # github invoked
-                    array_append WAS_SOURCED false
+                    TEMP_WAS_SOURCED=false
                 elif [ "${x}" = "NONE" ]; then
-                    log_ultradebug "lsof not available, probably wsl invoked."
+                    nullcall log_ultradebug "lsof not available, probably wsl invoked."
                     # wsl doesn't always have lsof, so invoked
-                    array_append WAS_SOURCED false
+                    TEMP_WAS_SOURCED=false
                 else
                     # zsh sourced
-                    log_ultradebug "x is NOT 'pipe', probably zsh sourced."
-                    array_append WAS_SOURCED true
+                    nullcall log_ultradebug "x is NOT 'pipe', probably zsh sourced."
+                    TEMP_WAS_SOURCED=true
                 fi
             else
-                log_ultradebug "TEMP_FILE_NAME and x are the SAME, likely invoked."
+                nullcall log_ultradebug "TEMP_FILE_NAME and x are the SAME, likely invoked."
                 # bash invoked, dash invoked, sh(bash) invoked, zsh invoked
-                array_append WAS_SOURCED false
-                log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
+                TEMP_WAS_SOURCED=false
+                nullcall log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
             fi
             ;;
     esac
-    log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
-    TEMP_FILE_NAME="$(rreadlink "${TEMP_FILE_NAME}")"
-    log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
-    array_append SHELL_SOURCE "${TEMP_FILE_NAME}"
+    nullcall log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
+    TEMP_FILE_NAME="$(nullcall rreadlink "${TEMP_FILE_NAME}")"
+    nullcall log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
+
+    nullcall _shell_source_push_G "${TEMP_WAS_SOURCED}" "${TEMP_FILE_NAME}"
+fi
+
+if [ "${SHELL_DEF_SOURCE_PUUID}" = "" ]; then
+    nullcall dict_init SHELL_DEF_SOURCE_PUUID
+    nullcall dict_export SHELL_DEF_SOURCE_PUUID
+fi
+if [ "${SHELL_DEF_LINENO}" = "" ]; then
+    nullcall dict_init SHELL_DEF_LINENO
+    nullcall dict_export SHELL_DEF_LINENO
+fi
+
+if [ "${SHELL_CALL_STACK}" = "" ]; then
+    nullcall array_init SHELL_CALL_STACK
+    nullcall array_init SHELL_CALL_STACK_SOURCE_PUUID
+    nullcall array_init SHELL_CALL_STACK_SOURCE_LINENO
+    nullcall array_init SHELL_CALL_STACK_FUNCNAME
+
+    __call_G_source_puuid="$(nullcall array_get_last SHELL_SOURCE_PUUID)"
+    nullcall _call_stack_push_G "$__call_G_source_puuid" "0" "$__call_G_source_puuid" "1" "_"
+    unset __call_G_source_puuid
 fi
 
 unset x
 unset TEMP_ARG_ZERO
 unset TEMP_FILE_NAME
 unset TEMP_SHELL_SOURCE
+unset TEMP_WAS_SOURCED
 unset DOLLAR_UNDER
-
-export WAS_SOURCED
-export SHELL_SOURCE
 
 # sometimes shellcheck thinks log_ultradebug is only defined later, not before
 # shellcheck disable=SC2218
-log_ultradebug "WAS_SOURCED: $WAS_SOURCED"
+nullcall log_ultradebug "WAS_SOURCED: $WAS_SOURCED"
 # shellcheck disable=SC2218
-log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
+nullcall log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
+# shellcheck disable=SC2218
+nullcall log_ultradebug "SHELL_SOURCE_PUUID: $SHELL_SOURCE_PUUID"
 
 #endregion Source/Invoke Check For Top Level File
 #===============================================================================
 
 #===============================================================================
-#region Announce Ourself
+#region Announce Ourself Starting
 
-if [ "$(array_get_last WAS_SOURCED)" = false ]; then
-    log_debug "Invoked: $(get_my_real_fullpath) ($$)"
-else
-    log_debug "Sourced: $(get_my_real_fullpath) ($$)"
+__announce_prefix="Sourced"
+if [ "$(nullcall array_get_last WAS_SOURCED)" = false ]; then
+    __announce_prefix="Invoked"
 fi
+nullcall log_debug "${__announce_prefix}: $(nullcall get_my_real_fullpath) ($$) [$(nullcall get_my_puuid_basename || echo "$0")]"
+unset __announce_prefix
 
 #endregion Announce Ourself
 #===============================================================================
 
-#endregion Preamble
+set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD}"
+unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD
+
+#endregion marximus-shell-extensions Base Preamble
 ################################################################################
+
+################################################################################
+#region marximus-shell-extensions Extended Preamble
+
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_EXTENDED_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
+
+    #===============================================================================
+    #region Create Fence
+
+    def; MARXIMUS_SHELL_EXTENSIONS_EXTENDED_PREAMBLE_FENCE() { true; }
+
+    #endregion Create Fence
+    #===============================================================================
+
+    #===============================================================================
+    #region Include/Invoke Directives
+
+    #-------------------------------------------------------------------------------
+    def; include_G() {
+        # intentionally no local scope so it modify globals
+        if [ ! -f "$1" ]; then
+            call log_warning "Could not source because file is missing: %s" "$1"
+            return "${RET_ERROR_FILE_NOT_FOUND}"
+        fi
+
+        __LAST_INCLUDE="$(call rreadlink "$1")"
+
+        call log_ultradebug "Sourcing: %s as %s" "$1" "${__LAST_INCLUDE}"
+
+        nullcall _shell_source_push_G "true" "${__LAST_INCLUDE}"
+
+        # shifts off path we are sourcing, but leaves other args intact so they can
+        # be used by the sourced script; normally sourcing from within a shell
+        # wouldn't allow this, but since we are inside a file already, it is
+        # possible to do so
+        shift
+
+        # shellcheck disable=SC1090
+        . "${__LAST_INCLUDE}"
+        ret=$?
+
+        nullcall _shell_source_pop_G
+
+        return $ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_include_GXY() {
+        # intentionally no local scope so it can modify globals AND exit script
+
+        call include_G "$@"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            call log_fatal "Failed to source '%s'" "$1"
+            if [ "$(call array_get_first WAS_SOURCED)" = true ]; then
+                exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
+            else
+                return "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
+            fi
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    def; invoke() {
+        if [ ! -f "$1" ]; then
+            call log_warning "Could not invoke because file is missing: %s" "$1"
+            return "${RET_ERROR_FILE_NOT_FOUND}"
+        fi
+
+        __LAST_INCLUDE="$(call rreadlink "$1")"
+
+        call log_ultradebug "Invoking: %s as %s" "$1" "${__LAST_INCLUDE}"
+
+        nullcall _shell_source_push_G "false" "${__LAST_INCLUDE}"
+
+        "$@"
+        ret=$?
+
+        nullcall _shell_source_pop_G
+
+        return $ret
+    }
+
+    #endregion Include/Invoke Directives
+    #===============================================================================
+
+    #===============================================================================
+    #region Root User Checking Functions
+
+    #-------------------------------------------------------------------------------
+    def; require_not_root_user_XY() {
+        # intentionally no local scope so it can exit script
+
+        if [ "${CI}" = true ] && [ "${PLATFORM_IS_WSL}" = true ]; then
+            # github runner's WSL user is always root
+            true
+        else
+            # shellcheck disable=SC3028
+            if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
+                call log_fatal "$(call get_my_real_basename) should not be run as root nor with sudo"
+                if [ "$(call array_get_first WAS_SOURCED)" = true ]; then
+                    exit "${RET_ERROR_USER_IS_ROOT}"
+                else
+                    return "${RET_ERROR_USER_IS_ROOT}"
+                fi
+            fi
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    def; require_root_user_XY() {
+        # intentionally no local scope so it can exit script
+
+        # shellcheck disable=SC3028
+        if [ $UID -ne 0 ] && [ $EUID -ne 0 ] && [ "$(id -u)" -ne 0 ]; then
+            call log_fatal "$(call get_my_real_basename) MUST be run as root or with sudo"
+            if [ "$(call array_get_first WAS_SOURCED)" = true ]; then
+                exit "${RET_ERROR_USER_IS_NOT_ROOT}"
+            else
+                return "${RET_ERROR_USER_IS_NOT_ROOT}"
+            fi
+        fi
+    }
+
+    #endregion Root User Check
+    #===============================================================================
+
+    #===============================================================================
+    #region File System Functions
+
+    #-------------------------------------------------------------------------------
+    def; windows_path_to_unix_path() {
+        if \
+            [ "${PLATFORM_IS_WSL}" = true ] &&
+            [  "$(command echo "$1" | cut -c1)" != "/" ]
+        then
+            command printf "/"
+            command printf "$(command echo "$1" | cut -c1 | tr '[:upper:]' '[:lower:]')"
+            command printf "$(command echo "$1" | cut -c3- | sed -e 's/\\/\//g')"
+        else
+            command printf "$1"
+        fi
+        command printf "\n"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_cd() {
+        # intentionally no local scope so that the cd command takes effect
+        call log_superdebug "Changing current directory to '%s'" "$1"
+
+        # shellcheck disable=SC2164
+        cd "$1"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            call log_fatal "Could not cd into '%s'" "$1"
+            return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    def; safe_rm() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            path_to_remove="$1"
+            print_rm_error_message="$2"
+
+            call log_superdebug "Safely removing '%s'" "${path_to_remove}"
+
+            if \
+                [ "${path_to_remove}" != "/" ] &&
+                [ "${path_to_remove}" != "${HOME}" ] &&
+                [ "${path_to_remove}" != "${TMPDIR}" ] &&
+                [ "${path_to_remove}" != "/Applications" ] &&
+                [ "${path_to_remove}" != "/bin" ] &&
+                [ "${path_to_remove}" != "/boot" ] &&
+                [ "${path_to_remove}" != "/cores" ] &&
+                [ "${path_to_remove}" != "/dev" ] &&
+                [ "${path_to_remove}" != "/etc" ] &&
+                [ "${path_to_remove}" != "/home" ] &&
+                [ "${path_to_remove}" != "/lib" ] &&
+                [ "${path_to_remove}" != "/Library" ] &&
+                [ "${path_to_remove}" != "/local" ] &&
+                [ "${path_to_remove}" != "/media" ] &&
+                [ "${path_to_remove}" != "/mnt" ] &&
+                [ "${path_to_remove}" != "/opt" ] &&
+                [ "${path_to_remove}" != "/private" ] &&
+                [ "${path_to_remove}" != "/proc" ] &&
+                [ "${path_to_remove}" != "/sbin" ] &&
+                [ "${path_to_remove}" != "/srv" ] &&
+                [ "${path_to_remove}" != "/System" ] &&
+                [ "${path_to_remove}" != "/Users" ] &&
+                [ "${path_to_remove}" != "/usr" ] &&
+                [ "${path_to_remove}" != "/var" ] &&
+                [ "${path_to_remove}" != "/Volumes" ] &&
+                [ "${path_to_remove}" != "" ]
+            then
+                rm -rf "${path_to_remove}"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    if \
+                        [ "${print_rm_error_message}" = "" ] ||
+                        [ "${print_rm_error_message}" = true ]
+                    then
+                        call log_error "failed to rm '%s'" "${path_to_remove}"
+                    fi
+                    exit "${RET_ERROR_RM_FAILED}"
+                fi
+            else
+                call log_fatal "unsafe rm path '%s'" "${path_to_remove}"
+                exit "${RET_ERROR_UNSAFE_RM_PATH}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_does_not_exist() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            path_to_remove="$1"
+
+            call log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
+
+            if \
+                [ -f "${path_to_remove}" ] ||
+                [ -d "${path_to_remove}" ]
+            then
+                call safe_rm "${path_to_remove}"
+                ret=$?
+                exit $ret
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; create_dir() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            destdir="$1"
+
+            call ensure_does_not_exist "${destdir}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_fatal "failed to remove path '%s'" "${destdir}"
+                exit $ret
+            fi
+
+            call log_superdebug "Creating directory '%s'" "${destdir}"
+
+            mkdir -p "${destdir}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_fatal "failed to create directory '%s'" "${destdir}"
+                exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_dir() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            destdir="$1"
+
+            call log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
+
+            if [ ! -d "${destdir}" ]; then
+                call create_dir "${destdir}"
+                ret=$?
+                exit $ret
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; move_file() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            source_filepath="$1"
+            dest_filepath="$2"
+
+            call log_superdebug "Copying file '${source_filepath}' to '${dest_filepath}'"
+
+            mv "${source_filepath}" "${dest_filepath}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_debug "failed to move file from '%s' to '%s'" "${source_filepath}" "${dest_filepath}"
+                exit "${RET_ERROR_COPY_FAILED}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; copy_file() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            source_filepath="$1"
+            dest="$2"
+
+            call log_superdebug "Copying file '${source_filepath}' to '${dest}'"
+
+            cp "${source_filepath}" "${dest}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_debug "failed to copy file from '%s' to '%s'" "${source_filepath}" "${dest}"
+                exit "${RET_ERROR_COPY_FAILED}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; copy_dir() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            source_dir="$1"
+            dest_dir="$2"
+
+            call log_superdebug "Copying all files from '${source_dir}' to '${dest_dir}'"
+
+            cp -r "${source_dir}"/. "${dest_dir}/"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_debug "failed to copy files from '%s' to '%s'" "${source_dir}" "${dest_dir}"
+                exit "${RET_ERROR_COPY_FAILED}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #endregion File System Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region Temp Dir Functions
+
+    #-------------------------------------------------------------------------------
+    def; create_my_tempdir() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "${CI}" = true ]; then
+                if [ "${GITHUB_ACTIONS}" = true ]; then
+                    the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"
+                else
+                    the_tempdir="${HOME}/bfi_temp/$(call get_datetime_stamp_filename_formatted)"
+                fi
+            else
+                the_tempdir=$(mktemp -d -t "$(call get_my_real_basename)-$(call get_datetime_stamp_filename_formatted).XXXXXXX")
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    call log_fatal "failed to get temporary directory"
+                    exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+                fi
+            fi
+
+            the_tempdir="$(call windows_path_to_unix_path "${the_tempdir}")"
+
+            command echo "${the_tempdir}"
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_my_tempdir_G() {
+        # intentionally no local scope b/c modifying a global
+
+        if [ "${my_tempdir}" = "" ]; then
+            my_tempdir="$(call create_my_tempdir)"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                return $ret
+            fi
+        fi
+
+        call ensure_dir "${my_tempdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            return $ret
+        fi
+
+        export my_tempdir
+
+        return "${RET_SUCCESS}"
+    }
+
+    #endregion Temp Dir Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region DateTime Stamp Functions
+
+    #-------------------------------------------------------------------------------
+    def; get_datetime_stamp_human_formatted() {
+        call date "${DATETIME_STAMP_HUMAN_FORMAT}"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_datetime_stamp_filename_formatted() {
+        call date "${DATETIME_STAMP_FILENAME_FORMAT}"
+    }
+
+    #endregion DateTime Stamp Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region Object Identity Functions
+
+    #-------------------------------------------------------------------------------
+    def; is_integer() {
+        case "${1#[+-]}"  in
+            *[!0123456789]*)
+                command echo "1"
+                return 1
+                ;;
+            '')
+                command echo "1"
+                return 1
+                ;;
+            *)
+                command echo "0"
+                return 0
+                ;;
+        esac
+        command echo "1"
+        return 1
+    }
+
+    #endregion Object Identity Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region Text Formatting Functions
+
+    #-------------------------------------------------------------------------------
+    def; unident_text() {
+        (
+            text="$1"
+            leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
+            echo "${text}" | sed -e "s/\(${leading}\)\(.*\)/\2/"
+        )
+    }
+
+    #endregion Text Formatting Functions
+    #===============================================================================
+
+fi
+
+#endregion marximus-shell-extensions Extended Preamble
+################################################################################
+
+# TODO: needs a fence
+# TODO: flag for not tracing batteries-forking-included functions
 
 ################################################################################
 #region Public *
@@ -1379,7 +2443,7 @@ fi
 #===============================================================================
 #region Includes
 
-ensure_include_GXY "$(get_my_real_dir_fullpath)/bfi-base.sh"
+call ensure_include_GXY "$(get_my_real_dir_fullpath)/bfi-base.sh"
 
 #endregion Includes
 #===============================================================================
@@ -1445,7 +2509,7 @@ deploy_mode=false; export deploy_mode
 #region Public Functions
 
 #-------------------------------------------------------------------------------
-print_usage__update() {
+def; print_usage__update() {
     # we do not use 'command' here b/c we want this to get output to the log file
     # but we don't use a log_* function b/c we don't want the console output to
     # have a timestamp just hanging out b/c it looks ugly
@@ -1453,7 +2517,7 @@ print_usage__update() {
 }
 
 #-------------------------------------------------------------------------------
-print_usage__bootstrap() {
+def; print_usage__bootstrap() {
     # we do not use 'command' here b/c we want this to get output to the log file
     # but we don't use a log_* function b/c we don't want the console output to
     # have a timestamp just hanging out b/c it looks ugly
@@ -1461,130 +2525,130 @@ print_usage__bootstrap() {
 }
 
 #-------------------------------------------------------------------------------
-print_usage() {
+def; print_usage() {
     (
         script_name=$(get_my_real_basename)
         case "${script_name}" in
             bfi-update.sh)
-                print_usage__update
+                call print_usage__update
                 ;;
             bootstrap.sh)
-                print_usage__bootstrap
+                call print_usage__bootstrap
                 ;;
         esac
     )
 }
 
 #-------------------------------------------------------------------------------
-print_version() {
+def; print_version() {
     printf "batteries-forking-included %s\n" "${BFI_VERSION}"
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_doubledash() {
-    log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash called with '%s'" "$*"
+def; parse_args__common_doubledash() {
+    call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash called with '%s'" "$*"
 
     __parse_args_shift_by=0
 
     case "$1" in
         -h|-\?|--help|--usage)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found usage arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found usage arg"
             should_print_usage=true
             ;;
 
         -V|--version)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found version arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found version arg"
             should_print_version=true
             ;;
         -q|--quiet)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found quiet arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found quiet arg"
             quiet=true
             ;;
         +q|--no-quiet)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-quiet arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-quiet arg"
             quiet=false
             ;;
 
         -v|--verbose)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found verbose arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found verbose arg"
             temp_verbosity=$((temp_verbosity + 1))
             ;;
         +v|--no-verbose)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-verbose arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-verbose arg"
             temp_verbosity=$((temp_verbosity - 1))
             ;;
 
         --verbosity)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity arg"
             if [ -n "$2" ]; then
                 temp_verbosity="$2"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
                 shift
                 __parse_args_shift_by=$(( __parse_args_shift_by + 1 ))
             else
-                print_usage
-                log_error "\"--verbosity\" requires a non-empty option argument."
+                call print_usage
+                call log_error "\"--verbosity\" requires a non-empty option argument."
                 exit "${RET_ERROR_INVALID_ARGUMENT}"
             fi
             ;;
         --verbosity=?*)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity=* arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity=* arg"
             temp_verbosity="$1"
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
             temp_verbosity="$(command echo "${project_dir}" | cut -c 15-)"
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t temp_verbosity=%s" "${temp_verbosity}"
             ;;
         --verbosity=)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity= arg"
-            print_usage
-            log_error "\"--verbosity\" requires a non-empty option argument."
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found verbosity= arg"
+            call print_usage
+            call log_error "\"--verbosity\" requires a non-empty option argument."
             exit "${RET_ERROR_INVALID_ARGUMENT}"
             ;;
 
         -c|--color)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found color arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found color arg"
             colorized_output=true
             ;;
         +c|--no-color)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-color arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-color arg"
             colorized_output=false
             ;;
 
         -C|--alt-color)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found alt-color arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found alt-color arg"
             alt_color=true
             ;;
         +C|--no-alt-color)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-alt-color arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-alt-color arg"
             alt_color=false
             ;;
 
         -r|--report)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found report arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found report arg"
             print_report=true
             ;;
         +r|--no-report)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-report arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found no-report arg"
             print_report=false
             ;;
 
         -b|--bfi-dir)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found bfi-dir arg, \$2=%s" "$2"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found bfi-dir arg, \$2=%s" "$2"
             if [ -n "$2" ]; then
                 bfi_dir="$2"
-                log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t\t bfi_dir=%s" "${bfi_dir}"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t\t bfi_dir=%s" "${bfi_dir}"
                 shift
                 __parse_args_shift_by=$(( __parse_args_shift_by + 1 ))
             else
-                print_usage
-                log_error "\"--bfi-dir\" requires a non-empty option argument."
+                call print_usage
+                call log_error "\"--bfi-dir\" requires a non-empty option argument."
                 exit "${RET_ERROR_INVALID_ARGUMENT}"
             fi
             ;;
         -b=?*|--bfi-dir=?*)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found bfi-dir=* arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found bfi-dir=* arg"
             bfi_dir="$1"
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t bfi_dir=%s" "${bfi_dir}"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t bfi_dir=%s" "${bfi_dir}"
             case "$1" in
                 -b=?*)
                     bfi_dir="$(command echo "${bfi_dir}" | cut -c 4-)"
@@ -1593,32 +2657,32 @@ parse_args__common_doubledash() {
                     bfi_dir="$(command echo "${bfi_dir}" | cut -c 11-)"
                     ;;
             esac
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t bfi_dir=%s" "${bfi_dir}"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t bfi_dir=%s" "${bfi_dir}"
             ;;
         -b=|--bfi-dir=)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found bfi-dir= arg"
-            print_usage
-            log_error "\"--bfi-dir\" requires a non-empty option argument."
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found bfi-dir= arg"
+            call print_usage
+            call log_error "\"--bfi-dir\" requires a non-empty option argument."
             exit "${RET_ERROR_INVALID_ARGUMENT}"
             ;;
 
         -P|--project-base-name)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name arg"
             if [ -n "$2" ]; then
                 project_base_name_temp="$2"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
                 shift
                 __parse_args_shift_by=$(( __parse_args_shift_by + 1 ))
             else
-                print_usage
-                log_error "\"--project-base-name\" requires a non-empty option argument."
+                call print_usage
+                call log_error "\"--project-base-name\" requires a non-empty option argument."
                 exit "${RET_ERROR_INVALID_ARGUMENT}"
             fi
             ;;
         -P=?*|--project-base-name=?*)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name=* arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name=* arg"
             project_base_name_temp="$1"
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
             case "$1" in
                 -P=?*)
                     project_base_name_temp="$(command echo "${project_base_name_temp}" | cut -c 4-)"
@@ -1627,32 +2691,32 @@ parse_args__common_doubledash() {
                     project_base_name_temp="$(command echo "${project_base_name_temp}" | cut -c 21-)"
                     ;;
             esac
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_base_name_temp=%s" "${project_base_name_temp}"
             ;;
         -P=|--project-base-name=)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name= arg"
-            print_usage
-            log_error "\"--project-base-name\" requires a non-empty option argument."
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-base-name= arg"
+            call print_usage
+            call log_error "\"--project-base-name\" requires a non-empty option argument."
             exit "${RET_ERROR_INVALID_ARGUMENT}"
             ;;
 
         -p|--project-dir)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir arg"
             if [ -n "$2" ]; then
                 project_dir="$2"
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
                 shift
                 __parse_args_shift_by=$(( __parse_args_shift_by + 1 ))
             else
-                print_usage
-                log_error "\"--project-dir\" requires a non-empty option argument."
+                call print_usage
+                call log_error "\"--project-dir\" requires a non-empty option argument."
                 exit "${RET_ERROR_INVALID_ARGUMENT}"
             fi
             ;;
         -p=?*|--project-dir=?*)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir=* arg"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir=* arg"
             project_dir="$1"
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
             case "$1" in
                 -p=?*)
                     project_dir="$(command echo "${project_dir}" | cut -c 4-)"
@@ -1661,138 +2725,146 @@ parse_args__common_doubledash() {
                     project_dir="$(command echo "${project_dir}" | cut -c 15-)"
                     ;;
             esac
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t\t project_dir=%s" "${project_dir}"
             ;;
         -p=|--project-dir=)
-            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir= arg"
-            print_usage
-            log_error "\"--project-dir\" requires a non-empty option argument."
+            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found project-dir= arg"
+            call print_usage
+            call log_error "\"--project-dir\" requires a non-empty option argument."
             exit "${RET_ERROR_INVALID_ARGUMENT}"
             ;;
 
         --?*)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found unknown arg"
-            log_warning " Unknown option (ignored): %s" "$1"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found unknown arg"
+            call log_warning "Unknown option (ignored): %s" "$1"
             ;;
+
+        -?|+?)
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash;\t found unknown flag"
+            call log_warning "Unknown flag (ignored): %s" "$1"
+            ;;
+
     esac
 
     return "${__parse_args_shift_by}"
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_singledash() {
-    log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash called with '%s'" "$*"
-    parse_args__common_doubledash "$@"
+def; parse_args__common_singledash() {
+    call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash called with '%s'" "$*"
+    call parse_args__common_doubledash "$@"
     return $?
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_singledash_multi() {
-    log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi called with '%s'" "$*"
+def; parse_args__common_singledash_multi() {
+    call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi called with '%s'" "$*"
 
     case "$1" in
         h|\?)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found usage flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found usage flag"
             should_print_usage=true
             ;;
         V)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found version flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found version flag"
             should_print_version=true
             ;;
         q)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found quiet flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found quiet flag"
             quiet=true
             ;;
         v)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found verbose flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found verbose flag"
             temp_verbosity=$((temp_verbosity + 1)) # Each -v argument adds 1 to verbosity.
             ;;
 
         c)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found color flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found color flag"
             colorized_output=true
             ;;
 
         C)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found alt-color flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found alt-color flag"
             alt_color=true
             ;;
 
         r)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found report flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found report flag"
             print_report=true
             ;;
 
         *)
-            log_warning "Unknown flag (ignored): %s" "$1"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi;\t found unknown flag"
+            call log_warning "Unknown flag (ignored): %s" "$1"
             ;;
     esac
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_singleplus() {
-    log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus called with '%s'" "$*"
-    parse_args__common_doubledash "$@"
+def; parse_args__common_singleplus() {
+    call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus called with '%s'" "$*"
+    call parse_args__common_doubledash "$@"
     return $?
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_singleplus_multi() {
-    log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi called with '%s'" "$*"
+def; parse_args__common_singleplus_multi() {
+    call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi called with '%s'" "$*"
 
     case "$1" in
         h|\?)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found usage flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found usage flag"
             should_print_usage=true
             ;;
         V)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found version flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found version flag"
             should_print_version=true
             ;;
         q)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found no-quiet flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found no-quiet flag"
             quiet=false
             ;;
         v)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found verbose flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found verbose flag"
             temp_verbosity=$((temp_verbosity - 1))
             ;;
 
         c)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found no-color flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found no-color flag"
             colorized_output=false;
             ;;
 
         C)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found no-alt-color flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found no-alt-color flag"
             alt_color=false
             ;;
 
         r)
-            log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found no-report flag"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found no-report flag"
             print_report=false
             ;;
 
         *)
-            log_warning "Unknown flag (ignored): %s" "$1"
+            call log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi;\t found unknown flag"
+            call log_warning "Unknown flag (ignored): %s" "$1"
             ;;
     esac
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_set_and_export() {
+def; parse_args__common_set_and_export() {
     verbosity="${temp_verbosity}"
 
     if [ "${alt_color}" = true ]; then
         colorized_output=alt
     fi
 
-    project_dir="$(rreadlink "${project_dir}")"
+    project_dir="$(call rreadlink "${project_dir}")"
 
     if [ "${bfi_dir}" = "" ]; then
         bfi_dir="${project_dir}/../batteries-forking-included"
     fi
-    bfi_dir=$(rreadlink "${bfi_dir}")
+    bfi_dir=$(call rreadlink "${bfi_dir}")
 
     if [ "${project_base_name_temp}" = "" ]; then
         project_base_name="$(basename -- "${project_dir}")"
@@ -1811,33 +2883,33 @@ parse_args__common_set_and_export() {
     export bfi_dir
 
     # recalculate "constant" values
-    set_calculated_constants
-    set_ansi_code_constants
+    call set_calculated_constants
+    call set_ansi_code_constants
 
-    log_debug "colorized_output=%s" "${colorized_output}"
-    log_debug "verbosity=%d" "${verbosity}"
-    log_debug "quiet=%s" "${quiet}"
-    log_debug "should_print_usage=%s" "${should_print_usage}"
-    log_debug "should_print_version=%s" "${should_print_version}"
-    log_debug "print_report=%s" "${print_report}"
-    log_debug "project_dir=%s" "${project_dir}"
-    log_debug "project_base_name=%s" "${project_base_name}"
-    log_debug "bfi_dir=%s" "${bfi_dir}"
+    call log_debug "colorized_output=%s" "${colorized_output}"
+    call log_debug "verbosity=%d" "${verbosity}"
+    call log_debug "quiet=%s" "${quiet}"
+    call log_debug "should_print_usage=%s" "${should_print_usage}"
+    call log_debug "should_print_version=%s" "${should_print_version}"
+    call log_debug "print_report=%s" "${print_report}"
+    call log_debug "project_dir=%s" "${project_dir}"
+    call log_debug "project_base_name=%s" "${project_base_name}"
+    call log_debug "bfi_dir=%s" "${bfi_dir}"
 
     if [ "${should_print_usage}" = true ]; then
-        print_usage
+        call print_usage
         exit "${RET_SUCCESS}"
     fi
 
     if [ "${should_print_version}" = true ]; then
-        print_version
+        call print_version
         exit "${RET_SUCCESS}"
     fi
 }
 
 #-------------------------------------------------------------------------------
-parse_args__bootstrap() {
-    log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap called with '%s'" "$*"
+def; parse_args__bootstrap() {
+    call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap called with '%s'" "$*"
 
     # temporarily just assign these to best guesses
     project_dir="$(pwd)"
@@ -1851,7 +2923,7 @@ parse_args__bootstrap() {
     positional_arg_index=0
 
     while true; do
-        log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while; \$1='%s'; \$*='%s'" "$1" "$*"
+        call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while; \$1='%s'; \$*='%s'" "$1" "$*"
 
         __parse_args_shift_by=0
 
@@ -1861,50 +2933,50 @@ parse_args__bootstrap() {
 
         case "$1" in
             --)     # stop processing args
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found -- arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found -- arg"
                 shift
                 break
                 ;;
 
             -d|--dev|--developer)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found dev arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found dev arg"
                 dev_mode=true
                 dev_mode_unsticky=true
                 ;;
             +d|--no-dev|--no-developer)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found no-dev arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found no-dev arg"
                 dev_mode=false
                 dev_mode_unsticky=true
                 ;;
 
             -D|--deploy|--deployment)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found deploy arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found deploy arg"
                 deploy_mode=true
                 ;;
             +D|--no-deploy|--no-deployment)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found no-deploy arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found no-deploy arg"
                 deploy_mode=false
                 ;;
 
             --?*)
-                parse_args__common_doubledash "$@"
+                call parse_args__common_doubledash "$@"
                 shift $?
                 ;;
 
             -?)
-                parse_args__common_singledash "$@"
+                call parse_args__common_singledash "$@"
                 shift $?
                 ;;
 
             -?*)    # positive flags
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found positive flags arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found positive flags arg"
                 arg_remain="$1"
 
                 while true; do
                     arg_remain="$(command echo "${arg_remain}" | cut -c 2-)"
                     arg_char="$(command echo "${arg_remain}" | cut -c 1-1)"
 
-                    log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
+                    call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
 
                     if [ "${arg_char}" = "" ]; then
                         break
@@ -1912,33 +2984,38 @@ parse_args__bootstrap() {
 
                     case "${arg_char}" in
                         d)
-                            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-);\t found dev flag"
+                            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-);\t found dev flag"
                             dev_mode=true;
                             dev_mode_unsticky=true
                             ;;
 
                         D)
-                            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-);\t found deploy flag"
+                            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-);\t found deploy flag"
                             deploy_mode=true;
                             ;;
 
                         *)
-                            parse_args__common_singledash_multi "${arg_char}"
+                            call parse_args__common_singledash_multi "${arg_char}"
                             ;;
                     esac
 
                 done
                 ;;
 
+            +?)
+                call parse_args__common_singleplus "$@"
+                shift $?
+                ;;
+
             +?*)    # negative flags
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found negative flags arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found negative flags arg"
                 arg_remain="$1"
 
                 while true; do
                     arg_remain="$(command echo "${arg_remain}" | cut -c 2-)"
                     arg_char="$(command echo "${arg_remain}" | cut -c 1-1)"
 
-                    log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
+                    call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
 
                     if [ "${arg_char}" = "" ]; then
                         break
@@ -1946,18 +3023,18 @@ parse_args__bootstrap() {
 
                     case "${arg_char}" in
                         d)
-                            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(+);\t found no-dev flag"
+                            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(+);\t found no-dev flag"
                             dev_mode=false;
                             dev_mode_unsticky=true
                             ;;
 
                         D)
-                            log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(+);\t found no-deploy flag"
+                            call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while::while(+);\t found no-deploy flag"
                             deploy_mode=false;
                             ;;
 
                         *)
-                            parse_args__common_singleplus_multi "${arg_char}"
+                            call parse_args__common_singleplus_multi "${arg_char}"
                             ;;
                     esac
 
@@ -1965,7 +3042,7 @@ parse_args__bootstrap() {
                 ;;
 
             *)
-                log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found positional arg #%d '%s'" "${positional_arg_index}" "$1"
+                call log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap::while;\t found positional arg #%d '%s'" "${positional_arg_index}" "$1"
 
                 case "${positional_arg_index}" in
                     # 0)
@@ -1973,7 +3050,7 @@ parse_args__bootstrap() {
                     # 1)
                     #     ;;
                     *)
-                        log_warning "Extra positional arg (ignored): %s" "$1"
+                        call log_warning "Extra positional arg (ignored): %s" "$1"
                         ;;
                 esac
 
@@ -1990,22 +3067,22 @@ parse_args__bootstrap() {
     #     exec 3>&1
     # fi
 
-    parse_args__common_set_and_export
+    call parse_args__common_set_and_export
 
     export dev_mode
     export dev_mode_unsticky
     export deploy_mode
 
-    log_debug "dev_mode=%s" "${dev_mode}"
-    log_debug "dev_mode_unsticky=%s" "${dev_mode_unsticky}"
-    log_debug "deploy_mode=%s" "${deploy_mode}"
+    call log_debug "dev_mode=%s" "${dev_mode}"
+    call log_debug "dev_mode_unsticky=%s" "${dev_mode_unsticky}"
+    call log_debug "deploy_mode=%s" "${deploy_mode}"
 
     return "${RET_SUCCESS}"
 }
 
 #-------------------------------------------------------------------------------
-parse_args__update() {
-    log_ultradebug "$(get_my_real_basename)::parse_args__update called with '%s'" "$*"
+def; parse_args__update() {
+    call log_ultradebug "$(get_my_real_basename)::parse_args__update called with '%s'" "$*"
 
     # temporarily just assign these to best guesses
     project_dir="$(pwd)"
@@ -2016,7 +3093,7 @@ parse_args__update() {
     positional_arg_index=0
 
     while true; do
-        log_ultradebug "$(get_my_real_basename)::parse_args::while; \$1='%s'; \$*='%s'" "$1" "$*"
+        call log_ultradebug "$(get_my_real_basename)::parse_args::while; \$1='%s'; \$*='%s'" "$1" "$*"
 
         __parse_args_shift_by=0
 
@@ -2026,30 +3103,30 @@ parse_args__update() {
 
         case "$1" in
             --)     # stop processing args
-                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found -- arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found -- arg"
                 shift
                 break
                 ;;
 
             --?*)
-                parse_args__common_doubledash "$@"
+                call parse_args__common_doubledash "$@"
                 shift $?
                 ;;
 
             -?)
-                parse_args__common_singledash "$@"
+                call parse_args__common_singledash "$@"
                 shift $?
                 ;;
 
             -?*)    # positive flags
-                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found positive flags arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found positive flags arg"
                 arg_remain="$1"
 
                 while true; do
                     arg_remain="$(command echo "${arg_remain}" | cut -c 2-)"
                     arg_char="$(command echo "${arg_remain}" | cut -c 1-1)"
 
-                    log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
+                    call log_ultradebug "$(get_my_real_basename)::parse_args::while::while(-); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
 
                     if [ "${arg_char}" = "" ]; then
                         break
@@ -2057,7 +3134,7 @@ parse_args__update() {
 
                     case "${arg_char}" in
                         *)
-                            parse_args__common_singledash_multi "${arg_char}"
+                            call parse_args__common_singledash_multi "${arg_char}"
                             ;;
                     esac
 
@@ -2065,14 +3142,14 @@ parse_args__update() {
                 ;;
 
             +?*)    # negative flags
-                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found negative flags arg"
+                call log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found negative flags arg"
                 arg_remain="$1"
 
                 while true; do
                     arg_remain="$(command echo "${arg_remain}" | cut -c 2-)"
                     arg_char="$(command echo "${arg_remain}" | cut -c 1-1)"
 
-                    log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
+                    call log_ultradebug "$(get_my_real_basename)::parse_args::while::while(+); arg_char='%s' arg_remain='%s'" "${arg_char}" "${arg_remain}"
 
                     if [ "${arg_char}" = "" ]; then
                         break
@@ -2080,7 +3157,7 @@ parse_args__update() {
 
                     case "${arg_char}" in
                         *)
-                            parse_args__common_singleplus_multi "${arg_char}"
+                            call parse_args__common_singleplus_multi "${arg_char}"
                             ;;
                     esac
 
@@ -2088,7 +3165,7 @@ parse_args__update() {
                 ;;
 
             *)
-                log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found positional arg #%d '%s'" "${positional_arg_index}" "$1"
+                call log_ultradebug "$(get_my_real_basename)::parse_args::while;\t found positional arg #%d '%s'" "${positional_arg_index}" "$1"
 
                 case "${positional_arg_index}" in
                     # 0)
@@ -2096,7 +3173,7 @@ parse_args__update() {
                     # 1)
                     #     ;;
                     *)
-                        log_warning "Extra positional arg (ignored): %s" "$1"
+                        call log_warning "Extra positional arg (ignored): %s" "$1"
                         ;;
                 esac
 
@@ -2113,23 +3190,23 @@ parse_args__update() {
     #     exec 3>&1
     # fi
 
-    parse_args__common_set_and_export
+    call parse_args__common_set_and_export
 
     return "${RET_SUCCESS}"
 }
 
 #-------------------------------------------------------------------------------
-check_tools__begin() {
-    log_header "Checking tools"
+def; check_tools__begin() {
+    call log_header "Checking tools"
 }
 
 #-------------------------------------------------------------------------------
-check_tools__end() {
-    log_footer "Tools checked."
+def; check_tools__end() {
+    call log_footer "Tools checked."
 }
 
 #-------------------------------------------------------------------------------
-check_tools__detect_G() {
+def; check_tools__detect_G() {
     # intentionally no local scope because modifying globals
 
     if [ "$(command -v git)" != "" ]; then
@@ -2169,76 +3246,76 @@ check_tools__detect_G() {
 }
 
 #-------------------------------------------------------------------------------
-check_tools__require_extractable_X() {
+def; check_tools__require_extractable_X() {
     if \
         [ "${tar_exists}" = false ] &&
         [ "${unzip_exists}" = false ]
     then
-        log_fatal "no way to extract from compressed file available (no tar, no unzip)"
+        call log_fatal "no way to extract from compressed file available (no tar, no unzip)"
         exit "${RET_ERROR_TOOL_MISSING}"
     fi
 }
 
 #-------------------------------------------------------------------------------
-check_tools__require_clonable_X() {
+def; check_tools__require_clonable_X() {
     if \
         [ "${git_exists}" = false ] &&
         [ "${curl_exists}" = false ] &&
         [ "${wget_exists}" = false ]
     then
-        log_fatal "no way to clone repo available (no git, no curl, no wget)"
+        call log_fatal "no way to clone repo available (no git, no curl, no wget)"
         exit "${RET_ERROR_TOOL_MISSING}"
     fi
 
     if [ "${git_exists}" = false ]; then
-        require_extractable
+        check_tools__require_extractable_X
     fi
 }
 
 #-------------------------------------------------------------------------------
-check_tools__require_downloadable_X() {
+def; check_tools__require_downloadable_X() {
     if \
         [ "${curl_exists}" = false ] &&
         [ "${wget_exists}" = false ]
     then
-        log_fatal "no way to download available (no curl, no wget)"
+        call log_fatal "no way to download available (no curl, no wget)"
         exit "${RET_ERROR_TOOL_MISSING}"
     fi
 }
 
 #-------------------------------------------------------------------------------
-check_tools__require_comparible_X() {
+def; check_tools__require_comparible_X() {
     if \
         [ "${diff_exists}" = false ] &&
         [ "${md5_exists}" = false ]
     then
-        log_fatal "no way to compare files (no diff, no md5)"
+        call log_fatal "no way to compare files (no diff, no md5)"
         exit "${RET_ERROR_TOOL_MISSING}"
     fi
 }
 
 #-------------------------------------------------------------------------------
-download_url_to_path() {
+def; download_url_to_path() {
     (
         URL="$1"
         output="$2"
 
-        check_tools__require_downloadable_X
+        call check_tools__require_downloadable_X
 
         if [ "${curl_exists}" = true ]; then
-            log_info "Using curl to download '${URL}' to '${output}'"
-            teetty_G "2>&1 curl -# -L \"${URL}\" --fail --output \"${output}\""
+            call log_info "Using curl to download '${URL}' to '${output}'"
+            call teetty_G "2>&1 curl -# -L \"${URL}\" --fail --output \"${output}\""
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "failed to download ${URL} (curl)"
+                call log_fatal "failed to download ${URL} (curl)"
                 exit "${RET_ERROR_DOWNLOAD_FAILED}"
             fi
         elif [ "${wget_exists}" = true ]; then
-            log_info "Using wget to download '${URL}' to '${output}'"
-            teetty_G "wget \"${URL}\" -O \"${output}\""
+            call log_info "Using wget to download '${URL}' to '${output}'"
+            call teetty_G "wget \"${URL}\" -O \"${output}\""
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "failed to download ${URL} (wget)"
+                call log_fatal "failed to download ${URL} (wget)"
                 exit "${RET_ERROR_DOWNLOAD_FAILED}"
             fi
         fi
@@ -2250,22 +3327,22 @@ download_url_to_path() {
 }
 
 #-------------------------------------------------------------------------------
-extract_tarball() {
+def; extract_tarball() {
     (
         file=$1
         dest=$2
 
-        log_info "Extracting tarball '%s' to '%s'" "${file}" "${dest}"
+        call log_info "Extracting tarball '%s' to '%s'" "${file}" "${dest}"
 
         _dest=""
         if [ "${dest}" != "" ]; then
             _dest=" -C "
         fi
 
-        teetty_G tar -xzvf "${file}" --strip=1"${_dest}""${dest}"
+        call teetty_G tar -xzvf "${file}" --strip=1"${_dest}""${dest}"
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "failed to extract ${file} compressed file (tar)"
+            call log_fatal "failed to extract ${file} compressed file (tar)"
             exit "${RET_ERROR_EXTRACTION_FAILED}"
         fi
 
@@ -2276,23 +3353,23 @@ extract_tarball() {
 }
 
 #-------------------------------------------------------------------------------
-extract_zipball() {
+def; extract_zipball() {
     (
         file=$1
         dest=$2
 
-        log_info "Extracting zipball '%s' to '%s'" "${file}" "${dest}"
+        call log_info "Extracting zipball '%s' to '%s'" "${file}" "${dest}"
 
-        create_dir "${my_tempdir}/extracted"
+        call create_dir "${my_tempdir}/extracted"
         ret=$?
         if [ $ret -ne 0 ]; then
             exit $ret
         fi
 
-        teetty_G unzip -v -d "${my_tempdir}/extracted" "${file}"
+        call teetty_G unzip -v -d "${my_tempdir}/extracted" "${file}"
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "failed to extract  ${file} compressed file (unzip)"
+            call log_fatal "failed to extract  ${file} compressed file (unzip)"
             exit "${RET_ERROR_EXTRACTION_FAILED}"
         fi
 
@@ -2300,17 +3377,17 @@ extract_zipball() {
             dest=$(pwd)
         fi
 
-        move_file "${my_tempdir}/extracted/*/*" "${dest}"
+        call move_file "${my_tempdir}/extracted/*/*" "${dest}"
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "failed to move extracted files into place from temporary directory"
+            call log_fatal "failed to move extracted files into place from temporary directory"
             exit "${RET_ERROR_MOVE_FAILED}"
         fi
 
-        move_file "${my_tempdir}/extracted/*/.*" "${dest}"
+        call move_file "${my_tempdir}/extracted/*/.*" "${dest}"
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "failed to move extracted files dotfiles into place from temporary directory"
+            call log_fatal "failed to move extracted files dotfiles into place from temporary directory"
             exit "${RET_ERROR_MOVE_FAILED}"
         fi
 
@@ -2321,14 +3398,14 @@ extract_zipball() {
 }
 
 #-------------------------------------------------------------------------------
-download_and_extract() {
+def; download_and_extract() {
     (
         repo_url=$1
         file_basename=$2
         destdir="$3"
 
-        check_tools__require_downloadable_X
-        check_tools__require_extractable_X
+        call check_tools__require_downloadable_X
+        call check_tools__require_extractable_X
 
         URL="${repo_url}"
         filepath="${my_tempdir}/${file_basename}"
@@ -2341,31 +3418,31 @@ download_and_extract() {
             filepath="${filepath}.zip"
         else  # pragma: no branch
             # NOTE: it /shouldn't/ be possible to get here
-            log_fatal "No way to extract from compressed file available (no tar, no unzip)"
+            call log_fatal "No way to extract from compressed file available (no tar, no unzip)"
             exit "${RET_ERROR_TOOL_MISSING}"
         fi
 
-        download_url_to_path "${URL}" "${filepath}"
+        call download_url_to_path "${URL}" "${filepath}"
 
-        create_dir "${destdir}"
+        call create_dir "${destdir}"
         ret=$?
         if [ $ret -ne 0 ]; then
             exit $ret
         fi
 
         if [ "${tar_exists}" = true ]; then
-            extract_tarball "${my_tempdir}/${file_basename}.tar.gz" "${destdir}"
+            call extract_tarball "${my_tempdir}/${file_basename}.tar.gz" "${destdir}"
             if [ $ret -ne 0 ]; then
                 exit $ret
             fi
         elif [ "${unzip_exists}" = true ]; then
-            extract_zipball "${my_tempdir}/${file_basename}.zip" "${destdir}"
+            call extract_zipball "${my_tempdir}/${file_basename}.zip" "${destdir}"
             if [ $ret -ne 0 ]; then
                 exit $ret
             fi
         else  # pragma: no branch
             # NOTE: it /shouldn't/ be possible to get here
-            log_fatal "No way to extract from compressed file available (no tar, no unzip)"
+            call log_fatal "No way to extract from compressed file available (no tar, no unzip)"
             exit "${RET_ERROR_TOOL_MISSING}"
         fi
 
@@ -2376,22 +3453,22 @@ download_and_extract() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_conda() {
+def; ensure_conda() {
     (
-        log_header "Checking For Conda..."
+        call log_header "Checking For Conda..."
 
         if [ ! -f "${CONDA_INSTALL_PATH}/etc/profile.d/conda.sh" ]; then
-            log_footer "Conda Not Found."
+            call log_footer "Conda Not Found."
 
-            log_header "Installing Conda..."
+            call log_header "Installing Conda..."
 
-            ensure_my_tempdir_G
+            call ensure_my_tempdir_G
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
             fi
 
-            ensure_dir "${my_tempdir}/downloads"
+            call ensure_dir "${my_tempdir}/downloads"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
@@ -2401,17 +3478,17 @@ ensure_conda() {
             URL="https://github.com/conda-forge/miniforge/releases/latest/download/${file_to_download}"
             conda_installer="${my_tempdir}/downloads/${file_to_download}"
 
-            download_url_to_path "${URL}" "${conda_installer}"
+            call download_url_to_path "${URL}" "${conda_installer}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
             fi
 
-            teetty_G chmod +x "${my_tempdir}/downloads/${file_to_download}"
+            call teetty_G chmod +x "${my_tempdir}/downloads/${file_to_download}"
 
             dirname_CONDA_INSTALL_PATH="$(dirname "${CONDA_INSTALL_PATH}")"
             if [ ! -d "${dirname_CONDA_INSTALL_PATH}" ]; then
-                log_console "${ANSI_BELL}${ANSI_WARNING} '${dirname_CONDA_INSTALL_PATH}' doesn't exist, we need sudo to create it, either enter your password below OR exit this script (CTRL+C multiple times) and run the following commands and rerun this script.${ANSI_RESET}\nsudo mkdir \"${dirname_CONDA_INSTALL_PATH}\"\nsudo chown \"${REAL_USER}\":\"${DEFAULT_ADMIN_GROUP}\" \"${dirname_CONDA_INSTALL_PATH}\"\nsudo -k"
+                call log_console "${ANSI_BELL}${ANSI_WARNING} '${dirname_CONDA_INSTALL_PATH}' doesn't exist, we need sudo to create it, either enter your password below OR exit this script (CTRL+C multiple times) and run the following commands and rerun this script.${ANSI_RESET}\nsudo mkdir \"${dirname_CONDA_INSTALL_PATH}\"\nsudo chown \"${REAL_USER}\":\"${DEFAULT_ADMIN_GROUP}\" \"${dirname_CONDA_INSTALL_PATH}\"\nsudo -k"
                 (
                     sudo mkdir "${dirname_CONDA_INSTALL_PATH}"
                     sudo chown "${REAL_USER}":"${DEFAULT_ADMIN_GROUP}" "${dirname_CONDA_INSTALL_PATH}"
@@ -2419,19 +3496,19 @@ ensure_conda() {
                 )
             fi
 
-            log_info "Installing Conda with PREFIX='${CONDA_INSTALL_PATH}'"
+            call log_info "Installing Conda with PREFIX='${CONDA_INSTALL_PATH}'"
 
-            teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true \"${conda_installer}\" -b -f -p \"${CONDA_INSTALL_PATH}\""
+            call teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true \"${conda_installer}\" -b -f -p \"${CONDA_INSTALL_PATH}\""
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "Failed to install Conda."
+                call log_fatal "Failed to install Conda."
                 exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
             else
-                log_footer "Conda Install Completed."
+                call log_footer "Conda Install Completed."
                 exit "${RET_SUCCESS}"
             fi
         else
-            log_footer "Conda Found."
+            call log_footer "Conda Found."
             exit "${RET_SUCCESS}"
         fi
     )
@@ -2440,33 +3517,32 @@ ensure_conda() {
 }
 
 #-------------------------------------------------------------------------------
-conda_update_base()
-{
+def; conda_update_base() {
     (
-        log_header "Updating Base Conda Environment..."
+        call log_header "Updating Base Conda Environment..."
 
-        teetty_G conda activate base
+        call teetty_G conda activate base
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "'conda activate base' exited with error code: %d" "$ret"
+            call log_fatal "'conda activate base' exited with error code: %d" "$ret"
             exit "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
         fi
 
-        teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base conda -v -y --prune"
+        call teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base conda -v -y --prune"
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "'conda update -n base' exited with error code: %d" "$ret"
+            call log_fatal "'conda update -n base' exited with error code: %d" "$ret"
             exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
         fi
 
-        teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base --all -v -y --prune"
+        call teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda update -n base --all -v -y --prune"
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "'conda update -n base' exited with error code: %d" "$ret"
+            call log_fatal "'conda update -n base' exited with error code: %d" "$ret"
             exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
         fi
 
-        log_footer "Base Conda Environment Updated."
+        call log_footer "Base Conda Environment Updated."
 
         exit "${RET_SUCCESS}"
     )
@@ -2474,42 +3550,44 @@ conda_update_base()
     return $exit_ret
 }
 
+# TODO: rename conda_setup_env to conda_setup_project_env
+# TODO: create new conda_setup_env that takes name + file
+
 #-------------------------------------------------------------------------------
-conda_setup_env()
-{
+def; conda_setup_env() {
     (
-        log_header "Looking for %s Conda Environment..." "${project_base_name}"
+        call log_header "Looking for %s Conda Environment..." "${project_base_name}"
 
         found_env=$(conda env list | awk -v project_base_name="${project_base_name}" '{if ($1 == project_base_name) print $1}')
 
         if [ "${found_env}" = "" ]; then
-            log_footer "%s Conda Environment not found." "${project_base_name}"
+            call log_footer "%s Conda Environment not found." "${project_base_name}"
         else
-            log_footer "%s Conda Environment found." "${project_base_name}"
+            call log_footer "%s Conda Environment found." "${project_base_name}"
         fi
 
         if [ "${found_env}" = "" ]; then
-            log_header "Installing %s Conda Environment..." "${project_base_name}"
+            call log_header "Installing %s Conda Environment..." "${project_base_name}"
 
-            teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env create --name \"${project_base_name}\" --file ./conda-environment.yml -v"
+            call teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env create --name \"${project_base_name}\" --file ./conda-environment.yml -v"
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "'conda create --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
+                call log_fatal "'conda create --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
                 exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
             fi
 
-            log_footer "%s Conda Environment Installed." "${project_base_name}"
+            call log_footer "%s Conda Environment Installed." "${project_base_name}"
         else
-            log_header "Updating %s Conda Environment..." "${project_base_name}"
+            call log_header "Updating %s Conda Environment..." "${project_base_name}"
 
-            teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env update --name \"${project_base_name}\" --file ./conda-environment.yml --prune -v"
+            call teetty_G "2>&1 CONDA_PATH_CONFLICT=clobber CONDA_ALWAYS_COPY=true conda env update --name \"${project_base_name}\" --file ./conda-environment.yml --prune -v"
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "'conda update --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
+                call log_fatal "'conda update --name \"${project_base_name}\"' exited with error code: %d" "${project_base_name}" "$ret"
                 exit "${RET_ERROR_CONDA_INSTALL_FAILED}"
             fi
 
-            log_footer "%s Conda Environment Updated." "${project_base_name}"
+            call log_footer "%s Conda Environment Updated." "${project_base_name}"
         fi
 
         exit "${RET_SUCCESS}"
@@ -2519,61 +3597,61 @@ conda_setup_env()
 }
 
 #-------------------------------------------------------------------------------
-conda_env_read_sticky_config() {
-    log_header "Loading sticky configuration options..."
+def; conda_env_read_sticky_config() {
+    call log_header "Loading sticky configuration options..."
 
-    log_superdebug "dev_mode_unsticky=${dev_mode_unsticky}"
+    call log_superdebug "dev_mode_unsticky=${dev_mode_unsticky}"
     if [ "${dev_mode_unsticky}" != true ]; then
-        log_superdebug "doing dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\""
+        call log_superdebug "doing dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\""
         dev_mode="${BFI_DEV_MODE:-${dev_mode}}"
     else
-        log_superdebug "SKIPPING dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\""
+        call log_superdebug "SKIPPING dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\""
     fi
     export dev_mode
-    log_debug "dev_mode=%s" "${dev_mode}"
+    call log_debug "dev_mode=%s" "${dev_mode}"
 
-    log_footer "Sticky configuration options loaded."
+    call log_footer "Sticky configuration options loaded."
 }
 
 #-------------------------------------------------------------------------------
-conda_env_write_sticky_config() {
-    log_header "Writing sticky configuration options..."
+def; conda_env_write_sticky_config() {
+    call log_header "Writing sticky configuration options..."
 
-    ensure_dir "${CONDA_PREFIX}"/etc/conda/activate.d
-    ensure_dir "${CONDA_PREFIX}"/etc/conda/deactivate.d
+    call ensure_dir "${CONDA_PREFIX}"/etc/conda/activate.d
+    call ensure_dir "${CONDA_PREFIX}"/etc/conda/deactivate.d
     touch "${CONDA_PREFIX}"/etc/conda/activate.d/env_vars.sh
     touch "${CONDA_PREFIX}"/etc/conda/deactivate.d/env_vars.sh
 
     activate_env_vars_text="\
         BFI_DEV_MODE=\"${dev_mode}\"
     "
-    activate_env_vars_text="$(unident_text "${activate_env_vars_text}")"
+    activate_env_vars_text="$(call unident_text "${activate_env_vars_text}")"
     echo "${activate_env_vars_text}" >"${CONDA_PREFIX}"/etc/conda/activate.d/env_vars.sh
 
     deactivate_env_vars_text="\
         unset BFI_DEV_MODE
     "
-    deactivate_env_vars_text="$(unident_text "${deactivate_env_vars_text}")"
+    deactivate_env_vars_text="$(call unident_text "${deactivate_env_vars_text}")"
     echo "${deactivate_env_vars_text}" >"${CONDA_PREFIX}"/etc/conda/deactivate.d/env_vars.sh
 
-    log_footer "Sticky configuration options written."
+    call log_footer "Sticky configuration options written."
 }
 
 #-------------------------------------------------------------------------------
-poetry_install() {
+def; poetry_install() {
     (
-        log_header "Checking for Poetry Settings..."
+        call log_header "Checking for Poetry Settings..."
 
         poetry_found="$(grep '\[tool.poetry\]' pyproject.toml)"
 
         if [ "${poetry_found}" != "" ]; then
-            log_footer "Poetry Settings Found."
+            call log_footer "Poetry Settings Found."
         else
-            log_footer "Poetry Settings Not Found. Skipping."
+            call log_footer "Poetry Settings Not Found. Skipping."
         fi
 
         if [ "${poetry_found}" != "" ]; then
-            log_header "Running 'poetry install'..."
+            call log_header "Running 'poetry install'..."
 
             poetry_verbosity=""
             if [ "${verbosity}" -ge 2 ]; then
@@ -2595,17 +3673,17 @@ poetry_install() {
 
             poetry_args="${poetry_ansi}${poetry_verbosity}${poetry_no_dev}"
 
-            log_debug "poetry install args: ${poetry_args}"
+            call log_debug "poetry install args: ${poetry_args}"
 
             # shellcheck disable=SC2086  # we actually want the variable to get split
-            teetty_G poetry install --sync ${poetry_args}
+            call teetty_G poetry install --sync ${poetry_args}
             ret=$?
             if [ $ret -ne 0 ]; then
-                log_fatal "'poetry install' exited with error code: %d" "$ret"
+                call log_fatal "'poetry install' exited with error code: %d" "$ret"
                 exit "${RET_ERROR_POETRY_INSTALL_FAILED}"
             fi
 
-            log_header "'poetry install' Completed."
+            call log_header "'poetry install' Completed."
         fi
 
         exit "${RET_SUCCESS}"
@@ -2615,34 +3693,34 @@ poetry_install() {
 }
 
 #-------------------------------------------------------------------------------
-pip_uninstall() {
+def; pip_uninstall() {
     (
-        log_header "Checking for pip-uninstall.txt..."
+        call log_header "Checking for pip-uninstall.txt..."
 
         if [ -f ./pip-uninstall.txt ]; then
-            log_footer "pip-uninstall.txt Found."
+            call log_footer "pip-uninstall.txt Found."
 
-            log_header "Checking pip-uninstall.txt size..."
+            call log_header "Checking pip-uninstall.txt size..."
 
             uninstall_size="$(wc -c <"pip-uninstall.txt")"
             if [ "${uninstall_size}" -ne 0 ]; then
-                log_footer "pip-uninstall.txt Not Empty."
+                call log_footer "pip-uninstall.txt Not Empty."
 
-                log_header "Running 'pip uninstall'..."
+                call log_header "Running 'pip uninstall'..."
 
-                teetty_G pip uninstall --yes --no-input --verbose --requirement pip-uninstall.txt
+                call teetty_G pip uninstall --yes --no-input --verbose --requirement pip-uninstall.txt
                 ret=$?
                 if [ $ret -ne 0 ]; then
-                    log_fatal "'pip uninstall' exited with error code: %d" "$ret"
+                    call log_fatal "'pip uninstall' exited with error code: %d" "$ret"
                     exit "${RET_ERROR_PIP_UNINSTALL_FAILED}"
                 fi
 
-                log_footer "'pip uninstall' Completed."
+                call log_footer "'pip uninstall' Completed."
             else
-                log_footer "pip-uninstall.txt Empty. Skipping pip uninstall."
+                call log_footer "pip-uninstall.txt Empty. Skipping pip uninstall."
             fi
         else
-            log_footer "pip-uninstall.txt Not Found. Skipping pip uninstall."
+            call log_footer "pip-uninstall.txt Not Found. Skipping pip uninstall."
         fi
 
         exit "${RET_SUCCESS}"
@@ -2652,26 +3730,26 @@ pip_uninstall() {
 }
 
 #-------------------------------------------------------------------------------
-pip_install() {
+def; pip_install() {
     (
         pip_requirements_found=false
 
         if [ "${dev_mode}" = true ] || [ "${BFI_DEV_MODE:-false}" = true ]; then
-            log_header "Running in dev mode, checking for pip-requirements-dev.txt..."
+            call log_header "Running in dev mode, checking for pip-requirements-dev.txt..."
             if [ -f ./pip-requirements-dev.txt ]; then
-                log_footer "pip-requirements-dev.txt Found."
+                call log_footer "pip-requirements-dev.txt Found."
                 pip_requirements_found=true
             else
-                log_footer "pip-requirements-dev.txt Not Found."
+                call log_footer "pip-requirements-dev.txt Not Found."
             fi
         fi
 
         if [ "${pip_requirements_found}" = false ]; then
-            log_header "Checking for pip-requirements.txt..."
+            call log_header "Checking for pip-requirements.txt..."
             if [ -f ./pip-requirements-dev.txt ]; then
-                log_footer "pip-requirements.txt Found."
+                call log_footer "pip-requirements.txt Found."
             else
-                log_footer "pip-requirements.txt Not Found. Skipping pip install."
+                call log_footer "pip-requirements.txt Not Found. Skipping pip install."
             fi
         fi
 
@@ -2685,21 +3763,21 @@ pip_install() {
                 } &&
                 [ -f ./pip-requirements-dev.txt ]
             then
-                log_header "Running 'pip install' using 'pip-requirements-dev.txt'..."
-                teetty_G pip install --upgrade --no-input --verbose --requirement pip-requirements-dev.txt
+                call log_header "Running 'pip install' using 'pip-requirements-dev.txt'..."
+                call teetty_G pip install --upgrade --no-input --verbose --requirement pip-requirements-dev.txt
                 ret=$?
             elif [ -f ./pip-requirements.txt ]; then
-                log_header "Running 'pip install' using 'pip-requirements.txt'..."
-                teetty_G pip install --upgrade --no-input --verbose --requirement pip-requirements.txt
+                call log_header "Running 'pip install' using 'pip-requirements.txt'..."
+                call teetty_G pip install --upgrade --no-input --verbose --requirement pip-requirements.txt
                 ret=$?
             fi
 
             if [ $ret -ne 0 ]; then
-                log_fatal "'pip install' exited with error code: %d" "$ret"
+                call log_fatal "'pip install' exited with error code: %d" "$ret"
                 exit "${RET_ERROR_PIP_INSTALL_FAILED}"
             fi
 
-            log_footer "'pip install' Completed."
+            call log_footer "'pip install' Completed."
         fi
 
         exit "${RET_SUCCESS}"
@@ -2709,37 +3787,37 @@ pip_install() {
 }
 
 #-------------------------------------------------------------------------------
-run_post_bootstrap_script() {
-    log_header "Running 'post-bootstrap.sh'"
+def; run_post_bootstrap_script() {
+    call log_header "Running 'post-bootstrap.sh'"
 
     # be sure to run in post-setup in it's own subshell
     # (the default script also does this itself, but we can't trust that
     #   to still exist after user edits)
     (
-        ensure_include_GXY "${project_dir}"/post-bootstrap.sh
-        post_bootstrap
+        call ensure_include_GXY "${project_dir}"/post-bootstrap.sh
+        call post_bootstrap
         ret=$?
         exit $ret
     )
     ret=$?
 
     if [ $ret -ne 0 ]; then
-        log_fatal "'post-bootstrap.sh' exited with error code: %d" "$ret"
+        call log_fatal "'post-bootstrap.sh' exited with error code: %d" "$ret"
     else
-        log_footer "'post-bootstrap.sh' Completed."
+        call log_footer "'post-bootstrap.sh' Completed."
     fi
 
     return $ret
 }
 
 #-------------------------------------------------------------------------------
-ensure_batteries_forking_included() {
+def; ensure_batteries_forking_included() {
     (
-        log_header "Ensuring batteries-forking-included exists..."
+        call log_header "Ensuring batteries-forking-included exists..."
 
-        check_tools__require_downloadable_X
+        call check_tools__require_downloadable_X
 
-        log_superdebug "bfi_dir=${bfi_dir}"
+        call log_superdebug "bfi_dir=${bfi_dir}"
 
         if \
             [ ! -d "${bfi_dir}" ] ||
@@ -2747,26 +3825,26 @@ ensure_batteries_forking_included() {
             [ ! -f "${bfi_dir}/src/batteries_forking_included/template/bfi-update.sh" ]
         then
             # batteries-forking-included missing, let's download it
-            ensure_cd "${bfi_dir}/.."
+            call ensure_cd "${bfi_dir}/.."
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
             fi
 
             if [ "${git_exists}" = true ]; then
-                teetty_G git clone "https://github.com/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}.git"
+                call teetty_G git clone "https://github.com/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}.git"
                 ret=$?
                 if [ $ret -ne 0 ]; then
-                    log_fatal "failed to clone https://github.com/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}.git"
+                    call log_fatal "failed to clone https://github.com/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}.git"
                     exit "${RET_ERROR_GIT_CLONE_FAILED}"
                 fi
 
-                log_footer "batteries-forking-included cloned."
+                call log_footer "batteries-forking-included cloned."
             elif \
                 [ "${curl_exists}" = true ] ||
                 [ "${wget_exists}" = true ]
             then
-                download_and_extract "https://api.github.com/repos/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}" "${BFI_GITHUB_REPO_NAME}" "${bfi_dir}"
+                call download_and_extract "https://api.github.com/repos/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}" "${BFI_GITHUB_REPO_NAME}" "${bfi_dir}"
                 ret=$?
                 if [ $ret -ne 0 ]; then
                     exit $ret
@@ -2775,14 +3853,14 @@ ensure_batteries_forking_included() {
                 # create download timestamp
                 touch "${bfi_dir}"/LAST_DOWNLOADED
 
-                log_footer "batteries-forking-included downloaded."
+                call log_footer "batteries-forking-included downloaded."
             else # pragma: no branch
                 # NOTE: it /shouldn't/ be possible to get here
-                log_fatal "no way to download available (no git, no curl, no wget)"
+                call log_fatal "no way to download available (no git, no curl, no wget)"
                 exit "${RET_ERROR_TOOL_MISSING}"
             fi
         else
-            log_footer "batteries-forking-included exists."
+            call log_footer "batteries-forking-included exists."
         fi
 
         exit "${RET_SUCCESS}"
@@ -2792,14 +3870,14 @@ ensure_batteries_forking_included() {
 }
 
 #-------------------------------------------------------------------------------
-update_batteries_forking_included_repo() {
+def; update_batteries_forking_included_repo() {
     (
-        log_header "Updating batteries-forking-included"
+        call log_header "Updating batteries-forking-included"
 
-        check_tools__require_downloadable_X
+        call check_tools__require_downloadable_X
 
         if [ "${git_exists}" = true ]; then
-            ensure_cd "${bfi_dir}"
+            call ensure_cd "${bfi_dir}"
             ret=$?
             if [ $ret -ne 0 ]; then
                 exit $ret
@@ -2807,7 +3885,7 @@ update_batteries_forking_included_repo() {
 
             current_branch="$(git rev-parse --abbrev-ref HEAD)"
             if [ "${current_branch}" != "main" ]; then
-                log_warning "batteries-forking-included's current branch is not main"
+                call log_warning "batteries-forking-included's current branch is not main"
                 # this is fine, so just bail early
                 exit "${RET_SUCCESS}"
             fi
@@ -2819,23 +3897,23 @@ update_batteries_forking_included_repo() {
                 [ "${ahead_by}" -eq 0 ]
             then
                 # not dirty
-                teetty_G git fetch
+                call teetty_G git fetch
                 ret=$?
                 if [ $ret -ne 0 ]; then
-                    log_fatal "git fetch failed"
+                    call log_fatal "git fetch failed"
                     exit "${RET_ERROR_GIT_FETCH_FAILED}"
                 fi
 
-                teetty_G git reset --hard origin/main
+                call teetty_G git reset --hard origin/main
                 ret=$?
                 if [ $ret -ne 0 ]; then
-                    log_fatal "git reset failed"
+                    call log_fatal "git reset failed"
                     exit "${RET_ERROR_GIT_RESET_FAILED}"
                 fi
 
-                log_footer "batteries-forking-included updated."
+                call log_footer "batteries-forking-included updated."
             else
-                log_warning "batteries-forking-included has local changes, did not update from the upstream"
+                call log_warning "batteries-forking-included has local changes, did not update from the upstream"
                 # this is fine, so just bail early
                 exit "${RET_SUCCESS}"
             fi
@@ -2849,27 +3927,27 @@ update_batteries_forking_included_repo() {
             is_dirty="$(ls -lt | head -2 | tail -1 | grep -v "LAST_DOWNLOADED")"
 
             if [ "${is_dirty}" = "" ]; then
-                safe_rm "${bfi_dir}"
+                call safe_rm "${bfi_dir}"
                 ret=$?
-                if [ "$(return_code_is_error $ret)" = true ]; then
+                if [ "$(call return_code_is_error $ret)" = true ]; then
                     exit $ret
                 fi
 
-                download_and_extract "https://api.github.com/repos/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}" "${BFI_GITHUB_REPO_NAME}" "${bfi_dir}"
+                call download_and_extract "https://api.github.com/repos/${BFI_GITHUB_REPO_USER}/${BFI_GITHUB_REPO_NAME}" "${BFI_GITHUB_REPO_NAME}" "${bfi_dir}"
                 ret=$?
-                if [ "$(return_code_is_error $ret)" = true ]; then
+                if [ "$(call return_code_is_error $ret)" = true ]; then
                     exit $ret
                 fi
 
-                log_footer "batteries-forking-included updated."
+                call log_footer "batteries-forking-included updated."
             else
-                log_warning "batteries-forking-included has local changes, did not update from the upstream"
+                call log_warning "batteries-forking-included has local changes, did not update from the upstream"
                 # this is fine, so just bail early
                 exit "${RET_SUCCESS}"
             fi
         else # pragma: no branch
             # NOTE: it /shouldn't/ be possible to get here
-            log_fatal "no way to download available (no git, no curl, no wget)"
+            call log_fatal "no way to download available (no git, no curl, no wget)"
             exit "${RET_ERROR_TOOL_MISSING}"
         fi
 
@@ -2880,26 +3958,26 @@ update_batteries_forking_included_repo() {
 }
 
 #-------------------------------------------------------------------------------
-copy_temporary_template_files() {
+def; copy_temporary_template_files() {
     (
-        log_header "Creating a copy of template files"
+        call log_header "Creating a copy of template files"
 
-        create_dir "${my_tempdir}/template"
+        call create_dir "${my_tempdir}/template"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        log_debug "Copying files"
+        call log_debug "Copying files"
 
-        copy_dir "${bfi_dir}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
+        call copy_dir "${bfi_dir}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
-            log_fatal "failed to copy files from '%s' to '%s'" "${bfi_dir}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
+        if [ "$(call return_code_is_error $ret)" = true ]; then
+            call log_fatal "failed to copy files from '%s' to '%s'" "${bfi_dir}/src/batteries_forking_included/template/" "${my_tempdir}/template/"
             exit "${RET_ERROR_COPY_FAILED}"
         fi
 
-        log_footer "Copy of template files created."
+        call log_footer "Copy of template files created."
 
         exit "${RET_SUCCESS}"
     )
@@ -2908,7 +3986,7 @@ copy_temporary_template_files() {
 }
 
 #-------------------------------------------------------------------------------
-is_file_same() {
+def; is_file_same() {
     # exit code 0 == same
     # exit code 1 == different
     # exit code 2 == there was an error
@@ -2916,9 +3994,9 @@ is_file_same() {
         left_file="$1"
         right_file="$2"
 
-        log_debug "Comparing '%s' and '%s'" "${left_file}" "${right_file}"
+        call log_debug "Comparing '%s' and '%s'" "${left_file}" "${right_file}"
 
-        check_tools__require_comparible_X
+        call check_tools__require_comparible_X
 
         if [ "${diff_exists}" = true ]; then
             diff "${left_file}" "${right_file}" >/dev/null
@@ -2947,7 +4025,7 @@ is_file_same() {
             fi
         else  # pragma: no branch
             # NOTE: it /shouldn't/ be possible to get here
-            log_fatal "no way to comapre files (no diff, no md5)"
+            call log_fatal "no way to comapre files (no diff, no md5)"
             exit "${RET_ERROR_TOOL_MISSING}"
         fi
 
@@ -2958,13 +4036,13 @@ is_file_same() {
 }
 
 #-------------------------------------------------------------------------------
-check_and_update_file() {
+def; check_and_update_file() {
     (
         filename="$1"
         make_backup="$2"
 
         if [ ! -f "${my_tempdir}/template/${filename}" ]; then
-            log_warning "Expected a file, but found a directory: %s" "${my_tempdir}/template/${filename}"
+            call log_warning "Expected a file, but found a directory: %s" "${my_tempdir}/template/${filename}"
             exit "${RET_WARNING_NOT_A_FILE}"
         fi
 
@@ -2972,56 +4050,65 @@ check_and_update_file() {
 
         if [ ! -f "${project_dir}/${filename}" ]; then
             needs_copy=true
-            log_info "${filename} missing from project. Will be copied."
+            call log_info "${filename} missing from project. Will be copied."
         fi
 
         if [ "${needs_copy}" = false ]; then
-            is_file_same "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
+            call is_file_same "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
             ret=$?
             if [ $ret -gt 2 ]; then
                 exit "${RET_ERROR_FILE_COULD_NOT_BE_ACCESSED}"
             elif [ $ret -eq 1 ]; then
                 needs_copy=true
-                log_info "${filename} needs to be updated."
+                call log_info "${filename} needs to be updated."
             else
-                log_success "${filename} did not change. Already up to date."
+                call log_success "${filename} did not change. Already up to date."
             fi
         fi
 
         if [ "${needs_copy}" = true ]; then
-            log_info "Copying latest ${filename}..."
+            call log_info "Copying latest ${filename}..."
 
             if [ "${make_backup}" = true ]; then
                 if [ -f "${project_dir}/${filename}" ]; then
-                    backup_filepath="${project_dir}/${filename}.$(get_datetime_stamp_filename_formatted).old"
-                    log_info "Creating backup at ${backup_filepath}"
-                    copy_file "${project_dir}/${filename}" "${backup_filepath}"
+                    backup_filepath="${project_dir}/${filename}.$(call get_datetime_stamp_filename_formatted).old"
+                    call log_info "Creating backup at ${backup_filepath}"
+                    call copy_file "${project_dir}/${filename}" "${backup_filepath}"
                     ret=$?
-                    if [ "$(return_code_is_error $ret)" = true ]; then
+                    if [ "$(call return_code_is_error $ret)" = true ]; then
                         exit $ret
                     fi
                 fi
             fi
 
-            safe_rm "${project_dir}/${filename}"
+            call safe_rm "${project_dir}/${filename}"
             ret=$?
-            if [ "$(return_code_is_error $ret)" = true ]; then
+            if [ "$(call return_code_is_error $ret)" = true ]; then
                 exit $ret
             fi
 
-            move_file "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
-            if [ "$(return_code_is_error $ret)" = true ]; then
-                log_fatal "failed to move '%s' to '%s'" "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
+            call move_file "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
+            if [ "$(call return_code_is_error $ret)" = true ]; then
+                call log_fatal "failed to move '%s' to '%s'" "${my_tempdir}/template/${filename}" "${project_dir}/${filename}"
                 exit "${RET_ERROR_MOVE_FAILED}"
             fi
 
-            safe_rm "${my_tempdir}/template/${filename}"
+            call safe_rm "${my_tempdir}/template/${filename}"
 
-            log_success "${filename} updated successfully."
+            call log_success "${filename} updated successfully."
 
-            exit "${RET_SUCCESS_SPECIAL}"
+            printf "ASDF: %s\n" "$(nullcall array_get_last SHELL_SOURCE)"
+            printf "ASDF: %s\n" "${project_dir}/${filename}"
+            printf "ASDF: %s\n" "$(dirname "$(nullcall array_get_last SHELL_SOURCE)")"
+            printf "ASDF: %s\n" "$([ "$(dirname "$(nullcall array_get_last SHELL_SOURCE)")" = "${project_dir}" ])"
+
+            if [ "$(dirname "$(call array_get_last SHELL_SOURCE)")" = "${project_dir}" ]; then
+                exit "${RET_SUCCESS_SPECIAL}"
+            else
+                exit "${RET_SUCCESS}"
+            fi
         else
-            safe_rm "${my_tempdir}/template/${filename}"
+            call safe_rm "${my_tempdir}/template/${filename}"
 
             exit "${RET_SUCCESS}"
         fi
@@ -3031,48 +4118,48 @@ check_and_update_file() {
 }
 
 #-------------------------------------------------------------------------------
-rerun_update_X() {
-    log_info_important "Need to re-run bfi-update.sh"
-    log_info_important "re-running command as '%s %s'" "$(get_my_real_dir_fullpath)/bfi-update.sh" "$* --no-report"
+def; rerun_update_X() {
+    call log_info_important "Need to re-run bfi-update.sh"
+    call log_info_important "re-running command as '%s %s'" "$(get_my_real_dir_fullpath)/bfi-update.sh" "$* --no-report"
 
     # call ourselves again
-    invoke "$(get_my_real_dir_fullpath)/bfi-update.sh" "$@" --no-report
+    call invoke "$(get_my_real_dir_fullpath)/bfi-update.sh" "$@" --no-report
     ret=$?
     exit $ret
 }
 
 #-------------------------------------------------------------------------------
-compare_and_update_files() {
+def; compare_and_update_files() {
     (
-        log_header "Comparing template files to current project's files..."
+        call log_header "Comparing template files to current project's files..."
 
-        check_tools__require_comparible_X
+        call check_tools__require_comparible_X
 
         # special handling for bfi-update.sh b/c we might need to rerun
-        check_and_update_file "bfi-update.sh" "false"
+        call check_and_update_file "bfi-update.sh" "false"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         elif [ $ret -eq "${RET_SUCCESS_SPECIAL}" ]; then
-            rerun_update_X "$@"
+            call rerun_update_X "$@"
         fi
 
         # special handling for bfi-base.sh b/c we might need to rerun
-        check_and_update_file "bfi-base.sh" "false"
+        call check_and_update_file "bfi-base.sh" "false"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         elif [ $ret -eq "${RET_SUCCESS_SPECIAL}" ]; then
-            rerun_update_X "$@"
+            call rerun_update_X "$@"
         fi
 
         # special handling for bfi-update.sh b/c we might need to rerun
-        check_and_update_file "batteries-forking-included.sh" "false"
+        call check_and_update_file "batteries-forking-included.sh" "false"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         elif [ $ret -eq "${RET_SUCCESS_SPECIAL}" ]; then
-            rerun_update_X "$@"
+            call rerun_update_X "$@"
         fi
 
         # special handling for post-boostrap.sh b/c users edit that file
@@ -3080,7 +4167,7 @@ compare_and_update_files() {
         # split first part of template post-bootstrap.sh (BFI FIRST PART)
         awk '{print; if (match($0,"    \# WARNING: DO NOT EDIT ABOVE THIS LINE")) exit}' "${my_tempdir}"/template/post-bootstrap.sh >"${my_tempdir}"/template/post-bootstrap.sh-part1
         if [ $ret -ne 0 ]; then
-            log_fatal "Could not create %s" "${my_tempdir}"/template/post-bootstrap.sh-part1
+            call log_fatal "Could not create %s" "${my_tempdir}"/template/post-bootstrap.sh-part1
             exit "${RET_ERROR_FILE_COULD_NOT_BE_ACCESSED}"
         fi
         # split middle part of project post-bootstrap.sh (USER PART)
@@ -3090,19 +4177,19 @@ compare_and_update_files() {
         fi
         awk -v do_print=0 '{if (match($0,"    \# WARNING: DO NOT EDIT BELOW THIS LINE")) do_print=0; if (do_print==1) print; if (match($0,"    # WARNING: DO NOT EDIT ABOVE THIS LINE")) do_print=1}' "${middle_file}" >"${my_tempdir}"/template/post-bootstrap.sh-part2
         if [ $ret -ne 0 ]; then
-            log_fatal "Could not create %s" "${my_tempdir}"template/post-bootstrap.sh-part2
+            call log_fatal "Could not create %s" "${my_tempdir}"template/post-bootstrap.sh-part2
             exit "${RET_ERROR_FILE_COULD_NOT_BE_ACCESSED}"
         fi
         # split last part of template post-bootstrap.sh (BFI LAST PART)
         awk -v found=0 '{if (match($0,"    \# WARNING: DO NOT EDIT BELOW THIS LINE")) found=1; if (found==1) print}' "${my_tempdir}"/template/post-bootstrap.sh >"${my_tempdir}"/template/post-bootstrap.sh-part3
         if [ $ret -ne 0 ]; then
-            log_fatal "Could not create %s" "${my_tempdir}"/template/post-bootstrap.sh-part3
+            call log_fatal "Could not create %s" "${my_tempdir}"/template/post-bootstrap.sh-part3
             exit "${RET_ERROR_FILE_COULD_NOT_BE_ACCESSED}"
         fi
         # delete original template post-boostrap.sh
-        safe_rm "${my_tempdir}"/template/post-bootstrap.sh
+        call safe_rm "${my_tempdir}"/template/post-bootstrap.sh
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
@@ -3113,55 +4200,55 @@ compare_and_update_files() {
             >"${my_tempdir}"/template/post-bootstrap.sh
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "Could not create %s" "${my_tempdir}"/template/post-bootstrap.sh
+            call log_fatal "Could not create %s" "${my_tempdir}"/template/post-bootstrap.sh
             exit "${RET_ERROR_FILE_COULD_NOT_BE_ACCESSED}"
         fi
         chmod +x "${my_tempdir}"/template/post-bootstrap.sh
         if [ $ret -ne 0 ]; then
-            log_fatal "Could not chmod +x %s" "${my_tempdir}/template/post-bootstrap.sh"
+            call log_fatal "Could not chmod +x %s" "${my_tempdir}/template/post-bootstrap.sh"
             exit "${RET_ERROR_COULD_NOT_CHMOD}"
         fi
 
         # delete the three parts
-        safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part1
+        call safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part1
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
-        safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part2
+        call safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part2
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
-        safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part3
+        call safe_rm "${my_tempdir}"/template/post-bootstrap.sh-part3
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        check_and_update_file "post-bootstrap.sh" "true"
+        call check_and_update_file "post-bootstrap.sh" "true"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
         # switch to the template dir so we can loop over all the remaining files
-        ensure_cd "${my_tempdir}/template"
+        call ensure_cd "${my_tempdir}/template"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
         # process remaining files
         for filename in *; do
-            check_and_update_file "${filename}" "false"
+            call check_and_update_file "${filename}" "false"
             ret=$?
-            if [ "$(return_code_is_error $ret)" = true ]; then
+            if [ "$(call return_code_is_error $ret)" = true ]; then
                 exit $ret
             fi
         done
 
-        log_footer "Comparison of template files to current project's files completed."
+        call log_footer "Comparison of template files to current project's files completed."
 
         exit "${RET_SUCCESS}"
     )
@@ -3170,18 +4257,18 @@ compare_and_update_files() {
 }
 
 #-------------------------------------------------------------------------------
-batteries_forking_included__bootstrap() {
-    log_ultradebug "batteries_forking_included__bootstrap called with '%s'" "$*"
+def; batteries_forking_included__bootstrap() {
+    call log_ultradebug "batteries_forking_included__bootstrap called with '%s'" "$*"
 
-    ensure_my_tempdir_G
+    call ensure_my_tempdir_G
     ret=$?
-    if [ "$(return_code_is_error $ret)" = true ]; then
+    if [ "$(call return_code_is_error $ret)" = true ]; then
         exit $ret
     fi
 
-    parse_args__bootstrap "$@"
+    call parse_args__bootstrap "$@"
     ret=$?
-    if [ "$(return_code_is_error $ret)" = true ]; then
+    if [ "$(call return_code_is_error $ret)" = true ]; then
         return $ret
     fi
 
@@ -3189,125 +4276,125 @@ batteries_forking_included__bootstrap() {
     # return 0
 
     (
-        require_not_root_user_XY
+        call require_not_root_user_XY
 
-        check_tools__begin
-        check_tools__detect_G
-        check_tools__end
+        call check_tools__begin
+        call check_tools__detect_G
+        call check_tools__end
 
-        ensure_cd "${project_dir}"
+        call ensure_cd "${project_dir}"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        ensure_conda
+        call ensure_conda
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        conda_init_G
+        call conda_init_G
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        conda_full_deactivate_G
+        call conda_full_deactivate_G
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        conda_update_base
+        call conda_update_base
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
         # poetry show | awk '{if ($1 !~ /six|packaging|pyparsing/ ) {print "pypi::" $1}}' >"$CONDA_PREFIX"/conda-meta/pinned
 
-        conda_setup_env
+        call conda_setup_env
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        conda_activate_env_G "${project_base_name}"
+        call conda_activate_env_G "${project_base_name}"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        conda_env_read_sticky_config
+        call conda_env_read_sticky_config
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        conda_env_write_sticky_config
+        call conda_env_write_sticky_config
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        conda_full_deactivate_G
+        call conda_full_deactivate_G
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        conda_activate_env_G "${project_base_name}"
+        call conda_activate_env_G "${project_base_name}"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        poetry_install
+        call poetry_install
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        pip_uninstall
+        call pip_uninstall
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        pip_install
+        call pip_install
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        run_post_bootstrap_script
+        call run_post_bootstrap_script
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
         exit "${RET_SUCCESS}"
     )
     exit_ret=$?
-    report_all $exit_ret "${print_report}" "$(get_my_real_basename)"
+    call report_all $exit_ret "${print_report}" "$(get_my_real_basename)"
     ret=$?
     return $ret
 }
 
 #-------------------------------------------------------------------------------
-batteries_forking_included__update() {
-    log_ultradebug "batteries_forking_included__update called with '%s'" "$*"
+def; batteries_forking_included__update() {
+    call log_ultradebug "batteries_forking_included__update called with '%s'" "$*"
 
-    ensure_my_tempdir_G
+    call ensure_my_tempdir_G
     ret=$?
-    if [ "$(return_code_is_error $ret)" = true ]; then
+    if [ "$(call return_code_is_error $ret)" = true ]; then
         exit $ret
     fi
 
-    parse_args__update "$@"
+    call parse_args__update "$@"
     ret=$?
-    if [ "$(return_code_is_error $ret)" = true ]; then
+    if [ "$(call return_code_is_error $ret)" = true ]; then
         return $ret
     fi
 
@@ -3315,40 +4402,40 @@ batteries_forking_included__update() {
     # return 0
 
     (
-        require_not_root_user_XY
+        call require_not_root_user_XY
 
-        check_tools__begin
-        check_tools__detect_G
-        check_tools__end
+        call check_tools__begin
+        call check_tools__detect_G
+        call check_tools__end
 
-        ensure_batteries_forking_included
+        call ensure_batteries_forking_included
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        update_batteries_forking_included_repo
+        call update_batteries_forking_included_repo
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        copy_temporary_template_files
+        call copy_temporary_template_files
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
-        compare_and_update_files "$@"
+        call compare_and_update_files "$@"
         ret=$?
-        if [ "$(return_code_is_error $ret)" = true ]; then
+        if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         fi
 
         exit "${RET_SUCCESS}"
     )
     exit_ret=$?
-    report_all $exit_ret "${print_report}" "$(get_my_real_basename)"
+    call report_all $exit_ret "${print_report}" "$(get_my_real_basename)"
     ret=$?
     return $ret
 }
@@ -3375,11 +4462,11 @@ batteries_forking_included__update() {
     #region Private Globals
 
     if [ "${OMEGA_DEBUG}" = "all" ]; then
-        log_ultradebug "%s: OMEGA_DEBUG was already 'all', ignoring value of SET_OMEGA_DEBUG ('%s')" "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
+        call log_ultradebug "%s: OMEGA_DEBUG was already 'all', ignoring value of SET_OMEGA_DEBUG ('%s')" "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
     else
         OMEGA_DEBUG="${SET_OMEGA_DEBUG}"
         export OMEGA_DEBUG
-        log_ultradebug "%s: SET_OMEGA_DEBUG was '%s', setting OMEGA_DEBUG to same and exporting it." "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
+        call log_ultradebug "%s: SET_OMEGA_DEBUG was '%s', setting OMEGA_DEBUG to same and exporting it." "$(get_my_real_basename)" "${SET_OMEGA_DEBUG}"
     fi
 
     #endregion "Globals"
@@ -3389,8 +4476,8 @@ batteries_forking_included__update() {
     #region Private Functions
 
     #---------------------------------------------------------------------------
-    __main() {
-        log_fatal "$(get_my_real_basename) must be sourced"
+    def; __main() {
+        call log_fatal "$(get_my_real_basename) must be sourced"
         return "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"
     }
 
@@ -3412,23 +4499,23 @@ batteries_forking_included__update() {
         type inject_monkeypatch >/dev/null 2>&1
         monkeypatch_ret=$?
         if [ $monkeypatch_ret -eq 0 ]; then
-            inject_monkeypatch
+            call inject_monkeypatch
         fi
     fi
 
     if {
-        [ "$(array_get_last WAS_SOURCED)" = false ] ||
+        [ "$(call array_get_last WAS_SOURCED)" = false ] ||
         {
             [ "${_CALL_MAIN_ANYWAY}" = true ] &&
             # only if we are directly sourced from the shell,
             # or we were directly sourced by a PytestShellScriptTestHarness script
-            [ "$(array_get_length WAS_SOURCED)" -le 2 ]
+            [ "$(call array_get_length WAS_SOURCED)" -le 2 ]
         }
     } then
-        __main "$@"
+        call __main "$@"
         ret=$?
     else
-        __sourced_main "$@"
+        call __sourced_main "$@"
         ret=$?
     fi
     exit $ret
@@ -3439,7 +4526,7 @@ batteries_forking_included__update() {
 ret=$?
 
 ################################################################################
-#region Postamble
+#region marximus-shell-extensions Postamble
 
 #===============================================================================
 #region PytestShellScriptTestHarness Postamble
@@ -3448,7 +4535,7 @@ if [ "${_IS_UNDER_TEST}" = "true" ]; then
     type inject_monkeypatch >/dev/null 2>&1
     monkeypatch_ret=$?
     if [ $monkeypatch_ret -eq 0 ]; then
-        inject_monkeypatch
+        call inject_monkeypatch
     fi
 fi
 
@@ -3456,24 +4543,42 @@ fi
 #===============================================================================
 
 #===============================================================================
-#region Track Sourcing
+#region Announce Ourself Ending
 
-if [ "$(array_get_last WAS_SOURCED)" = true ]; then
-    log_debug "Source Completed: $(get_my_real_fullpath) ($$)"
-else
-    log_debug "Invoke Completed: $(get_my_real_basename) ($$)"
+__announce_prefix="Source"
+if [ "$(nullcall array_get_last WAS_SOURCED)" = false ]; then
+    __announce_prefix="Invoke"
 fi
+nullcall log_debug "${__announce_prefix} Completed: $(nullcall get_my_real_fullpath) ($$) [$(nullcall get_my_puuid_basename || echo "$0")]"
+unset __announce_prefix
 
-#endregion Track Sourcing
+#endregion Announce Ourselves Ending
 #===============================================================================
 
+#===============================================================================
+#region Exit Or Return
+
 # NOTE: we have to return here if we were sourced otherwise we kill the shell
-_THIS_FILE_WAS_SOURCED="$(array_get_last WAS_SOURCED)"
-if [ "$(array_get_length WAS_SOURCED)" -eq 1 ]; then
-    array_remove_last WAS_SOURCED
-    array_remove_last SHELL_SOURCE
+_THIS_FILE_WAS_SOURCED="$(call array_get_last WAS_SOURCED)"
+# If we were the top level include we need to remove ourselves and clean up,
+# otherwise, the invoker/includer will do so via the include_G/invoke functions
+if {
+    [ "$(call array_get_length WAS_SOURCED)" -eq 1 ] &&
+    [ "${_THIS_FILE_WAS_SOURCED}" = true ]
+}; then
+    call array_remove_last WAS_SOURCED
     export WAS_SOURCED
+    call array_remove_last SHELL_SOURCE
     export SHELL_SOURCE
+    call array_remove_last SHELL_SOURCE_PUUID
+    export SHELL_SOURCE_PUUID
+    if [ "$ZSH_VERSION" != "" ]; then
+        # shellcheck disable=3041
+        set +yx "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}"
+    else
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}"
+    fi
+    unset __MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD
 fi
 if [ "${_THIS_FILE_WAS_SOURCED}" = false ]; then
     exit $ret
@@ -3481,5 +4586,8 @@ else
     return $ret
 fi
 
-#endregion Postamble
+#endregion Exit Or Return
+#===============================================================================
+
+#endregion marximus-shell-extensions Postamble
 ################################################################################

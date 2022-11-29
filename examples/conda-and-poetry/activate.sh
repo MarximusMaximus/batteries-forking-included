@@ -24,7 +24,7 @@ if [ $ret -ne 0 ]; then
     #   if constant.sh loads, it will override these
 
     #-------------------------------------------------------------------------------
-    log_debug() {
+    def; log_debug() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -37,7 +37,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_ultradebug() {
+    def; log_ultradebug() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -57,7 +57,7 @@ fi
 #region RReadLink
 
 #-------------------------------------------------------------------------------
-rreadlink() {
+def; rreadlink() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -146,7 +146,7 @@ rreadlink() {
 
 # # get item by index:
 # NOTE: no $ sign on my_array_name
-# array_get_index my_array_name $index
+# array_get_at_index my_array_name $index
 
 # # get last item:
 # NOTE: no $ sign on my_array_name
@@ -174,13 +174,13 @@ _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
 _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
 #-------------------------------------------------------------------------------
-_array_escape() {
+def; _array_escape() {
     #                                        x1234x                                  x12x1234567890123456x
     command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
 }
 
 #-------------------------------------------------------------------------------
-_array_unescape() {
+def; _array_unescape() {
     # NOTE: This doesn't look like the inverse of what _array_escape does, but
     #   it works correctly, so don't try to "fix" it
     #                                           x1234x12x           x12345678x
@@ -188,7 +188,7 @@ _array_unescape() {
 }
 
 #-------------------------------------------------------------------------------
-_array_fix_index() {
+def; _array_fix_index() {
     __ARRAY__ARRAY_FIX_INDEX__LENGTH="$(array_get_length "$1")"
 
     __ARRAY__ARRAY_FIX_INDEX__INDEX="$2"
@@ -202,12 +202,12 @@ _array_fix_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_init() {
+def; array_init() {
     eval "$1=\"\""
 }
 
 #-------------------------------------------------------------------------------
-array_append() {
+def; array_append() {
     __ARRAY__ARRAY_APPEND__TEMP_VALUE=$(_array_escape "$2")
     __ARRAY__ARRAY_APPEND__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
     if [ "${__ARRAY__ARRAY_APPEND__TEMP_STORAGE}" = "" ]; then
@@ -219,27 +219,27 @@ array_append() {
 }
 
 #-------------------------------------------------------------------------------
-array_append_back() {
+def; array_append_back() {
     array_append "$1" "$2"
 }
 
 #-------------------------------------------------------------------------------
-array_append_front() {
+def; array_append_front() {
     array_insert_index "$1" 0 "$2"
 }
 
 #-------------------------------------------------------------------------------
-array_get_first() {
-    array_get_index "$1" 0
+def; array_get_first() {
+    array_get_at_index "$1" 0
 }
 
 #-------------------------------------------------------------------------------
-array_get_last() {
-    array_get_index "$1" -1
+def; array_get_last() {
+    array_get_at_index "$1" -1
 }
 
 #-------------------------------------------------------------------------------
-array_copy() {
+def; array_copy() {
     __ARRAY__ARRAY_COPY__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
 
     array_init "$2"
@@ -254,17 +254,17 @@ array_copy() {
 }
 
 #-------------------------------------------------------------------------------
-array_remove_first() {
+def; array_remove_first() {
     array_remove_index "$1" 0
 }
 
 #-------------------------------------------------------------------------------
-array_remove_last() {
+def; array_remove_last() {
     array_remove_index "$1" -1
 }
 
 #-------------------------------------------------------------------------------
-array_insert_index() {
+def; array_insert_index() {
     array_copy "$1" __ARRAY__ARRAY_INSERT_INDEX__TEMP_ARRAY
 
     __ARRAY__ARRAY_INSERT_INDEX__LAST_INDEX="$(array_get_length "$1")"
@@ -301,7 +301,7 @@ array_insert_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_remove_index() {
+def; array_remove_index() {
     array_copy "$1" __ARRAY__ARRAY_REMOVE_INDEX__TEMP_ARRAY
 
     __ARRAY__ARRAY_REMOVE_INDEX__INDEX="$2"
@@ -324,7 +324,7 @@ array_remove_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_get_length() {
+def; array_get_length() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
     __ARRAY__ARRAY_GET_LENGTH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
@@ -337,7 +337,7 @@ array_get_length() {
 }
 
 #-------------------------------------------------------------------------------
-array_get_index() {
+def; array_get_at_index() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
 
@@ -366,14 +366,14 @@ array_get_index() {
 }
 
 # # using array_for_each:
-# my_func() {
+# def; my_func() {
 #     echo "${item}"
 # }
 # array_for_each the_array_name my_func
 ## NOTE: no $ on 'the_array_name' nor 'my_func'
 
 #-------------------------------------------------------------------------------
-array_for_each() {
+def; array_for_each() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
     __ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
@@ -391,7 +391,7 @@ array_for_each() {
 #region Helper Functions
 
 #-------------------------------------------------------------------------------
-get_my_real_fullpath() {
+def; get_my_real_fullpath() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -415,7 +415,7 @@ get_my_real_fullpath() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_basename() {
+def; get_my_real_basename() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -439,7 +439,7 @@ get_my_real_basename() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_dir_basename() {
+def; get_my_real_dir_basename() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -603,6 +603,27 @@ log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
 #===============================================================================
 
 #===============================================================================
+#region Call Stack Tracking
+
+if [ "${SHELL_CALL_STACK}" = "" ]; then
+    SHELL_CALL_STACK=""
+    array_init SHELL_CALL_STACK
+fi
+def; test_LINENO_GLOBAL_OFFSET() { echo "$LINENO"; }
+LINENO_GLOBAL_OFFSET="$(test_LINENO_GLOBAL_OFFSET)"
+LINENO_IS_RELATIVE=false
+if [ "$LINENO_GLOBAL_OFFSET" -le 1 ]; then
+    LINENO_IS_RELATIVE=true
+fi
+
+export SHELL_CALL_STACK
+export LINENO_GLOBAL_OFFSET
+export LINENO_IS_RELATIVE
+
+#endregion Call Stack Tracking
+#===============================================================================
+
+#===============================================================================
 #region Announce Ourself
 
 if [ "$(array_get_last WAS_SOURCED)" = false ]; then
@@ -623,7 +644,7 @@ fi
 # NOTE: generally no privates, subshells, or functions b/c we need to modify the
 # environment, but pollute it as little as possible with private names (e.g. __main)
 
-__bfi_activate_environment() {
+def; __bfi_activate_environment() {
     if [ "$(array_get_last WAS_SOURCED)" = false ]; then
         >&2 command printf "FATAL: $(get_my_real_basename) should not be invoked, only sourced\n"
         return 151 # "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"

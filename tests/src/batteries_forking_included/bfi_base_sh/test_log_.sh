@@ -33,7 +33,7 @@ if [ $ret -ne 0 ]; then
     fi
 
     #-------------------------------------------------------------------------------
-    date() {
+    def; date() {
         if [ "$(uname)" = "Darwin" ]; then
             command date -j "$@"
         else
@@ -42,46 +42,46 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_console() {
+    def; log_console() {
         command printf -- "$@"
         command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_success_final() {
+    def; log_success_final() {
         log_success "$@"
     }
 
     #-------------------------------------------------------------------------------
-    log_success() {
+    def; log_success() {
         command printf -- "SUCCESS: "
         command printf -- "$@"
         command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_fatal() {
+    def; log_fatal() {
         >&2 command printf -- "FATAL: "
         >&2 command printf -- "$@"
         >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_error() {
+    def; log_error() {
         >&2 command printf -- "ERROR: "
         >&2 command printf -- "$@"
         >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_warning() {
+    def; log_warning() {
         >&2 command printf -- "WARNING: "
         >&2 command printf -- "$@"
         >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_header() {
+    def; log_header() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -94,7 +94,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_footer() {
+    def; log_footer() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -106,12 +106,12 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_info_important() {
+    def; log_info_important() {
         log_info "$@"
     }
 
     #-------------------------------------------------------------------------------
-    log_info() {
+    def; log_info() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -124,7 +124,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_info_no_prefix() {
+    def; log_info_no_prefix() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -136,7 +136,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_debug() {
+    def; log_debug() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -149,7 +149,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_superdebug() {
+    def; log_superdebug() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -162,7 +162,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_ultradebug() {
+    def; log_ultradebug() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -175,7 +175,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_file() {
+    def; log_file() {
         true
     }
 fi
@@ -187,7 +187,7 @@ fi
 #region RReadLink
 
 #-------------------------------------------------------------------------------
-rreadlink() {
+def; rreadlink() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -258,7 +258,7 @@ rreadlink() {
 #region Root User Check
 
 #-------------------------------------------------------------------------------
-require_not_root_user_XY() {
+def; require_not_root_user_XY() {
     # intentionally no local scope so it can exit script
 
     if [ "${CI}" = true ] && [ "${PLATFORM_IS_WSL}" = true ]; then
@@ -278,7 +278,7 @@ require_not_root_user_XY() {
 }
 
 #-------------------------------------------------------------------------------
-require_root_user_XY() {
+def; require_root_user_XY() {
     # intentionally no local scope so it can exit script
 
     # shellcheck disable=SC3028
@@ -299,7 +299,7 @@ require_root_user_XY() {
 #region Include/Invoke Directives
 
 #-------------------------------------------------------------------------------
-include_G() {
+def; include_G() {
     # intentionally no local scope so it modify globals
     if [ ! -f "$1" ]; then
         log_warning "Could not source because file is missing: %s" "$1"
@@ -333,7 +333,7 @@ include_G() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_include_GXY() {
+def; ensure_include_GXY() {
     # intentionally no local scope so it can modify globals AND exit script
 
     include_G "$@"
@@ -349,7 +349,7 @@ ensure_include_GXY() {
 }
 
 #-------------------------------------------------------------------------------
-invoke() {
+def; invoke() {
     if [ ! -f "$1" ]; then
         log_warning "Could not invoke because file is missing: %s" "$1"
         return "${RET_ERROR_FILE_NOT_FOUND}"
@@ -400,7 +400,7 @@ invoke() {
 
 # # get item by index:
 # NOTE: no $ sign on my_array_name
-# array_get_index my_array_name $index
+# array_get_at_index my_array_name $index
 
 # # get last item:
 # NOTE: no $ sign on my_array_name
@@ -428,13 +428,13 @@ _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
 _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
 #-------------------------------------------------------------------------------
-_array_escape() {
+def; _array_escape() {
     #                                        x1234x                                  x12x1234567890123456x
     command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
 }
 
 #-------------------------------------------------------------------------------
-_array_unescape() {
+def; _array_unescape() {
     # NOTE: This doesn't look like the inverse of what _array_escape does, but
     #   it works correctly, so don't try to "fix" it
     #                                           x1234x12x           x12345678x
@@ -442,7 +442,7 @@ _array_unescape() {
 }
 
 #-------------------------------------------------------------------------------
-_array_fix_index() {
+def; _array_fix_index() {
     __ARRAY__ARRAY_FIX_INDEX__LENGTH="$(array_get_length "$1")"
 
     __ARRAY__ARRAY_FIX_INDEX__INDEX="$2"
@@ -456,12 +456,12 @@ _array_fix_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_init() {
+def; array_init() {
     eval "$1=\"\""
 }
 
 #-------------------------------------------------------------------------------
-array_append() {
+def; array_append() {
     __ARRAY__ARRAY_APPEND__TEMP_VALUE=$(_array_escape "$2")
     __ARRAY__ARRAY_APPEND__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
     if [ "${__ARRAY__ARRAY_APPEND__TEMP_STORAGE}" = "" ]; then
@@ -473,27 +473,27 @@ array_append() {
 }
 
 #-------------------------------------------------------------------------------
-array_append_back() {
+def; array_append_back() {
     array_append "$1" "$2"
 }
 
 #-------------------------------------------------------------------------------
-array_append_front() {
+def; array_append_front() {
     array_insert_index "$1" 0 "$2"
 }
 
 #-------------------------------------------------------------------------------
-array_get_first() {
-    array_get_index "$1" 0
+def; array_get_first() {
+    array_get_at_index "$1" 0
 }
 
 #-------------------------------------------------------------------------------
-array_get_last() {
-    array_get_index "$1" -1
+def; array_get_last() {
+    array_get_at_index "$1" -1
 }
 
 #-------------------------------------------------------------------------------
-array_copy() {
+def; array_copy() {
     __ARRAY__ARRAY_COPY__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
 
     array_init "$2"
@@ -508,17 +508,17 @@ array_copy() {
 }
 
 #-------------------------------------------------------------------------------
-array_remove_first() {
+def; array_remove_first() {
     array_remove_index "$1" 0
 }
 
 #-------------------------------------------------------------------------------
-array_remove_last() {
+def; array_remove_last() {
     array_remove_index "$1" -1
 }
 
 #-------------------------------------------------------------------------------
-array_insert_index() {
+def; array_insert_index() {
     array_copy "$1" __ARRAY__ARRAY_INSERT_INDEX__TEMP_ARRAY
 
     __ARRAY__ARRAY_INSERT_INDEX__LAST_INDEX="$(array_get_length "$1")"
@@ -555,7 +555,7 @@ array_insert_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_remove_index() {
+def; array_remove_index() {
     array_copy "$1" __ARRAY__ARRAY_REMOVE_INDEX__TEMP_ARRAY
 
     __ARRAY__ARRAY_REMOVE_INDEX__INDEX="$2"
@@ -578,7 +578,7 @@ array_remove_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_get_length() {
+def; array_get_length() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
     __ARRAY__ARRAY_GET_LENGTH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
@@ -591,7 +591,7 @@ array_get_length() {
 }
 
 #-------------------------------------------------------------------------------
-array_get_index() {
+def; array_get_at_index() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
 
@@ -620,14 +620,14 @@ array_get_index() {
 }
 
 # # using array_for_each:
-# my_func() {
+# def; my_func() {
 #     echo "${item}"
 # }
 # array_for_each the_array_name my_func
 ## NOTE: no $ on 'the_array_name' nor 'my_func'
 
 #-------------------------------------------------------------------------------
-array_for_each() {
+def; array_for_each() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
     __ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
@@ -645,7 +645,7 @@ array_for_each() {
 #region Helper Functions
 
 #-------------------------------------------------------------------------------
-windows_path_to_unix_path() {
+def; windows_path_to_unix_path() {
     if \
         [ "${PLATFORM_IS_WSL}" = true ] &&
         [  "$(command echo "$1" | cut -c1)" != "/" ]
@@ -660,7 +660,7 @@ windows_path_to_unix_path() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_cd() {
+def; ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
     log_superdebug "Changing current directory to '%s'" "$1"
 
@@ -674,7 +674,7 @@ ensure_cd() {
 }
 
 #-------------------------------------------------------------------------------
-safe_rm() {
+def; safe_rm() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -738,7 +738,7 @@ safe_rm() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_does_not_exist() {
+def; ensure_does_not_exist() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -766,7 +766,7 @@ ensure_does_not_exist() {
 }
 
 #-------------------------------------------------------------------------------
-create_dir() {
+def; create_dir() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -799,7 +799,7 @@ create_dir() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_dir() {
+def; ensure_dir() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -824,17 +824,17 @@ ensure_dir() {
 }
 
 #-------------------------------------------------------------------------------
-get_datetime_stamp_human_formatted() {
+def; get_datetime_stamp_human_formatted() {
     date "${DATETIME_STAMP_HUMAN_FORMAT}"
 }
 
 #-------------------------------------------------------------------------------
-get_datetime_stamp_filename_formatted() {
+def; get_datetime_stamp_filename_formatted() {
     date "${DATETIME_STAMP_FILENAME_FORMAT}"
 }
 
 #-------------------------------------------------------------------------------
-create_my_tempdir() {
+def; create_my_tempdir() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -869,7 +869,7 @@ create_my_tempdir() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_my_tempdir_G() {
+def; ensure_my_tempdir_G() {
     # intentionally no local scope b/c modifying a global
 
     if [ "${my_tempdir}" = "" ]; then
@@ -892,7 +892,7 @@ ensure_my_tempdir_G() {
 }
 
 #-------------------------------------------------------------------------------
-move_file() {
+def; move_file() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -919,7 +919,7 @@ move_file() {
 }
 
 #-------------------------------------------------------------------------------
-copy_file() {
+def; copy_file() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -946,7 +946,7 @@ copy_file() {
 }
 
 #-------------------------------------------------------------------------------
-copy_dir() {
+def; copy_dir() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -973,7 +973,7 @@ copy_dir() {
 }
 
 #-------------------------------------------------------------------------------
-is_integer() {
+def; is_integer() {
     case "${1#[+-]}"  in
         *[!0123456789]*)
             command echo "1"
@@ -993,7 +993,7 @@ is_integer() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_fullpath() {
+def; get_my_real_fullpath() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1017,7 +1017,7 @@ get_my_real_fullpath() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_basename() {
+def; get_my_real_basename() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1041,7 +1041,7 @@ get_my_real_basename() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_dir_fullpath() {
+def; get_my_real_dir_fullpath() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1065,7 +1065,7 @@ get_my_real_dir_fullpath() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_dir_basename() {
+def; get_my_real_dir_basename() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1089,7 +1089,7 @@ get_my_real_dir_basename() {
 }
 
 #-------------------------------------------------------------------------------
-unident_text() {
+def; unident_text() {
     (
         text="$1"
         leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
@@ -1238,6 +1238,27 @@ log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
 #===============================================================================
 
 #===============================================================================
+#region Call Stack Tracking
+
+if [ "${SHELL_CALL_STACK}" = "" ]; then
+    SHELL_CALL_STACK=""
+    array_init SHELL_CALL_STACK
+fi
+def; test_LINENO_GLOBAL_OFFSET() { echo "$LINENO"; }
+LINENO_GLOBAL_OFFSET="$(test_LINENO_GLOBAL_OFFSET)"
+LINENO_IS_RELATIVE=false
+if [ "$LINENO_GLOBAL_OFFSET" -le 1 ]; then
+    LINENO_IS_RELATIVE=true
+fi
+
+export SHELL_CALL_STACK
+export LINENO_GLOBAL_OFFSET
+export LINENO_IS_RELATIVE
+
+#endregion Call Stack Tracking
+#===============================================================================
+
+#===============================================================================
 #region Announce Ourself
 
 if [ "$(array_get_last WAS_SOURCED)" = false ]; then
@@ -1256,7 +1277,7 @@ fi
 #region PytestShellScriptTestHarness Preamble
 
 #-------------------------------------------------------------------------------
-assert() {
+def; assert() {
     __assert_message=""
     eval __assert_message='$'$#
     __assert_test="\"$1\""
@@ -1275,18 +1296,18 @@ assert() {
 }
 
 #-------------------------------------------------------------------------------
-default_inject_monkeypatch() {
-    __main() { return 0; }
-    __sourced_main() { return 0; }
+def; default_inject_monkeypatch() {
+    def; __main() { return 0; }
+    def; __sourced_main() { return 0; }
 }
 
 #-------------------------------------------------------------------------------
-inject_monkeypatch() {
+def; inject_monkeypatch() {
     default_inject_monkeypatch
 }
 
 #-------------------------------------------------------------------------------
-test_harness_output() {
+def; test_harness_output() {
     (
         inner_text="$(command printf -- "$@"; command echo EOL)"
         log_info_no_prefix "PytestShellScriptTestHarness: %s\n" "${inner_text%EOL}"
@@ -1299,19 +1320,19 @@ test_harness_output() {
 ################################################################################
 #region Helper Functions
 
-do_log_test() {
+def; do_log_test() {
     (
         log_type=$1
         shift
 
-        inject_monkeypatch() {
+        def; inject_monkeypatch() {
             default_inject_monkeypatch
 
-            date() {
+            def; date() {
                 printf "YYYY-mm-dd HH:MM:SS"
             }
 
-            tput() {
+            def; tput() {
                 if [ "$1" = "colors" ]; then
                     command printf "256\n"
                 else
@@ -1351,7 +1372,7 @@ do_log_test() {
 #region log_console Tests
 
 #-------------------------------------------------------------------------------
-Test_log_console__test_log_console() {
+def; Test_log_console__test_log_console() {
     do_log_test console "$@"
     return $?
 }
@@ -1364,7 +1385,7 @@ Test_log_console__test_log_console() {
 #region log_success Tests
 
 #-------------------------------------------------------------------------------
-Test_log_success__test_log_success() {
+def; Test_log_success__test_log_success() {
     do_log_test success "$@"
     return $?
 }
@@ -1376,7 +1397,7 @@ Test_log_success__test_log_success() {
 #region log_success_final Tests
 
 #-------------------------------------------------------------------------------
-Test_log_success_final__test_log_success_final() {
+def; Test_log_success_final__test_log_success_final() {
     do_log_test success_final "$@"
     return $?
 }
@@ -1388,7 +1409,7 @@ Test_log_success_final__test_log_success_final() {
 #region log_fatal Tests
 
 #-------------------------------------------------------------------------------
-Test_log_fatal__test_log_fatal() {
+def; Test_log_fatal__test_log_fatal() {
     do_log_test fatal "$@"
     return $?
 }
@@ -1400,7 +1421,7 @@ Test_log_fatal__test_log_fatal() {
 #region log_fatal_final Tests
 
 #-------------------------------------------------------------------------------
-Test_log_fatal_final__test_log_fatal_final() {
+def; Test_log_fatal_final__test_log_fatal_final() {
     do_log_test fatal_final "$@"
     return $?
 }
@@ -1412,7 +1433,7 @@ Test_log_fatal_final__test_log_fatal_final() {
 #region log_error Tests
 
 #-------------------------------------------------------------------------------
-Test_log_error__test_log_error() {
+def; Test_log_error__test_log_error() {
     do_log_test error "$@"
     return $?
 }
@@ -1424,7 +1445,7 @@ Test_log_error__test_log_error() {
 #region log_error_final Tests
 
 #-------------------------------------------------------------------------------
-Test_log_error_final__test_log_error_final() {
+def; Test_log_error_final__test_log_error_final() {
     do_log_test error_final "$@"
     return $?
 }
@@ -1436,7 +1457,7 @@ Test_log_error_final__test_log_error_final() {
 #region log_warning Tests
 
 #-------------------------------------------------------------------------------
-Test_log_warning__test_log_warning() {
+def; Test_log_warning__test_log_warning() {
     do_log_test warning "$@"
     return $?
 }
@@ -1448,7 +1469,7 @@ Test_log_warning__test_log_warning() {
 #region log_warning_final Tests
 
 #-------------------------------------------------------------------------------
-Test_log_warning_final__test_log_warning_final() {
+def; Test_log_warning_final__test_log_warning_final() {
     do_log_test warning_final "$@"
     return $?
 }
@@ -1460,7 +1481,7 @@ Test_log_warning_final__test_log_warning_final() {
 #region log_header Tests
 
 #-------------------------------------------------------------------------------
-Test_log_header__test_log_header() {
+def; Test_log_header__test_log_header() {
     do_log_test header "$@"
     return $?
 }
@@ -1472,7 +1493,7 @@ Test_log_header__test_log_header() {
 #region log_footer Tests
 
 #-------------------------------------------------------------------------------
-Test_log_footer__test_log_footer() {
+def; Test_log_footer__test_log_footer() {
     do_log_test footer "$@"
     return $?
 }
@@ -1484,7 +1505,7 @@ Test_log_footer__test_log_footer() {
 #region log_info_important Tests
 
 #-------------------------------------------------------------------------------
-Test_log_info_important__test_log_info_important() {
+def; Test_log_info_important__test_log_info_important() {
     do_log_test info_important "$@"
     return $?
 }
@@ -1496,7 +1517,7 @@ Test_log_info_important__test_log_info_important() {
 #region log_info Tests
 
 #-------------------------------------------------------------------------------
-Test_log_info__test_log_info() {
+def; Test_log_info__test_log_info() {
     do_log_test info "$@"
     return $?
 }
@@ -1508,7 +1529,7 @@ Test_log_info__test_log_info() {
 #region log_info_no_prefix Tests
 
 #-------------------------------------------------------------------------------
-Test_log_info_no_prefix__test_log_info_no_prefix() {
+def; Test_log_info_no_prefix__test_log_info_no_prefix() {
     do_log_test info_no_prefix "$@"
     return $?
 }
@@ -1520,7 +1541,7 @@ Test_log_info_no_prefix__test_log_info_no_prefix() {
 #region log_debug Tests
 
 #-------------------------------------------------------------------------------
-Test_log_debug__test_log_debug() {
+def; Test_log_debug__test_log_debug() {
     do_log_test debug "$@"
     return $?
 }
@@ -1532,7 +1553,7 @@ Test_log_debug__test_log_debug() {
 #region log_superdebug Tests
 
 #-------------------------------------------------------------------------------
-Test_log_superdebug__test_log_superdebug() {
+def; Test_log_superdebug__test_log_superdebug() {
     do_log_test superdebug "$@"
     return $?
 }
@@ -1544,7 +1565,7 @@ Test_log_superdebug__test_log_superdebug() {
 #region log_ultradebug Tests
 
 #-------------------------------------------------------------------------------
-Test_log_ultradebug__test_log_ultradebug() {
+def; Test_log_ultradebug__test_log_ultradebug() {
     do_log_test ultradebug "$@"
     return $?
 }
@@ -1556,7 +1577,7 @@ Test_log_ultradebug__test_log_ultradebug() {
 #region log_file Tests
 
 #-------------------------------------------------------------------------------
-Test_log_file__test_log_file() {
+def; Test_log_file__test_log_file() {
     do_log_test file "$@"
     return $?
 }

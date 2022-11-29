@@ -154,7 +154,7 @@ if [ $ret -ne 0 ]; then
     fi
 
     #-------------------------------------------------------------------------------
-    date() {
+    def; date() {
         if [ "$(uname)" = "Darwin" ]; then
             command date -j "$@"
         else
@@ -163,46 +163,46 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_console() {
+    def; log_console() {
         command printf -- "$@"
         command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_success_final() {
+    def; log_success_final() {
         log_success "$@"
     }
 
     #-------------------------------------------------------------------------------
-    log_success() {
+    def; log_success() {
         command printf -- "SUCCESS: "
         command printf -- "$@"
         command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_fatal() {
+    def; log_fatal() {
         >&2 command printf -- "FATAL: "
         >&2 command printf -- "$@"
         >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_error() {
+    def; log_error() {
         >&2 command printf -- "ERROR: "
         >&2 command printf -- "$@"
         >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_warning() {
+    def; log_warning() {
         >&2 command printf -- "WARNING: "
         >&2 command printf -- "$@"
         >&2 command printf -- "\n"
     }
 
     #-------------------------------------------------------------------------------
-    log_header() {
+    def; log_header() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -215,7 +215,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_footer() {
+    def; log_footer() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -227,12 +227,12 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_info_important() {
+    def; log_info_important() {
         log_info "$@"
     }
 
     #-------------------------------------------------------------------------------
-    log_info() {
+    def; log_info() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -245,7 +245,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_info_no_prefix() {
+    def; log_info_no_prefix() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -257,7 +257,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_debug() {
+    def; log_debug() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -270,7 +270,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_superdebug() {
+    def; log_superdebug() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -283,7 +283,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_ultradebug() {
+    def; log_ultradebug() {
         if \
             { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
@@ -296,7 +296,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    log_file() {
+    def; log_file() {
         true
     }
 fi
@@ -308,7 +308,7 @@ fi
 #region RReadLink
 
 #-------------------------------------------------------------------------------
-rreadlink() {
+def; rreadlink() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -379,7 +379,7 @@ rreadlink() {
 #region Root User Check
 
 #-------------------------------------------------------------------------------
-require_not_root_user_XY() {
+def; require_not_root_user_XY() {
     # intentionally no local scope so it can exit script
 
     if [ "${CI}" = true ] && [ "${PLATFORM_IS_WSL}" = true ]; then
@@ -399,7 +399,7 @@ require_not_root_user_XY() {
 }
 
 #-------------------------------------------------------------------------------
-require_root_user_XY() {
+def; require_root_user_XY() {
     # intentionally no local scope so it can exit script
 
     # shellcheck disable=SC3028
@@ -420,7 +420,7 @@ require_root_user_XY() {
 #region Include/Invoke Directives
 
 #-------------------------------------------------------------------------------
-include_G() {
+def; include_G() {
     # intentionally no local scope so it modify globals
     if [ ! -f "$1" ]; then
         log_warning "Could not source because file is missing: %s" "$1"
@@ -454,7 +454,7 @@ include_G() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_include_GXY() {
+def; ensure_include_GXY() {
     # intentionally no local scope so it can modify globals AND exit script
 
     include_G "$@"
@@ -470,7 +470,7 @@ ensure_include_GXY() {
 }
 
 #-------------------------------------------------------------------------------
-invoke() {
+def; invoke() {
     if [ ! -f "$1" ]; then
         log_warning "Could not invoke because file is missing: %s" "$1"
         return "${RET_ERROR_FILE_NOT_FOUND}"
@@ -521,7 +521,7 @@ invoke() {
 
 # # get item by index:
 # NOTE: no $ sign on my_array_name
-# array_get_index my_array_name $index
+# array_get_at_index my_array_name $index
 
 # # get last item:
 # NOTE: no $ sign on my_array_name
@@ -549,13 +549,13 @@ _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
 _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
 #-------------------------------------------------------------------------------
-_array_escape() {
+def; _array_escape() {
     #                                        x1234x                                  x12x1234567890123456x
     command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
 }
 
 #-------------------------------------------------------------------------------
-_array_unescape() {
+def; _array_unescape() {
     # NOTE: This doesn't look like the inverse of what _array_escape does, but
     #   it works correctly, so don't try to "fix" it
     #                                           x1234x12x           x12345678x
@@ -563,7 +563,7 @@ _array_unescape() {
 }
 
 #-------------------------------------------------------------------------------
-_array_fix_index() {
+def; _array_fix_index() {
     __ARRAY__ARRAY_FIX_INDEX__LENGTH="$(array_get_length "$1")"
 
     __ARRAY__ARRAY_FIX_INDEX__INDEX="$2"
@@ -577,12 +577,12 @@ _array_fix_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_init() {
+def; array_init() {
     eval "$1=\"\""
 }
 
 #-------------------------------------------------------------------------------
-array_append() {
+def; array_append() {
     __ARRAY__ARRAY_APPEND__TEMP_VALUE=$(_array_escape "$2")
     __ARRAY__ARRAY_APPEND__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
     if [ "${__ARRAY__ARRAY_APPEND__TEMP_STORAGE}" = "" ]; then
@@ -594,27 +594,27 @@ array_append() {
 }
 
 #-------------------------------------------------------------------------------
-array_append_back() {
+def; array_append_back() {
     array_append "$1" "$2"
 }
 
 #-------------------------------------------------------------------------------
-array_append_front() {
+def; array_append_front() {
     array_insert_index "$1" 0 "$2"
 }
 
 #-------------------------------------------------------------------------------
-array_get_first() {
-    array_get_index "$1" 0
+def; array_get_first() {
+    array_get_at_index "$1" 0
 }
 
 #-------------------------------------------------------------------------------
-array_get_last() {
-    array_get_index "$1" -1
+def; array_get_last() {
+    array_get_at_index "$1" -1
 }
 
 #-------------------------------------------------------------------------------
-array_copy() {
+def; array_copy() {
     __ARRAY__ARRAY_COPY__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
 
     array_init "$2"
@@ -629,17 +629,17 @@ array_copy() {
 }
 
 #-------------------------------------------------------------------------------
-array_remove_first() {
+def; array_remove_first() {
     array_remove_index "$1" 0
 }
 
 #-------------------------------------------------------------------------------
-array_remove_last() {
+def; array_remove_last() {
     array_remove_index "$1" -1
 }
 
 #-------------------------------------------------------------------------------
-array_insert_index() {
+def; array_insert_index() {
     array_copy "$1" __ARRAY__ARRAY_INSERT_INDEX__TEMP_ARRAY
 
     __ARRAY__ARRAY_INSERT_INDEX__LAST_INDEX="$(array_get_length "$1")"
@@ -676,7 +676,7 @@ array_insert_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_remove_index() {
+def; array_remove_index() {
     array_copy "$1" __ARRAY__ARRAY_REMOVE_INDEX__TEMP_ARRAY
 
     __ARRAY__ARRAY_REMOVE_INDEX__INDEX="$2"
@@ -699,7 +699,7 @@ array_remove_index() {
 }
 
 #-------------------------------------------------------------------------------
-array_get_length() {
+def; array_get_length() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
     __ARRAY__ARRAY_GET_LENGTH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
@@ -712,7 +712,7 @@ array_get_length() {
 }
 
 #-------------------------------------------------------------------------------
-array_get_index() {
+def; array_get_at_index() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
 
@@ -741,14 +741,14 @@ array_get_index() {
 }
 
 # # using array_for_each:
-# my_func() {
+# def; my_func() {
 #     echo "${item}"
 # }
 # array_for_each the_array_name my_func
 ## NOTE: no $ on 'the_array_name' nor 'my_func'
 
 #-------------------------------------------------------------------------------
-array_for_each() {
+def; array_for_each() {
     OIFS="$IFS"
     IFS="${_ARRAY__SEP}"
     __ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
@@ -766,7 +766,7 @@ array_for_each() {
 #region Helper Functions
 
 #-------------------------------------------------------------------------------
-windows_path_to_unix_path() {
+def; windows_path_to_unix_path() {
     if \
         [ "${PLATFORM_IS_WSL}" = true ] &&
         [  "$(command echo "$1" | cut -c1)" != "/" ]
@@ -781,7 +781,7 @@ windows_path_to_unix_path() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_cd() {
+def; ensure_cd() {
     # intentionally no local scope so that the cd command takes effect
     log_superdebug "Changing current directory to '%s'" "$1"
 
@@ -795,7 +795,7 @@ ensure_cd() {
 }
 
 #-------------------------------------------------------------------------------
-safe_rm() {
+def; safe_rm() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -859,7 +859,7 @@ safe_rm() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_does_not_exist() {
+def; ensure_does_not_exist() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -887,7 +887,7 @@ ensure_does_not_exist() {
 }
 
 #-------------------------------------------------------------------------------
-create_dir() {
+def; create_dir() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -920,7 +920,7 @@ create_dir() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_dir() {
+def; ensure_dir() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -945,17 +945,17 @@ ensure_dir() {
 }
 
 #-------------------------------------------------------------------------------
-get_datetime_stamp_human_formatted() {
+def; get_datetime_stamp_human_formatted() {
     date "${DATETIME_STAMP_HUMAN_FORMAT}"
 }
 
 #-------------------------------------------------------------------------------
-get_datetime_stamp_filename_formatted() {
+def; get_datetime_stamp_filename_formatted() {
     date "${DATETIME_STAMP_FILENAME_FORMAT}"
 }
 
 #-------------------------------------------------------------------------------
-create_my_tempdir() {
+def; create_my_tempdir() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -990,7 +990,7 @@ create_my_tempdir() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_my_tempdir_G() {
+def; ensure_my_tempdir_G() {
     # intentionally no local scope b/c modifying a global
 
     if [ "${my_tempdir}" = "" ]; then
@@ -1013,7 +1013,7 @@ ensure_my_tempdir_G() {
 }
 
 #-------------------------------------------------------------------------------
-move_file() {
+def; move_file() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1040,7 +1040,7 @@ move_file() {
 }
 
 #-------------------------------------------------------------------------------
-copy_file() {
+def; copy_file() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1067,7 +1067,7 @@ copy_file() {
 }
 
 #-------------------------------------------------------------------------------
-copy_dir() {
+def; copy_dir() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1094,7 +1094,7 @@ copy_dir() {
 }
 
 #-------------------------------------------------------------------------------
-is_integer() {
+def; is_integer() {
     case "${1#[+-]}"  in
         *[!0123456789]*)
             command echo "1"
@@ -1114,7 +1114,7 @@ is_integer() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_fullpath() {
+def; get_my_real_fullpath() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1138,7 +1138,7 @@ get_my_real_fullpath() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_basename() {
+def; get_my_real_basename() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1162,7 +1162,7 @@ get_my_real_basename() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_dir_fullpath() {
+def; get_my_real_dir_fullpath() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1186,7 +1186,7 @@ get_my_real_dir_fullpath() {
 }
 
 #-------------------------------------------------------------------------------
-get_my_real_dir_basename() {
+def; get_my_real_dir_basename() {
     PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
     SHELL_SESSION_FILE=""
     export SHELL_SESSION_FILE
@@ -1210,7 +1210,7 @@ get_my_real_dir_basename() {
 }
 
 #-------------------------------------------------------------------------------
-unident_text() {
+def; unident_text() {
     (
         text="$1"
         leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
@@ -1359,6 +1359,44 @@ log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
 #===============================================================================
 
 #===============================================================================
+#region Call Stack Tracking
+
+if [ "${SHELL_CALL_STACK}" = "" ]; then
+    SHELL_CALL_STACK=""
+    array_init SHELL_CALL_STACK
+fi
+def; test_LINENO_GLOBAL_OFFSET() { echo "$LINENO"; }
+LINENO_GLOBAL_OFFSET="$(test_LINENO_GLOBAL_OFFSET)"
+LINENO_IS_RELATIVE=false
+if [ "$LINENO_GLOBAL_OFFSET" -le 1 ]; then
+    LINENO_IS_RELATIVE=true
+fi
+
+# normally aliases cannot use positional parameters BUT this works in bash, dash, zsh
+# shellcheck disable=SC2142
+alias def="sh -c \"echo = \$0:\$LINENO:\\\$(head -n \$LINENO \$0 | tail -n 1 | awk '{ print \\\$2 }' | tr -d '()')\""
+
+call_G () {
+    >&2 echo "- $1:$2"
+    array_append SHELL_CALL_STACK "$1:$2"
+    shift
+    "$@"
+    return $?
+}
+# normally aliases cannot use positional parameters BUT this works in bash, dash, zsh
+# shellcheck disable=SC2142
+alias call="call_G \"\$0:\$LINENO\""
+
+
+
+export SHELL_CALL_STACK
+export LINENO_GLOBAL_OFFSET
+export LINENO_IS_RELATIVE
+
+#endregion Call Stack Tracking
+#===============================================================================
+
+#===============================================================================
 #region Announce Ourself
 
 if [ "$(array_get_last WAS_SOURCED)" = false ]; then
@@ -1445,7 +1483,7 @@ deploy_mode=false; export deploy_mode
 #region Public Functions
 
 #-------------------------------------------------------------------------------
-print_usage__update() {
+def; print_usage__update() {
     # we do not use 'command' here b/c we want this to get output to the log file
     # but we don't use a log_* function b/c we don't want the console output to
     # have a timestamp just hanging out b/c it looks ugly
@@ -1453,7 +1491,7 @@ print_usage__update() {
 }
 
 #-------------------------------------------------------------------------------
-print_usage__bootstrap() {
+def; print_usage__bootstrap() {
     # we do not use 'command' here b/c we want this to get output to the log file
     # but we don't use a log_* function b/c we don't want the console output to
     # have a timestamp just hanging out b/c it looks ugly
@@ -1461,7 +1499,7 @@ print_usage__bootstrap() {
 }
 
 #-------------------------------------------------------------------------------
-print_usage() {
+def; print_usage() {
     (
         script_name=$(get_my_real_basename)
         case "${script_name}" in
@@ -1476,12 +1514,12 @@ print_usage() {
 }
 
 #-------------------------------------------------------------------------------
-print_version() {
+def; print_version() {
     printf "batteries-forking-included %s\n" "${BFI_VERSION}"
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_doubledash() {
+def; parse_args__common_doubledash() {
     log_ultradebug "$(get_my_real_basename)::parse_args__common_doubledash called with '%s'" "$*"
 
     __parse_args_shift_by=0
@@ -1680,14 +1718,14 @@ parse_args__common_doubledash() {
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_singledash() {
+def; parse_args__common_singledash() {
     log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash called with '%s'" "$*"
     parse_args__common_doubledash "$@"
     return $?
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_singledash_multi() {
+def; parse_args__common_singledash_multi() {
     log_ultradebug "$(get_my_real_basename)::parse_args__common_singledash_multi called with '%s'" "$*"
 
     case "$1" in
@@ -1730,14 +1768,14 @@ parse_args__common_singledash_multi() {
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_singleplus() {
+def; parse_args__common_singleplus() {
     log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus called with '%s'" "$*"
     parse_args__common_doubledash "$@"
     return $?
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_singleplus_multi() {
+def; parse_args__common_singleplus_multi() {
     log_ultradebug "$(get_my_real_basename)::parse_args__common_singleplus_multi called with '%s'" "$*"
 
     case "$1" in
@@ -1780,7 +1818,7 @@ parse_args__common_singleplus_multi() {
 }
 
 #-------------------------------------------------------------------------------
-parse_args__common_set_and_export() {
+def; parse_args__common_set_and_export() {
     verbosity="${temp_verbosity}"
 
     if [ "${alt_color}" = true ]; then
@@ -1836,7 +1874,7 @@ parse_args__common_set_and_export() {
 }
 
 #-------------------------------------------------------------------------------
-parse_args__bootstrap() {
+def; parse_args__bootstrap() {
     log_ultradebug "$(get_my_real_basename)::parse_args__bootstrap called with '%s'" "$*"
 
     # temporarily just assign these to best guesses
@@ -2004,7 +2042,7 @@ parse_args__bootstrap() {
 }
 
 #-------------------------------------------------------------------------------
-parse_args__update() {
+def; parse_args__update() {
     log_ultradebug "$(get_my_real_basename)::parse_args__update called with '%s'" "$*"
 
     # temporarily just assign these to best guesses
@@ -2119,17 +2157,17 @@ parse_args__update() {
 }
 
 #-------------------------------------------------------------------------------
-check_tools__begin() {
+def; check_tools__begin() {
     log_header "Checking tools"
 }
 
 #-------------------------------------------------------------------------------
-check_tools__end() {
+def; check_tools__end() {
     log_footer "Tools checked."
 }
 
 #-------------------------------------------------------------------------------
-check_tools__detect_G() {
+def; check_tools__detect_G() {
     # intentionally no local scope because modifying globals
 
     if [ "$(command -v git)" != "" ]; then
@@ -2169,7 +2207,7 @@ check_tools__detect_G() {
 }
 
 #-------------------------------------------------------------------------------
-check_tools__require_extractable_X() {
+def; check_tools__require_extractable_X() {
     if \
         [ "${tar_exists}" = false ] &&
         [ "${unzip_exists}" = false ]
@@ -2180,7 +2218,7 @@ check_tools__require_extractable_X() {
 }
 
 #-------------------------------------------------------------------------------
-check_tools__require_clonable_X() {
+def; check_tools__require_clonable_X() {
     if \
         [ "${git_exists}" = false ] &&
         [ "${curl_exists}" = false ] &&
@@ -2196,7 +2234,7 @@ check_tools__require_clonable_X() {
 }
 
 #-------------------------------------------------------------------------------
-check_tools__require_downloadable_X() {
+def; check_tools__require_downloadable_X() {
     if \
         [ "${curl_exists}" = false ] &&
         [ "${wget_exists}" = false ]
@@ -2207,7 +2245,7 @@ check_tools__require_downloadable_X() {
 }
 
 #-------------------------------------------------------------------------------
-check_tools__require_comparible_X() {
+def; check_tools__require_comparible_X() {
     if \
         [ "${diff_exists}" = false ] &&
         [ "${md5_exists}" = false ]
@@ -2218,7 +2256,7 @@ check_tools__require_comparible_X() {
 }
 
 #-------------------------------------------------------------------------------
-download_url_to_path() {
+def; download_url_to_path() {
     (
         URL="$1"
         output="$2"
@@ -2250,7 +2288,7 @@ download_url_to_path() {
 }
 
 #-------------------------------------------------------------------------------
-extract_tarball() {
+def; extract_tarball() {
     (
         file=$1
         dest=$2
@@ -2276,7 +2314,7 @@ extract_tarball() {
 }
 
 #-------------------------------------------------------------------------------
-extract_zipball() {
+def; extract_zipball() {
     (
         file=$1
         dest=$2
@@ -2321,7 +2359,7 @@ extract_zipball() {
 }
 
 #-------------------------------------------------------------------------------
-download_and_extract() {
+def; download_and_extract() {
     (
         repo_url=$1
         file_basename=$2
@@ -2376,7 +2414,7 @@ download_and_extract() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_conda() {
+def; ensure_conda() {
     (
         log_header "Checking For Conda..."
 
@@ -2440,8 +2478,7 @@ ensure_conda() {
 }
 
 #-------------------------------------------------------------------------------
-conda_update_base()
-{
+def; conda_update_base() {
     (
         log_header "Updating Base Conda Environment..."
 
@@ -2475,8 +2512,7 @@ conda_update_base()
 }
 
 #-------------------------------------------------------------------------------
-conda_setup_env()
-{
+def; conda_setup_env() {
     (
         log_header "Looking for %s Conda Environment..." "${project_base_name}"
 
@@ -2519,7 +2555,7 @@ conda_setup_env()
 }
 
 #-------------------------------------------------------------------------------
-conda_env_read_sticky_config() {
+def; conda_env_read_sticky_config() {
     log_header "Loading sticky configuration options..."
 
     log_superdebug "dev_mode_unsticky=${dev_mode_unsticky}"
@@ -2536,7 +2572,7 @@ conda_env_read_sticky_config() {
 }
 
 #-------------------------------------------------------------------------------
-conda_env_write_sticky_config() {
+def; conda_env_write_sticky_config() {
     log_header "Writing sticky configuration options..."
 
     ensure_dir "${CONDA_PREFIX}"/etc/conda/activate.d
@@ -2560,7 +2596,7 @@ conda_env_write_sticky_config() {
 }
 
 #-------------------------------------------------------------------------------
-poetry_install() {
+def; poetry_install() {
     (
         log_header "Checking for Poetry Settings..."
 
@@ -2615,7 +2651,7 @@ poetry_install() {
 }
 
 #-------------------------------------------------------------------------------
-pip_uninstall() {
+def; pip_uninstall() {
     (
         log_header "Checking for pip-uninstall.txt..."
 
@@ -2652,7 +2688,7 @@ pip_uninstall() {
 }
 
 #-------------------------------------------------------------------------------
-pip_install() {
+def; pip_install() {
     (
         pip_requirements_found=false
 
@@ -2709,7 +2745,7 @@ pip_install() {
 }
 
 #-------------------------------------------------------------------------------
-run_post_bootstrap_script() {
+def; run_post_bootstrap_script() {
     log_header "Running 'post-bootstrap.sh'"
 
     # be sure to run in post-setup in it's own subshell
@@ -2733,7 +2769,7 @@ run_post_bootstrap_script() {
 }
 
 #-------------------------------------------------------------------------------
-ensure_batteries_forking_included() {
+def; ensure_batteries_forking_included() {
     (
         log_header "Ensuring batteries-forking-included exists..."
 
@@ -2792,7 +2828,7 @@ ensure_batteries_forking_included() {
 }
 
 #-------------------------------------------------------------------------------
-update_batteries_forking_included_repo() {
+def; update_batteries_forking_included_repo() {
     (
         log_header "Updating batteries-forking-included"
 
@@ -2880,7 +2916,7 @@ update_batteries_forking_included_repo() {
 }
 
 #-------------------------------------------------------------------------------
-copy_temporary_template_files() {
+def; copy_temporary_template_files() {
     (
         log_header "Creating a copy of template files"
 
@@ -2908,7 +2944,7 @@ copy_temporary_template_files() {
 }
 
 #-------------------------------------------------------------------------------
-is_file_same() {
+def; is_file_same() {
     # exit code 0 == same
     # exit code 1 == different
     # exit code 2 == there was an error
@@ -2958,7 +2994,7 @@ is_file_same() {
 }
 
 #-------------------------------------------------------------------------------
-check_and_update_file() {
+def; check_and_update_file() {
     (
         filename="$1"
         make_backup="$2"
@@ -3031,7 +3067,7 @@ check_and_update_file() {
 }
 
 #-------------------------------------------------------------------------------
-rerun_update_X() {
+def; rerun_update_X() {
     log_info_important "Need to re-run bfi-update.sh"
     log_info_important "re-running command as '%s %s'" "$(get_my_real_dir_fullpath)/bfi-update.sh" "$* --no-report"
 
@@ -3042,7 +3078,7 @@ rerun_update_X() {
 }
 
 #-------------------------------------------------------------------------------
-compare_and_update_files() {
+def; compare_and_update_files() {
     (
         log_header "Comparing template files to current project's files..."
 
@@ -3170,7 +3206,7 @@ compare_and_update_files() {
 }
 
 #-------------------------------------------------------------------------------
-batteries_forking_included__bootstrap() {
+def; batteries_forking_included__bootstrap() {
     log_ultradebug "batteries_forking_included__bootstrap called with '%s'" "$*"
 
     ensure_my_tempdir_G
@@ -3296,7 +3332,7 @@ batteries_forking_included__bootstrap() {
 }
 
 #-------------------------------------------------------------------------------
-batteries_forking_included__update() {
+def; batteries_forking_included__update() {
     log_ultradebug "batteries_forking_included__update called with '%s'" "$*"
 
     ensure_my_tempdir_G
@@ -3389,7 +3425,7 @@ batteries_forking_included__update() {
     #region Private Functions
 
     #---------------------------------------------------------------------------
-    __main() {
+    def; __main() {
         log_fatal "$(get_my_real_basename) must be sourced"
         return "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"
     }
