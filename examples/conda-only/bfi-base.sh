@@ -292,11 +292,11 @@ if [ $ret -ne 0 ]; then
         set +x "${__MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD}"
     }
     # shellcheck disable=SC2142
-    # if [ "${OPTION_SETTRACE}" = true ]; then
+    if [ "${OPTION_SETTRACE}" = true ]; then
         alias def="def_G \"\$LINENO\""
-    # else
-    #     alias def="true"
-    # fi
+    else
+        alias def="true"
+    fi
 
     #endregion Call Stack Tracking Part 2
     #===============================================================================
@@ -421,8 +421,11 @@ if [ $ret -ne 0 ]; then
     # calls specified function with args, tracking it via call stack
     # # non-minified:
     # nulldef; call_G() {
-    #     __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
-    #     set +x
+    #     # the lines "true lies" evaluates to a no-op, but lets us know to always ignore that line when traced because
+    #     # it's puuid is always wrong, because we just popped SHELL_CALL_STACK_DEST_PUUID array and the PS4 prompt is
+    #     # the new value, not the old value for where this line actually exists
+    #     true lies && __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+    #     true lies && set +x
     #
     #     __call_G_lineno="$1"
     #     __call_G_funcname="$2"
@@ -447,6 +450,15 @@ if [ $ret -ne 0 ]; then
     #     eval "__call_G_dest_puuid=\"\${__dict__SHELL_DEF_SOURCE_PUUID__key__${__call_G_dest__key_hash}}\""
     #     eval "__call_G_dest_lineno=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_dest__key_hash}}\""
     #     # unrolled dict_get_key end
+    #
+    #     # # if __call_G_dest_puuid is invalid, assume our initial script
+    #     # if [ "${__call_G_dest_puuid}" = "" ]; then
+    #     #     __call_G_dest_puuid="${__array__SHELL_CALL_STACK_DEST_PUUID__index__0}"
+    #     # fi
+    #     # # if we don't know where something was declared, just use 0 (we don't want negative number or blank)
+    #     # if [ "${__call_G_dest_lineno}" = "" ]; then
+    #     #     __call_G_dest_lineno=0
+    #     # fi
     #
     #     if [ "${LINENO_IS_RELATIVE}" = true ]; then
     #         # get the current parent's lineno
@@ -505,11 +517,11 @@ if [ $ret -ne 0 ]; then
     #
     #     set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
     #
-    #     "$@"
-    #     __call_ret=$?
+    #     true lies && "$@"
+    #     __call_ret=$? && true lies
     #
-    #     __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
-    #     set +x
+    #     true lies && __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+    #     true lies && set +x
     #
     #     # unrolled _call_stack_pop_G (shortened)
     #     # _call_stack_pop_G
@@ -529,7 +541,7 @@ if [ $ret -ne 0 ]; then
     #
     #     set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
     #
-    #     return $__call_ret
+    #     true lies && return $__call_ret
     # }
     #
     # # minified:
@@ -538,8 +550,8 @@ if [ $ret -ne 0 ]; then
     # "call" keyword
     # calls specified function with args, tracking it via call stack
     nulldef; call_G() {
-        __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
-        set +x
+        true lies && __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+        true lies && set +x
         __call_G_lineno="$1"
         __call_G_funcname="$2"
         shift 1
@@ -550,6 +562,13 @@ if [ $ret -ne 0 ]; then
         __call_G_dest__key_hash="$( (printf "%s" "${__call_G_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_funcname}" | shasum -a 1) | cut -d' ' -f1)"
         eval "__call_G_dest_puuid=\"\${__dict__SHELL_DEF_SOURCE_PUUID__key__${__call_G_dest__key_hash}}\""
         eval "__call_G_dest_lineno=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_dest__key_hash}}\""
+        # shellcheck disable=SC2154
+        if [ "${__call_G_dest_puuid}" = "" ]; then
+            __call_G_dest_puuid="${__array__SHELL_CALL_STACK_DEST_PUUID__index__0}"
+        fi
+        if [ "${__call_G_dest_lineno}" = "" ]; then
+            __call_G_dest_lineno=0
+        fi
         if [ "${LINENO_IS_RELATIVE}" = true ]; then
             # shellcheck disable=SC2154
             __call_G_parent_lineno_offset_key_hash="$( (printf "%s" "${__call_G_parent_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_parent_funcname}" | shasum -a 1) | cut -d' ' -f1)"
@@ -586,10 +605,10 @@ if [ $ret -ne 0 ]; then
         __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length + 1 ))
         export __array__SHELL_CALL_STACK_FUNCNAME__length
         set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
-        "$@"
-        __call_ret=$?
-        __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
-        set +x
+        true lies && "$@"
+        __call_ret=$? && true lies
+        true lies && __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+        true lies && set +x
         __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length - 1 ))
         export __array__SHELL_CALL_STACK__length
         eval "unset __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
@@ -603,13 +622,13 @@ if [ $ret -ne 0 ]; then
         export __array__SHELL_CALL_STACK_FUNCNAME__length
         eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
         set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
-        return $__call_ret
+        true lies && return $__call_ret
     }
-    # if [ "${OPTION_SETTRACE}" = true ]; then
+    if [ "${OPTION_SETTRACE}" = true ]; then
         alias call="call_G \"\$LINENO\""
-    # else
-    #     alias call="true;"
-    # fi
+    else
+        alias call="true;"
+    fi
 
     #endregion Call Stack Tracking Part 3
     #===============================================================================
@@ -1221,7 +1240,7 @@ if [ $ret -ne 0 ]; then
         def; _print_call_stack() {
             >&2 command printf -- "%d: %s\n" "${index}" "${item}"
         }
-        call array_for_each SHELL_CALL_STACK _print_call_stack
+        nullcall array_for_each SHELL_CALL_STACK _print_call_stack
 
         set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD}"
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD
@@ -4151,7 +4170,7 @@ fi
 #region Announce Ourself Ending
 
 __announce_prefix="Source"
-if [ "$(nullcall array_get_last WAS_SOURCED)" = false ]; then
+if [ "$(nullcall array_peek WAS_SOURCED)" = false ]; then
     __announce_prefix="Invoke"
 fi
 nullcall log_debug "${__announce_prefix} Completed: $(nullcall get_my_real_fullpath) ($$) [$(nullcall get_my_puuid_basename || echo "$0")]"
@@ -4164,19 +4183,16 @@ unset __announce_prefix
 #region Exit Or Return
 
 # NOTE: we have to return here if we were sourced otherwise we kill the shell
-_THIS_FILE_WAS_SOURCED="$(call array_get_last WAS_SOURCED)"
+_THIS_FILE_WAS_SOURCED="$(call array_peek WAS_SOURCED)"
 # If we were the top level include we need to remove ourselves and clean up,
 # otherwise, the invoker/includer will do so via the include_G/invoke functions
 if {
     [ "$(call array_get_length WAS_SOURCED)" -eq 1 ] &&
     [ "${_THIS_FILE_WAS_SOURCED}" = true ]
 }; then
-    call array_remove_last WAS_SOURCED
-    export WAS_SOURCED
-    call array_remove_last SHELL_SOURCE
-    export SHELL_SOURCE
-    call array_remove_last SHELL_SOURCE_PUUID
-    export SHELL_SOURCE_PUUID
+    call array_destroy WAS_SOURCED
+    call array_destroy SHELL_SOURCE
+    call array_destroy SHELL_SOURCE_PUUID
     if [ "$ZSH_VERSION" != "" ]; then
         # shellcheck disable=3041
         set +yx "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}"

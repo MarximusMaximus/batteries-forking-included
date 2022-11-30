@@ -291,11 +291,11 @@ if [ $ret -ne 0 ]; then
         set +x "${__MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD}"
     }
     # shellcheck disable=SC2142
-    # if [ "${OPTION_SETTRACE}" = true ]; then
+    if [ "${OPTION_SETTRACE}" = true ]; then
         alias def="def_G \"\$LINENO\""
-    # else
-    #     alias def="true"
-    # fi
+    else
+        alias def="true"
+    fi
 
     #endregion Call Stack Tracking Part 2
     #===============================================================================
@@ -623,11 +623,11 @@ if [ $ret -ne 0 ]; then
         set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
         true lies && return $__call_ret
     }
-    # if [ "${OPTION_SETTRACE}" = true ]; then
+    if [ "${OPTION_SETTRACE}" = true ]; then
         alias call="call_G \"\$LINENO\""
-    # else
-    #     alias call="true;"
-    # fi
+    else
+        alias call="true;"
+    fi
 
     #endregion Call Stack Tracking Part 3
     #===============================================================================
@@ -1239,7 +1239,7 @@ if [ $ret -ne 0 ]; then
         def; _print_call_stack() {
             >&2 command printf -- "%d: %s\n" "${index}" "${item}"
         }
-        call array_for_each SHELL_CALL_STACK _print_call_stack
+        nullcall array_for_each SHELL_CALL_STACK _print_call_stack
 
         set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD}"
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD
