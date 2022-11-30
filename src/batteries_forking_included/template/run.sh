@@ -1232,7 +1232,7 @@ if [ $ret -ne 0 ]; then
             __dict_set_key_ret=1
         else
             nullcall array_append "__dict__$1__keys" "$2"
-            eval "__dict__$1__key_$(nullcall __dict_hash_key "$2")=\"$3\""
+            eval "__dict__$1__key__$(nullcall __dict_hash_key "$2")=\"$3\""
             eval "__dict__$1__length=\$(( __dict__$1__length + 1 ))"
         fi
 
@@ -1250,7 +1250,7 @@ if [ $ret -ne 0 ]; then
         __dict_get_key_ret=0
 
         if dict_has_key "$1" "$2"; then
-            eval "printf \"%s\" \"\$__dict__$1__key_$(__dict_hash_key "$2")\""
+            eval "printf \"%s\" \"\$__dict__$1__key__$(__dict_hash_key "$2")\""
         else
             __dict_get_key_ret=1
         fi
@@ -1274,7 +1274,7 @@ if [ $ret -ne 0 ]; then
         fi
 
         if dict_has_key "$1" "$2"; then
-            eval "unset __dict__$1__key_$(__dict_hash_key "$2")"
+            eval "unset __dict__$1__key__$(__dict_hash_key "$2")"
             eval "__dict__$1__length=\$(( __dict__$1__length - 1 ))"
         else
             __dict_unset_key_ret=1
@@ -1293,7 +1293,7 @@ if [ $ret -ne 0 ]; then
 
         __dict_has_key_ret=0
 
-        if eval "[ -n \"\$__dict__$1__key_$(__dict_hash_key "$2")\" ]"; then
+        if eval "[ -n \"\$__dict__$1__key__$(__dict_hash_key "$2")\" ]"; then
             __dict_has_key_ret=0
         else
             __dict_has_key_ret=1

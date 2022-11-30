@@ -57,6 +57,81 @@ if [ $ret -ne 0 ]; then
     fi
     export OPTION_SETTRACE
 
+    # unrolled dict_init & dict_init begin (optimized)
+    # nullcall dict_init SHELL_DEF_SOURCE_PUUID
+    # nullcall dict_export SHELL_DEF_SOURCE_PUUID
+    SHELL_DEF_SOURCE_PUUID="__dict__"
+    export SHELL_DEF_SOURCE_PUUID
+    __dict__SHELL_DEF_SOURCE_PUUID="__dict__"
+    export __dict__SHELL_DEF_SOURCE_PUUID
+    __dict__SHELL_DEF_SOURCE_PUUID__length=0
+    export __dict__SHELL_DEF_SOURCE_PUUID__length
+    __dict__SHELL_DEF_SOURCE_PUUID__keys="__array__"
+    export __dict__SHELL_DEF_SOURCE_PUUID__keys
+    __array____dict__SHELL_DEF_SOURCE_PUUID__keys="__array__"
+    export __array____dict__SHELL_DEF_SOURCE_PUUID__keys
+    __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length=0
+    export __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length
+    # unrolled dict_init & dict_init end
+
+    # unrolled dict_init & dict_init begin (optimized)
+    # nullcall dict_init SHELL_DEF_LINENO
+    # nullcall dict_export SHELL_DEF_LINENO
+    SHELL_DEF_LINENO="__dict__"
+    export SHELL_DEF_LINENO
+    __dict__SHELL_DEF_LINENO="__dict__"
+    export __dict__SHELL_DEF_LINENO
+    __dict__SHELL_DEF_LINENO__length=0
+    export __dict__SHELL_DEF_LINENO__length
+    __dict__SHELL_DEF_LINENO__keys="__array__"
+    export __dict__SHELL_DEF_LINENO__keys
+    __array____dict__SHELL_DEF_LINENO__keys="__array__"
+    export __array____dict__SHELL_DEF_LINENO__keys
+    __array____dict__SHELL_DEF_LINENO__keys__length=0
+    export __array____dict__SHELL_DEF_LINENO__keys__length
+    # unrolled dict_init & dict_init end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_CALL_STACK
+    # nullcall array_export SHELL_CALL_STACK
+    SHELL_CALL_STACK="__array__"
+    export SHELL_CALL_STACK
+    __array__SHELL_CALL_STACK="__array__"
+    export __array__SHELL_CALL_STACK
+    __array__SHELL_CALL_STACK__length=0
+    export __array__SHELL_CALL_STACK__length
+    # unrolled array_init end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_CALL_STACK_SOURCE_PUUID
+    SHELL_CALL_STACK_SOURCE_PUUID="__array__"
+    export SHELL_CALL_STACK_SOURCE_PUUID
+    __array__SHELL_CALL_STACK_SOURCE_PUUID="__array__"
+    export __array__SHELL_CALL_STACK_SOURCE_PUUID
+    __array__SHELL_CALL_STACK_SOURCE_PUUID__length=0
+    export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+    # unrolled array_init end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_CALL_STACK_DEST_PUUID
+    SHELL_CALL_STACK_DEST_PUUID="__array__"
+    export SHELL_CALL_STACK_DEST_PUUID
+    __array__SHELL_CALL_STACK_DEST_PUUID="__array__"
+    export __array__SHELL_CALL_STACK_DEST_PUUID
+    __array__SHELL_CALL_STACK_DEST_PUUID__length=0
+    export __array__SHELL_CALL_STACK_DEST_PUUID__length
+    # unrolled array_init end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_CALL_STACK_FUNCNAME
+    SHELL_CALL_STACK_FUNCNAME="__array__"
+    export SHELL_CALL_STACK_FUNCNAME
+    __array__SHELL_CALL_STACK_FUNCNAME="__array__"
+    export __array__SHELL_CALL_STACK_FUNCNAME
+    __array__SHELL_CALL_STACK_FUNCNAME__length=0
+    export __array__SHELL_CALL_STACK_FUNCNAME__length
+    # unrolled array_init end
+
     #-------------------------------------------------------------------------------
     # nulldef; keyword
     # 'true' is a command that returns 0 and is effectively a no-op command
@@ -87,8 +162,7 @@ if [ $ret -ne 0 ]; then
     # the call stack
     nulldef; nullcall() {
         "$@"
-        _nullcall_ret=$?
-        return $_nullcall_ret
+        return $?
     }
 
     #-------------------------------------------------------------------------------
@@ -106,46 +180,85 @@ if [ $ret -ne 0 ]; then
         __def_G_lineno=$1
 
         # get the current context's puuid from the call stack
-        __def_G_puuid="$(nullcall array_peek SHELL_CALL_STACK_SOURCE_PUUID)"
+        # unrolled array_peek begin (optimized)
+        # __def_G_puuid="$(nullcall array_peek SHELL_CALL_STACK_SOURCE_PUUID)"
+        __def_G_puuid__index=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length - 1 ))
+        eval "__def_G_puuid=\${__array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__def_G_puuid__index}}"
+        # unrolled array_peek end
+
         # get the real filepath of the puuid
-        __def_G_filepath="$(nullcall dict_get_key SHELL_SOURCE_PUUID_DICT "${__def_G_puuid}")"
+        # unrolled dict_get_key begin (optimized)
+        # __def_G_filepath="$(nullcall dict_get_key SHELL_SOURCE_PUUID_DICT "${__def_G_puuid}")"
+        # shellcheck disable=SC2154
+        __def_G_filepath__key_hash="$( (printf "%s" "${__def_G_puuid}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__def_G_puuid}" | shasum -a 1) | cut -d' ' -f1)"
+        eval "__def_G_filepath=\"\${__dict__SHELL_SOURCE_PUUID_DICT__key__${__def_G_filepath__key_hash}}\""
+        # unrolled dict_get_key end
+
         # get the context's func name from the call stack
-        __def_G_parent_funcname="$(nullcall array_peek SHELL_CALL_STACK_FUNCNAME)"
+        # unrolled array_peek begin (optimized)
+        # __def_G_parent_funcname="$(nullcall array_peek SHELL_CALL_STACK_FUNCNAME)"
+        __def_G_parent_funcname__index=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+        eval "__def_G_parent_funcname=\${__array__SHELL_CALL_STACK_FUNCNAME__index__${__def_G_parent_funcname__index}}"
+        # unrolled array_peek end
+
         if [ "${LINENO_IS_RELATIVE}" = true ]; then
             # get the current parent's lineno
-            __def_G_parent_lineno_offset=$(nullcall dict_get_key SHELL_DEF_LINENO "${__def_G_parent_funcname}")
+            # unrolled dict_get_key begin (optimized)
+            # __def_G_parent_lineno_offset=$(nullcall dict_get_key SHELL_DEF_LINENO "${__def_G_parent_funcname}")
+            # shellcheck disable=SC2154
+            __def_G_parent_lineno_offset__key_hash="$( (printf "%s" "${__def_G_parent_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__def_G_parent_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+            eval "__def_G_parent_lineno_offset=\"\${__dict__SHELL_DEF_LINENO__key__${__def_G_parent_lineno_offset__key_hash}}\""
+            # unrolled dict_get_key end
+
             # recalculate lineno to account for parent's lineno and the global offset
+            # shellcheck disable=SC2154
             __def_G_lineno=$(( __def_G_lineno + __def_G_parent_lineno_offset - LINENO_GLOBAL_OFFSET ))
         fi
+
         # get the func's real name
+        # shellcheck disable=SC2154
         # echo __def_G_funcname="\$(head -n \"$__def_G_lineno\" \"$__def_G_filepath\" | tail -n 1 | awk '{ print $2 }' | tr -d '()')"
+        # shellcheck disable=SC2154
         __def_G_funcname="$(head -n "$__def_G_lineno" "$__def_G_filepath" | tail -n 1 | awk '{ print $2 }' | tr -d '()')"
 
-        nullcall dict_set_key SHELL_DEF_SOURCE_PUUID "$__def_G_funcname" "$__def_G_puuid"
-        nullcall dict_export SHELL_DEF_SOURCE_PUUID
-        nullcall dict_set_key SHELL_DEF_LINENO "$__def_G_funcname" "$__def_G_lineno"
-        nullcall dict_export SHELL_DEF_LINENO
+        # unrolled dict_set_key & dict_export begin (optimized)
+        # nullcall dict_set_key SHELL_DEF_SOURCE_PUUID "$__def_G_funcname" "$__def_G_puuid"
+        # nullcall dict_export SHELL_DEF_SOURCE_PUUID
+        # nullcall dict_set_key SHELL_DEF_LINENO "$__def_G_funcname" "$__def_G_lineno"
+        # nullcall dict_export SHELL_DEF_LINENO
+        __def_G_funcname__key_hash="$( (printf "%s" "${__def_G_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__def_G_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+
+        eval "__array____dict__SHELL_DEF_SOURCE_PUUID__keys__index__${__array____dict__SHELL_DEF_SOURCE_PUUID__keys__length}=\"${__def_G_funcname}\""
+        eval "export __array____dict__SHELL_DEF_SOURCE_PUUID__keys__index__${__array____dict__SHELL_DEF_SOURCE_PUUID__keys__length}"
+        __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length=$(( __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length + 1 ))
+        export __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length
+        eval "__dict__SHELL_DEF_SOURCE_PUUID__key__${__def_G_funcname__key_hash}=\"${__def_G_puuid}\""
+        eval "export __dict__SHELL_DEF_SOURCE_PUUID__key__${__def_G_funcname__key_hash}"
+        __dict__SHELL_DEF_SOURCE_PUUID__length=$(( __dict__SHELL_DEF_SOURCE_PUUID__length + 1 ))
+        export __dict__SHELL_DEF_SOURCE_PUUID__length
+
+        eval "__array____dict__SHELL_DEF_LINENO__keys__index__${__array____dict__SHELL_DEF_LINENO__keys__length}=\"${__def_G_funcname}\""
+        eval "export __array____dict__SHELL_DEF_LINENO__keys__index__${__array____dict__SHELL_DEF_LINENO__keys__length}"
+        __array____dict__SHELL_DEF_LINENO__keys__length=$(( __array____dict__SHELL_DEF_LINENO__keys__length + 1 ))
+        export __array____dict__SHELL_DEF_LINENO__keys__length
+        eval "__dict__SHELL_DEF_LINENO__key__${__def_G_funcname__key_hash}=\"${__def_G_lineno}\""
+        eval "export __dict__SHELL_DEF_LINENO__key__${__def_G_funcname__key_hash}"
+        __dict__SHELL_DEF_LINENO__length=$(( __dict__SHELL_DEF_LINENO__length + 1 ))
+        export __dict__SHELL_DEF_LINENO__length
+        # unrolled dict_set_key & dict_export end
 
         if [ "${OPTION_SETTRACE}" = true ]; then
             echo "= ${__def_G_puuid}:${__def_G_lineno}:${__def_G_funcname}"
         fi
 
-        unset __def_G_funcname
-        unset __def_G_parent_lineno_offset
-        unset __def_G_parent_funcname
-        unset __def_G_filepath
-        unset __def_G_puuid
-        unset __def_G_lineno
-        unset __def_G_puuid_temp
-
         set +x "${__MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD
     }
-    # normally aliases cannot use positional parameters BUT
-    # this works in bash, dash, zsh b/c we're just using $0
     # shellcheck disable=SC2142
-    # alias def="sh -c \"echo = \$(get_my_puuid_basename):\$LINENO:\\\$(head -n \$LINENO \\\"\$(get_my_real_fullpath)\\\" | tail -n 1 | awk '{ print \\\$2 }' | tr -d '()')\""
-    alias def="def_G \"\$LINENO\""
+    # if [ "${OPTION_SETTRACE}" = true ]; then
+        alias def="def_G \"\$LINENO\""
+    # else
+    #     alias def="true"
+    # fi
 
     #endregion Call Stack Tracking Part 2
     #===============================================================================
@@ -171,84 +284,237 @@ if [ $ret -ne 0 ]; then
         # __call_G_dest_lineno="$4"
         # __call_G_funcname="$5"
 
-        nullcall array_push SHELL_CALL_STACK "$1:$2:$3:$4:$5"
-        nullcall array_export SHELL_CALL_STACK
+        # unrolled array_push & array_export begin (optimized)
+        # nullcall array_push SHELL_CALL_STACK "$1:$2:$3:$4:$5"
+        # nullcall array_export SHELL_CALL_STACK
+        eval "__array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}=\"$1:$2:$3:$4:$5\""
+        eval "export __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+        __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length + 1 ))
+        export __array__SHELL_CALL_STACK__length
+        # unrolled array_push & array_export end
 
-        nullcall array_push SHELL_CALL_STACK_SOURCE_PUUID "$1"
-        nullcall array_export SHELL_CALL_STACK_SOURCE_PUUID
+        # unrolled array_push & array_export begin (optimized)
+        # nullcall array_push SHELL_CALL_STACK_SOURCE_PUUID "$1"
+        # nullcall array_export SHELL_CALL_STACK_SOURCE_PUUID
+        eval "__array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}=\"$1\""
+        eval "export __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length + 1 ))
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        # unrolled array_push & array_export end
 
-        nullcall array_push SHELL_CALL_STACK_SOURCE_LINENO "$2"
-        nullcall array_export SHELL_CALL_STACK_SOURCE_LINENO
+        # nullcall array_push SHELL_CALL_STACK_SOURCE_LINENO "$2"
+        # nullcall array_export SHELL_CALL_STACK_SOURCE_LINENO
 
-        nullcall array_push SHELL_CALL_STACK_DEST_PUUID "$3"
-        nullcall array_export SHELL_CALL_STACK_DEST_PUUID
+        # unrolled array_push & array_export begin (optimized)
+        # nullcall array_push SHELL_CALL_STACK_DEST_PUUID "$3"
+        # nullcall array_export SHELL_CALL_STACK_DEST_PUUID
+        eval "__array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}=\"$3\""
+        eval "export __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length + 1 ))
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        # unrolled array_push & array_export end
 
-        nullcall array_push SHELL_CALL_STACK_DEST_LINENO "$4"
-        nullcall array_export SHELL_CALL_STACK_DEST_LINENO
+        # nullcall array_push SHELL_CALL_STACK_DEST_LINENO "$4"
+        # nullcall array_export SHELL_CALL_STACK_DEST_LINENO
 
-        nullcall array_push SHELL_CALL_STACK_FUNCNAME "$5"
-        nullcall array_export SHELL_CALL_STACK_FUNCNAME
+        # unrolled array_push & array_export begin (optimized)
+        # nullcall array_push SHELL_CALL_STACK_FUNCNAME "$5"
+        # nullcall array_export SHELL_CALL_STACK_FUNCNAME
+        eval "__array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}=\"$5\""
+        eval "export __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+        __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length + 1 ))
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
+        # unrolled array_push & array_export end
     }
 
     #-------------------------------------------------------------------------------
     # pops function call context off of call stack
     nulldef; _call_stack_pop_G() {
-        nullcall array_pop SHELL_CALL_STACK
-        nullcall array_export SHELL_CALL_STACK
+        # unrolled array_pop & array_export begin (optimized)
+        # nullcall array_pop SHELL_CALL_STACK
+        # nullcall array_export SHELL_CALL_STACK
+        __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length - 1 ))
+        export __array__SHELL_CALL_STACK__length
+        eval "unset __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+        # unrolled array_pop & array_export end
 
-        nullcall array_pop SHELL_CALL_STACK_SOURCE_PUUID
-        nullcall array_export SHELL_CALL_STACK_SOURCE_PUUID
+        # unrolled array_pop & array_export begin (optimized)
+        # nullcall array_pop SHELL_CALL_STACK_SOURCE_PUUID
+        # nullcall array_export SHELL_CALL_STACK_SOURCE_PUUID
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length - 1 ))
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        eval "unset __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+        # unrolled array_pop & array_export end
 
-        nullcall array_pop SHELL_CALL_STACK_SOURCE_LINENO
-        nullcall array_export SHELL_CALL_STACK_SOURCE_LINENO
+        # nullcall array_pop SHELL_CALL_STACK_SOURCE_LINENO
+        # nullcall array_export SHELL_CALL_STACK_SOURCE_LINENO
 
-        nullcall array_pop SHELL_CALL_STACK_DEST_PUUID
-        nullcall array_export SHELL_CALL_STACK_DEST_PUUID
+        # unrolled array_pop & array_export begin (optimized)
+        # nullcall array_pop SHELL_CALL_STACK_DEST_PUUID
+        # nullcall array_export SHELL_CALL_STACK_DEST_PUUID
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        eval "unset __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+        # unrolled array_pop & array_export end
 
-        nullcall array_pop SHELL_CALL_STACK_DEST_LINENO
-        nullcall array_export SHELL_CALL_STACK_DEST_LINENO
+        # nullcall array_pop SHELL_CALL_STACK_DEST_LINENO
+        # nullcall array_export SHELL_CALL_STACK_DEST_LINENO
 
-        nullcall array_pop SHELL_CALL_STACK_FUNCNAME
-        nullcall array_export SHELL_CALL_STACK_FUNCNAME
+        # unrolled array_pop & array_export begin (optimized)
+        # nullcall array_pop SHELL_CALL_STACK_FUNCNAME
+        # nullcall array_export SHELL_CALL_STACK_FUNCNAME
+        __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
+        eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+        # unrolled array_pop & array_export end
     }
 
     #-------------------------------------------------------------------------------
     # "call" keyword
     # calls specified function with args, tracking it via call stack
+    # # non-minified:
+    # nulldef; call_G() {
+    #     __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+    #     set +x
+    #
+    #     __call_G_lineno="$1"
+    #     __call_G_funcname="$2"
+    #     shift 1
+    #
+    #     # unrolled array_peek begin (optimized)
+    #     # __call_G_parent_funcname="$(nullcall array_peek SHELL_CALL_STACK_FUNCNAME)"
+    #     # __call_G_parent_funcname__index=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+    #     # eval "__call_G_parent_funcname=\${__array__SHELL_CALL_STACK_FUNCNAME__index__${__call_G_parent_funcname__index}}"
+    #     # unrolled array_peek end
+    #
+    #     # unrolled array_peek begin (optimized)
+    #     # __call_G_source_puuid="$(nullcall array_peek SHELL_CALL_STACK_DEST_PUUID)"
+    #     # __call_G_source_puuid__index=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+    #     # eval "__call_G_source_puuid=\${__array__SHELL_CALL_STACK_DEST_PUUID__index__${__call_G_source_puuid__index}}"
+    #     # unrolled array_peek end
+    #
+    #     # unrolled dict_get_key begin (optimized)
+    #     # __call_G_dest_puuid="$(nullcall dict_get_key SHELL_DEF_SOURCE_PUUID "${__call_G_funcname}")"
+    #     # __call_G_dest_lineno="$(nullcall dict_get_key SHELL_DEF_LINENO "${__call_G_funcname}")"
+    #     __call_G_dest__key_hash="$( (printf "%s" "${__call_G_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+    #     eval "__call_G_dest_puuid=\"\${__dict__SHELL_DEF_SOURCE_PUUID__key__${__call_G_dest__key_hash}}\""
+    #     eval "__call_G_dest_lineno=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_dest__key_hash}}\""
+    #     # unrolled dict_get_key end
+    #
+    #     if [ "${LINENO_IS_RELATIVE}" = true ]; then
+    #         # get the current parent's lineno
+    #         # unrolled dict_get_key begin (optimized)
+    #         # __call_G_parent_lineno_offset=$(nullcall dict_get_key SHELL_DEF_LINENO "${__call_G_parent_funcname}")
+    #         # shellcheck disable=SC2154
+    #         __call_G_parent_lineno_offset_key_hash="$( (printf "%s" "${__call_G_parent_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_parent_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+    #         eval "__call_G_parent_lineno_offset=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_parent_lineno_offset_key_hash}}\""
+    #         # unrolled dict_get_key end
+    #
+    #         # recalculate lineno to account for parent's lineno and the global offset
+    #         # shellcheck disable=SC2154
+    #         __call_G_lineno=$(( __call_G_lineno + __call_G_parent_lineno_offset - LINENO_GLOBAL_OFFSET ))
+    #     fi
+    #
+    #     if [ "${OPTION_SETTRACE}" = true ]; then
+    #         # print number of dashes equal to call stack depth
+    #         # unrolled array_get_length in next line
+    #         for _i in $(seq 1 $__array__SHELL_CALL_STACK__length); do
+    #             >&2 command printf -- "-"
+    #         done
+    #
+    #         # shellcheck disable=SC2154
+    #         >&2 printf -- " %s:%s:%s:%s %s\n" \
+    #             "${__call_G_source_puuid}" \
+    #             "${__call_G_lineno}" \
+    #             "${__call_G_dest_puuid}" \
+    #             "${__call_G_dest_lineno}" \
+    #             "$*"
+    #     fi
+    #
+    #     # unrolled _call_stack_push_G (shortened)
+    #     # _call_stack_push_G \
+    #     #     "${__call_G_source_puuid}" \
+    #     #     "${__call_G_lineno}" \
+    #     #     "${__call_G_dest_puuid}" \
+    #     #     "${__call_G_dest_lineno}" \
+    #     #     "${__call_G_funcname}"
+    #     eval "__array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}=\"${__call_G_source_puuid}:${__call_G_lineno}:${__call_G_dest_puuid}:${__call_G_dest_lineno}:${__call_G_funcname}\""
+    #     eval "export __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+    #     __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length + 1 ))
+    #     export __array__SHELL_CALL_STACK__length
+    #     eval "__array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}=\"${__call_G_source_puuid}\""
+    #     eval "export __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+    #     __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length + 1 ))
+    #     export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+    #     eval "__array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}=\"${__call_G_dest_puuid}\""
+    #     eval "export __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+    #     __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length + 1 ))
+    #     export __array__SHELL_CALL_STACK_DEST_PUUID__length
+    #     eval "__array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}=\"${__call_G_funcname}\""
+    #     eval "export __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+    #     __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length + 1 ))
+    #     export __array__SHELL_CALL_STACK_FUNCNAME__length
+    #     # unrolled _call_stack_push_G
+    #
+    #     set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+    #
+    #     "$@"
+    #     __call_ret=$?
+    #
+    #     __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+    #     set +x
+    #
+    #     # unrolled _call_stack_pop_G (shortened)
+    #     # _call_stack_pop_G
+    #     __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length - 1 ))
+    #     export __array__SHELL_CALL_STACK__length
+    #     eval "unset __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+    #     __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length - 1 ))
+    #     export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+    #     eval "unset __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+    #     __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+    #     export __array__SHELL_CALL_STACK_DEST_PUUID__length
+    #     eval "unset __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+    #     __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+    #     export __array__SHELL_CALL_STACK_FUNCNAME__length
+    #     eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+    #     # unrolled _call_stack_pop_G
+    #
+    #     set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+    #
+    #     return $__call_ret
+    # }
+    #
+    # # minified:
+
+    #-------------------------------------------------------------------------------
+    # "call" keyword
+    # calls specified function with args, tracking it via call stack
     nulldef; call_G() {
-        # NOTE: intentionally not using call inside this function
         __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
         set +x
-
         __call_G_lineno="$1"
         __call_G_funcname="$2"
         shift 1
-
-        __call_G_parent_funcname="$(nullcall array_peek SHELL_CALL_STACK_FUNCNAME)"
-
-        __call_G_source_puuid=""
-        if [ "${__call_G_parent_funcname}" = "_" ]; then
-            __call_G_source_puuid="$(nullcall array_peek SHELL_CALL_STACK_SOURCE_PUUID)"
-        else
-            __call_G_source_puuid="$(nullcall dict_get_key SHELL_DEF_SOURCE_PUUID "${__call_G_parent_funcname}")"
-        fi
-
-        __call_G_dest_puuid="$(nullcall dict_get_key SHELL_DEF_SOURCE_PUUID "${__call_G_funcname}")"
-        __call_G_dest_lineno="$(nullcall dict_get_key SHELL_DEF_LINENO "${__call_G_funcname}")"
-
+        __call_G_parent_funcname__index=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+        eval "__call_G_parent_funcname=\${__array__SHELL_CALL_STACK_FUNCNAME__index__${__call_G_parent_funcname__index}}"
+        __call_G_source_puuid__index=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+        eval "__call_G_source_puuid=\${__array__SHELL_CALL_STACK_DEST_PUUID__index__${__call_G_source_puuid__index}}"
+        __call_G_dest__key_hash="$( (printf "%s" "${__call_G_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+        eval "__call_G_dest_puuid=\"\${__dict__SHELL_DEF_SOURCE_PUUID__key__${__call_G_dest__key_hash}}\""
+        eval "__call_G_dest_lineno=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_dest__key_hash}}\""
         if [ "${LINENO_IS_RELATIVE}" = true ]; then
-            # get the current parent's lineno
-            __call_G_parent_lineno_offset=$(nullcall dict_get_key SHELL_DEF_LINENO "${__call_G_parent_funcname}")
-            # recalculate lineno to account for parent's lineno and the global offset
+            # shellcheck disable=SC2154
+            __call_G_parent_lineno_offset_key_hash="$( (printf "%s" "${__call_G_parent_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_parent_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+            eval "__call_G_parent_lineno_offset=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_parent_lineno_offset_key_hash}}\""
+            # shellcheck disable=SC2154
             __call_G_lineno=$(( __call_G_lineno + __call_G_parent_lineno_offset - LINENO_GLOBAL_OFFSET ))
         fi
-
         if [ "${OPTION_SETTRACE}" = true ]; then
-            # print number of dashes equal to call stack depth
-            for _i in $(seq 1 "$(nullcall array_get_length SHELL_CALL_STACK)"); do
+            for _i in $(seq 1 $__array__SHELL_CALL_STACK__length); do
                 >&2 command printf -- "-"
             done
-
+            # shellcheck disable=SC2154
             >&2 printf -- " %s:%s:%s:%s %s\n" \
                 "${__call_G_source_puuid}" \
                 "${__call_G_lineno}" \
@@ -256,40 +522,47 @@ if [ $ret -ne 0 ]; then
                 "${__call_G_dest_lineno}" \
                 "$*"
         fi
-
-        nullcall _call_stack_push_G \
-            "${__call_G_source_puuid}" \
-            "${__call_G_lineno}" \
-            "${__call_G_dest_puuid}" \
-            "${__call_G_dest_lineno}" \
-            "${__call_G_funcname}"
-
-        unset __call_G_parent_lineno_offset
-        unset __call_G_parent_funcname
-        unset __call_G_funcname
-        unset __call_G_lineno
-        unset __call_G_source_puuid
-
+        eval "__array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}=\"${__call_G_source_puuid}:${__call_G_lineno}:${__call_G_dest_puuid}:${__call_G_dest_lineno}:${__call_G_funcname}\""
+        eval "export __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+        __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length + 1 ))
+        export __array__SHELL_CALL_STACK__length
+        eval "__array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}=\"${__call_G_source_puuid}\""
+        eval "export __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length + 1 ))
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        eval "__array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}=\"${__call_G_dest_puuid}\""
+        eval "export __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length + 1 ))
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        eval "__array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}=\"${__call_G_funcname}\""
+        eval "export __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+        __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length + 1 ))
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
         set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD
-
         "$@"
         __call_ret=$?
-
         __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
         set +x
-
-        nullcall _call_stack_pop_G
-
+        __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length - 1 ))
+        export __array__SHELL_CALL_STACK__length
+        eval "unset __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length - 1 ))
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        eval "unset __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        eval "unset __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+        __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
+        eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
         set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD
-
         return $__call_ret
     }
-    # normally aliases cannot use positional parameters BUT
-    # this works in bash, dash, zsh b/c we're just using $0
-    # shellcheck disable=SC2142
-    alias call="call_G \"\$LINENO\""
+    # if [ "${OPTION_SETTRACE}" = true ]; then
+        alias call="call_G \"\$LINENO\""
+    # else
+    #     alias call="true;"
+    # fi
 
     #-------------------------------------------------------------------------------
     nulldef; print_call_stack() {
@@ -297,7 +570,7 @@ if [ $ret -ne 0 ]; then
         set +x
 
         nulldef; _print_call_stack() {
-            >&2 command printf -- "%s\n" "${item}"
+            >&2 command printf -- "%d: %s\n" "${index}" "${item}"
         }
         nullcall array_for_each SHELL_CALL_STACK _print_call_stack
 
@@ -740,22 +1013,25 @@ if [ $ret -ne 0 ]; then
     # NOTE: no $ sign on my_array_name below
     # array_init my_array_name
 
-    # # manually iterating an array:
-    # OIFS="$IFS"
-    # IFS="${_ARRAY__SEP}"
-    # NOTE: there IS a $ sign on my_array_name below
-    # for item in $my_array_name; do
-    #     echo $item
+    # # manually iterating an array instead of array_for_each:
+    # NOTE: no $ sign on my_array_name below
+    # for index in $(seq 0 $(array_get_length my_array_name); do
+    #     echo $(array_get_at_index my_array_name $index)
     # done
-    # IFS="$OIFS"
+
+    # unrolled version of manually iterating an array instead of array_fo_each:
+    # NOTE: no $ sign on my_array_name below
+    # for index in $seq $__array__my_array_name__length
+    #     echo "$(eval "\$__array__my_array_name__$index")"
+    # done
 
     # # append to array:
     # NOTE: no $ sign on my_array_name
     # array_append my_array_name "my value"
 
-    # # get item by index:
+    # # get item by __array__array_insert_index__iterator_index:
     # NOTE: no $ sign on my_array_name
-    # array_get_at_index my_array_name $index
+    # array_get_at_index my_array_name $__array__array_insert_index__iterator_index
 
     # # get last item:
     # NOTE: no $ sign on my_array_name
@@ -774,7 +1050,7 @@ if [ $ret -ne 0 ]; then
     # NOTE: no $ sign on my_array_name
     # array_get_length my_array_name
 
-    # # find index of item
+    # # find __array__array_insert_index__iterator_index of item
     # NOTE: no $ sign on my_array_name
     # array_find_index_of my_array_name value_to_find
     # returns -1 if not found
@@ -792,23 +1068,10 @@ if [ $ret -ne 0 ]; then
     # array_for_each the_array_name my_func
     ## NOTE: no $ on 'the_array_name' nor 'my_func'
 
-    _ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
-    #                                      x12345678x
-    _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
-
     #-------------------------------------------------------------------------------
-    nulldef; __array_escape() {
-        #                                        x1234x                                  x12x1234567890123456x
-        command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; __array_unescape() {
-        # NOTE: This doesn't look like the inverse of what __array_escape does, but
-        #   it works correctly, so don't try to "fix" it
-        #                                           x1234x12x           x12345678x
-        command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
-    }
+    # forward declarations for using array_for_each
+    index=""
+    item=""
 
     #-------------------------------------------------------------------------------
     nulldef; __array_fix_index() {
@@ -828,7 +1091,11 @@ if [ $ret -ne 0 ]; then
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-        eval "$1=\"\""
+        # TODO: error if new array already exists
+
+        eval "$1=\"__array__\""
+        eval "__array__$1=\"__array__\""
+        eval "__array__${1}__length=0"
 
         set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD}"
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD
@@ -839,6 +1106,13 @@ if [ $ret -ne 0 ]; then
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
+        # TODO: error if array already does not exist
+
+        for __array__destroy_var in $(set | sort | grep "__array__${1}__" | awk -F= '{ print $1 }' ); do
+            eval "unset $__array__destroy_var"
+        done
+        unset __array__destroy_var
+        eval "unset __array__$1"
         eval "unset $1"
 
         set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD}"
@@ -850,6 +1124,11 @@ if [ $ret -ne 0 ]; then
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
+        for __array__export_var in $(set | sort | grep "__array__${1}__" | awk -F= '{ print $1 }' ); do
+            eval "export $__array__export_var"
+        done
+        unset __array__export_var
+        eval "export __array__$1"
         eval "export $1"
 
         set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD}"
@@ -861,44 +1140,264 @@ if [ $ret -ne 0 ]; then
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-        __array__array_append__temp_value=$(nullcall __array_escape "$2")
-        __array__array_append__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
-        if [ "${__array__array_append__temp_storage}" = "" ]; then
-            eval "$1=\"${__array__array_append__temp_value}\""
-        else
-            # WARNING: DO NOT ESCAPE THE { } AROUND $1 HERE
-            eval "$1=\"\${$1}$_ARRAY__SEP${__array__array_append__temp_value}\""
-        fi
+        __array__array_append__index=$(eval "echo \${__array__${1}__length}")
+        eval "__array__${1}__index__${__array__array_append__index}=\"$2\""
+        __array__array_append__new_length=$(eval "echo \$(( __array__${1}__length + 1 ))")
+        eval "__array__${1}__length=$__array__array_append__new_length"
 
         set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD}"
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_push() {
-        nullcall array_append "$@"
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_append_back() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_back__OPTIONS_OLD="${-:+"-$-"}"
+    nulldef; array_copy() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-        nullcall array_append "$1" "$2"
+        # unrolled array_init begin
+        # TODO: error if new array already exists
+        eval "$2=\"__array__\""
+        eval "__array__$2=\"__array__\""
+        # NOTE: optimization, setting length early
+        eval "__array__${2}__length=\${__array__${1}__length}"
+        # unrolled array_init end
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_back__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_back__OPTIONS_OLD
+        for __array__array_copy__iterator_index in $(seq 0 "$(eval "echo \$(( __array__${1}__length - 1 ))")"); do
+            eval "__array__${2}__index__${__array__array_copy__iterator_index}=\${__array__${1}__index__${__array__array_copy__iterator_index}}"
+        done
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_append_front() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_front__OPTIONS_OLD="${-:+"-$-"}"
+    nulldef; array_insert_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_insert_index__length=0
+        eval "__array__array_insert_index__length=\${__array__${1}__length}"
+
+        __array__array_insert_index__index="$2"
+        __array__array_insert_index__index="$(nullcall __array_fix_index "$1" "${__array__array_insert_index__index}")"
+
+        # TODO: error if index is > than length
+
+        if [ "$__array__array_insert_index__index" -lt "$__array__array_insert_index__length" ]; then
+            for __array__array_insert_index__iterator_index in $(seq \
+                $(( __array__array_insert_index__length - 1 )) \
+                "$__array__array_insert_index__index" \
+            ); do
+                __array__array_insert_index__iterator_index__next=$(( __array__array_insert_index__iterator_index + 1 ))
+                eval "__array__${1}__index__${__array__array_insert_index__iterator_index__next}=\${__array__${1}__index__${__array__array_insert_index__iterator_index}}"
+            done
+        fi
+
+        eval "__array__${1}__index__${__array__array_insert_index__index}=\"$3\""
+
+        __array__array_insert_index__new_length=$(eval "echo \$(( __array__${1}__length + 1 ))")
+        eval "__array__${1}__length=$__array__array_insert_index__new_length"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_remove_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_remove_index__length=0
+        eval "__array__array_remove_index__length=\${__array__${1}__length}"
+
+        __array__array_remove_index__index="$2"
+        __array__array_remove_index__index="$(nullcall __array_fix_index "$1" "${__array__array_remove_index__index}")"
+
+        # TODO: error if index is >= length
+
+        if [ "$__array__array_remove_index__index" -lt "$__array__array_remove_index__length" ]; then
+            for __array__array_remove_index__iterator_index in $(seq \
+                "$__array__array_remove_index__index" \
+                $(( __array__array_remove_index__length - 1 )) \
+            ); do
+                __array__array_remove_index__iterator_index__next=$(( __array__array_remove_index__iterator_index + 1 ))
+                eval "__array__${1}__index__${__array__array_remove_index__iterator_index}=\${__array__${1}__index__${__array__array_remove_index__iterator_index__next}}"
+            done
+        fi
+
+        __array__array_remove_index__new_length=$(eval "echo \$(( __array__${1}__length - 1 ))")
+        eval "__array__${1}__length=${__array__array_remove_index__new_length}"
+        eval "unset __array__${1}__index__${__array__array_remove_index__new_length}"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_get_length() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        eval "command echo \"\${__array__${1}__length}\""
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_get_at_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_get_index__index="$2"
+        __array__array_get_index__index="$(nullcall __array_fix_index "$1" "${__array__array_get_index__index}")"
+
+        eval "command printf \"%s\" \"\${__array__${1}__index__${__array__array_get_index__index}}\""
+
+        __array_get_at_index_ret=1
+        if [ "$(eval "[ -n \"\${__array__${1}__index__${__array__array_get_index__index}}\" ] && echo true || echo false")" = true ]; then
+            __array_get_at_index_ret=0
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD
+
+        return $__array_get_at_index_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_find_index_of() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_find_index_of__length=0
+        eval "__array__array_find_index_of__length=\${__array__${1}__length}"
+
+        __array__array_find_index_of__return=1 # false
+
+        if [ $__array__array_find_index_of__length -gt 0 ]; then
+            for __array__array_find_index_of__index in $(seq \
+                0 \
+                $(( __array__array_find_index_of__length - 1 )) \
+            ); do
+                eval "item=\${__array__${1}__index__${__array__array_find_index_of__index}}"
+                if [ "$item" = "$2" ]; then
+                    command printf "%d" "$__array__array_find_index_of__index"
+                    __array__array_find_index_of__return=0 # true
+                fi
+            done
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD
+
+        return "$__array__array_find_index_of__return"
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_contains() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        # returns 1 if not found, 0 if found
+        array_find_index_of "$1" "$2" >/dev/null
+        __array__contains__return=$?
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD
+
+        return $__array__contains__return
+    }
+
+    # # using array_for_each:
+    # def; my_func() {
+    #     echo "${index}: ${item}"
+    # }
+    # array_for_each the_array_name my_func
+    ## NOTE: no $ on 'the_array_name' nor 'my_func'
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_for_each() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD=e
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_for_each__array_name="$1"
+        __array__array_for_each__func_name="$2"
+
+        __array__array_for_each__length=0
+        eval "__array__array_for_each__length=\${__array__${1}__length}"
+
+        if [ $__array__array_for_each__length -gt 0 ]; then
+            for index in $(seq \
+                0 \
+                $(( __array__array_for_each__length - 1 )) \
+            ); do
+                eval "item=\${__array__${__array__array_for_each__array_name}__index__${index}}"
+                set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
+                unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
+                eval "${__array__array_for_each__func_name}"
+                __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD="${-:+"-$-"}"
+                set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+            done
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_push() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_append "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_pop() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_remove_last "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_peek() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_get_last "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_insert_last() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_append "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    nulldef; array_insert_first() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
         nullcall array_insert_index "$1" 0 "$2"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_front__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_front__OPTIONS_OLD
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD
     }
 
     #-------------------------------------------------------------------------------
@@ -924,38 +1423,6 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_peek() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        nullcall array_get_last "$@"
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_copy() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        __array__array_copy__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
-
-        nullcall array_init "$2"
-
-        OIFS="$IFS"
-        IFS="${_ARRAY__SEP}"
-        for item in ${__array__array_copy__temp_storage}; do
-            item="$(nullcall __array_unescape "${item}")"
-            nullcall array_append "$2" "${item}"
-        done
-        IFS="$OIFS"
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD
-    }
-
-    #-------------------------------------------------------------------------------
     nulldef; array_remove_first() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
@@ -975,220 +1442,6 @@ if [ $ret -ne 0 ]; then
 
         set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD}"
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_pop() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        nullcall array_remove_last "$@"
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_insert_index() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        __array__array_insert_index__temp_array=""
-        nullcall array_copy "$1" __array__array_insert_index__temp_array
-
-        __array__array_insert_index__last_index="$(nullcall array_get_length "$1")"
-
-        __array__array_insert_index__count=0
-
-        __array__array_insert_index__index="$2"
-        __array__array_insert_index__index="$(nullcall __array_fix_index "$1" "${__array__array_insert_index__index}")"
-
-        __array__array_insert_index__inserted=false
-
-        nullcall array_init "$1"
-
-        OIFS="$IFS"
-        IFS="${_ARRAY__SEP}"
-        for item in ${__array__array_insert_index__temp_array}; do
-            item="$(nullcall __array_unescape "${item}")"
-            if [ "${__array__array_insert_index__count}" -eq "${__array__array_insert_index__index}"  ]; then
-                nullcall array_append "$1" "$3"
-                __array__array_insert_index__inserted=true
-            fi
-            nullcall array_append "$1" "${item}"
-            __array__array_insert_index__count=$(( __array__array_insert_index__count + 1 ))
-        done
-
-        if \
-            [ "${__array__array_insert_index__last_index}" -eq "${__array__array_insert_index__count}" ] &&
-            [ "${__array__array_insert_index__inserted}" = false  ]
-        then
-            nullcall array_append "$1" "$3"
-        fi
-
-        IFS="$OIFS"
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_remove_index() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        __array__array_remove_index__temp_array=""
-        nullcall array_copy "$1" __array__array_remove_index__temp_array
-
-        __array__array_remove_index__index="$2"
-        __array__array_remove_index__index="$(nullcall __array_fix_index "$1" "${__array__array_remove_index__index}")"
-
-        __array__array_remove_index__count=0
-
-        nullcall array_init "$1"
-
-        OIFS="$IFS"
-        IFS="${_ARRAY__SEP}"
-        for item in ${__array__array_remove_index__temp_array}; do
-            item="$(nullcall __array_unescape "${item}")"
-            if [ "${__array__array_remove_index__count}" -ne "${__array__array_remove_index__index}" ]; then
-                nullcall array_append "$1" "${item}"
-            fi
-            __array__array_remove_index__count=$(( __array__array_remove_index__count + 1 ))
-        done
-        IFS="$OIFS"
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_get_length() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        OIFS="$IFS"
-        IFS="${_ARRAY__SEP}"
-        __array__array_get_length__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
-        __array__array_get_length__count=0
-        for item in $__array__array_get_length__temp_storage; do
-            __array__array_get_length__count=$(( __array__array_get_length__count + 1 ))
-        done
-        IFS="$OIFS"
-        command echo "${__array__array_get_length__count}"
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_get_at_index() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        OIFS="$IFS"
-        IFS="${_ARRAY__SEP}"
-
-        __array__array_get_index__index="$2"
-        __array__array_get_index__index="$(nullcall __array_fix_index "$1" "${__array__array_get_index__index}")"
-
-        __array__array_get_index__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
-        __array__array_get_index__count=0
-        __array__array_get_index__found=false
-
-        for item in $__array__array_get_index__temp_storage; do
-            if [ "${__array__array_get_index__count}" -eq "${__array__array_get_index__index}" ]; then
-                item="$(nullcall __array_unescape "$item")"
-                command printf "%s" "${item}"
-                __array__array_get_index__found=true
-                break
-            fi
-            __array__array_get_index__count=$(( __array__array_get_index__count + 1 ))
-        done
-        IFS="$OIFS"
-
-        __array_get_at_index_ret=1
-        if [ "${__array__array_get_index__found}" = true ]; then
-            __array_get_at_index_ret=0
-        fi
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD
-
-        return $__array_get_at_index_ret
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_find_index_of() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        __array__array_find_index_of__return=-1
-        __array__array_find_index_of__index=0
-
-        OIFS="$IFS"
-        IFS="${_ARRAY__SEP}"
-        __array__array_find_index_of__temp_storage="$(eval command echo \"\$\{"$1"\}\")"
-        for item in $__array__array_find_index_of__temp_storage; do
-            item="$(nullcall __array_unescape "$item")"
-            if [ "$item" = "$2" ]; then
-                __array__array_find_index_of__return=$__array__array_find_index_of__index
-                break
-            fi
-            __array__array_find_index_of__index=$(( __array__array_find_index_of__index + 1 ))
-        done
-        IFS="$OIFS"
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD
-
-        return $__array__array_find_index_of__return
-    }
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_contains() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        __array__contains__return=1  # false value
-
-        if [ "$(array_find_index_of "$1" "$2")" -ne -1 ]; then
-            __array__contains__return=0  # true value
-        fi
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD
-
-        return $__array__contains__return
-    }
-
-    # # using array_for_each:
-    # def; my_func() {
-    #     echo "${item}"
-    # }
-    # array_for_each the_array_name my_func
-    ## NOTE: no $ on 'the_array_name' nor 'my_func'
-
-    #-------------------------------------------------------------------------------
-    nulldef; array_for_each() {
-        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD="${-:+"-$-"}"
-        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-
-        OIFS="$IFS"
-        IFS="${_ARRAY__SEP}"
-        __ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-        for item in $__ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE; do
-            item="$(nullcall __array_unescape "$item")"
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
-            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
-            eval "$2"
-            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD="${-:+"-$-"}"
-            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
-        done
-        IFS="$OIFS"
-
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
-        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
     }
 
     #endregion Array Implementation
@@ -1264,7 +1517,7 @@ if [ $ret -ne 0 ]; then
             __dict_set_key_ret=1
         else
             nullcall array_append "__dict__$1__keys" "$2"
-            eval "__dict__$1__key_$(nullcall __dict_hash_key "$2")=\"$3\""
+            eval "__dict__$1__key__$(nullcall __dict_hash_key "$2")=\"$3\""
             eval "__dict__$1__length=\$(( __dict__$1__length + 1 ))"
         fi
 
@@ -1282,7 +1535,7 @@ if [ $ret -ne 0 ]; then
         __dict_get_key_ret=0
 
         if dict_has_key "$1" "$2"; then
-            eval "printf \"%s\" \"\$__dict__$1__key_$(__dict_hash_key "$2")\""
+            eval "printf \"%s\" \"\$__dict__$1__key__$(__dict_hash_key "$2")\""
         else
             __dict_get_key_ret=1
         fi
@@ -1306,7 +1559,7 @@ if [ $ret -ne 0 ]; then
         fi
 
         if dict_has_key "$1" "$2"; then
-            eval "unset __dict__$1__key_$(__dict_hash_key "$2")"
+            eval "unset __dict__$1__key__$(__dict_hash_key "$2")"
             eval "__dict__$1__length=\$(( __dict__$1__length - 1 ))"
         else
             __dict_unset_key_ret=1
@@ -1325,7 +1578,7 @@ if [ $ret -ne 0 ]; then
 
         __dict_has_key_ret=0
 
-        if eval "[ -n \"\$__dict__$1__key_$(__dict_hash_key "$2")\" ]"; then
+        if eval "[ -n \"\$__dict__$1__key__$(__dict_hash_key "$2")\" ]"; then
             __dict_has_key_ret=0
         else
             __dict_has_key_ret=1
@@ -1622,12 +1875,8 @@ nullcall log_ultradebug "env vars:\n%s" -- "$(env -0 | sort -z | tr '\0' '\n' | 
 if [ "${WAS_SOURCED}" = "" ]; then
     WAS_SOURCED=""
     nullcall array_init WAS_SOURCED
-fi
-if [ "${SHELL_SOURCE}" = "" ]; then
     SHELL_SOURCE=""
     nullcall array_init SHELL_SOURCE
-fi
-if [ "${SHELL_SOURCE_PUUID}" = "" ]; then
     SHELL_SOURCE_PUUID=""
     nullcall array_init SHELL_SOURCE_PUUID
 fi
@@ -1738,26 +1987,6 @@ if [ "$(nullcall array_get_length SHELL_SOURCE)" -eq 0 ]; then
     nullcall _shell_source_push_G "${TEMP_WAS_SOURCED}" "${TEMP_FILE_NAME}"
 fi
 
-if [ "${SHELL_DEF_SOURCE_PUUID}" = "" ]; then
-    nullcall dict_init SHELL_DEF_SOURCE_PUUID
-    nullcall dict_export SHELL_DEF_SOURCE_PUUID
-fi
-if [ "${SHELL_DEF_LINENO}" = "" ]; then
-    nullcall dict_init SHELL_DEF_LINENO
-    nullcall dict_export SHELL_DEF_LINENO
-fi
-
-if [ "${SHELL_CALL_STACK}" = "" ]; then
-    nullcall array_init SHELL_CALL_STACK
-    nullcall array_init SHELL_CALL_STACK_SOURCE_PUUID
-    nullcall array_init SHELL_CALL_STACK_SOURCE_LINENO
-    nullcall array_init SHELL_CALL_STACK_FUNCNAME
-
-    __call_G_source_puuid="$(nullcall array_get_last SHELL_SOURCE_PUUID)"
-    nullcall _call_stack_push_G "$__call_G_source_puuid" "0" "$__call_G_source_puuid" "1" "_"
-    unset __call_G_source_puuid
-fi
-
 unset x
 unset TEMP_ARG_ZERO
 unset TEMP_FILE_NAME
@@ -1765,6 +1994,7 @@ unset TEMP_SHELL_SOURCE
 unset TEMP_WAS_SOURCED
 unset DOLLAR_UNDER
 
+# TODO: create and use array_join to print these
 # sometimes shellcheck thinks log_ultradebug is only defined later, not before
 # shellcheck disable=SC2218
 nullcall log_ultradebug "WAS_SOURCED: $WAS_SOURCED"
@@ -2455,12 +2685,12 @@ if {
     [ "$(call array_get_length WAS_SOURCED)" -eq 1 ] &&
     [ "${_THIS_FILE_WAS_SOURCED}" = true ]
 }; then
-    call array_remove_last WAS_SOURCED
-    export WAS_SOURCED
-    call array_remove_last SHELL_SOURCE
-    export SHELL_SOURCE
-    call array_remove_last SHELL_SOURCE_PUUID
-    export SHELL_SOURCE_PUUID
+    # call array_remove_last WAS_SOURCED
+    # export WAS_SOURCED
+    # call array_remove_last SHELL_SOURCE
+    # export SHELL_SOURCE
+    # call array_remove_last SHELL_SOURCE_PUUID
+    # export SHELL_SOURCE_PUUID
     if [ "$ZSH_VERSION" != "" ]; then
         # shellcheck disable=3041
         set +yx "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}"
