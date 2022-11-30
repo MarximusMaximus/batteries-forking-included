@@ -7,2694 +7,4060 @@ DOLLAR_UNDER="$_"
 BFI_VERSION="0.1.2.dev0"
 export BFI_VERSION
 
+# TODO: flag for not tracing marximus-shell-extensions extended preamble functions
+# TODO: flag for not tracing bfi-base functions
+
 ################################################################################
-#region Preamble
+#region marximus-shell-extensions Base Preamble
 
-#===============================================================================
-#region Fallbacks
+if [ "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}" = "" ]; then
+    __MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD="${-:+"-$-"}"
+fi
+if [ "$ZSH_VERSION" != "" ]; then
+    # shellcheck disable=3041
+    set -y
+fi
 
-type BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED >/dev/null 2>&1
+__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD="${-:+"-$-"}"
+set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
 ret=$?
 if [ $ret -ne 0 ]; then
+    # NOTE: fence is created later
 
-    # NOTE: some basic definitions to fallback to if constants.sh failed to load
-    #   if constant.sh loads, it will override these
+    # Call Stack Tracking needs to be in multiple parts, because aliases
+    #   cannot be declared and used within the same if block
 
-    RET_SUCCESS=0; export RET_SUCCESS
-    RET_ERROR_UNKNOWN=1; export RET_ERROR_UNKNOWN
-    RET_ERROR_SCRIPT_WAS_SOURCED=149; export RET_ERROR_SCRIPT_WAS_SOURCED
-    RET_ERROR_USER_IS_ROOT=150; export RET_ERROR_USER_IS_ROOT
-    RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151; export RET_ERROR_SCRIPT_WAS_NOT_SOURCED
-    RET_ERROR_USER_IS_NOT_ROOT=152; export RET_ERROR_USER_IS_NOT_ROOT
-    RET_ERROR_DIRECTORY_NOT_FOUND=153; export RET_ERROR_DIRECTORY_NOT_FOUND
-    RET_ERROR_COULD_NOT_SOURCE_FILE=161; export RET_ERROR_COULD_NOT_SOURCE_FILE
+    #===============================================================================
+    #region Call Stack Tracking Part 1
 
-    if [ "${verbosity}" = "" ]; then
-        verbosity=1; export verbosity
+    PS4="+ \$(set +x; nullcall array_peek SHELL_CALL_STACK_DEST_PUUID 2>/dev/null || echo $0):\$LINENO: "
+
+    #-------------------------------------------------------------------------------
+    # line offset checking
+    test_LINENO_GLOBAL_OFFSET() { echo "$LINENO"; }
+    LINENO_GLOBAL_OFFSET="$(test_LINENO_GLOBAL_OFFSET)"
+    LINENO_IS_RELATIVE=false
+    if [ "$LINENO_GLOBAL_OFFSET" -le 1 ]; then
+        LINENO_IS_RELATIVE=true
+    else
+        LINENO_GLOBAL_OFFSET=0
     fi
+    unset -f test_LINENO_GLOBAL_OFFSET
+    export LINENO_GLOBAL_OFFSET
+    export LINENO_IS_RELATIVE
+
+    OPTION_SETTRACE=false
+    if [ "$(echo "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD}" | grep -e 'x')" != "" ]; then
+        OPTION_SETTRACE=true
+    fi
+    export OPTION_SETTRACE
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init WAS_SOURCED
+    WAS_SOURCED="__array__"
+    export WAS_SOURCED
+    __array__WAS_SOURCED="__array__"
+    export __array__WAS_SOURCED
+    __array__WAS_SOURCED__length=0
+    export __array__WAS_SOURCED__length
+    # unrolled array_init & array_export end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_SOURCE
+    SHELL_SOURCE="__array__"
+    export SHELL_SOURCE
+    __array__SHELL_SOURCE="__array__"
+    export __array__SHELL_SOURCE
+    __array__SHELL_SOURCE__length=0
+    export __array__SHELL_SOURCE__length
+    # unrolled array_init & array_export end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_SOURCE_PUUID
+    SHELL_SOURCE_PUUID="__array__"
+    export SHELL_SOURCE_PUUID
+    __array__SHELL_SOURCE_PUUID="__array__"
+    export __array__SHELL_SOURCE_PUUID
+    __array__SHELL_SOURCE_PUUID__length=0
+    export __array__SHELL_SOURCE_PUUID__length
+    # unrolled array_init & array_export end
+
+    # unrolled dict_init & dict_init begin (optimized)
+    # nullcall dict_init SHELL_SOURCE_PUUID_DICT
+    SHELL_SOURCE_PUUID_DICT="__dict__"
+    export SHELL_SOURCE_PUUID_DICT
+    __dict__SHELL_SOURCE_PUUID_DICT="__dict__"
+    export __dict__SHELL_SOURCE_PUUID_DICT
+    __dict__SHELL_SOURCE_PUUID_DICT__length=0
+    export __dict__SHELL_SOURCE_PUUID_DICT__length
+    __dict__SHELL_SOURCE_PUUID_DICT__keys="__array__"
+    export __dict__SHELL_SOURCE_PUUID_DICT__keys
+    __array____dict__SHELL_SOURCE_PUUID_DICT__keys="__array__"
+    export __array____dict__SHELL_SOURCE_PUUID_DICT__keys
+    __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length=0
+    export __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length
+    # unrolled dict_init & dict_init end
+
+    # unrolled dict_init & dict_init begin (optimized)
+    # nullcall dict_init SHELL_DEF_SOURCE_PUUID
+    # nullcall dict_export SHELL_DEF_SOURCE_PUUID
+    SHELL_DEF_SOURCE_PUUID="__dict__"
+    export SHELL_DEF_SOURCE_PUUID
+    __dict__SHELL_DEF_SOURCE_PUUID="__dict__"
+    export __dict__SHELL_DEF_SOURCE_PUUID
+    __dict__SHELL_DEF_SOURCE_PUUID__length=0
+    export __dict__SHELL_DEF_SOURCE_PUUID__length
+    __dict__SHELL_DEF_SOURCE_PUUID__keys="__array__"
+    export __dict__SHELL_DEF_SOURCE_PUUID__keys
+    __array____dict__SHELL_DEF_SOURCE_PUUID__keys="__array__"
+    export __array____dict__SHELL_DEF_SOURCE_PUUID__keys
+    __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length=0
+    export __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length
+    # unrolled dict_init & dict_init end
+
+    # unrolled dict_init & dict_init begin (optimized)
+    # nullcall dict_init SHELL_DEF_LINENO
+    # nullcall dict_export SHELL_DEF_LINENO
+    SHELL_DEF_LINENO="__dict__"
+    export SHELL_DEF_LINENO
+    __dict__SHELL_DEF_LINENO="__dict__"
+    export __dict__SHELL_DEF_LINENO
+    __dict__SHELL_DEF_LINENO__length=0
+    export __dict__SHELL_DEF_LINENO__length
+    __dict__SHELL_DEF_LINENO__keys="__array__"
+    export __dict__SHELL_DEF_LINENO__keys
+    __array____dict__SHELL_DEF_LINENO__keys="__array__"
+    export __array____dict__SHELL_DEF_LINENO__keys
+    __array____dict__SHELL_DEF_LINENO__keys__length=0
+    export __array____dict__SHELL_DEF_LINENO__keys__length
+    # unrolled dict_init & dict_init end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_CALL_STACK
+    # nullcall array_export SHELL_CALL_STACK
+    SHELL_CALL_STACK="__array__"
+    export SHELL_CALL_STACK
+    __array__SHELL_CALL_STACK="__array__"
+    export __array__SHELL_CALL_STACK
+    __array__SHELL_CALL_STACK__length=0
+    export __array__SHELL_CALL_STACK__length
+    # unrolled array_init end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_CALL_STACK_SOURCE_PUUID
+    SHELL_CALL_STACK_SOURCE_PUUID="__array__"
+    export SHELL_CALL_STACK_SOURCE_PUUID
+    __array__SHELL_CALL_STACK_SOURCE_PUUID="__array__"
+    export __array__SHELL_CALL_STACK_SOURCE_PUUID
+    __array__SHELL_CALL_STACK_SOURCE_PUUID__length=0
+    export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+    # unrolled array_init end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_CALL_STACK_DEST_PUUID
+    SHELL_CALL_STACK_DEST_PUUID="__array__"
+    export SHELL_CALL_STACK_DEST_PUUID
+    __array__SHELL_CALL_STACK_DEST_PUUID="__array__"
+    export __array__SHELL_CALL_STACK_DEST_PUUID
+    __array__SHELL_CALL_STACK_DEST_PUUID__length=0
+    export __array__SHELL_CALL_STACK_DEST_PUUID__length
+    # unrolled array_init end
+
+    # unrolled array_init & array_export begin (optimized)
+    # nullcall array_init SHELL_CALL_STACK_FUNCNAME
+    SHELL_CALL_STACK_FUNCNAME="__array__"
+    export SHELL_CALL_STACK_FUNCNAME
+    __array__SHELL_CALL_STACK_FUNCNAME="__array__"
+    export __array__SHELL_CALL_STACK_FUNCNAME
+    __array__SHELL_CALL_STACK_FUNCNAME__length=0
+    export __array__SHELL_CALL_STACK_FUNCNAME__length
+    # unrolled array_init end
 
     #-------------------------------------------------------------------------------
-    def; date() {
-        if [ "$(uname)" = "Darwin" ]; then
-            command date -j "$@"
-        else
-            command date "$@"
-        fi
-    }
+    # def; keyword
+    # 'true' is a command that returns 0 and is effectively a no-op command
+    # so when 'def;' used to declare a function:
+    #   def; foo() {}
+    #          ^ NOTE: the semicolon
+    # it will do essentially nothing (which is what we want!)
+    alias nulldef="true"
 
-    #-------------------------------------------------------------------------------
-    def; log_console() {
-        command printf -- "$@"
-        command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_success_final() {
-        log_success "$@"
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_success() {
-        command printf -- "SUCCESS: "
-        command printf -- "$@"
-        command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_fatal() {
-        >&2 command printf -- "FATAL: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_error() {
-        >&2 command printf -- "ERROR: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_warning() {
-        >&2 command printf -- "WARNING: "
-        >&2 command printf -- "$@"
-        >&2 command printf -- "\n"
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_header() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "\n"
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_footer() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_info_important() {
-        log_info "$@"
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_info() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "INFO: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_info_no_prefix() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_debug() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "DEBUG: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_superdebug() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "SUPERDEBUG: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_ultradebug() {
-        if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
-            [ "${OMEGA_DEBUG:-}" = true ] ||
-            [ "${OMEGA_DEBUG:-}" = "all" ]
-        then
-            command printf -- "ULTRADEBUG: "
-            command printf -- "$@"
-            command printf -- "\n"
-        fi
-    }
-
-    #-------------------------------------------------------------------------------
-    def; log_file() {
-        true
-    }
+    #endregion Call Stack Tracking Part 1
+    #===============================================================================
 fi
 
-#endregion Fallbacks
-#===============================================================================
+# NOTE: Separation b/c cannot define and then use aliases in same block
 
-#===============================================================================
-#region RReadLink
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
+    # NOTE: fence is created later
 
-#-------------------------------------------------------------------------------
-def; rreadlink() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    ( # Execute the function in a *subshell* to localize variables and the effect of 'cd'.
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
+    #===============================================================================
+    #region Call Stack Tracking Part 2
 
-        target=$1
-        fname=
-        targetDir=
-        CDPATH=
+    #-------------------------------------------------------------------------------
+    # "def;" keyword
+    # when 'def;' used to declare a function:
+    #   def; foo() {}
+    #      ^ NOTE: the semicolon
+    # it will track the puuid of the file where the function is declared and
+    # the true line number where the function is declared in that file
+    nulldef; def_G() {
+        __MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD="${-:+"-$-"}"
+        set +x
 
-        # Try to make the execution environment as predictable as possible:
-        # All commands below are invoked via 'command', so we must make sure that 'command'
-        # itself is not redefined as an alias or shell function.
-        # (NOTE: that command is too inconsistent across shells, so we don't use it.)
-        # 'command' is a *builtin* in bash, dash, ksh, zsh, and some platforms do not even have
-        # an external utility version of it (e.g, Ubuntu).
-        # 'command' bypasses aliases and shell functions and also finds builtins
-        # in bash, dash, and ksh. In zsh, option POSIX_BUILTINS must be turned on for that
-        # to happen.
-        { \unalias command; \unset -f command; } >/dev/null 2>&1
-        # shellcheck disable=SC2034
-        [ -n "$ZSH_VERSION" ] && options[POSIX_BUILTINS]=on # make zsh find *builtins* with 'command' too.
+        # incoming $LINENO
+        __def_G_lineno=$1
 
-        while :; do # Resolve potential symlinks until the ultimate target is found.
-                [ -L "$target" ] || [ -e "$target" ] || { command printf '%s\n' "ERROR: '$target' does not exist." >&2; return 1; }
-                # shellcheck disable=SC2164
-                command cd "$(command dirname -- "$target")" # Change to target dir; necessary for correct resolution of target path.
-                fname=$(command basename -- "$target") # Extract filename.
-                [ "$fname" = '/' ] && fname='' # WARNING: curiously, 'basename /' returns '/'
-                if [ -L "$fname" ]; then
-                    # Extract [next] target path, which may be defined
-                    # relative to the symlink's own directory.
-                    # NOTE: We parse 'ls -l' output to find the symlink target
-                    # NOTE:     which is the only POSIX-compliant, albeit somewhat fragile, way.
-                    target=$(command ls -l "$fname")
-                    target=${target#* -> }
-                    continue # Resolve [next] symlink target.
-                fi
-                break # Ultimate target reached.
-        done
-        targetDir=$(command pwd -P) # Get canonical dir. path
-        # Output the ultimate target's canonical path.
-        # NOTE: that we manually resolve paths ending in /. and /.. to make sure we have a normalized path.
-        if [ "$fname" = '.' ]; then
-            command printf '%s\n' "${targetDir%/}"
-        elif [ "$fname" = '..' ]; then
-            # NOTE: something like /var/.. will resolve to /private (assuming /var@ -> /private/var),
-            # NOTE:     i.e. the '..' is applied AFTER canonicalization.
-            command printf '%s\n' "$(command dirname -- "${targetDir}")"
-        else
-            command printf '%s\n' "${targetDir%/}/$fname"
+        # get the current context's puuid from the call stack
+        # unrolled array_peek begin (optimized)
+        # __def_G_puuid="$(nullcall array_peek SHELL_CALL_STACK_SOURCE_PUUID)"
+        __def_G_puuid__index=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length - 1 ))
+        eval "__def_G_puuid=\${__array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__def_G_puuid__index}}"
+        # unrolled array_peek end
+
+        # get the real filepath of the puuid
+        # unrolled dict_get_key begin (optimized)
+        # __def_G_filepath="$(nullcall dict_get_key SHELL_SOURCE_PUUID_DICT "${__def_G_puuid}")"
+        # shellcheck disable=SC2154
+        __def_G_filepath__key_hash="$( (printf "%s" "${__def_G_puuid}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__def_G_puuid}" | shasum -a 1) | cut -d' ' -f1)"
+        eval "__def_G_filepath=\"\${__dict__SHELL_SOURCE_PUUID_DICT__key__${__def_G_filepath__key_hash}}\""
+        # unrolled dict_get_key end
+
+        # get the context's func name from the call stack
+        # unrolled array_peek begin (optimized)
+        # __def_G_parent_funcname="$(nullcall array_peek SHELL_CALL_STACK_FUNCNAME)"
+        __def_G_parent_funcname__index=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+        eval "__def_G_parent_funcname=\${__array__SHELL_CALL_STACK_FUNCNAME__index__${__def_G_parent_funcname__index}}"
+        # unrolled array_peek end
+
+        if [ "${LINENO_IS_RELATIVE}" = true ]; then
+            # get the current parent's lineno
+            # unrolled dict_get_key begin (optimized)
+            # __def_G_parent_lineno_offset=$(nullcall dict_get_key SHELL_DEF_LINENO "${__def_G_parent_funcname}")
+            # shellcheck disable=SC2154
+            __def_G_parent_lineno_offset__key_hash="$( (printf "%s" "${__def_G_parent_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__def_G_parent_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+            eval "__def_G_parent_lineno_offset=\"\${__dict__SHELL_DEF_LINENO__key__${__def_G_parent_lineno_offset__key_hash}}\""
+            # unrolled dict_get_key end
+
+            # recalculate lineno to account for parent's lineno and the global offset
+            # shellcheck disable=SC2154
+            __def_G_lineno=$(( __def_G_lineno + __def_G_parent_lineno_offset - LINENO_GLOBAL_OFFSET ))
         fi
 
-        return 0
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+        # get the func's real name
+        # shellcheck disable=SC2154
+        # echo __def_G_funcname="\$(head -n \"$__def_G_lineno\" \"$__def_G_filepath\" | tail -n 1 | awk '{ print $2 }' | tr -d '()')"
+        # shellcheck disable=SC2154
+        __def_G_funcname="$(head -n "$__def_G_lineno" "$__def_G_filepath" | tail -n 1 | awk '{ print $2 }' | tr -d '()')"
 
-#endregion RReadLink
-#===============================================================================
+        # unrolled dict_set_key & dict_export begin (optimized)
+        # nullcall dict_set_key SHELL_DEF_SOURCE_PUUID "$__def_G_funcname" "$__def_G_puuid"
+        # nullcall dict_export SHELL_DEF_SOURCE_PUUID
+        # nullcall dict_set_key SHELL_DEF_LINENO "$__def_G_funcname" "$__def_G_lineno"
+        # nullcall dict_export SHELL_DEF_LINENO
+        __def_G_funcname__key_hash="$( (printf "%s" "${__def_G_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__def_G_funcname}" | shasum -a 1) | cut -d' ' -f1)"
 
-#===============================================================================
-#region Root User Check
+        eval "__array____dict__SHELL_DEF_SOURCE_PUUID__keys__index__${__array____dict__SHELL_DEF_SOURCE_PUUID__keys__length}=\"${__def_G_funcname}\""
+        eval "export __array____dict__SHELL_DEF_SOURCE_PUUID__keys__index__${__array____dict__SHELL_DEF_SOURCE_PUUID__keys__length}"
+        __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length=$(( __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length + 1 ))
+        export __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length
+        eval "__dict__SHELL_DEF_SOURCE_PUUID__key__${__def_G_funcname__key_hash}=\"${__def_G_puuid}\""
+        eval "export __dict__SHELL_DEF_SOURCE_PUUID__key__${__def_G_funcname__key_hash}"
+        __dict__SHELL_DEF_SOURCE_PUUID__length=$(( __dict__SHELL_DEF_SOURCE_PUUID__length + 1 ))
+        export __dict__SHELL_DEF_SOURCE_PUUID__length
 
-#-------------------------------------------------------------------------------
-def; require_not_root_user_XY() {
-    # intentionally no local scope so it can exit script
+        eval "__array____dict__SHELL_DEF_LINENO__keys__index__${__array____dict__SHELL_DEF_LINENO__keys__length}=\"${__def_G_funcname}\""
+        eval "export __array____dict__SHELL_DEF_LINENO__keys__index__${__array____dict__SHELL_DEF_LINENO__keys__length}"
+        __array____dict__SHELL_DEF_LINENO__keys__length=$(( __array____dict__SHELL_DEF_LINENO__keys__length + 1 ))
+        export __array____dict__SHELL_DEF_LINENO__keys__length
+        eval "__dict__SHELL_DEF_LINENO__key__${__def_G_funcname__key_hash}=\"${__def_G_lineno}\""
+        eval "export __dict__SHELL_DEF_LINENO__key__${__def_G_funcname__key_hash}"
+        __dict__SHELL_DEF_LINENO__length=$(( __dict__SHELL_DEF_LINENO__length + 1 ))
+        export __dict__SHELL_DEF_LINENO__length
+        # unrolled dict_set_key & dict_export end
 
-    if [ "${CI}" = true ] && [ "${PLATFORM_IS_WSL}" = true ]; then
-        # github runner's WSL user is always root
-        true
-    else
-        # shellcheck disable=SC3028
-        if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
-            log_fatal "$(get_my_real_basename) should not be run as root nor with sudo"
-            if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-                exit "${RET_ERROR_USER_IS_ROOT}"
-            else
-                return "${RET_ERROR_USER_IS_ROOT}"
-            fi
+        if [ "${OPTION_SETTRACE}" = true ]; then
+            echo "= ${__def_G_puuid}:${__def_G_lineno}:${__def_G_funcname}"
         fi
-    fi
-}
 
-#-------------------------------------------------------------------------------
-def; require_root_user_XY() {
-    # intentionally no local scope so it can exit script
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD}"
+    }
+    # shellcheck disable=SC2142
+    # if [ "${OPTION_SETTRACE}" = true ]; then
+        alias def="def_G \"\$LINENO\""
+    # else
+    #     alias def="true"
+    # fi
 
-    # shellcheck disable=SC3028
-    if [ $UID -ne 0 ] && [ $EUID -ne 0 ] && [ "$(id -u)" -ne 0 ]; then
-        log_fatal "$(get_my_real_basename) MUST be run as root or with sudo"
-        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-            exit "${RET_ERROR_USER_IS_NOT_ROOT}"
-        else
-            return "${RET_ERROR_USER_IS_NOT_ROOT}"
-        fi
-    fi
-}
-
-#endregion Root User Check
-#===============================================================================
-
-#===============================================================================
-#region Include/Invoke Directives
-
-#-------------------------------------------------------------------------------
-def; include_G() {
-    # intentionally no local scope so it modify globals
-    if [ ! -f "$1" ]; then
-        log_warning "Could not source because file is missing: %s" "$1"
-        return "${RET_ERROR_FILE_NOT_FOUND}"
-    fi
-
-    __LAST_INCLUDE="$(rreadlink "$1")"
-
-    log_ultradebug "Sourcing: %s as %s" "$1" "${__LAST_INCLUDE}"
-
-    array_append SHELL_SOURCE "${__LAST_INCLUDE}"
-    export SHELL_SOURCE
-    array_append WAS_SOURCED true
-    export WAS_SOURCED
-
-    # shifts off path we are sourcing, but leaves other args intact so they can
-    # be used by the sourced script, this is a feature that normal most shells
-    # do not support by default
-    shift
-
-    # shellcheck disable=SC1090
-    . "${__LAST_INCLUDE}"
-    ret=$?
-
-    array_remove_last WAS_SOURCED
-    export WAS_SOURCED
-    array_remove_last SHELL_SOURCE
-    export SHELL_SOURCE
-
-    return $ret
-}
-
-#-------------------------------------------------------------------------------
-def; ensure_include_GXY() {
-    # intentionally no local scope so it can modify globals AND exit script
-
-    include_G "$@"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "Failed to source '%s'" "$1"
-        if [ "$(array_get_first WAS_SOURCED)" = true ]; then
-            exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
-        else
-            return "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
-        fi
-    fi
-}
-
-#-------------------------------------------------------------------------------
-def; invoke() {
-    if [ ! -f "$1" ]; then
-        log_warning "Could not invoke because file is missing: %s" "$1"
-        return "${RET_ERROR_FILE_NOT_FOUND}"
-    fi
-
-    __LAST_INCLUDE="$(rreadlink "$1")"
-
-    log_ultradebug "Invoking: %s as %s" "$1" "${__LAST_INCLUDE}"
-
-    array_append SHELL_SOURCE "${__LAST_INCLUDE}"
-    export SHELL_SOURCE
-    array_append WAS_SOURCED false
-    export WAS_SOURCED
-
-    "$@"
-    ret=$?
-
-    array_remove_last WAS_SOURCED
-    export WAS_SOURCED
-    array_remove_last SHELL_SOURCE
-    export SHELL_SOURCE
-
-    return $ret
-}
-
-#endregion Include/Invoke Directives
-#===============================================================================
-
-#===============================================================================
-#region Array Implementation
-
-# # initialize an array:
-# NOTE: no $ sign on my_array_name
-# array_init my_array_name
-
-# # manually iterating an array:
-# OIFS="$IFS"
-# IFS="${_ARRAY__SEP}"
-# NOTE: there IS a $ sign on my_array_name
-# for item in $my_array_name; do
-#     echo $item
-# done
-# IFS="$OIFS"
-
-# # append to array:
-# NOTE: no $ sign on my_array_name
-# array_append my_array_name "my value"
-
-# # get item by index:
-# NOTE: no $ sign on my_array_name
-# array_get_at_index my_array_name $index
-
-# # get last item:
-# NOTE: no $ sign on my_array_name
-# array_get_last my_array_name
-
-# # copy an array:
-# NOTE: no $ sign on my_source_array_name
-# NOTE: no $ sign on my_destination_array_name
-# array_copy my_source_array_name my_destination_array_name
-
-# # remove last item:
-# NOTE: no $ sign on my_array_name
-# array_remove_last my_array_name
-
-# # get length:
-# NOTE: no $ sign on my_array_name
-# array_get_length my_array_name
-
-if [ "$ZSH_VERSION" != "" ]; then
-    setopt sh_word_split
+    #endregion Call Stack Tracking Part 2
+    #===============================================================================
 fi
 
-_ARRAY__SEP="$(command printf "\t")"; export _ARRAY__SEP
-#                                      x12345678x
-_ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
+# NOTE: Separation b/c cannot define and then use aliases in same block
 
-#-------------------------------------------------------------------------------
-def; _array_escape() {
-    #                                        x1234x                                  x12x1234567890123456x
-    command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
-}
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
+    # NOTE: fence is created later
 
-#-------------------------------------------------------------------------------
-def; _array_unescape() {
-    # NOTE: This doesn't look like the inverse of what _array_escape does, but
-    #   it works correctly, so don't try to "fix" it
-    #                                           x1234x12x           x12345678x
-    command printf "$(command echo "$1" | sed -e 's/\\\\/\\/g' -e "s/\\\\\\\\${_ARRAY__SEP__ESCAPED}/${_ARRAY__SEP}/g")"
-}
+    #===============================================================================
+    #region Call Stack Tracking Part 3
 
-#-------------------------------------------------------------------------------
-def; _array_fix_index() {
-    __ARRAY__ARRAY_FIX_INDEX__LENGTH="$(array_get_length "$1")"
+    #-------------------------------------------------------------------------------
+    # nullcall keyword
+    # emulates how 'call' works, but does not modify shell options nor track
+    # the call stack
+    nulldef; nullcall() {
+        "$@"
+        return $?
+    }
 
-    __ARRAY__ARRAY_FIX_INDEX__INDEX="$2"
+    #-------------------------------------------------------------------------------
+    # pushes function call context onto call stack
+    nulldef; _call_stack_push_G() {
+        # __call_G_source_puuid="$1"
+        # __call_G_lineno="$2"
+        # __call_G_dest_puuid="$3"
+        # __call_G_dest_lineno="$4"
+        # __call_G_funcname="$5"
 
-    if [ "${__ARRAY__ARRAY_FIX_INDEX__INDEX}" -lt 0 ]; then
-        __ARRAY__ARRAY_FIX_INDEX__INDEX="$(( __ARRAY__ARRAY_FIX_INDEX__LENGTH + __ARRAY__ARRAY_FIX_INDEX__INDEX ))"
-        # __ARRAY__ARRAY_FIX_INDEX__INDEX="$(( __ARRAY__ARRAY_FIX_INDEX__INDEX + 1 ))"
-    fi
+        # unrolled array_push & array_export begin (optimized)
+        # nullcall array_push SHELL_CALL_STACK "$1:$2:$3:$4:$5"
+        # nullcall array_export SHELL_CALL_STACK
+        eval "__array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}=\"$1:$2:$3:$4:$5\""
+        eval "export __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+        __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length + 1 ))
+        export __array__SHELL_CALL_STACK__length
+        # unrolled array_push & array_export end
 
-    command printf "%d" "${__ARRAY__ARRAY_FIX_INDEX__INDEX}"
-}
+        # unrolled array_push & array_export begin (optimized)
+        # nullcall array_push SHELL_CALL_STACK_SOURCE_PUUID "$1"
+        # nullcall array_export SHELL_CALL_STACK_SOURCE_PUUID
+        eval "__array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}=\"$1\""
+        eval "export __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length + 1 ))
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        # unrolled array_push & array_export end
 
-#-------------------------------------------------------------------------------
-def; array_init() {
-    eval "$1=\"\""
-}
+        # nullcall array_push SHELL_CALL_STACK_SOURCE_LINENO "$2"
+        # nullcall array_export SHELL_CALL_STACK_SOURCE_LINENO
 
-#-------------------------------------------------------------------------------
-def; array_append() {
-    __ARRAY__ARRAY_APPEND__TEMP_VALUE=$(_array_escape "$2")
-    __ARRAY__ARRAY_APPEND__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-    if [ "${__ARRAY__ARRAY_APPEND__TEMP_STORAGE}" = "" ]; then
-        eval "$1=\"${__ARRAY__ARRAY_APPEND__TEMP_VALUE}\""
-    else
-        # WARNING: DO NOT ESCAPE THE { } AROUND $1 HERE
-        eval "$1=\"\${$1}$_ARRAY__SEP${__ARRAY__ARRAY_APPEND__TEMP_VALUE}\""
-    fi
-}
+        # unrolled array_push & array_export begin (optimized)
+        # nullcall array_push SHELL_CALL_STACK_DEST_PUUID "$3"
+        # nullcall array_export SHELL_CALL_STACK_DEST_PUUID
+        eval "__array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}=\"$3\""
+        eval "export __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length + 1 ))
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        # unrolled array_push & array_export end
 
-#-------------------------------------------------------------------------------
-def; array_append_back() {
-    array_append "$1" "$2"
-}
+        # nullcall array_push SHELL_CALL_STACK_DEST_LINENO "$4"
+        # nullcall array_export SHELL_CALL_STACK_DEST_LINENO
 
-#-------------------------------------------------------------------------------
-def; array_append_front() {
-    array_insert_index "$1" 0 "$2"
-}
+        # unrolled array_push & array_export begin (optimized)
+        # nullcall array_push SHELL_CALL_STACK_FUNCNAME "$5"
+        # nullcall array_export SHELL_CALL_STACK_FUNCNAME
+        eval "__array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}=\"$5\""
+        eval "export __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+        __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length + 1 ))
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
+        # unrolled array_push & array_export end
+    }
 
-#-------------------------------------------------------------------------------
-def; array_get_first() {
-    array_get_at_index "$1" 0
-}
+    #-------------------------------------------------------------------------------
+    # pops function call context off of call stack
+    nulldef; _call_stack_pop_G() {
+        # unrolled array_pop & array_export begin (optimized)
+        # nullcall array_pop SHELL_CALL_STACK
+        # nullcall array_export SHELL_CALL_STACK
+        __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length - 1 ))
+        export __array__SHELL_CALL_STACK__length
+        eval "unset __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+        # unrolled array_pop & array_export end
 
-#-------------------------------------------------------------------------------
-def; array_get_last() {
-    array_get_at_index "$1" -1
-}
+        # unrolled array_pop & array_export begin (optimized)
+        # nullcall array_pop SHELL_CALL_STACK_SOURCE_PUUID
+        # nullcall array_export SHELL_CALL_STACK_SOURCE_PUUID
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length - 1 ))
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        eval "unset __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+        # unrolled array_pop & array_export end
 
-#-------------------------------------------------------------------------------
-def; array_copy() {
-    __ARRAY__ARRAY_COPY__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
+        # nullcall array_pop SHELL_CALL_STACK_SOURCE_LINENO
+        # nullcall array_export SHELL_CALL_STACK_SOURCE_LINENO
 
-    array_init "$2"
+        # unrolled array_pop & array_export begin (optimized)
+        # nullcall array_pop SHELL_CALL_STACK_DEST_PUUID
+        # nullcall array_export SHELL_CALL_STACK_DEST_PUUID
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        eval "unset __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+        # unrolled array_pop & array_export end
 
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    for item in ${__ARRAY__ARRAY_COPY__TEMP_STORAGE}; do
-        item="$(_array_unescape "${item}")"
-        array_append "$2" "${item}"
-    done
-    IFS="$OIFS"
-}
+        # nullcall array_pop SHELL_CALL_STACK_DEST_LINENO
+        # nullcall array_export SHELL_CALL_STACK_DEST_LINENO
 
-#-------------------------------------------------------------------------------
-def; array_remove_first() {
-    array_remove_index "$1" 0
-}
+        # unrolled array_pop & array_export begin (optimized)
+        # nullcall array_pop SHELL_CALL_STACK_FUNCNAME
+        # nullcall array_export SHELL_CALL_STACK_FUNCNAME
+        __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
+        eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+        # unrolled array_pop & array_export end
+    }
 
-#-------------------------------------------------------------------------------
-def; array_remove_last() {
-    array_remove_index "$1" -1
-}
+    #-------------------------------------------------------------------------------
+    # "call" keyword
+    # calls specified function with args, tracking it via call stack
+    # # non-minified:
+    # nulldef; call_G() {
+    #     __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+    #     set +x
+    #
+    #     __call_G_lineno="$1"
+    #     __call_G_funcname="$2"
+    #     shift 1
+    #
+    #     # unrolled array_peek begin (optimized)
+    #     # __call_G_parent_funcname="$(nullcall array_peek SHELL_CALL_STACK_FUNCNAME)"
+    #     # __call_G_parent_funcname__index=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+    #     # eval "__call_G_parent_funcname=\${__array__SHELL_CALL_STACK_FUNCNAME__index__${__call_G_parent_funcname__index}}"
+    #     # unrolled array_peek end
+    #
+    #     # unrolled array_peek begin (optimized)
+    #     # __call_G_source_puuid="$(nullcall array_peek SHELL_CALL_STACK_DEST_PUUID)"
+    #     # __call_G_source_puuid__index=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+    #     # eval "__call_G_source_puuid=\${__array__SHELL_CALL_STACK_DEST_PUUID__index__${__call_G_source_puuid__index}}"
+    #     # unrolled array_peek end
+    #
+    #     # unrolled dict_get_key begin (optimized)
+    #     # __call_G_dest_puuid="$(nullcall dict_get_key SHELL_DEF_SOURCE_PUUID "${__call_G_funcname}")"
+    #     # __call_G_dest_lineno="$(nullcall dict_get_key SHELL_DEF_LINENO "${__call_G_funcname}")"
+    #     __call_G_dest__key_hash="$( (printf "%s" "${__call_G_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+    #     eval "__call_G_dest_puuid=\"\${__dict__SHELL_DEF_SOURCE_PUUID__key__${__call_G_dest__key_hash}}\""
+    #     eval "__call_G_dest_lineno=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_dest__key_hash}}\""
+    #     # unrolled dict_get_key end
+    #
+    #     if [ "${LINENO_IS_RELATIVE}" = true ]; then
+    #         # get the current parent's lineno
+    #         # unrolled dict_get_key begin (optimized)
+    #         # __call_G_parent_lineno_offset=$(nullcall dict_get_key SHELL_DEF_LINENO "${__call_G_parent_funcname}")
+    #         # shellcheck disable=SC2154
+    #         __call_G_parent_lineno_offset_key_hash="$( (printf "%s" "${__call_G_parent_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_parent_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+    #         eval "__call_G_parent_lineno_offset=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_parent_lineno_offset_key_hash}}\""
+    #         # unrolled dict_get_key end
+    #
+    #         # recalculate lineno to account for parent's lineno and the global offset
+    #         # shellcheck disable=SC2154
+    #         __call_G_lineno=$(( __call_G_lineno + __call_G_parent_lineno_offset - LINENO_GLOBAL_OFFSET ))
+    #     fi
+    #
+    #     if [ "${OPTION_SETTRACE}" = true ]; then
+    #         # print number of dashes equal to call stack depth
+    #         # unrolled array_get_length in next line
+    #         for _i in $(seq 1 $__array__SHELL_CALL_STACK__length); do
+    #             >&2 command printf -- "-"
+    #         done
+    #
+    #         # shellcheck disable=SC2154
+    #         >&2 printf -- " %s:%s:%s:%s %s\n" \
+    #             "${__call_G_source_puuid}" \
+    #             "${__call_G_lineno}" \
+    #             "${__call_G_dest_puuid}" \
+    #             "${__call_G_dest_lineno}" \
+    #             "$*"
+    #     fi
+    #
+    #     # unrolled _call_stack_push_G (shortened)
+    #     # _call_stack_push_G \
+    #     #     "${__call_G_source_puuid}" \
+    #     #     "${__call_G_lineno}" \
+    #     #     "${__call_G_dest_puuid}" \
+    #     #     "${__call_G_dest_lineno}" \
+    #     #     "${__call_G_funcname}"
+    #     eval "__array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}=\"${__call_G_source_puuid}:${__call_G_lineno}:${__call_G_dest_puuid}:${__call_G_dest_lineno}:${__call_G_funcname}\""
+    #     eval "export __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+    #     __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length + 1 ))
+    #     export __array__SHELL_CALL_STACK__length
+    #     eval "__array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}=\"${__call_G_source_puuid}\""
+    #     eval "export __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+    #     __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length + 1 ))
+    #     export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+    #     eval "__array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}=\"${__call_G_dest_puuid}\""
+    #     eval "export __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+    #     __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length + 1 ))
+    #     export __array__SHELL_CALL_STACK_DEST_PUUID__length
+    #     eval "__array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}=\"${__call_G_funcname}\""
+    #     eval "export __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+    #     __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length + 1 ))
+    #     export __array__SHELL_CALL_STACK_FUNCNAME__length
+    #     # unrolled _call_stack_push_G
+    #
+    #     set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+    #
+    #     "$@"
+    #     __call_ret=$?
+    #
+    #     __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+    #     set +x
+    #
+    #     # unrolled _call_stack_pop_G (shortened)
+    #     # _call_stack_pop_G
+    #     __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length - 1 ))
+    #     export __array__SHELL_CALL_STACK__length
+    #     eval "unset __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+    #     __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length - 1 ))
+    #     export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+    #     eval "unset __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+    #     __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+    #     export __array__SHELL_CALL_STACK_DEST_PUUID__length
+    #     eval "unset __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+    #     __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+    #     export __array__SHELL_CALL_STACK_FUNCNAME__length
+    #     eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+    #     # unrolled _call_stack_pop_G
+    #
+    #     set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+    #
+    #     return $__call_ret
+    # }
+    #
+    # # minified:
 
-#-------------------------------------------------------------------------------
-def; array_insert_index() {
-    array_copy "$1" __ARRAY__ARRAY_INSERT_INDEX__TEMP_ARRAY
-
-    __ARRAY__ARRAY_INSERT_INDEX__LAST_INDEX="$(array_get_length "$1")"
-
-    __ARRAY__ARRAY_INSERT_INDEX__COUNT=0
-
-    __ARRAY__ARRAY_INSERT_INDEX__INDEX="$2"
-    __ARRAY__ARRAY_INSERT_INDEX__INDEX="$(_array_fix_index "$1" "${__ARRAY__ARRAY_INSERT_INDEX__INDEX}")"
-
-    __ARRAY__ARRAY_INSERT_INDEX__INSERTED=false
-
-    array_init "$1"
-
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    for item in ${__ARRAY__ARRAY_INSERT_INDEX__TEMP_ARRAY}; do
-        item="$(_array_unescape "${item}")"
-        if [ "${__ARRAY__ARRAY_INSERT_INDEX__COUNT}" -eq "${__ARRAY__ARRAY_INSERT_INDEX__INDEX}"  ]; then
-            array_append "$1" "$3"
-            __ARRAY__ARRAY_INSERT_INDEX__INSERTED=true
+    #-------------------------------------------------------------------------------
+    # "call" keyword
+    # calls specified function with args, tracking it via call stack
+    nulldef; call_G() {
+        __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+        set +x
+        __call_G_lineno="$1"
+        __call_G_funcname="$2"
+        shift 1
+        __call_G_parent_funcname__index=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+        eval "__call_G_parent_funcname=\${__array__SHELL_CALL_STACK_FUNCNAME__index__${__call_G_parent_funcname__index}}"
+        __call_G_source_puuid__index=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+        eval "__call_G_source_puuid=\${__array__SHELL_CALL_STACK_DEST_PUUID__index__${__call_G_source_puuid__index}}"
+        __call_G_dest__key_hash="$( (printf "%s" "${__call_G_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+        eval "__call_G_dest_puuid=\"\${__dict__SHELL_DEF_SOURCE_PUUID__key__${__call_G_dest__key_hash}}\""
+        eval "__call_G_dest_lineno=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_dest__key_hash}}\""
+        if [ "${LINENO_IS_RELATIVE}" = true ]; then
+            # shellcheck disable=SC2154
+            __call_G_parent_lineno_offset_key_hash="$( (printf "%s" "${__call_G_parent_funcname}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__call_G_parent_funcname}" | shasum -a 1) | cut -d' ' -f1)"
+            eval "__call_G_parent_lineno_offset=\"\${__dict__SHELL_DEF_LINENO__key__${__call_G_parent_lineno_offset_key_hash}}\""
+            # shellcheck disable=SC2154
+            __call_G_lineno=$(( __call_G_lineno + __call_G_parent_lineno_offset - LINENO_GLOBAL_OFFSET ))
         fi
-        array_append "$1" "${item}"
-        __ARRAY__ARRAY_INSERT_INDEX__COUNT=$(( __ARRAY__ARRAY_INSERT_INDEX__COUNT + 1 ))
-    done
-
-    if \
-        [ "${__ARRAY__ARRAY_INSERT_INDEX__LAST_INDEX}" -eq "${__ARRAY__ARRAY_INSERT_INDEX__COUNT}" ] &&
-        [ "${__ARRAY__ARRAY_INSERT_INDEX__INSERTED}" = false  ]
-    then
-        array_append "$1" "$3"
-    fi
-
-    IFS="$OIFS"
-}
-
-#-------------------------------------------------------------------------------
-def; array_remove_index() {
-    array_copy "$1" __ARRAY__ARRAY_REMOVE_INDEX__TEMP_ARRAY
-
-    __ARRAY__ARRAY_REMOVE_INDEX__INDEX="$2"
-    __ARRAY__ARRAY_REMOVE_INDEX__INDEX="$(_array_fix_index "$1" "${__ARRAY__ARRAY_REMOVE_INDEX__INDEX}")"
-
-    __ARRAY__ARRAY_REMOVE_INDEX__COUNT=0
-
-    array_init "$1"
-
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    for item in ${__ARRAY__ARRAY_REMOVE_INDEX__TEMP_ARRAY}; do
-        item="$(_array_unescape "${item}")"
-        if [ "${__ARRAY__ARRAY_REMOVE_INDEX__COUNT}" -ne  "${__ARRAY__ARRAY_REMOVE_INDEX__INDEX}"  ]; then
-            array_append "$1" "${item}"
+        if [ "${OPTION_SETTRACE}" = true ]; then
+            for _i in $(seq 1 $__array__SHELL_CALL_STACK__length); do
+                >&2 command printf -- "-"
+            done
+            # shellcheck disable=SC2154
+            >&2 printf -- " %s:%s:%s:%s %s\n" \
+                "${__call_G_source_puuid}" \
+                "${__call_G_lineno}" \
+                "${__call_G_dest_puuid}" \
+                "${__call_G_dest_lineno}" \
+                "$*"
         fi
-        __ARRAY__ARRAY_REMOVE_INDEX__COUNT=$(( __ARRAY__ARRAY_REMOVE_INDEX__COUNT + 1 ))
-    done
-    IFS="$OIFS"
-}
+        eval "__array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}=\"${__call_G_source_puuid}:${__call_G_lineno}:${__call_G_dest_puuid}:${__call_G_dest_lineno}:${__call_G_funcname}\""
+        eval "export __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+        __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length + 1 ))
+        export __array__SHELL_CALL_STACK__length
+        eval "__array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}=\"${__call_G_source_puuid}\""
+        eval "export __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length + 1 ))
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        eval "__array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}=\"${__call_G_dest_puuid}\""
+        eval "export __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length + 1 ))
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        eval "__array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}=\"${__call_G_funcname}\""
+        eval "export __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+        __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length + 1 ))
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+        "$@"
+        __call_ret=$?
+        __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
+        set +x
+        __array__SHELL_CALL_STACK__length=$(( __array__SHELL_CALL_STACK__length - 1 ))
+        export __array__SHELL_CALL_STACK__length
+        eval "unset __array__SHELL_CALL_STACK__index__${__array__SHELL_CALL_STACK__length}"
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=$(( __array__SHELL_CALL_STACK_SOURCE_PUUID__length - 1 ))
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        eval "unset __array__SHELL_CALL_STACK_SOURCE_PUUID__index__${__array__SHELL_CALL_STACK_SOURCE_PUUID__length}"
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=$(( __array__SHELL_CALL_STACK_DEST_PUUID__length - 1 ))
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        eval "unset __array__SHELL_CALL_STACK_DEST_PUUID__index__${__array__SHELL_CALL_STACK_DEST_PUUID__length}"
+        __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
+        eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+        return $__call_ret
+    }
+    # if [ "${OPTION_SETTRACE}" = true ]; then
+        alias call="call_G \"\$LINENO\""
+    # else
+    #     alias call="true;"
+    # fi
 
-#-------------------------------------------------------------------------------
-def; array_get_length() {
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    __ARRAY__ARRAY_GET_LENGTH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-    __ARRAY__ARRAY_GET_LENGTH__COUNT=0
-    for item in $__ARRAY__ARRAY_GET_LENGTH__TEMP_STORAGE; do
-        __ARRAY__ARRAY_GET_LENGTH__COUNT=$(( __ARRAY__ARRAY_GET_LENGTH__COUNT + 1 ))
-    done
-    IFS="$OIFS"
-    command echo "${__ARRAY__ARRAY_GET_LENGTH__COUNT}"
-}
+    #endregion Call Stack Tracking Part 3
+    #===============================================================================
+fi
 
-#-------------------------------------------------------------------------------
-def; array_get_at_index() {
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
+# NOTE: Separation b/c cannot define and then use aliases in same block
 
-    __ARRAY__ARRAY_GET_INDEX__INDEX="$2"
-    __ARRAY__ARRAY_GET_INDEX__INDEX="$(_array_fix_index "$1" "${__ARRAY__ARRAY_GET_INDEX__INDEX}")"
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
+    #===============================================================================
+    #region Fallbacks
 
-    __ARRAY__ARRAY_GET_INDEX__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-    __ARRAY__ARRAY_GET_INDEX__COUNT=0
-    __ARRAY__ARRAY_GET_INDEX__FOUND=false
-
-    for item in $__ARRAY__ARRAY_GET_INDEX__TEMP_STORAGE; do
-        if [ "${__ARRAY__ARRAY_GET_INDEX__COUNT}" -eq "${__ARRAY__ARRAY_GET_INDEX__INDEX}" ]; then
-            item="$(_array_unescape "$item")"
-            command printf "%s" "${item}"
-            __ARRAY__ARRAY_GET_INDEX__FOUND=true
-            break
-        fi
-        __ARRAY__ARRAY_GET_INDEX__COUNT=$(( __ARRAY__ARRAY_GET_INDEX__COUNT + 1 ))
-    done
-    IFS="$OIFS"
-
-    if [ "${__ARRAY__ARRAY_GET_INDEX__FOUND}" = true ]; then
-        return 0
-    fi
-    return 1
-}
-
-# # using array_for_each:
-# def; my_func() {
-#     echo "${item}"
-# }
-# array_for_each the_array_name my_func
-## NOTE: no $ on 'the_array_name' nor 'my_func'
-
-#-------------------------------------------------------------------------------
-def; array_for_each() {
-    OIFS="$IFS"
-    IFS="${_ARRAY__SEP}"
-    __ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE="$(eval command echo \"\$\{"$1"\}\")"
-    for item in $__ARRAY__ARRAY_FOR_EACH__TEMP_STORAGE; do
-        item="$(_array_unescape "$item")"
-        eval "$2"
-    done
-    IFS="$OIFS"
-}
-
-#endregion Arrays
-#===============================================================================
-
-#===============================================================================
-#region Helper Functions
-
-#-------------------------------------------------------------------------------
-def; windows_path_to_unix_path() {
-    if \
-        [ "${PLATFORM_IS_WSL}" = true ] &&
-        [  "$(command echo "$1" | cut -c1)" != "/" ]
-    then
-        command printf "/"
-        command printf "$(command echo "$1" | cut -c1 | tr '[:upper:]' '[:lower:]')"
-        command printf "$(command echo "$1" | cut -c3- | sed -e 's/\\/\//g')"
-    else
-        command printf "$1"
-    fi
-    command printf "\n"
-}
-
-#-------------------------------------------------------------------------------
-def; ensure_cd() {
-    # intentionally no local scope so that the cd command takes effect
-    log_superdebug "Changing current directory to '%s'" "$1"
-
-    # shellcheck disable=SC2164
-    cd "$1"
+    type BATTERIES_FORKING_INCLUDED_BASE_FENCE >/dev/null 2>&1
     ret=$?
     if [ $ret -ne 0 ]; then
-        log_fatal "Could not cd into '%s'" "$1"
-        return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
-    fi
-}
 
-#-------------------------------------------------------------------------------
-def; safe_rm() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
+        # NOTE: some basic definitions to fallback to if bfi-base.sh failed to load
+        #   if bfi-base.sh loads later, it will override these
 
-        path_to_remove="$1"
-        print_rm_error_message="$2"
+        RET_SUCCESS=0; export RET_SUCCESS
+        RET_ERROR_UNKNOWN=1; export RET_ERROR_UNKNOWN
+        RET_ERROR_SCRIPT_WAS_SOURCED=149; export RET_ERROR_SCRIPT_WAS_SOURCED
+        RET_ERROR_USER_IS_ROOT=150; export RET_ERROR_USER_IS_ROOT
+        RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151; export RET_ERROR_SCRIPT_WAS_NOT_SOURCED
+        RET_ERROR_USER_IS_NOT_ROOT=152; export RET_ERROR_USER_IS_NOT_ROOT
+        RET_ERROR_DIRECTORY_NOT_FOUND=153; export RET_ERROR_DIRECTORY_NOT_FOUND
+        RET_ERROR_COULD_NOT_SOURCE_FILE=161; export RET_ERROR_COULD_NOT_SOURCE_FILE
 
-        log_superdebug "Safely removing '%s'" "${path_to_remove}"
-
-        if \
-            [ "${path_to_remove}" != "/" ] &&
-            [ "${path_to_remove}" != "${HOME}" ] &&
-            [ "${path_to_remove}" != "${TMPDIR}" ] &&
-            [ "${path_to_remove}" != "/Applications" ] &&
-            [ "${path_to_remove}" != "/bin" ] &&
-            [ "${path_to_remove}" != "/boot" ] &&
-            [ "${path_to_remove}" != "/cores" ] &&
-            [ "${path_to_remove}" != "/dev" ] &&
-            [ "${path_to_remove}" != "/etc" ] &&
-            [ "${path_to_remove}" != "/home" ] &&
-            [ "${path_to_remove}" != "/lib" ] &&
-            [ "${path_to_remove}" != "/Library" ] &&
-            [ "${path_to_remove}" != "/local" ] &&
-            [ "${path_to_remove}" != "/media" ] &&
-            [ "${path_to_remove}" != "/mnt" ] &&
-            [ "${path_to_remove}" != "/opt" ] &&
-            [ "${path_to_remove}" != "/private" ] &&
-            [ "${path_to_remove}" != "/proc" ] &&
-            [ "${path_to_remove}" != "/sbin" ] &&
-            [ "${path_to_remove}" != "/srv" ] &&
-            [ "${path_to_remove}" != "/System" ] &&
-            [ "${path_to_remove}" != "/Users" ] &&
-            [ "${path_to_remove}" != "/usr" ] &&
-            [ "${path_to_remove}" != "/var" ] &&
-            [ "${path_to_remove}" != "/Volumes" ] &&
-            [ "${path_to_remove}" != "" ]
-        then
-            rm -rf "${path_to_remove}"
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                if \
-                    [ "${print_rm_error_message}" = "" ] ||
-                    [ "${print_rm_error_message}" = true ]
-                then
-                    log_error "failed to rm '%s'" "${path_to_remove}"
-                fi
-                exit "${RET_ERROR_RM_FAILED}"
-            fi
-        else
-            log_fatal "unsafe rm path '%s'" "${path_to_remove}"
-            exit "${RET_ERROR_UNSAFE_RM_PATH}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; ensure_does_not_exist() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        path_to_remove="$1"
-
-        log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
-
-        if \
-            [ -f "${path_to_remove}" ] ||
-            [ -d "${path_to_remove}" ]
-        then
-            safe_rm "${path_to_remove}"
-            ret=$?
-            exit $ret
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; create_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        destdir="$1"
-
-        ensure_does_not_exist "${destdir}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to remove path '%s'" "${destdir}"
-            exit $ret
+        if [ "${verbosity}" = "" ]; then
+            verbosity=1; export verbosity
         fi
 
-        log_superdebug "Creating directory '%s'" "${destdir}"
+        #-------------------------------------------------------------------------------
+        nulldef; date() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-        mkdir -p "${destdir}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_fatal "failed to create directory '%s'" "${destdir}"
-            exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; ensure_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        destdir="$1"
-
-        log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
-
-        if [ ! -d "${destdir}" ]; then
-            create_dir "${destdir}"
-            ret=$?
-            exit $ret
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; get_datetime_stamp_human_formatted() {
-    date "${DATETIME_STAMP_HUMAN_FORMAT}"
-}
-
-#-------------------------------------------------------------------------------
-def; get_datetime_stamp_filename_formatted() {
-    date "${DATETIME_STAMP_FILENAME_FORMAT}"
-}
-
-#-------------------------------------------------------------------------------
-def; create_my_tempdir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        if [ "${CI}" = true ]; then
-            if [ "${GITHUB_ACTIONS}" = true ]; then
-                the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"
+            if [ "$(uname)" = "Darwin" ]; then
+                command date -j "$@"
             else
-                the_tempdir="${HOME}/bfi_temp/$(get_datetime_stamp_filename_formatted)"
+                command date "$@"
             fi
-        else
-            the_tempdir=$(mktemp -d -t "$(get_my_real_basename)-$(get_datetime_stamp_filename_formatted).XXXXXXX")
-            ret=$?
-            if [ $ret -ne 0 ]; then
-                log_fatal "failed to get temporary directory"
-                exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_console() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            command printf -- "$@"
+            command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_success_final() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            command printf -- "SUCCESS: "
+            command printf -- "$@"
+            command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_success() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            command printf -- "SUCCESS: "
+            command printf -- "$@"
+            command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_fatal() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            >&2 command printf -- "FATAL: "
+            >&2 command printf -- "$@"
+            >&2 command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_error() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            >&2 command printf -- "ERROR: "
+            >&2 command printf -- "$@"
+            >&2 command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_warning() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            >&2 command printf -- "WARNING: "
+            >&2 command printf -- "$@"
+            >&2 command printf -- "\n"
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_header() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge -1 ]  ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "\n"
+                command printf -- "$@"
+                command printf -- "\n"
             fi
-        fi
 
-        the_tempdir="$(windows_path_to_unix_path "${the_tempdir}")"
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD
+        }
 
-        command echo "${the_tempdir}"
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+        #-------------------------------------------------------------------------------
+        nulldef; log_footer() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-#-------------------------------------------------------------------------------
-def; ensure_my_tempdir_G() {
-    # intentionally no local scope b/c modifying a global
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 0 ]  ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
 
-    if [ "${my_tempdir}" = "" ]; then
-        my_tempdir="$(create_my_tempdir)"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            return $ret
-        fi
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_info_important() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "INFO: "
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_info() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "INFO: "
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_info_no_prefix() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 1 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_debug() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 2 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "DEBUG: "
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_superdebug() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 3 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "SUPERDEBUG: "
+                command printf -- "$@"
+                command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_ultradebug() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge 4 ] ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                command printf -- "ULTRADEBUG: " &&
+                    command printf -- "$@" &&
+                    command printf -- "\n"
+            fi
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD
+        }
+
+        #-------------------------------------------------------------------------------
+        nulldef; log_file() {
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+            true
+
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD
+        }
     fi
 
-    ensure_dir "${my_tempdir}"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        return $ret
-    fi
+    #endregion Fallbacks
+    #===============================================================================
 
-    export my_tempdir
+    #===============================================================================
+    #region RReadLink
 
-    return "${RET_SUCCESS}"
-}
+    #-------------------------------------------------------------------------------
+    nulldef; rreadlink() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
-#-------------------------------------------------------------------------------
-def; move_file() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
+        # Hide zsh subshell session closure spam (macOS only?)
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
+        # Execute the function in a *subshell* to localize variables and the
+        #   effect of 'cd'.
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-        source_filepath="$1"
-        dest_filepath="$2"
+            target=$1
+            fname=
+            targetDir=
+            CDPATH=
 
-        log_superdebug "Copying file '${source_filepath}' to '${dest_filepath}'"
+            # Try to make the execution environment as predictable as possible:
+            # All commands below are invoked via 'command', so we must make sure
+            # that 'command' itself is not redefined as an alias or shell function.
+            # (NOTE: that command is too inconsistent across shells, so we don't
+            # use it.)
+            # 'command' is a *builtin* in bash, dash, ksh, zsh, and some platforms
+            # do not even have an external utility version of it (e.g, Ubuntu).
+            # 'command' bypasses aliases and shell functions and also finds builtins
+            # in bash, dash, and ksh. In zsh, option POSIX_BUILTINS must be turned
+            # on for that #to happen.
+            { \unalias command; \unset -f command; } >/dev/null 2>&1
+            # shellcheck disable=SC2034
+            # make zsh find *builtins* with 'command' too.
+            [ -n "$ZSH_VERSION" ] && options[POSIX_BUILTINS]=on
 
-        mv "${source_filepath}" "${dest_filepath}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to move file from '%s' to '%s'" "${source_filepath}" "${dest_filepath}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+            # Resolve potential symlinks until the ultimate target is found.
+            while :; do
+                    [ -L "$target" ] || [ -e "$target" ] || { command printf '%s\n' "ERROR: '$target' does not exist." >&2; return 1; }
+                    # Change to target dir; necessary for correct resolution of
+                    #   target path.
+                    # shellcheck disable=SC2164
+                    command cd "$(command dirname -- "$target")"
+                    # Extract filename.
+                    fname=$(command basename -- "$target")
+                    [ "$fname" = '/' ] && fname='' # WARNING: curiously, 'basename /' returns '/'
+                    if [ -L "$fname" ]; then
+                        # Extract [next] target path, which may be defined
+                        # relative to the symlink's own directory.
+                        # NOTE: We parse 'ls -l' output to find the symlink target
+                        #   which is the only POSIX-compliant, albeit
+                        #   somewhat fragile, way.
+                        target=$(command ls -l "$fname")
+                        target=${target#* -> }
+                        continue # Resolve [next] symlink target.
+                    fi
+                    break # Ultimate target reached.
+            done
+            targetDir=$(command pwd -P) # Get canonical dir. path
+            # Output the ultimate target's canonical path.
+            # NOTE: that we manually resolve paths ending in /. and /.. to make
+            #   sure we have a normalized path.
+            if [ "$fname" = '.' ]; then
+                command printf '%s\n' "${targetDir%/}"
+            elif [ "$fname" = '..' ]; then
+                # NOTE: something like /var/.. will resolve to /private (assuming
+                #   /var@ -> /private/var), i.e. the '..' is applied AFTER
+                #   canonicalization.
+                command printf '%s\n' "$(command dirname -- "${targetDir}")"
+            else
+                command printf '%s\n' "${targetDir%/}/$fname"
+            fi
 
-#-------------------------------------------------------------------------------
-def; copy_file() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        source_filepath="$1"
-        dest="$2"
-
-        log_superdebug "Copying file '${source_filepath}' to '${dest}'"
-
-        cp "${source_filepath}" "${dest}"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to copy file from '%s' to '%s'" "${source_filepath}" "${dest}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; copy_dir() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        source_dir="$1"
-        dest_dir="$2"
-
-        log_superdebug "Copying all files from '${source_dir}' to '${dest_dir}'"
-
-        cp -r "${source_dir}"/. "${dest_dir}/"
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            log_debug "failed to copy files from '%s' to '%s'" "${source_dir}" "${dest_dir}"
-            exit "${RET_ERROR_COPY_FAILED}"
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; is_integer() {
-    case "${1#[+-]}"  in
-        *[!0123456789]*)
-            command echo "1"
-            return 1
-            ;;
-        '')
-            command echo "1"
-            return 1
-            ;;
-        *)
-            command echo "0"
             return 0
-            ;;
-    esac
-    command echo "1"
-    return 1
-}
-
-#-------------------------------------------------------------------------------
-def; get_my_real_fullpath() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
+        )
+        # Store exit code to use later
+        rreadlink_ret=$?
+        # Undo hiding zsh subshell session closure spam (macOS only?)
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            array_get_last SHELL_SOURCE
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
-        fi
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD
 
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
+        # use exit code
+        return $rreadlink_ret
+    }
 
-#-------------------------------------------------------------------------------
-def; get_my_real_basename() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            basename "$(array_get_last SHELL_SOURCE)"
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
-        fi
-
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; get_my_real_dir_fullpath() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            dirname "$(array_get_last SHELL_SOURCE)"
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
-        fi
-
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; get_my_real_dir_basename() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        if [ "$(array_get_length SHELL_SOURCE)" -gt 0 ]; then
-            basename "$(dirname "$(array_get_last SHELL_SOURCE)")"
-        else
-            echo "UNKNOWN"
-            exit "${RET_ERROR_UNKNOWN}"
-        fi
-
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; unident_text() {
-    (
-        text="$1"
-        leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
-        echo "${text}" | sed -e "s/\(${leading}\)\(.*\)/\2/"
-    )
-}
-
-#endregion Helper Functions
-#===============================================================================
+    #endregion RReadLink
+    #===============================================================================
+fi
 
 #===============================================================================
 #region Source/Invoke Check For Top Level File
 
-# shellcheck disable=SC2218
-log_ultradebug "env vars:\n%s" -- "$(env -0 | sort -z | tr '\0' '\n' | sed -e 's/%/%%/g')"
+#-------------------------------------------------------------------------------
+nulldef; _shell_source_push_G() {
+    # $1 == TEMP_WAS_SOURCED
+    # $2 == TEMP_FILE_NAME
 
-if [ "${WAS_SOURCED}" = "" ]; then
-    WAS_SOURCED=""
-    array_init WAS_SOURCED
-fi
-if [ "${SHELL_SOURCE}" = "" ]; then
-    SHELL_SOURCE=""
-    array_init SHELL_SOURCE
-fi
+    # unrolled array_push & array_export begin (optimized)
+    # nullcall array_push WAS_SOURCED "$1"
+    # nullcall array_export WAS_SOURCED
+    eval "__array__WAS_SOURCED__index__${__array__WAS_SOURCED__length}=\"$1\""
+    eval "export __array__WAS_SOURCED__index__${__array__WAS_SOURCED__length}"
+    __array__WAS_SOURCED__length=$(( __array__WAS_SOURCED__length + 1 ))
+    export __array__WAS_SOURCED__length
+    # unrolled array_push & array_export end
+
+    # unrolled array_push & array_export begin (optimized)
+    # nullcall array_push SHELL_SOURCE "$2"
+    # nullcall array_export SHELL_SOURCE
+    eval "__array__SHELL_SOURCE__index__${__array__SHELL_SOURCE__length}=\"$2\""
+    eval "export __array__SHELL_SOURCE__index__${__array__SHELL_SOURCE__length}"
+    __array__SHELL_SOURCE__length=$(( __array__SHELL_SOURCE__length + 1 ))
+    export __array__SHELL_SOURCE__length
+    # unrolled array_push & array_export end
+
+    # unrolled push_puuid_for_abspath begin
+    # nullcall push_puuid_for_abspath "$2"
+    __puuid="$(od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}')"
+    __puuid__basename="${__puuid}_$(basename "$2")"
+    if [ "${OPTION_SETTRACE}" = true ]; then
+        command printf "# %s:'%s'\n" "${__puuid__basename}" "$2"
+    fi
+    eval "__array__SHELL_SOURCE_PUUID__index__${__array__SHELL_SOURCE_PUUID__length}=\"${__puuid__basename}\""
+    eval "export __array__SHELL_SOURCE_PUUID__index__${__array__SHELL_SOURCE_PUUID__length}"
+    __array__SHELL_SOURCE_PUUID__length=$(( __array__SHELL_SOURCE_PUUID__length + 1 ))
+    export __array__SHELL_SOURCE_PUUID__length
+    __puuid__basename__key_hash="$( (printf "%s" "${__puuid__basename}" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "${__puuid__basename}" | shasum -a 1) | cut -d' ' -f1)"
+    eval "__array____dict__SHELL_SOURCE_PUUID_DICT__keys__index__${__array____dict__SHELL_SOURCE_PUUID_DICT__keys__length}=\"${__puuid__basename}\""
+    eval "export __array____dict__SHELL_SOURCE_PUUID_DICT__keys__index__${__array____dict__SHELL_SOURCE_PUUID_DICT__keys__length}"
+    __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length=$(( __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length + 1 ))
+    export __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length
+    eval "__dict__SHELL_SOURCE_PUUID_DICT__key__${__puuid__basename__key_hash}=\"$2\""
+    eval "export __dict__SHELL_SOURCE_PUUID_DICT__key__${__puuid__basename__key_hash}"
+    __dict__SHELL_SOURCE_PUUID_DICT__length=$(( __dict__SHELL_SOURCE_PUUID_DICT__length + 1 ))
+    export __dict__SHELL_SOURCE_PUUID_DICT__length
+    # unrolled push_puuid_for_abspath end
+
+    _call_stack_push_G "${__puuid__basename}" "0" "${__puuid__basename}" "1" "_"
+}
+
+#-------------------------------------------------------------------------------
+nulldef; _shell_source_pop_G() {
+    _call_stack_pop_G
+
+    # unrolled array_pop & array_export begin (optimized)
+    # nullcall array_pop SHELL_SOURCE_PUUID
+    # nullcall array_export SHELL_SOURCE_PUUID
+    __array__SHELL_SOURCE_PUUID__length=$(( __array__SHELL_SOURCE_PUUID__length - 1 ))
+    export __array__SHELL_SOURCE_PUUID__length
+    eval "unset __array__SHELL_SOURCE_PUUID__index__${__array__SHELL_SOURCE_PUUID__length}"
+    # unrolled array_pop & array_export end
+
+    # unrolled array_pop & array_export begin (optimized)
+    # nullcall array_pop SHELL_SOURCE
+    # nullcall array_export SHELL_SOURCE
+    __array__SHELL_SOURCE__length=$(( __array__SHELL_SOURCE__length - 1 ))
+    export __array__SHELL_SOURCE__length
+    eval "unset __array__SHELL_SOURCE__index__${__array__SHELL_SOURCE__length}"
+    # unrolled array_pop & array_export end
+
+    # unrolled array_pop & array_export begin (optimized)
+    # nullcall array_pop WAS_SOURCED
+    # nullcall array_export WAS_SOURCED
+    __array__WAS_SOURCED__length=$(( __array__WAS_SOURCED__length - 1 ))
+    export __array__WAS_SOURCED__length
+    eval "unset __array__WAS_SOURCED__index__${__array__WAS_SOURCED__length}"
+    # unrolled array_pop & array_export end
+}
+
+# shellcheck disable=SC2218
+nullcall log_ultradebug "env vars:\n%s" -- "$(env -0 | sort -z | tr '\0' '\n' | sed -e 's/%/%%/g')"
 
 # NOTE: that all these detection methods only work for the FIRST file
 #   that is invoked or sourced, all others must be handled by the
 #   include_G, ensure_include_GXY, and invoke functions.
-if [ "$(array_get_length SHELL_SOURCE)" -eq 0 ]; then
+# unrolled array_get_length in next line:
+if [ "${__array__SHELL_SOURCE__length}" -eq 0 ]; then
     TEMP_FILE_NAME=""
-    log_ultradebug "\$0=$0"
+    TEMP_WAS_SOURCED="unknown"
+    nullcall log_ultradebug "\$0=$0"
     TEMP_ARG_ZERO="$0"
-    log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
+    nullcall log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"
-    log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
+    nullcall log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     case "${TEMP_ARG_ZERO}" in
         bash|dash|sh|wsl-bash|wsl-dash|wsl-sh)  # zsh sourced handled later
-            log_ultradebug "\$0 was a known shell (not zsh)."
+            nullcall log_ultradebug "\$0 was a known shell (not zsh)."
             # bash sourced, dash sourced, sh(bash) sourced, sh(dash) sourced,
             # sh(zsh) sourced
             # shellcheck disable=SC2128
             if [ -n "${BASH_SOURCE}" ]; then
                 # bash sourced, sh(bash) sourced
-                log_ultradebug "\$BASH_SOURCE exists."
+                nullcall log_ultradebug "\$BASH_SOURCE exists."
                 # shellcheck disable=SC3054
-                log_ultradebug "\${BASH_SOURCE[0]}=${BASH_SOURCE[0]}"
+                nullcall log_ultradebug "\${BASH_SOURCE[0]}=${BASH_SOURCE[0]}"
                 # shellcheck disable=SC3054
                 TEMP_FILE_NAME="${BASH_SOURCE[0]}"
             else
                 # dash sourced, sh(dash) sourced, sh(zsh) sourced
-                log_ultradebug "\$BASH_SOURCE does NOT exist."
-                log_ultradebug "\(which lsof)=$(which lsof)"
-                log_ultradebug "\$?=$?"
+                nullcall log_ultradebug "\$BASH_SOURCE does NOT exist."
+                nullcall log_ultradebug "\(which lsof)=$(which lsof)"
+                nullcall log_ultradebug "\$?=$?"
                 x="$(lsof -p $$ -Fn0 | tail -1)"
                 TEMP_FILE_NAME="${x#n}"
                 if [ "$(command echo "${TEMP_FILE_NAME}" | grep -e "^->0x")" != "" ]; then
                     # sh(zsh) sourced
-                    log_ultradebug "TEMP_FILE_NAME starts with '->0x', this is zsh sourced."
+                    nullcall log_ultradebug "TEMP_FILE_NAME starts with '->0x', this is zsh sourced."
                     TEMP_FILE_NAME="${DOLLAR_UNDER}"
                 # else
                 #     # dash sourced, sh(dash) sourced
                 #     true
                 fi
             fi
-            array_append WAS_SOURCED true
+            TEMP_WAS_SOURCED=true
             ;;
         ????????-????-????-????-????????????.sh|????????-????-????-????-????????????)
-            log_ultradebug "\$0 resembles a uuid, probably is github sourced."
+            nullcall log_ultradebug "\$0 resembles a uuid, probably is github sourced."
             # github sourced, multi-command
-            array_append WAS_SOURCED true
-            log_ultradebug "$0"
-            log_ultradebug "$*"
-            log_ultradebug "env | sort:\n%s" "$(env | sort)"
+            TEMP_WAS_SOURCED=true
+            nullcall log_ultradebug "$0"
+            nullcall log_ultradebug "$*"
+            nullcall log_ultradebug "env | sort:\n%s" "$(env | sort)"
             if [ "${TEMP_SHELL_SOURCE}" != "" ]; then
                 TEMP_FILE_NAME="${TEMP_SHELL_SOURCE}"
             fi
-            log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
+            nullcall log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
             ;;
         *)
             # bash invoked, dash invoked, sh(bash) invoked, zsh invoked
             # zsh sourced
-            log_ultradebug "Some other shell?"
-            log_ultradebug "\(which lsof)=$(which lsof)"
-            log_ultradebug "\$?=$?"
+            nullcall log_ultradebug "Some other shell?"
+            nullcall log_ultradebug "\(which lsof)=$(which lsof)"
+            nullcall log_ultradebug "\$?=$?"
             if [ "$(which lsof)" != "" ]; then
                 x="$(lsof -p $$ -Fn0 | tail -1)"
-                log_ultradebug "\$x=$x"
+                nullcall log_ultradebug "\$x=$x"
                 x="${x#*n}"
-                log_ultradebug "\$x=$x"
+                nullcall log_ultradebug "\$x=$x"
             else
                 x="NONE"
-                log_ultradebug "\$x=$x"
+                nullcall log_ultradebug "\$x=$x"
             fi
             if [ -f "$x" ]; then
-                x="$(rreadlink "$x")"
-                log_ultradebug "\$x=$x"
+                x="$(nullcall rreadlink "$x")"
+                nullcall log_ultradebug "\$x=$x"
             fi
-            TEMP_FILE_NAME="$(rreadlink "$0")"
-            log_ultradebug "TEMP_FILE_NAME: ${TEMP_FILE_NAME}"
-            log_ultradebug "x:              ${x}"
+            TEMP_FILE_NAME="$(nullcall rreadlink "$0")"
+            nullcall log_ultradebug "TEMP_FILE_NAME: ${TEMP_FILE_NAME}"
+            nullcall log_ultradebug "x:              ${x}"
             if [ "${TEMP_FILE_NAME}" != "${x}" ]; then
-                log_ultradebug "TEMP_FILE_NAME and x are different."
+                nullcall log_ultradebug "TEMP_FILE_NAME and x are different."
                 if [ "$(echo "${x}" | grep -e 'pipe')" != "" ]; then
-                    log_ultradebug "x is 'pipe', probably github invoked."
+                    nullcall log_ultradebug "x is 'pipe', probably github invoked."
                     # github invoked
-                    array_append WAS_SOURCED false
+                    TEMP_WAS_SOURCED=false
                 elif [ "${x}" = "NONE" ]; then
-                    log_ultradebug "lsof not available, probably wsl invoked."
+                    nullcall log_ultradebug "lsof not available, probably wsl invoked."
                     # wsl doesn't always have lsof, so invoked
-                    array_append WAS_SOURCED false
+                    TEMP_WAS_SOURCED=false
                 else
                     # zsh sourced
-                    log_ultradebug "x is NOT 'pipe', probably zsh sourced."
-                    array_append WAS_SOURCED true
+                    nullcall log_ultradebug "x is NOT 'pipe', probably zsh sourced."
+                    TEMP_WAS_SOURCED=true
                 fi
             else
-                log_ultradebug "TEMP_FILE_NAME and x are the SAME, likely invoked."
+                nullcall log_ultradebug "TEMP_FILE_NAME and x are the SAME, likely invoked."
                 # bash invoked, dash invoked, sh(bash) invoked, zsh invoked
-                array_append WAS_SOURCED false
-                log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
+                TEMP_WAS_SOURCED=false
+                nullcall log_ultradebug "printenv | sort:\n%s" "$(printenv | sort)"
             fi
             ;;
     esac
-    log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
-    TEMP_FILE_NAME="$(rreadlink "${TEMP_FILE_NAME}")"
-    log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
-    array_append SHELL_SOURCE "${TEMP_FILE_NAME}"
+    nullcall log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
+    TEMP_FILE_NAME="$(nullcall rreadlink "${TEMP_FILE_NAME}")"
+    nullcall log_ultradebug "TEMP_FILE_NAME=${TEMP_FILE_NAME}"
+
+    nullcall _shell_source_push_G "${TEMP_WAS_SOURCED}" "${TEMP_FILE_NAME}"
 fi
 
 unset x
 unset TEMP_ARG_ZERO
 unset TEMP_FILE_NAME
 unset TEMP_SHELL_SOURCE
+unset TEMP_WAS_SOURCED
 unset DOLLAR_UNDER
 
-export WAS_SOURCED
-export SHELL_SOURCE
-
+# TODO: create and use array_join to print these
 # sometimes shellcheck thinks log_ultradebug is only defined later, not before
 # shellcheck disable=SC2218
-log_ultradebug "WAS_SOURCED: $WAS_SOURCED"
+nullcall log_ultradebug "WAS_SOURCED: $WAS_SOURCED"
 # shellcheck disable=SC2218
-log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
+nullcall log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
+# shellcheck disable=SC2218
+nullcall log_ultradebug "SHELL_SOURCE_PUUID: $SHELL_SOURCE_PUUID"
 
 #endregion Source/Invoke Check For Top Level File
 #===============================================================================
 
-#===============================================================================
-#region Call Stack Tracking
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
 
-if [ "${SHELL_CALL_STACK}" = "" ]; then
-    SHELL_CALL_STACK=""
-    array_init SHELL_CALL_STACK
+
+    #===============================================================================
+    #region Call Stack Tracking Part 4
+
+    #-------------------------------------------------------------------------------
+    def; print_call_stack() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD="${-:+"-$-"}"
+        set +x
+
+        def; _print_call_stack() {
+            >&2 command printf -- "%d: %s\n" "${index}" "${item}"
+        }
+        call array_for_each SHELL_CALL_STACK _print_call_stack
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD
+    }
+
+    #endregion Call Stack Tracking Part 4
+    #===============================================================================
+
+    #===============================================================================
+    #region puuid - Pseudo UUID
+
+    #-------------------------------------------------------------------------------
+    def; puuid() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        od -x /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}'
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; push_puuid_for_abspath() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __puuid="$(puuid)"
+        __puuid__basename="${__puuid}_$(basename "$1")"
+        if [ "${OPTION_SETTRACE}" = true ]; then
+            command printf "# %s:'%s'\n" "${__puuid__basename}" "$1"
+        fi
+        nullcall array_push SHELL_SOURCE_PUUID "${__puuid__basename}"
+        nullcall array_export SHELL_SOURCE_PUUID
+        nullcall dict_set_key SHELL_SOURCE_PUUID_DICT "${__puuid__basename}" "$1"
+        nullcall dict_export SHELL_SOURCE_PUUID_DICT
+        unset __puuid__basename
+        unset __puuid
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD
+    }
+
+    #endregion puuid - Pseudo UUID
+    #===============================================================================
+
+    #===============================================================================
+    #region Array Implementation
+
+    # # initialize an array:
+    # NOTE: no $ sign on my_array_name below
+    # array_init my_array_name
+
+    # # manually iterating an array instead of array_for_each:
+    # NOTE: no $ sign on my_array_name below
+    # for index in $(seq 0 $(array_get_length my_array_name); do
+    #     echo $(array_get_at_index my_array_name $index)
+    # done
+
+    # unrolled version of manually iterating an array instead of array_fo_each:
+    # NOTE: no $ sign on my_array_name below
+    # for index in $seq $__array__my_array_name__length
+    #     echo "$(eval "\$__array__my_array_name__$index")"
+    # done
+
+    # # append to array:
+    # NOTE: no $ sign on my_array_name
+    # array_append my_array_name "my value"
+
+    # # get item by __array__array_insert_index__iterator_index:
+    # NOTE: no $ sign on my_array_name
+    # array_get_at_index my_array_name $__array__array_insert_index__iterator_index
+
+    # # get last item:
+    # NOTE: no $ sign on my_array_name
+    # array_get_last my_array_name
+
+    # # copy an array:
+    # NOTE: no $ sign on my_source_array_name
+    # NOTE: no $ sign on my_destination_array_name
+    # array_copy my_source_array_name my_destination_array_name
+
+    # # remove last item:
+    # NOTE: no $ sign on my_array_name
+    # array_remove_last my_array_name
+
+    # # get length:
+    # NOTE: no $ sign on my_array_name
+    # array_get_length my_array_name
+
+    # # find __array__array_insert_index__iterator_index of item
+    # NOTE: no $ sign on my_array_name
+    # array_find_index_of my_array_name value_to_find
+    # returns -1 if not found
+
+    # # check if array contains item
+    # NOTE: no $ sign on my_array_name
+    # array_contains my_array_name value_to_find
+    # returns 1 if not found
+    # returns 0 if found
+
+    # # using array_for_each:
+    # def; my_func() {
+    #     echo "${item}"
+    # }
+    # array_for_each the_array_name my_func
+    ## NOTE: no $ on 'the_array_name' nor 'my_func'
+
+    #-------------------------------------------------------------------------------
+    # forward declarations for using array_for_each
+    index=""
+    item=""
+
+    #-------------------------------------------------------------------------------
+    def; __array_fix_index() {
+        __array__array_fix_index__length="$(nullcall array_get_length "$1")"
+
+        __array__array_fix_index__index="$2"
+
+        if [ "${__array__array_fix_index__index}" -lt 0 ]; then
+            __array__array_fix_index__index="$(( __array__array_fix_index__length + __array__array_fix_index__index ))"
+        fi
+
+        command printf "%d" "${__array__array_fix_index__index}"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_init() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        # TODO: error if new array already exists
+
+        eval "$1=\"__array__\""
+        eval "__array__$1=\"__array__\""
+        eval "__array__${1}__length=0"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_destroy() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        # TODO: error if array already does not exist
+
+        for __array__destroy_var in $(set | sort | grep "__array__${1}__" | awk -F= '{ print $1 }' ); do
+            eval "unset $__array__destroy_var"
+        done
+        unset __array__destroy_var
+        eval "unset __array__$1"
+        eval "unset $1"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_export() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        for __array__export_var in $(set | sort | grep "__array__${1}__" | awk -F= '{ print $1 }' ); do
+            eval "export $__array__export_var"
+        done
+        unset __array__export_var
+        eval "export __array__$1"
+        eval "export $1"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_append() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_append__index=$(eval "echo \${__array__${1}__length}")
+        eval "__array__${1}__index__${__array__array_append__index}=\"$2\""
+        __array__array_append__new_length=$(eval "echo \$(( __array__${1}__length + 1 ))")
+        eval "__array__${1}__length=$__array__array_append__new_length"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_copy() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        # unrolled array_init begin
+        # TODO: error if new array already exists
+        eval "$2=\"__array__\""
+        eval "__array__$2=\"__array__\""
+        # NOTE: optimization, setting length early
+        eval "__array__${2}__length=\${__array__${1}__length}"
+        # unrolled array_init end
+
+        for __array__array_copy__iterator_index in $(seq 0 "$(eval "echo \$(( __array__${1}__length - 1 ))")"); do
+            eval "__array__${2}__index__${__array__array_copy__iterator_index}=\${__array__${1}__index__${__array__array_copy__iterator_index}}"
+        done
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_insert_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_insert_index__length=0
+        eval "__array__array_insert_index__length=\${__array__${1}__length}"
+
+        __array__array_insert_index__index="$2"
+        __array__array_insert_index__index="$(nullcall __array_fix_index "$1" "${__array__array_insert_index__index}")"
+
+        # TODO: error if index is > than length
+
+        if [ "$__array__array_insert_index__index" -lt "$__array__array_insert_index__length" ]; then
+            for __array__array_insert_index__iterator_index in $(seq \
+                $(( __array__array_insert_index__length - 1 )) \
+                "$__array__array_insert_index__index" \
+            ); do
+                __array__array_insert_index__iterator_index__next=$(( __array__array_insert_index__iterator_index + 1 ))
+                eval "__array__${1}__index__${__array__array_insert_index__iterator_index__next}=\${__array__${1}__index__${__array__array_insert_index__iterator_index}}"
+            done
+        fi
+
+        eval "__array__${1}__index__${__array__array_insert_index__index}=\"$3\""
+
+        __array__array_insert_index__new_length=$(eval "echo \$(( __array__${1}__length + 1 ))")
+        eval "__array__${1}__length=$__array__array_insert_index__new_length"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_remove_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_remove_index__length=0
+        eval "__array__array_remove_index__length=\${__array__${1}__length}"
+
+        __array__array_remove_index__index="$2"
+        __array__array_remove_index__index="$(nullcall __array_fix_index "$1" "${__array__array_remove_index__index}")"
+
+        # TODO: error if index is >= length
+
+        if [ "$__array__array_remove_index__index" -lt "$__array__array_remove_index__length" ]; then
+            for __array__array_remove_index__iterator_index in $(seq \
+                "$__array__array_remove_index__index" \
+                $(( __array__array_remove_index__length - 1 )) \
+            ); do
+                __array__array_remove_index__iterator_index__next=$(( __array__array_remove_index__iterator_index + 1 ))
+                eval "__array__${1}__index__${__array__array_remove_index__iterator_index}=\${__array__${1}__index__${__array__array_remove_index__iterator_index__next}}"
+            done
+        fi
+
+        __array__array_remove_index__new_length=$(eval "echo \$(( __array__${1}__length - 1 ))")
+        eval "__array__${1}__length=${__array__array_remove_index__new_length}"
+        eval "unset __array__${1}__index__${__array__array_remove_index__new_length}"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_get_length() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        eval "command echo \"\${__array__${1}__length}\""
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_get_at_index() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_get_index__index="$2"
+        __array__array_get_index__index="$(nullcall __array_fix_index "$1" "${__array__array_get_index__index}")"
+
+        eval "command printf \"%s\" \"\${__array__${1}__index__${__array__array_get_index__index}}\""
+
+        __array_get_at_index_ret=1
+        if [ "$(eval "[ -n \"\${__array__${1}__index__${__array__array_get_index__index}}\" ] && echo true || echo false")" = true ]; then
+            __array_get_at_index_ret=0
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD
+
+        return $__array_get_at_index_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_find_index_of() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_find_index_of__length=0
+        eval "__array__array_find_index_of__length=\${__array__${1}__length}"
+
+        __array__array_find_index_of__return=1 # false
+
+        if [ $__array__array_find_index_of__length -gt 0 ]; then
+            for __array__array_find_index_of__index in $(seq \
+                0 \
+                $(( __array__array_find_index_of__length - 1 )) \
+            ); do
+                eval "item=\${__array__${1}__index__${__array__array_find_index_of__index}}"
+                if [ "$item" = "$2" ]; then
+                    command printf "%d" "$__array__array_find_index_of__index"
+                    __array__array_find_index_of__return=0 # true
+                fi
+            done
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD
+
+        return "$__array__array_find_index_of__return"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_contains() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        # returns 1 if not found, 0 if found
+        array_find_index_of "$1" "$2" >/dev/null
+        __array__contains__return=$?
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD
+
+        return $__array__contains__return
+    }
+
+    # # using array_for_each:
+    # def; my_func() {
+    #     echo "${index}: ${item}"
+    # }
+    # array_for_each the_array_name my_func
+    ## NOTE: no $ on 'the_array_name' nor 'my_func'
+
+    #-------------------------------------------------------------------------------
+    def; array_for_each() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD=e
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __array__array_for_each__array_name="$1"
+        __array__array_for_each__func_name="$2"
+
+        __array__array_for_each__length=0
+        eval "__array__array_for_each__length=\${__array__${1}__length}"
+
+        if [ $__array__array_for_each__length -gt 0 ]; then
+            for index in $(seq \
+                0 \
+                $(( __array__array_for_each__length - 1 )) \
+            ); do
+                eval "item=\${__array__${__array__array_for_each__array_name}__index__${index}}"
+                set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
+                unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
+                eval "${__array__array_for_each__func_name}"
+                __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD="${-:+"-$-"}"
+                set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+            done
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_push() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_append "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_pop() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_remove_last "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_peek() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_get_last "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_insert_last() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_append "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_insert_first() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_insert_index "$1" 0 "$2"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_get_first() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_get_at_index "$1" 0
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_get_last() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_get_at_index "$1" -1
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_remove_first() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_remove_index "$1" 0
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; array_remove_last() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall array_remove_index "$1" -1
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD
+    }
+
+    #endregion Array Implementation
+    #===============================================================================
+
+    #===============================================================================
+    #region Dict Implementation
+
+    #-------------------------------------------------------------------------------
+    def; __dict_hash_key() {
+        (printf "%s" "$1" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "$1" | shasum -a 1) | cut -d' ' -f1
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_init() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        eval "$1=\"__dict__\""
+        eval "__dict__$1=\"__dict__\""
+        eval "__dict__$1__length=0"
+        nullcall array_init "__dict__$1__keys"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD
+
+        return 0
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_destroy() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        for __dict__destroy_var in $(set | sort | grep "__dict__$1__" | awk -F= '{ print $1 }' ); do
+            eval "unset $__dict__destroy_var"
+        done
+        unset __dict__destroy_var
+        eval "unset __dict__$1"
+        eval "unset $1"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD
+
+        return 0
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_export() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        for __dict__export_var in $(set | sort | grep "__dict__$1__" | awk -F= '{ print $1 }' ); do
+            eval "export $__dict__export_var"
+        done
+        unset __dict__export_var
+        eval "export __dict__$1"
+        eval "export $1"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_set_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict_set_key_ret=0
+
+        if eval "[ ! -n \"\$__dict__$1\" ]"; then
+            # dict not initialized
+            __dict_set_key_ret=1
+        else
+            nullcall array_append "__dict__$1__keys" "$2"
+            eval "__dict__$1__key__$(nullcall __dict_hash_key "$2")=\"$3\""
+            eval "__dict__$1__length=\$(( __dict__$1__length + 1 ))"
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD
+
+        return $__dict_set_key_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_get_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict_get_key_ret=0
+
+        if dict_has_key "$1" "$2"; then
+            eval "printf \"%s\" \"\$__dict__$1__key__$(__dict_hash_key "$2")\""
+        else
+            __dict_get_key_ret=1
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD
+
+        return $__dict_get_key_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_unset_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict_unset_key_ret=0
+
+        if eval "[ ! -n \"\$__dict__$1\" ]"; then
+            # dict not initialized
+            __dict_unset_key_ret=1
+        fi
+
+        if dict_has_key "$1" "$2"; then
+            eval "unset __dict__$1__key__$(__dict_hash_key "$2")"
+            eval "__dict__$1__length=\$(( __dict__$1__length - 1 ))"
+        else
+            __dict_unset_key_ret=1
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD
+
+        return $__dict_unset_key_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_has_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict_has_key_ret=0
+
+        if eval "[ -n \"\$__dict__$1__key__$(__dict_hash_key "$2")\" ]"; then
+            __dict_has_key_ret=0
+        else
+            __dict_has_key_ret=1
+        fi
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD
+
+        return $__dict_has_key_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_for_each_key() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __dict__dict_for_each_key__temp_storage="$(eval command echo \"\$\{__dict__"$1"__keys\}\")"
+        for key in $__dict__dict_for_each_key__temp_storage; do
+            key="$(nullcall __array_unescape "$key")"
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD
+            eval "$2"
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_for_each_value() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __dict__dict_for_each_value__temp_storage="$(eval command echo \"\$\{__dict__"$1"__keys\}\")"
+        for key in $__dict__dict_for_each_value__temp_storage; do
+            key="$(nullcall __array_unescape "$key")"
+            # shellcheck disable=SC2034
+            value="$(dict_get_key "$key")"
+            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+            unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
+            eval "$2"
+            __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
+            set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_for_each_pair() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        nullcall dict_for_each_value "$@"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD
+    }
+
+    #-------------------------------------------------------------------------------
+    def; dict_has_value() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        __dict__dict_has_value__return=1 # false
+
+        OIFS="$IFS"
+        IFS="${_ARRAY__SEP}"
+        __dict__dict_for_each_value__temp_storage="$(eval command echo \"\$\{__dict__"$1"__keys\}\")"
+        for key in $__dict__dict_for_each_value__temp_storage; do
+            key="$(nullcall __array_unescape "$key")"
+            # shellcheck disable=SC2034
+            value="$(dict_get_key "$key")"
+            if [ "${value}" = "$2" ]; then
+                __dict__dict_has_value__return=0 # true
+                break
+            fi
+        done
+        IFS="$OIFS"
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
+
+        return $__dict__dict_has_value__return
+    }
+
+    #endregion Dict Implementation
+    #===============================================================================
+
+    #===============================================================================
+    #region Reflection Info Functions
+
+    #-------------------------------------------------------------------------------
+    def; get_my_real_fullpath() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "$(nullcall array_get_length SHELL_SOURCE)" -gt 0 ]; then
+                nullcall array_peek SHELL_SOURCE
+            else
+                echo "UNKNOWN"
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD
+
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_my_real_basename() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "$(nullcall array_get_length SHELL_SOURCE)" -gt 0 ]; then
+                basename "$(nullcall array_peek SHELL_SOURCE)"
+            else
+                echo "UNKNOWN"
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD
+
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_my_real_dir_fullpath() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "$(nullcall array_get_length SHELL_SOURCE)" -gt 0 ]; then
+                dirname "$(nullcall array_peek SHELL_SOURCE)"
+            else
+                echo "UNKNOWN"
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD
+
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_my_real_dir_basename() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "$(nullcall array_get_length SHELL_SOURCE)" -gt 0 ]; then
+                basename "$(dirname "$(nullcall array_peek SHELL_SOURCE)")"
+            else
+                echo "UNKNOWN"
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD
+
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_my_puuid_basename() {
+        __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD="${-:+"-$-"}"
+        set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "$(nullcall array_get_length SHELL_SOURCE_PUUID)" -gt 0 ]; then
+                nullcall array_peek SHELL_SOURCE_PUUID
+            else
+                exit "${RET_ERROR_UNKNOWN}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD}"
+        unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD
+
+        return $exit_ret
+    }
+
+    #endregion Reflection Info Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region Create Fence
+
+    def; MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE() { true; }
+
+    #endregion Create Fence
+    #===============================================================================
 fi
-def; test_LINENO_GLOBAL_OFFSET() { echo "$LINENO"; }
-LINENO_GLOBAL_OFFSET="$(test_LINENO_GLOBAL_OFFSET)"
-LINENO_IS_RELATIVE=false
-if [ "$LINENO_GLOBAL_OFFSET" -le 1 ]; then
-    LINENO_IS_RELATIVE=true
-fi
-
-# normally aliases cannot use positional parameters BUT this works in bash, dash, zsh
-# shellcheck disable=SC2142
-alias def="sh -c \"echo = \$0:\$LINENO:\\\$(head -n \$LINENO \$0 | tail -n 1 | awk '{ print \\\$2 }' | tr -d '()')\""
-
-call_G () {
-    >&2 echo "- $1:$2"
-    array_append SHELL_CALL_STACK "$1:$2"
-    shift
-    "$@"
-    return $?
-}
-# normally aliases cannot use positional parameters BUT this works in bash, dash, zsh
-# shellcheck disable=SC2142
-alias call="call_G \"\$0:\$LINENO\""
-
-
-
-export SHELL_CALL_STACK
-export LINENO_GLOBAL_OFFSET
-export LINENO_IS_RELATIVE
-
-#endregion Call Stack Tracking
-#===============================================================================
 
 #===============================================================================
-#region Announce Ourself
+#region Announce Ourself Starting
 
-if [ "$(array_get_last WAS_SOURCED)" = false ]; then
-    log_debug "Invoked: $(get_my_real_fullpath) ($$)"
-else
-    log_debug "Sourced: $(get_my_real_fullpath) ($$)"
+__announce_prefix="Sourced"
+if [ "$(nullcall array_peek WAS_SOURCED)" = false ]; then
+    __announce_prefix="Invoked"
 fi
+nullcall log_debug "${__announce_prefix}: $(nullcall get_my_real_fullpath) ($$) [$(nullcall get_my_puuid_basename || echo "$0")]"
+unset __announce_prefix
 
 #endregion Announce Ourself
 #===============================================================================
 
-#endregion Preamble
+set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD}"
+unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD
+
+#endregion marximus-shell-extensions Base Preamble
+################################################################################
+
+################################################################################
+#region marximus-shell-extensions Extended Preamble
+
+# fence to prevent redefinition
+type MARXIMUS_SHELL_EXTENSIONS_EXTENDED_PREAMBLE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
+
+    #===============================================================================
+    #region Create Fence
+
+    def; MARXIMUS_SHELL_EXTENSIONS_EXTENDED_PREAMBLE_FENCE() { true; }
+
+    #endregion Create Fence
+    #===============================================================================
+
+    #===============================================================================
+    #region Include/Invoke Directives
+
+    #-------------------------------------------------------------------------------
+    def; include_G() {
+        # intentionally no local scope so it modify globals
+        if [ ! -f "$1" ]; then
+            call log_warning "Could not source because file is missing: %s" "$1"
+            return "${RET_ERROR_FILE_NOT_FOUND}"
+        fi
+
+        __LAST_INCLUDE="$(call rreadlink "$1")"
+
+        call log_ultradebug "Sourcing: %s as %s" "$1" "${__LAST_INCLUDE}"
+
+        nullcall _shell_source_push_G "true" "${__LAST_INCLUDE}"
+
+        # shifts off path we are sourcing, but leaves other args intact so they can
+        # be used by the sourced script; normally sourcing from within a shell
+        # wouldn't allow this, but since we are inside a file already, it is
+        # possible to do so
+        shift
+
+        # shellcheck disable=SC1090
+        . "${__LAST_INCLUDE}"
+        ret=$?
+
+        nullcall _shell_source_pop_G
+
+        return $ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_include_GXY() {
+        # intentionally no local scope so it can modify globals AND exit script
+
+        call include_G "$@"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            call log_fatal "Failed to source '%s'" "$1"
+            if [ "$(call array_peek WAS_SOURCED)" = true ]; then
+                exit "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
+            else
+                return "${RET_ERROR_COULD_NOT_SOURCE_FILE}"
+            fi
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    def; invoke() {
+        if [ ! -f "$1" ]; then
+            call log_warning "Could not invoke because file is missing: %s" "$1"
+            return "${RET_ERROR_FILE_NOT_FOUND}"
+        fi
+
+        __LAST_INCLUDE="$(call rreadlink "$1")"
+
+        call log_ultradebug "Invoking: %s as %s" "$1" "${__LAST_INCLUDE}"
+
+        nullcall _shell_source_push_G "false" "${__LAST_INCLUDE}"
+
+        "$@"
+        ret=$?
+
+        nullcall _shell_source_pop_G
+
+        return $ret
+    }
+
+    #endregion Include/Invoke Directives
+    #===============================================================================
+
+    #===============================================================================
+    #region Root User Checking Functions
+
+    #-------------------------------------------------------------------------------
+    def; require_not_root_user_XY() {
+        # intentionally no local scope so it can exit script
+
+        if [ "${CI}" = true ] && [ "${PLATFORM_IS_WSL}" = true ]; then
+            # github runner's WSL user is always root
+            true
+        else
+            # shellcheck disable=SC3028
+            if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
+                call log_fatal "$(call get_my_real_basename) should not be run as root nor with sudo"
+                if [ "$(call array_peek WAS_SOURCED)" = true ]; then
+                    exit "${RET_ERROR_USER_IS_ROOT}"
+                else
+                    return "${RET_ERROR_USER_IS_ROOT}"
+                fi
+            fi
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    def; require_root_user_XY() {
+        # intentionally no local scope so it can exit script
+
+        # shellcheck disable=SC3028
+        if [ $UID -ne 0 ] && [ $EUID -ne 0 ] && [ "$(id -u)" -ne 0 ]; then
+            call log_fatal "$(call get_my_real_basename) MUST be run as root or with sudo"
+            if [ "$(call array_peek WAS_SOURCED)" = true ]; then
+                exit "${RET_ERROR_USER_IS_NOT_ROOT}"
+            else
+                return "${RET_ERROR_USER_IS_NOT_ROOT}"
+            fi
+        fi
+    }
+
+    #endregion Root User Check
+    #===============================================================================
+
+    #===============================================================================
+    #region File System Functions
+
+    #-------------------------------------------------------------------------------
+    def; windows_path_to_unix_path() {
+        if \
+            [ "${PLATFORM_IS_WSL}" = true ] &&
+            [  "$(command echo "$1" | cut -c1)" != "/" ]
+        then
+            command printf "/"
+            command printf "$(command echo "$1" | cut -c1 | tr '[:upper:]' '[:lower:]')"
+            command printf "$(command echo "$1" | cut -c3- | sed -e 's/\\/\//g')"
+        else
+            command printf "$1"
+        fi
+        command printf "\n"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_cd() {
+        # intentionally no local scope so that the cd command takes effect
+        call log_superdebug "Changing current directory to '%s'" "$1"
+
+        # shellcheck disable=SC2164
+        cd "$1"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            call log_fatal "Could not cd into '%s'" "$1"
+            return "${RET_ERROR_DIRECTORY_NOT_FOUND}"
+        fi
+    }
+
+    #-------------------------------------------------------------------------------
+    def; safe_rm() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            path_to_remove="$1"
+            print_rm_error_message="$2"
+
+            call log_superdebug "Safely removing '%s'" "${path_to_remove}"
+
+            if \
+                [ "${path_to_remove}" != "/" ] &&
+                [ "${path_to_remove}" != "${HOME}" ] &&
+                [ "${path_to_remove}" != "${TMPDIR}" ] &&
+                [ "${path_to_remove}" != "/Applications" ] &&
+                [ "${path_to_remove}" != "/bin" ] &&
+                [ "${path_to_remove}" != "/boot" ] &&
+                [ "${path_to_remove}" != "/cores" ] &&
+                [ "${path_to_remove}" != "/dev" ] &&
+                [ "${path_to_remove}" != "/etc" ] &&
+                [ "${path_to_remove}" != "/home" ] &&
+                [ "${path_to_remove}" != "/lib" ] &&
+                [ "${path_to_remove}" != "/Library" ] &&
+                [ "${path_to_remove}" != "/local" ] &&
+                [ "${path_to_remove}" != "/media" ] &&
+                [ "${path_to_remove}" != "/mnt" ] &&
+                [ "${path_to_remove}" != "/opt" ] &&
+                [ "${path_to_remove}" != "/private" ] &&
+                [ "${path_to_remove}" != "/proc" ] &&
+                [ "${path_to_remove}" != "/sbin" ] &&
+                [ "${path_to_remove}" != "/srv" ] &&
+                [ "${path_to_remove}" != "/System" ] &&
+                [ "${path_to_remove}" != "/Users" ] &&
+                [ "${path_to_remove}" != "/usr" ] &&
+                [ "${path_to_remove}" != "/var" ] &&
+                [ "${path_to_remove}" != "/Volumes" ] &&
+                [ "${path_to_remove}" != "" ]
+            then
+                rm -rf "${path_to_remove}"
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    if \
+                        [ "${print_rm_error_message}" = "" ] ||
+                        [ "${print_rm_error_message}" = true ]
+                    then
+                        call log_error "failed to rm '%s'" "${path_to_remove}"
+                    fi
+                    exit "${RET_ERROR_RM_FAILED}"
+                fi
+            else
+                call log_fatal "unsafe rm path '%s'" "${path_to_remove}"
+                exit "${RET_ERROR_UNSAFE_RM_PATH}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_does_not_exist() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            path_to_remove="$1"
+
+            call log_superdebug "Ensuring file or directory does not exist: '%s'" "${path_to_remove}"
+
+            if \
+                [ -f "${path_to_remove}" ] ||
+                [ -d "${path_to_remove}" ]
+            then
+                call safe_rm "${path_to_remove}"
+                ret=$?
+                exit $ret
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; create_dir() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            destdir="$1"
+
+            call ensure_does_not_exist "${destdir}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_fatal "failed to remove path '%s'" "${destdir}"
+                exit $ret
+            fi
+
+            call log_superdebug "Creating directory '%s'" "${destdir}"
+
+            mkdir -p "${destdir}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_fatal "failed to create directory '%s'" "${destdir}"
+                exit "${RET_ERROR_CREATE_DIRECTORY_FAILED}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_dir() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            destdir="$1"
+
+            call log_superdebug "Ensuring directory exists: '%s'" "${destdir}"
+
+            if [ ! -d "${destdir}" ]; then
+                call create_dir "${destdir}"
+                ret=$?
+                exit $ret
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; move_file() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            source_filepath="$1"
+            dest_filepath="$2"
+
+            call log_superdebug "Copying file '${source_filepath}' to '${dest_filepath}'"
+
+            mv "${source_filepath}" "${dest_filepath}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_debug "failed to move file from '%s' to '%s'" "${source_filepath}" "${dest_filepath}"
+                exit "${RET_ERROR_COPY_FAILED}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; copy_file() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            source_filepath="$1"
+            dest="$2"
+
+            call log_superdebug "Copying file '${source_filepath}' to '${dest}'"
+
+            cp "${source_filepath}" "${dest}"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_debug "failed to copy file from '%s' to '%s'" "${source_filepath}" "${dest}"
+                exit "${RET_ERROR_COPY_FAILED}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; copy_dir() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            source_dir="$1"
+            dest_dir="$2"
+
+            call log_superdebug "Copying all files from '${source_dir}' to '${dest_dir}'"
+
+            cp -r "${source_dir}"/. "${dest_dir}/"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_debug "failed to copy files from '%s' to '%s'" "${source_dir}" "${dest_dir}"
+                exit "${RET_ERROR_COPY_FAILED}"
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #endregion File System Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region Temp Dir Functions
+
+    #-------------------------------------------------------------------------------
+    def; create_my_tempdir() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            if [ "${CI}" = true ]; then
+                if [ "${GITHUB_ACTIONS}" = true ]; then
+                    the_tempdir="${GITHUB_WORKSPACE}/bfi_temp/${GITHUB_ACTION}"
+                else
+                    the_tempdir="${HOME}/bfi_temp/$(call get_datetime_stamp_filename_formatted)"
+                fi
+            else
+                the_tempdir=$(mktemp -d -t "$(call get_my_real_basename)-$(call get_datetime_stamp_filename_formatted).XXXXXXX")
+                ret=$?
+                if [ $ret -ne 0 ]; then
+                    call log_fatal "failed to get temporary directory"
+                    exit "${RET_ERROR_FAILED_TO_GET_TEMP_DIR}"
+                fi
+            fi
+
+            the_tempdir="$(call windows_path_to_unix_path "${the_tempdir}")"
+
+            command echo "${the_tempdir}"
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; ensure_my_tempdir_G() {
+        # intentionally no local scope b/c modifying a global
+
+        if [ "${my_tempdir}" = "" ]; then
+            my_tempdir="$(call create_my_tempdir)"
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                return $ret
+            fi
+        fi
+
+        call ensure_dir "${my_tempdir}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            return $ret
+        fi
+
+        export my_tempdir
+
+        return "${RET_SUCCESS}"
+    }
+
+    #endregion Temp Dir Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region DateTime Stamp Functions
+
+    #-------------------------------------------------------------------------------
+    def; get_datetime_stamp_human_formatted() {
+        call date "${DATETIME_STAMP_HUMAN_FORMAT}"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_datetime_stamp_filename_formatted() {
+        call date "${DATETIME_STAMP_FILENAME_FORMAT}"
+    }
+
+    #endregion DateTime Stamp Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region Object Identity Functions
+
+    #-------------------------------------------------------------------------------
+    def; is_integer() {
+        case "${1#[+-]}"  in
+            *[!0123456789]*)
+                command echo "1"
+                return 1
+                ;;
+            '')
+                command echo "1"
+                return 1
+                ;;
+            *)
+                command echo "0"
+                return 0
+                ;;
+        esac
+        command echo "1"
+        return 1
+    }
+
+    #endregion Object Identity Functions
+    #===============================================================================
+
+    #===============================================================================
+    #region Text Formatting Functions
+
+    #-------------------------------------------------------------------------------
+    def; unident_text() {
+        (
+            text="$1"
+            leading="$(echo "${text}" | head -n 1 | sed -e "s/\( *\)\(.*\)/\1/")"
+            echo "${text}" | sed -e "s/\(${leading}\)\(.*\)/\2/"
+        )
+    }
+
+    #endregion Text Formatting Functions
+    #===============================================================================
+
+fi
+
+#endregion marximus-shell-extensions Extended Preamble
 ################################################################################
 
 ################################################################################
 #region Public *
 
-#===============================================================================
-#region Create Fence
+# fence to prevent redefinition
+type BATTERIES_FORKING_INCLUDED_BASE_FENCE >/dev/null 2>&1
+ret=$?
+if [ $ret -ne 0 ]; then
 
-def; BATTERIES_FORKING_INCLUDED_CONSTANTS_LOADED() { true; }
+    #===============================================================================
+    #region Create Fence
 
-#endregion Create Fence
-#===============================================================================
+    def; BATTERIES_FORKING_INCLUDED_BASE_FENCE() { true; }
 
-#===============================================================================
-#region Return Codes
+    #endregion Create Fence
+    #===============================================================================
 
-RET_SUCCESS=0; export RET_SUCCESS
+    #===============================================================================
+    #region Return Codes
 
-RET_ERROR_UNKNOWN=1; export RET_ERROR_UNKNOWN
+    RET_SUCCESS=0; export RET_SUCCESS
 
-# Local Errors 2-63 (61)
-# define these in individual scripts
+    RET_ERROR_UNKNOWN=1; export RET_ERROR_UNKNOWN
 
-# Local Warnings 64-125 (61)
-# define these in individual scripts
+    # Local Errors 2-63 (61)
+    # define these in individual scripts
 
-# Important OS Errors 126-127 (2)
-RET_ERROR_SHELL_PERMISSION_DENIED=126; export RET_ERROR_SHELL_PERMISSION_DENIED  # Reserved by OS 'shellname: permission denied: path'
-RET_ERROR_SHELL_FILE_NOT_FOUND=127; export RET_ERROR_SHELL_FILE_NOT_FOUND  # Reserved by OS  'shellname: path: No such file or directory'
+    # Local Warnings 64-125 (61)
+    # define these in individual scripts
 
-# Global Errors 128-191 (63, but 16 are reserved, so really 47)
-RET_ERROR_UNKNOWN_128=128; export RET_ERROR_UNKNOWN_128
-RET_ERROR_SIGHUP=129 ; export RET_ERROR_SIGHUP  #  SIGHUP  1
-RET_ERROR_SIGINT=130 ; export RET_ERROR_SIGINT  #  SIGINT  2
-RET_ERROR_SIGQUIT=131; export RET_ERROR_SIGQUIT #  SIGQUIT 3
-RET_ERROR_SIGILL=132 ; export RET_ERROR_SIGILL  #  SIGILL  4
-RET_ERROR_SIGTRAP=133; export RET_ERROR_SIGTRAP #  SIGTRAP 5
-RET_ERROR_SIGABRT=134; export RET_ERROR_SIGABRT #  SIGABRT 6
-RET_ERROR_SIG135=135 ; export RET_ERROR_SIG135  #  Uncommon, might be SIGBUS (linux) or SIGEMT (macOS)
-RET_ERROR_SIGFPE=136 ; export RET_ERROR_SIGFPE  #  SIGFPE  8
-RET_ERROR_SIGKILL=137; export RET_ERROR_SIGKILL #  SIGKILL 9
-RET_ERROR_SIG138=138 ; export RET_ERROR_SIG138  #  Uncommon, might be SIGUSR1 (linux) or SIGBUS (macOS)
-RET_ERROR_SIGSEGV=139; export RET_ERROR_SIGSEGV #  SIGSEGV 11
-RET_ERROR_SIG140=140 ; export RET_ERROR_SIG140  #  Uncommon, might be SIGUSR2 (linux) or SIGSYS (macOS)
-RET_ERROR_SIGPIPE=141; export RET_ERROR_SIGPIPE #  SIGPIPE 13
-RET_ERROR_SIGALRM=142; export RET_ERROR_SIGALRM #  SIGALRM 14
-RET_ERROR_SIGTERM=143; export RET_ERROR_SIGTERM #  SIGTERM 15
-# Signals above 16 are less commonly seen,
-# listed here for informational purposes:
-# Linux:            macOS:
-# SIGCHLD   17      SIGURG    16
-# SIGCONT   18      SIGSTOP   17
-# SIGSTOP   19      SIGTSTP   18
-# SIGTSTP   20      SIGCONT   19
-# SIGTTIN   21      SIGCHLD   20
-# SIGTTOU   22      SIGTTIN   21
-# SIGURG    23      SIGTTOU   22
-# SIGXCPU   24      SIGIO     23
-# SIGXFSZ   25      SIGXCPU   24
-# SIGVTALRM 26      SIGXFSZ   25
-# SIGPROF   27      SIGVTALRM 26
-# SIGWINCH  28      SIGPROF   27
-# SIGIO     29      SIGWINCH  28
-# SIGPWR    30      SIGINFO   29
-# SIGSYS    31      SIGUSR1   30
-# SIGRTMIN  34      SIGUSR2   31
-RET_ERROR_CONDA_ACTIVATE_FAILED=144; export RET_ERROR_CONDA_ACTIVATE_FAILED
-RET_ERROR_CONDA_INSTALL_FAILED=145; export RET_ERROR_CONDA_INSTALL_FAILED
-RET_ERROR_PIP_INSTALL_FAILED=146; export RET_ERROR_PIP_INSTALL_FAILED
-RET_ERROR_CONDA_DEACTIVATE_FAILED=147; export RET_ERROR_CONDA_DEACTIVATE_FAILED
-RET_ERROR_PIP_UNINSTALL_FAILED=148; export RET_ERROR_PIP_UNINSTALL_FAILED
-RET_ERROR_SCRIPT_WAS_SOURCED=149; export RET_ERROR_SCRIPT_WAS_SOURCED
-RET_ERROR_USER_IS_ROOT=150; export RET_ERROR_USER_IS_ROOT
-RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151; export RET_ERROR_SCRIPT_WAS_NOT_SOURCED
-RET_ERROR_USER_IS_NOT_ROOT=152; export RET_ERROR_USER_IS_NOT_ROOT
-RET_ERROR_DIRECTORY_NOT_FOUND=153; export RET_ERROR_DIRECTORY_NOT_FOUND
-RET_ERROR_FILE_NOT_FOUND=154; export RET_ERROR_FILE_NOT_FOUND
-RET_ERROR_FILE_COULD_NOT_BE_ACCESSED=155; export RET_ERROR_FILE_COULD_NOT_BE_ACCESSED
-RET_ERROR_INVALID_INVOCATION=156; export RET_ERROR_INVALID_INVOCATION
-RET_ERROR_COULD_NOT_EXECUTE=157; export RET_ERROR_COULD_NOT_EXECUTE
-RET_ERROR_INVALID_ARGUMENT=158; export RET_ERROR_INVALID_ARGUMENT
-RET_ERROR_CONDA_INIT_FAILED=159; export RET_ERROR_CONDA_INIT_FAILED
-RET_ERROR_POETRY_INSTALL_FAILED=160; export RET_ERROR_POETRY_INSTALL_FAILED
-RET_ERROR_COULD_NOT_SOURCE_FILE=161; export RET_ERROR_COULD_NOT_SOURCE_FILE
-RET_ERROR_GIT_CLONE_FAILED=162; export RET_ERROR_GIT_CLONE_FAILED
-RET_ERROR_GIT_FETCH_FAILED=163; export RET_ERROR_GIT_FETCH_FAILED
-RET_ERROR_GIT_RESET_FAILED=164; export RET_ERROR_GIT_RESET_FAILED
-RET_ERROR_RM_FAILED=165; export RET_ERROR_RM_FAILED
-RET_ERROR_COPY_FAILED=166; export RET_ERROR_COPY_FAILED
-RET_ERROR_UNSAFE_RM_PATH=167; export RET_ERROR_UNSAFE_RM_PATH
-RET_ERROR_CHANGE_DIRECTORY_FAILED=168; export RET_ERROR_CHANGE_DIRECTORY_FAILED
-RET_ERROR_MOVE_FAILED=169; export RET_ERROR_MOVE_FAILED
-RET_ERROR_TOOL_MISSING=170; export RET_ERROR_TOOL_MISSING
-RET_ERROR_FAILED_TO_GET_TEMP_DIR=171; export RET_ERROR_FAILED_TO_GET_TEMP_DIR
-RET_ERROR_DOWNLOAD_FAILED=172; export RET_ERROR_DOWNLOAD_FAILED
-RET_ERROR_EXTRACTION_FAILED=173; export RET_ERROR_EXTRACTION_FAILED
-RET_ERROR_CREATE_DIRECTORY_FAILED=174; export RET_ERROR_CREATE_DIRECTORY_FAILED
-RET_ERROR_COULD_NOT_CREATE_TEMP_FILE=178; export RET_ERROR_COULD_NOT_CREATE_TEMP_FILE
-#RET_ERROR_GET_SUBCOMMAND_RETURN_CODE_FAILED=179; export RET_ERROR_GET_SUBCOMMAND_RETURN_CODE_FAILED
-RET_ERROR_FAILED_TO_CREATE_FIFO=180; export RET_ERROR_FAILED_TO_CREATE_FIFO
-RET_ERROR_NOT_A_FILE=181; export RET_ERROR_NOT_A_FILE
-RET_ERROR_NOT_A_DIRECTORY=182; export RET_ERROR_NOT_A_DIRECTORY
-RET_ERROR_COULD_NOT_CHOWN=183; export RET_ERROR_COULD_NOT_CHOWN
-RET_ERROR_COULD_NOT_CHMOD=184; export RET_ERROR_COULD_NOT_CHMOD
+    # Important OS Errors 126-127 (2)
+    RET_ERROR_SHELL_PERMISSION_DENIED=126; export RET_ERROR_SHELL_PERMISSION_DENIED  # Reserved by OS 'shellname: permission denied: path'
+    RET_ERROR_SHELL_FILE_NOT_FOUND=127; export RET_ERROR_SHELL_FILE_NOT_FOUND  # Reserved by OS  'shellname: path: No such file or directory'
 
-# Global Warnings 192-251 (59, but 2 specially reserved, so really 57)
-RET_WARNING_UNKNOWN=192; export RET_WARNING_UNKNOWN
-RET_WARNING_MULTIPLE=193; export RET_WARNING_MULTIPLE
-RET_WARNING_NOT_A_FILE=194; export RET_WARNING_NOT_A_FILE
-RET_WARNING_NOT_A_DIRECTORY=195; export RET_WARNING_NOT_A_DIRECTORY
+    # Global Errors 128-191 (63, but 16 are reserved, so really 47)
+    RET_ERROR_UNKNOWN_128=128; export RET_ERROR_UNKNOWN_128
+    RET_ERROR_SIGHUP=129 ; export RET_ERROR_SIGHUP  #  SIGHUP  1
+    RET_ERROR_SIGINT=130 ; export RET_ERROR_SIGINT  #  SIGINT  2
+    RET_ERROR_SIGQUIT=131; export RET_ERROR_SIGQUIT #  SIGQUIT 3
+    RET_ERROR_SIGILL=132 ; export RET_ERROR_SIGILL  #  SIGILL  4
+    RET_ERROR_SIGTRAP=133; export RET_ERROR_SIGTRAP #  SIGTRAP 5
+    RET_ERROR_SIGABRT=134; export RET_ERROR_SIGABRT #  SIGABRT 6
+    RET_ERROR_SIG135=135 ; export RET_ERROR_SIG135  #  Uncommon, might be SIGBUS (linux) or SIGEMT (macOS)
+    RET_ERROR_SIGFPE=136 ; export RET_ERROR_SIGFPE  #  SIGFPE  8
+    RET_ERROR_SIGKILL=137; export RET_ERROR_SIGKILL #  SIGKILL 9
+    RET_ERROR_SIG138=138 ; export RET_ERROR_SIG138  #  Uncommon, might be SIGUSR1 (linux) or SIGBUS (macOS)
+    RET_ERROR_SIGSEGV=139; export RET_ERROR_SIGSEGV #  SIGSEGV 11
+    RET_ERROR_SIG140=140 ; export RET_ERROR_SIG140  #  Uncommon, might be SIGUSR2 (linux) or SIGSYS (macOS)
+    RET_ERROR_SIGPIPE=141; export RET_ERROR_SIGPIPE #  SIGPIPE 13
+    RET_ERROR_SIGALRM=142; export RET_ERROR_SIGALRM #  SIGALRM 14
+    RET_ERROR_SIGTERM=143; export RET_ERROR_SIGTERM #  SIGTERM 15
+    # Signals above 16 are less commonly seen,
+    # listed here for informational purposes:
+    # Linux:            macOS:
+    # SIGCHLD   17      SIGURG    16
+    # SIGCONT   18      SIGSTOP   17
+    # SIGSTOP   19      SIGTSTP   18
+    # SIGTSTP   20      SIGCONT   19
+    # SIGTTIN   21      SIGCHLD   20
+    # SIGTTOU   22      SIGTTIN   21
+    # SIGURG    23      SIGTTOU   22
+    # SIGXCPU   24      SIGIO     23
+    # SIGXFSZ   25      SIGXCPU   24
+    # SIGVTALRM 26      SIGXFSZ   25
+    # SIGPROF   27      SIGVTALRM 26
+    # SIGWINCH  28      SIGPROF   27
+    # SIGIO     29      SIGWINCH  28
+    # SIGPWR    30      SIGINFO   29
+    # SIGSYS    31      SIGUSR1   30
+    # SIGRTMIN  34      SIGUSR2   31
+    RET_ERROR_CONDA_ACTIVATE_FAILED=144; export RET_ERROR_CONDA_ACTIVATE_FAILED
+    RET_ERROR_CONDA_INSTALL_FAILED=145; export RET_ERROR_CONDA_INSTALL_FAILED
+    RET_ERROR_PIP_INSTALL_FAILED=146; export RET_ERROR_PIP_INSTALL_FAILED
+    RET_ERROR_CONDA_DEACTIVATE_FAILED=147; export RET_ERROR_CONDA_DEACTIVATE_FAILED
+    RET_ERROR_PIP_UNINSTALL_FAILED=148; export RET_ERROR_PIP_UNINSTALL_FAILED
+    RET_ERROR_SCRIPT_WAS_SOURCED=149; export RET_ERROR_SCRIPT_WAS_SOURCED
+    RET_ERROR_USER_IS_ROOT=150; export RET_ERROR_USER_IS_ROOT
+    RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151; export RET_ERROR_SCRIPT_WAS_NOT_SOURCED
+    RET_ERROR_USER_IS_NOT_ROOT=152; export RET_ERROR_USER_IS_NOT_ROOT
+    RET_ERROR_DIRECTORY_NOT_FOUND=153; export RET_ERROR_DIRECTORY_NOT_FOUND
+    RET_ERROR_FILE_NOT_FOUND=154; export RET_ERROR_FILE_NOT_FOUND
+    RET_ERROR_FILE_COULD_NOT_BE_ACCESSED=155; export RET_ERROR_FILE_COULD_NOT_BE_ACCESSED
+    RET_ERROR_INVALID_INVOCATION=156; export RET_ERROR_INVALID_INVOCATION
+    RET_ERROR_COULD_NOT_EXECUTE=157; export RET_ERROR_COULD_NOT_EXECUTE
+    RET_ERROR_INVALID_ARGUMENT=158; export RET_ERROR_INVALID_ARGUMENT
+    RET_ERROR_CONDA_INIT_FAILED=159; export RET_ERROR_CONDA_INIT_FAILED
+    RET_ERROR_POETRY_INSTALL_FAILED=160; export RET_ERROR_POETRY_INSTALL_FAILED
+    RET_ERROR_COULD_NOT_SOURCE_FILE=161; export RET_ERROR_COULD_NOT_SOURCE_FILE
+    RET_ERROR_GIT_CLONE_FAILED=162; export RET_ERROR_GIT_CLONE_FAILED
+    RET_ERROR_GIT_FETCH_FAILED=163; export RET_ERROR_GIT_FETCH_FAILED
+    RET_ERROR_GIT_RESET_FAILED=164; export RET_ERROR_GIT_RESET_FAILED
+    RET_ERROR_RM_FAILED=165; export RET_ERROR_RM_FAILED
+    RET_ERROR_COPY_FAILED=166; export RET_ERROR_COPY_FAILED
+    RET_ERROR_UNSAFE_RM_PATH=167; export RET_ERROR_UNSAFE_RM_PATH
+    RET_ERROR_CHANGE_DIRECTORY_FAILED=168; export RET_ERROR_CHANGE_DIRECTORY_FAILED
+    RET_ERROR_MOVE_FAILED=169; export RET_ERROR_MOVE_FAILED
+    RET_ERROR_TOOL_MISSING=170; export RET_ERROR_TOOL_MISSING
+    RET_ERROR_FAILED_TO_GET_TEMP_DIR=171; export RET_ERROR_FAILED_TO_GET_TEMP_DIR
+    RET_ERROR_DOWNLOAD_FAILED=172; export RET_ERROR_DOWNLOAD_FAILED
+    RET_ERROR_EXTRACTION_FAILED=173; export RET_ERROR_EXTRACTION_FAILED
+    RET_ERROR_CREATE_DIRECTORY_FAILED=174; export RET_ERROR_CREATE_DIRECTORY_FAILED
+    RET_ERROR_COULD_NOT_CREATE_TEMP_FILE=178; export RET_ERROR_COULD_NOT_CREATE_TEMP_FILE
+    #RET_ERROR_GET_SUBCOMMAND_RETURN_CODE_FAILED=179; export RET_ERROR_GET_SUBCOMMAND_RETURN_CODE_FAILED
+    RET_ERROR_FAILED_TO_CREATE_FIFO=180; export RET_ERROR_FAILED_TO_CREATE_FIFO
+    RET_ERROR_NOT_A_FILE=181; export RET_ERROR_NOT_A_FILE
+    RET_ERROR_NOT_A_DIRECTORY=182; export RET_ERROR_NOT_A_DIRECTORY
+    RET_ERROR_COULD_NOT_CHOWN=183; export RET_ERROR_COULD_NOT_CHOWN
+    RET_ERROR_COULD_NOT_CHMOD=184; export RET_ERROR_COULD_NOT_CHMOD
 
-# Special code for unit testing to use to raise an assertion error
-RET_UNIT_TEST_ASSERTION=252; export RET_UNIT_TEST_ASSERTION
+    # Global Warnings 192-251 (59, but 2 specially reserved, so really 57)
+    RET_WARNING_UNKNOWN=192; export RET_WARNING_UNKNOWN
+    RET_WARNING_MULTIPLE=193; export RET_WARNING_MULTIPLE
+    RET_WARNING_NOT_A_FILE=194; export RET_WARNING_NOT_A_FILE
+    RET_WARNING_NOT_A_DIRECTORY=195; export RET_WARNING_NOT_A_DIRECTORY
 
-# Special code for a special success (for use by functions to return
-#   success + other state)
-RET_SUCCESS_SPECIAL=253; export RET_SUCCESS_SPECIAL
+    # Special code for unit testing to use to raise an assertion error
+    RET_UNIT_TEST_ASSERTION=252; export RET_UNIT_TEST_ASSERTION
 
-#RET_TOMBSTONE=254; export RET_TOMBSTONE
+    # Special code for a special success (for use by functions to return
+    #   success + other state)
+    RET_SUCCESS_SPECIAL=253; export RET_SUCCESS_SPECIAL
 
-# Reserved b/c shell weirdness
-RET_ERROR_UNKNOWN_255=255; export RET_ERROR_UNKNOWN_255
-RET_ERROR_UNKNOWN_NEG1=-1; export RET_ERROR_UNKNOWN_NEG1
+    #RET_TOMBSTONE=254; export RET_TOMBSTONE
 
-# Ranges
-RET_CODE_LOCAL_ERROR_RANGE_START=1; export RET_CODE_LOCAL_ERROR_RANGE_START
-RET_CODE_LOCAL_ERROR_RANGE_END=63; export RET_CODE_LOCAL_ERROR_RANGE_END
-RET_CODE_LOCAL_WARNING_RANGE_START=64; export RET_CODE_LOCAL_WARNING_RANGE_START
-RET_CODE_LOCAL_WARNING_RANGE_END=125; export RET_CODE_LOCAL_WARNING_RANGE_END
-RET_CODE_GLOBAL_ERROR_RANGE_START=128; export RET_CODE_GLOBAL_ERROR_RANGE_START
-RET_CODE_GLOBAL_ERROR_RANGE_END=191; export RET_CODE_GLOBAL_ERROR_RANGE_END
-RET_CODE_GLOBAL_WARNING_RANGE_START=192; export RET_CODE_GLOBAL_WARNING_RANGE_START
-RET_CODE_GLOBAL_WARNING_RANGE_END=251; export RET_CODE_GLOBAL_WARNING_RANGE_END
+    # Reserved b/c shell weirdness
+    RET_ERROR_UNKNOWN_255=255; export RET_ERROR_UNKNOWN_255
+    RET_ERROR_UNKNOWN_NEG1=-1; export RET_ERROR_UNKNOWN_NEG1
 
-#-------------------------------------------------------------------------------
-def; return_code_is_error() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
+    # Ranges
+    RET_CODE_LOCAL_ERROR_RANGE_START=1; export RET_CODE_LOCAL_ERROR_RANGE_START
+    RET_CODE_LOCAL_ERROR_RANGE_END=63; export RET_CODE_LOCAL_ERROR_RANGE_END
+    RET_CODE_LOCAL_WARNING_RANGE_START=64; export RET_CODE_LOCAL_WARNING_RANGE_START
+    RET_CODE_LOCAL_WARNING_RANGE_END=125; export RET_CODE_LOCAL_WARNING_RANGE_END
+    RET_CODE_GLOBAL_ERROR_RANGE_START=128; export RET_CODE_GLOBAL_ERROR_RANGE_START
+    RET_CODE_GLOBAL_ERROR_RANGE_END=191; export RET_CODE_GLOBAL_ERROR_RANGE_END
+    RET_CODE_GLOBAL_WARNING_RANGE_START=192; export RET_CODE_GLOBAL_WARNING_RANGE_START
+    RET_CODE_GLOBAL_WARNING_RANGE_END=251; export RET_CODE_GLOBAL_WARNING_RANGE_END
+
+    #-------------------------------------------------------------------------------
+    def; return_code_is_error() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-        val=$1
-        val=$(( val + 0 ))
-        if \
-            {
-                [ $val -ge "${RET_CODE_LOCAL_ERROR_RANGE_START}" ] &&
-                [ $val -le "${RET_CODE_LOCAL_ERROR_RANGE_END}" ]
-            } ||
-            {
-                [ $val -ge "${RET_CODE_GLOBAL_ERROR_RANGE_START}" ] &&
-                [ $val -le "${RET_CODE_GLOBAL_ERROR_RANGE_END}" ]
-            } ||
-            [ $val -eq "${RET_ERROR_SHELL_PERMISSION_DENIED}" ] ||
-            [ $val -eq "${RET_ERROR_SHELL_FILE_NOT_FOUND}" ] ||
-            [ $val -eq "${RET_ERROR_UNKNOWN}" ] ||
-            [ $val -eq "${RET_ERROR_UNKNOWN_128}" ] ||
-            [ $val -eq "${RET_ERROR_UNKNOWN_255}" ] ||
-            [ $val -eq "${RET_ERROR_UNKNOWN_NEG1}" ] ||
-            [ $val -lt 0 ]
-        then
-            command printf "true"
-            exit 0
-        else
-            command printf "false"
-            exit 1
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; return_code_is_warning() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
+            val=$1
+            val=$(( val + 0 ))
+            if \
+                {
+                    [ $val -ge "${RET_CODE_LOCAL_ERROR_RANGE_START}" ] &&
+                    [ $val -le "${RET_CODE_LOCAL_ERROR_RANGE_END}" ]
+                } ||
+                {
+                    [ $val -ge "${RET_CODE_GLOBAL_ERROR_RANGE_START}" ] &&
+                    [ $val -le "${RET_CODE_GLOBAL_ERROR_RANGE_END}" ]
+                } ||
+                [ $val -eq "${RET_ERROR_SHELL_PERMISSION_DENIED}" ] ||
+                [ $val -eq "${RET_ERROR_SHELL_FILE_NOT_FOUND}" ] ||
+                [ $val -eq "${RET_ERROR_UNKNOWN}" ] ||
+                [ $val -eq "${RET_ERROR_UNKNOWN_128}" ] ||
+                [ $val -eq "${RET_ERROR_UNKNOWN_255}" ] ||
+                [ $val -eq "${RET_ERROR_UNKNOWN_NEG1}" ] ||
+                [ $val -lt 0 ]
+            then
+                command printf "true"
+                exit 0
+            else
+                command printf "false"
+                exit 1
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
-
-        val=$1
-        val=$(( val + 0 ))
-        if \
-            {
-                [ $val -ge "${RET_CODE_LOCAL_WARNING_RANGE_START}" ] &&
-                [ $val -le "${RET_CODE_LOCAL_WARNING_RANGE_END}" ]
-            } ||
-            {
-                [ $val -ge "${RET_CODE_GLOBAL_WARNING_RANGE_START}" ] &&
-                [ $val -le "${RET_CODE_GLOBAL_WARNING_RANGE_END}" ]
-            } ||
-            [ $val -eq "${RET_WARNING_UNKNOWN}" ] ||
-            [ $val -eq "${RET_WARNING_MULTIPLE}" ]
-        then
-            command printf "true"
-            exit 0
-        else
-            command printf "false"
-            exit 1
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; return_code_is_success() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        val=$1
-        val=$(( val + 0 ))
-        if \
-            [ $val -eq "${RET_SUCCESS}" ] ||
-            [ $val -eq "${RET_SUCCESS_SPECIAL}" ]
-        then
-            command printf "true"
-            exit 0
-        else
-            command printf "false"
-            exit 1
-        fi
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#endregion Return Codes
-#===============================================================================
-
-#===============================================================================
-#region Constants
-
-DATETIME_STAMP_HUMAN_FORMAT="+%Y-%m-%d %H:%M:%S"; export DATETIME_STAMP_HUMAN_FORMAT
-DATETIME_STAMP_FILENAME_FORMAT="+%Y%m%dT%H%M%S"; export DATETIME_STAMP_FILENAME_FORMAT
-
-#endregion Constants
-#===============================================================================
-
-#===============================================================================
-#region Platform Constants
-
-PLATFORM="$(uname)"; export PLATFORM
-REAL_PLATFORM="${REAL_PLATFORM:-${PLATFORM}}"; export REAL_PLATFORM
-
-ARCH="$(uname -m)"; export ARCH
-REAL_ARCH="${REAL_ARCH:-${ARCH}}"; export REAL_ARCH
-
-DEFAULT_ADMIN_GROUP="staff"; export DEFAULT_ADMIN_GROUP
-
-CONDA_FORGE_PLATFORM="UNKNOWN"; export CONDA_FORGE_PLATFORM
-CONDA_FORGE_ARCH="UNKNOWN"; export CONDA_FORGE_ARCH
-CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
-
-LINUX_BASE_FLAVOR="NOT_LINUX"; export LINUX_BASE_FLAVOR
-LINUX_BASE_FLAVOR_VERSION="NOT_LINUX"; export LINUX_BASE_FLAVOR_VERSION
-
-CONDA_INSTALL_PATH="/opt/conda/miniforge"; export CONDA_INSTALL_PATH
-if [ "${CI}" = true ]; then
-    if [ "${GITHUB_ACTIONS}" = true ]; then
-        CONDA_INSTALL_PATH="${HOME}/opt/conda/miniforge"; export CONDA_INSTALL_PATH
-        mkdir -p "${CONDA_INSTALL_PATH}"
-    fi
-fi
-
-if [ "${REAL_PLATFORM}" = "Darwin" ]; then
-    def; date() {
-        command date -j "$@"
+        return $exit_ret
     }
+
+    #-------------------------------------------------------------------------------
+    def; return_code_is_warning() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            val=$1
+            val=$(( val + 0 ))
+            if \
+                {
+                    [ $val -ge "${RET_CODE_LOCAL_WARNING_RANGE_START}" ] &&
+                    [ $val -le "${RET_CODE_LOCAL_WARNING_RANGE_END}" ]
+                } ||
+                {
+                    [ $val -ge "${RET_CODE_GLOBAL_WARNING_RANGE_START}" ] &&
+                    [ $val -le "${RET_CODE_GLOBAL_WARNING_RANGE_END}" ]
+                } ||
+                [ $val -eq "${RET_WARNING_UNKNOWN}" ] ||
+                [ $val -eq "${RET_WARNING_MULTIPLE}" ]
+            then
+                command printf "true"
+                exit 0
+            else
+                command printf "false"
+                exit 1
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; return_code_is_success() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            val=$1
+            val=$(( val + 0 ))
+            if \
+                [ $val -eq "${RET_SUCCESS}" ] ||
+                [ $val -eq "${RET_SUCCESS_SPECIAL}" ]
+            then
+                command printf "true"
+                exit 0
+            else
+                command printf "false"
+                exit 1
+            fi
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
+    }
+
+    #endregion Return Codes
+    #===============================================================================
+
+    #===============================================================================
+    #region Constants
+
+    DATETIME_STAMP_HUMAN_FORMAT="+%Y-%m-%d %H:%M:%S"; export DATETIME_STAMP_HUMAN_FORMAT
+    DATETIME_STAMP_FILENAME_FORMAT="+%Y%m%dT%H%M%S"; export DATETIME_STAMP_FILENAME_FORMAT
+
+    #endregion Constants
+    #===============================================================================
+
+    #===============================================================================
+    #region Platform Constants
+
+    PLATFORM="$(uname)"; export PLATFORM
+    REAL_PLATFORM="${REAL_PLATFORM:-${PLATFORM}}"; export REAL_PLATFORM
+
+    ARCH="$(uname -m)"; export ARCH
+    REAL_ARCH="${REAL_ARCH:-${ARCH}}"; export REAL_ARCH
 
     DEFAULT_ADMIN_GROUP="staff"; export DEFAULT_ADMIN_GROUP
 
-    CONDA_FORGE_PLATFORM="MacOSX"; export CONDA_FORGE_PLATFORM
+    CONDA_FORGE_PLATFORM="UNKNOWN"; export CONDA_FORGE_PLATFORM
+    CONDA_FORGE_ARCH="UNKNOWN"; export CONDA_FORGE_ARCH
     CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
-elif \
-    [ "${REAL_PLATFORM}" = "Linux" ] ||
-    [ "$(echo "${REAL_PLATFORM}" | grep -e 'MINGW64_NT' )" != "" ]
-then
-    def; date() {
-        command date "$@"
-    }
 
-    LINUX_BASE_FLAVOR_VERSION="$(cat /proc/version)"; export LINUX_BASE_FLAVOR_VERSION
+    LINUX_BASE_FLAVOR="NOT_LINUX"; export LINUX_BASE_FLAVOR
+    LINUX_BASE_FLAVOR_VERSION="NOT_LINUX"; export LINUX_BASE_FLAVOR_VERSION
 
-    LINUX_BASE_FLAVOR="UNKNOWN_LINUX"
-    DEFAULT_ADMIN_GROUP="wheel"
-    if [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[dD]ebian" )" != "" ]; then
-        LINUX_BASE_FLAVOR="Debian"
-        DEFAULT_ADMIN_GROUP="sudo";
-    elif [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[uU]buntu" )" != "" ]; then
-        LINUX_BASE_FLAVOR="Ubuntu"
-        # version of command with leading cat is easier to read
-        # shellcheck disable=SC2002
-        __LINUX_BASE_FLAVOR_VERSION_UBUNTU="$(cat /etc/os-release | awk -F = '/VERSION_ID/ {print $2}' | sed -e 's/"//g')"
-        __LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR="$(echo "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU}" |  awk -F . '{print $1}')"
-        __LINUX_BASE_FLAVOR_VERSION_UBUNTU_MINOR="$(echo "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU}" |  awk -F . '{print $2}')"
-        if [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR}" -le 10 ]; then
-            DEFAULT_ADMIN_GROUP="sudo"
-        elif [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR}" -eq 11 ]; then
-            if [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MINOR}" -le 10 ]; then
+    CONDA_INSTALL_PATH="/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+    if [ "${CI}" = true ]; then
+        if [ "${GITHUB_ACTIONS}" = true ]; then
+            CONDA_INSTALL_PATH="${HOME}/opt/conda/miniforge"; export CONDA_INSTALL_PATH
+            mkdir -p "${CONDA_INSTALL_PATH}"
+        fi
+    fi
+
+    if [ "${REAL_PLATFORM}" = "Darwin" ]; then
+        def; date() {
+            command date -j "$@"
+        }
+
+        DEFAULT_ADMIN_GROUP="staff"; export DEFAULT_ADMIN_GROUP
+
+        CONDA_FORGE_PLATFORM="MacOSX"; export CONDA_FORGE_PLATFORM
+        CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
+    elif \
+        [ "${REAL_PLATFORM}" = "Linux" ] ||
+        [ "$(echo "${REAL_PLATFORM}" | grep -e 'MINGW64_NT' )" != "" ]
+    then
+        def; date() {
+            command date "$@"
+        }
+
+        LINUX_BASE_FLAVOR_VERSION="$(cat /proc/version)"; export LINUX_BASE_FLAVOR_VERSION
+
+        LINUX_BASE_FLAVOR="UNKNOWN_LINUX"
+        DEFAULT_ADMIN_GROUP="wheel"
+        if [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[dD]ebian" )" != "" ]; then
+            LINUX_BASE_FLAVOR="Debian"
+            DEFAULT_ADMIN_GROUP="sudo";
+        elif [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[uU]buntu" )" != "" ]; then
+            LINUX_BASE_FLAVOR="Ubuntu"
+            # version of command with leading cat is easier to read
+            # shellcheck disable=SC2002
+            __LINUX_BASE_FLAVOR_VERSION_UBUNTU="$(cat /etc/os-release | awk -F = '/VERSION_ID/ {print $2}' | sed -e 's/"//g')"
+            __LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR="$(echo "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU}" |  awk -F . '{print $1}')"
+            __LINUX_BASE_FLAVOR_VERSION_UBUNTU_MINOR="$(echo "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU}" |  awk -F . '{print $2}')"
+            if [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR}" -le 10 ]; then
                 DEFAULT_ADMIN_GROUP="sudo"
+            elif [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MAJOR}" -eq 11 ]; then
+                if [ "${__LINUX_BASE_FLAVOR_VERSION_UBUNTU_MINOR}" -le 10 ]; then
+                    DEFAULT_ADMIN_GROUP="sudo"
+                else
+                    DEFAULT_ADMIN_GROUP="admin"
+                fi
             else
                 DEFAULT_ADMIN_GROUP="admin"
             fi
-        else
-            DEFAULT_ADMIN_GROUP="admin"
+        elif [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[rR]ed [hHat]" )" != "" ]; then
+            LINUX_BASE_FLAVOR="Fedora"
+            DEFAULT_ADMIN_GROUP="wheel";
         fi
-    elif [ "$(echo "${LINUX_BASE_FLAVOR_VERSION}" | grep "[rR]ed [hHat]" )" != "" ]; then
-        LINUX_BASE_FLAVOR="Fedora"
-        DEFAULT_ADMIN_GROUP="wheel";
+        export LINUX_BASE_FLAVOR
+        export DEFAULT_ADMIN_GROUP
+
+        CONDA_FORGE_PLATFORM="Linux"; export CONDA_FORGE_PLATFORM
+        CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
     fi
-    export LINUX_BASE_FLAVOR
-    export DEFAULT_ADMIN_GROUP
 
-    CONDA_FORGE_PLATFORM="Linux"; export CONDA_FORGE_PLATFORM
-    CONDA_FORGE_EXT="sh"; export CONDA_FORGE_EXT
-fi
-
-case "${REAL_ARCH}" in
-    i386)
-        CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
-        ;;
-    i486)
-        CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
-        ;;
-    amd64)
-        CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
-        ;;
-    x86_64)
-        CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
-        ;;
-    aarch64)
-        CONDA_FORGE_ARCH="aarch64"; export CONDA_FORGE_ARCH
-        ;;
-    arm)
-        if [ "${REAL_PLATFORM}" = "Darwin" ]; then
-            CONDA_FORGE_ARCH="arm64"; export CONDA_FORGE_ARCH
-        elif [ "${REAL_PLATFORM}" = "Linux" ]; then
+    case "${REAL_ARCH}" in
+        i386)
+            CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
+            ;;
+        i486)
+            CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
+            ;;
+        amd64)
+            CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
+            ;;
+        x86_64)
+            CONDA_FORGE_ARCH="x86_64"; export CONDA_FORGE_ARCH
+            ;;
+        aarch64)
             CONDA_FORGE_ARCH="aarch64"; export CONDA_FORGE_ARCH
-        fi
-        ;;
-    arm64)
-        if [ "${REAL_PLATFORM}" = "Darwin" ]; then
-            CONDA_FORGE_ARCH="arm64"; export CONDA_FORGE_ARCH
-        elif [ "${REAL_PLATFORM}" = "Linux" ]; then
-            CONDA_FORGE_ARCH="aarch64"; export CONDA_FORGE_ARCH
-        fi
-        ;;
-esac
-
-PLATFORM_IS_WSL=false
-if \
-    [ "$(uname -a | grep '\(microsoft\|Microsoft\|WSL\)')" != "" ] ||
-    [ "$(echo "${REAL_PLATFORM}" | grep -e 'MINGW64_NT' )" != "" ] ||
-    [ "${WSL_DISTRO_NAME}" != "" ]
-then
-    PLATFORM_IS_WSL=true
-fi
-export PLATFORM_IS_WSL;
-
-#endregion Platform Constants
-#===============================================================================
-
-#===============================================================================
-#region Calculated "Constants"
-
-def; set_calculated_constants() {
-    # CONDA_BASE_DIR_FULLPATH="$(dirname "$(dirname "${CONDA_EXE}")")"
-    # export CONDA_BASE_DIR_FULLPATH
-    true
-}
-set_calculated_constants
-
-#endregion Calculated "Constants"
-#===============================================================================
-
-#===============================================================================
-#region Colorized Output Constants & Helper Functions
-
-ANSI_CODE_START="\033["; export ANSI_CODE_START
-ANSI_CODE_END="m"; export ANSI_CODE_END
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code() {
-    # $1 = mode
-    # $2 = default color
-    # $3 = alternate color
-    # $4 = override trailing character
-
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        mode_sep=";"
-        if [ "$1" = "" ]; then
-            mode_sep=""
-        fi
-
-        ending="$4"
-        if [ "${ending}" = "" ]; then
-            ending="${ANSI_CODE_END}"
-        fi
-        tput_colors=16
-        if [ "$TERM" != "" ]; then
-            tput_colors="$(tput colors 2>/dev/null)"
-            if [ "${tput_colors}" = "" ]; then
-                tput_colors=16
+            ;;
+        arm)
+            if [ "${REAL_PLATFORM}" = "Darwin" ]; then
+                CONDA_FORGE_ARCH="arm64"; export CONDA_FORGE_ARCH
+            elif [ "${REAL_PLATFORM}" = "Linux" ]; then
+                CONDA_FORGE_ARCH="aarch64"; export CONDA_FORGE_ARCH
             fi
-        fi
-        # because "colorize_output" may or may not exist
-        # shellcheck disable=SC2154
-        if {
-            [ "$ending" = "m" ] &&
-            {
-                [ "$(command echo "$TERM" | grep 'mono')" != "" ] ||
-                [ "${tput_colors}" -lt 16 ] ||
-                [ "${NO_COLOR}" != "" ] ||
-                [ "${colorized_output}" = false ]
-            }
-        }; then
-            # mode/color in monocolor terminal
-            if [ "$1" != "" ]; then
-                # mode specified
-                command printf "${ANSI_CODE_START}$1${ending}"
-            else
-                # no mode specified
-                command printf ""
+            ;;
+        arm64)
+            if [ "${REAL_PLATFORM}" = "Darwin" ]; then
+                CONDA_FORGE_ARCH="arm64"; export CONDA_FORGE_ARCH
+            elif [ "${REAL_PLATFORM}" = "Linux" ]; then
+                CONDA_FORGE_ARCH="aarch64"; export CONDA_FORGE_ARCH
             fi
-        else
-            # 16+ color terminal or not a color/mode
-            if [ "$ending" = "m" ] && [ "${colorized_output}" = "alt" ] && [ "$3" != "" ]; then
-                # a color or mode in alt-color w/ alt-value specified
-                command printf "${ANSI_CODE_START}$1${mode_sep}$3${ending}"
-            elif [ "$2" != "" ]; then
-                # anything in color w/ value specified
-                command printf "${ANSI_CODE_START}$1${mode_sep}$2${ending}"
-            elif [ "$1" != "" ]; then
-                # only a mode specified (no value specified)
-                command printf "${ANSI_CODE_START}$1${ending}"
-            else
-                # nothing specified
-                command printf ""
-            fi
-        fi
+            ;;
+    esac
 
-        exit 0
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor() {
-    get_ansi_code '' "$1" '' "$2"
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor_up() {
-    get_ansi_code_cursor "$1" 'A'
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor_down() {
-    get_ansi_code_cursor "$1" 'B'
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor_right() {
-    get_ansi_code_cursor "$1" 'C'
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor_left() {
-    get_ansi_code_cursor "$1" 'D'
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor_nextline() {
-    get_ansi_code_cursor "$1" 'E'
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor_prevline() {
-    get_ansi_code_cursor "$1" 'F'
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor_col() {
-    get_ansi_code_cursor "$1" 'G'
-}
-
-#-------------------------------------------------------------------------------
-def; get_ansi_code_cursor_pos() {
-    get_ansi_code_cursor "$1;$2" 'H'
-}
-
-#-------------------------------------------------------------------------------
-def; set_ansi_code_constants() {
-    ANSI_FG_BLACK="$(get_ansi_code '0' '30')"; export ANSI_FG_BLACK
-    ANSI_FG_RED="$(get_ansi_code '0' '31')"; export ANSI_FG_RED
-    ANSI_FG_GREEN="$(get_ansi_code '0' '32')"; export ANSI_FG_GREEN
-    ANSI_FG_YELLOW="$(get_ansi_code '0' '33')"; export ANSI_FG_YELLOW
-    ANSI_FG_BLUE="$(get_ansi_code '0' '34')"; export ANSI_FG_BLUE
-    ANSI_FG_MAGENTA="$(get_ansi_code '0' '35')"; export ANSI_FG_MAGENTA
-    ANSI_FG_CYAN="$(get_ansi_code '0' '36')"; export ANSI_FG_CYAN
-    ANSI_FG_WHITE="$(get_ansi_code '0' '37')"; export ANSI_FG_WHITE
-
-    ANSI_BLACK="${ANSI_FG_BLACK}"; export ANSI_BLACK
-    ANSI_RED="${ANSI_FG_RED}"; export ANSI_RED
-    ANSI_GREEN="${ANSI_FG_GREEN}"; export ANSI_GREEN
-    ANSI_YELLOW="${ANSI_FG_YELLOW}"; export ANSI_YELLOW
-    ANSI_BLUE="${ANSI_FG_BLUE}"; export ANSI_BLUE
-    ANSI_MAGENTA="${ANSI_FG_MAGENTA}"; export ANSI_MAGENTA
-    ANSI_CYAN="${ANSI_FG_CYAN}"; export ANSI_CYAN
-    ANSI_WHITE="${ANSI_FG_WHITE}"; export ANSI_WHITE
-
-    ANSI_FG_BOLD_BLACK="$(get_ansi_code '1' '30')"; export ANSI_FG_BOLD_BLACK
-    ANSI_FG_BOLD_RED="$(get_ansi_code '1' '31')"; export ANSI_FG_BOLD_RED
-    ANSI_FG_BOLD_GREEN="$(get_ansi_code '1' '32')"; export ANSI_FG_BOLD_GREEN
-    ANSI_FG_BOLD_YELLOW="$(get_ansi_code '1' '33')"; export ANSI_FG_BOLD_YELLOW
-    ANSI_FG_BOLD_BLUE="$(get_ansi_code '1' '34')"; export ANSI_FG_BOLD_BLUE
-    ANSI_FG_BOLD_MAGENTA="$(get_ansi_code '1' '35')"; export ANSI_FG_BOLD_MAGENTA
-    ANSI_FG_BOLD_CYAN="$(get_ansi_code '1' '36')"; export ANSI_FG_BOLD_CYAN
-    ANSI_FG_BOLD_WHITE="$(get_ansi_code '1' '37')"; export ANSI_FG_BOLD_WHITE
-
-    ANSI_BOLD_BLACK="${ANSI_FG_BOLD_BLACK}"; export ANSI_BOLD_BLACK
-    ANSI_BOLD_RED="${ANSI_FG_BOLD_RED}"; export ANSI_BOLD_RED
-    ANSI_BOLD_GREEN="${ANSI_FG_BOLD_GREEN}"; export ANSI_BOLD_GREEN
-    ANSI_BOLD_YELLOW="${ANSI_FG_BOLD_YELLOW}"; export ANSI_BOLD_YELLOW
-    ANSI_BOLD_BLUE="${ANSI_FG_BOLD_BLUE}"; export ANSI_BOLD_BLUE
-    ANSI_BOLD_MAGENTA="${ANSI_FG_BOLD_MAGENTA}"; export ANSI_BOLD_MAGENTA
-    ANSI_BOLD_CYAN="${ANSI_FG_BOLD_CYAN}"; export ANSI_BOLD_CYAN
-    ANSI_BOLD_WHITE="${ANSI_FG_BOLD_WHITE}"; export ANSI_BOLD_WHITE
-
-    # NOTE: backgrounds do not use the mode arg
-    ANSI_BG_BLACK="$(get_ansi_code '' '0;40')"; export ANSI_BG_BLACK
-    ANSI_BG_RED="$(get_ansi_code '' '0;41')"; export ANSI_BG_RED
-    ANSI_BG_GREEN="$(get_ansi_code '' '0;42')"; export ANSI_BG_GREEN
-    ANSI_BG_YELLOW="$(get_ansi_code '' '0;43')"; export ANSI_BG_YELLOW
-    ANSI_BG_BLUE="$(get_ansi_code '' '0;44')"; export ANSI_BG_BLUE
-    ANSI_BG_MAGENTA="$(get_ansi_code '' '0;45')"; export ANSI_BG_MAGENTA
-    ANSI_BG_CYAN="$(get_ansi_code '' '0;46')"; export ANSI_BG_CYAN
-    ANSI_BG_WHITE="$(get_ansi_code '' '0;47')"; export ANSI_BG_WHITE
-
-    # NOTE: backgrounds do not use the mode arg
-    ANSI_BG_BOLD_BLACK="$(get_ansi_code '' '1;40')"; export ANSI_BG_BOLD_BLACK
-    ANSI_BG_BOLD_RED="$(get_ansi_code '' '1;41')"; export ANSI_BG_BOLD_RED
-    ANSI_BG_BOLD_GREEN="$(get_ansi_code '' '1;42')"; export ANSI_BG_BOLD_GREEN
-    ANSI_BG_BOLD_YELLOW="$(get_ansi_code '' '1;43')"; export ANSI_BG_BOLD_YELLOW
-    ANSI_BG_BOLD_BLUE="$(get_ansi_code '' '1;44')"; export ANSI_BG_BOLD_BLUE
-    ANSI_BG_BOLD_MAGENTA="$(get_ansi_code '' '1;45')"; export ANSI_BG_BOLD_MAGENTA
-    ANSI_BG_BOLD_CYAN="$(get_ansi_code '' '1;46')"; export ANSI_BG_BOLD_CYAN
-    ANSI_BG_BOLD_WHITE="$(get_ansi_code '' '1;47')"; export ANSI_BG_BOLD_WHITE
-
-    ANSI_UNDERLINE="$(get_ansi_code '4' '')"; export ANSI_UNDERLINE
-    ANSI_UNDERLINE_OFF="$(get_ansi_code '24' '')"; export ANSI_UNDERLINE_OFF
-
-    ANSI_FG_UNDERLINE_BLACK="$(get_ansi_code '0;4' '30')"; export ANSI_FG_UNDERLINE_BLACK
-    ANSI_FG_UNDERLINE_RED="$(get_ansi_code '0;4' '31')"; export ANSI_FG_UNDERLINE_RED
-    ANSI_FG_UNDERLINE_GREEN="$(get_ansi_code '0;4' '32')"; export ANSI_FG_UNDERLINE_GREEN
-    ANSI_FG_UNDERLINE_YELLOW="$(get_ansi_code '0;4' '33')"; export ANSI_FG_UNDERLINE_YELLOW
-    ANSI_FG_UNDERLINE_BLUE="$(get_ansi_code '0;4' '34')"; export ANSI_FG_UNDERLINE_BLUE
-    ANSI_FG_UNDERLINE_MAGENTA="$(get_ansi_code '0;4' '35')"; export ANSI_FG_UNDERLINE_MAGENTA
-    ANSI_FG_UNDERLINE_CYAN="$(get_ansi_code '0;4' '36')"; export ANSI_FG_UNDERLINE_CYAN
-    ANSI_FG_UNDERLINE_WHITE="$(get_ansi_code '0;4' '37')"; export ANSI_FG_UNDERLINE_WHITE
-
-    ANSI_FG_BOLD_UNDERLINE_BLACK="$(get_ansi_code '1;4' '30')"; export ANSI_FG_BOLD_UNDERLINE_BLACK
-    ANSI_FG_BOLD_UNDERLINE_RED="$(get_ansi_code '1;4' '31')"; export ANSI_FG_BOLD_UNDERLINE_RED
-    ANSI_FG_BOLD_UNDERLINE_GREEN="$(get_ansi_code '1;4' '32')"; export ANSI_FG_BOLD_UNDERLINE_GREEN
-    ANSI_FG_BOLD_UNDERLINE_YELLOW="$(get_ansi_code '1;4' '33')"; export ANSI_FG_BOLD_UNDERLINE_YELLOW
-    ANSI_FG_BOLD_UNDERLINE_BLUE="$(get_ansi_code '1;4' '34')"; export ANSI_FG_BOLD_UNDERLINE_BLUE
-    ANSI_FG_BOLD_UNDERLINE_MAGENTA="$(get_ansi_code '1;4' '35')"; export ANSI_FG_BOLD_UNDERLINE_MAGENTA
-    ANSI_FG_BOLD_UNDERLINE_CYAN="$(get_ansi_code '1;4' '36')"; export ANSI_FG_BOLD_UNDERLINE_CYAN
-    ANSI_FG_BOLD_UNDERLINE_WHITE="$(get_ansi_code '1;4' '37')"; export ANSI_FG_BOLD_UNDERLINE_WHITE
-
-    ANSI_CLEAR_LINE="$(get_ansi_code '' '2' '' 'K')"; export ANSI_CLEAR_LINE
-    ANSI_RESET_LINE="$(get_ansi_code '' '2' '' 'K')$(get_ansi_code '1' '' 'G')"; export ANSI_RESET_LINE
-
-    ANSI_CLEAR_SCREEN="$(get_ansi_code '' '2' '' 'J')"; export ANSI_CLEAR_SCREEN
-    ANSI_RESET_SCREEN="$(get_ansi_code '' '2' '' 'J')$(get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_SCREEN
-
-    ANSI_CLEAR_HISTORY="$(get_ansi_code '' '3' '' 'J')"; export ANSI_CLEAR_HISTORY
-    ANSI_RESET_HISTORY="$(get_ansi_code '' '3' '' 'J')$(get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_HISTORY
-
-    ANSI_RESET_CURSOR_LINE="$(get_ansi_code '' '1' '' 'G')"; export ANSI_RESET_CURSOR_LINE
-    ANSI_RESET_CURSOR_SCREEN="$(get_ansi_code '' '1;1' '' 'H')"; export ANSI_RESET_CURSOR_SCREEN
-
-    ANSI_CURSOR_UP="$(get_ansi_code_cursor_up '1')"; export ANSI_CURSOR_UP
-    ANSI_CURSOR_DOWN="$(get_ansi_code_cursor_down '1')"; export ANSI_CURSOR_DOWN
-    ANSI_CURSOR_RIGHT="$(get_ansi_code_cursor_right '1')"; export ANSI_CURSOR_RIGHT
-    ANSI_CURSOR_LEFT="$(get_ansi_code_cursor_left '1')"; export ANSI_CURSOR_LEFT
-    ANSI_CURSOR_NEXTLINE="$(get_ansi_code_cursor_nextline '1')"; export ANSI_CURSOR_NEXTLINE
-    ANSI_CURSOR_PREVLINE="$(get_ansi_code_cursor_prevline '1')"; export ANSI_CURSOR_PREVLINE
-
-    ANSI_BELL="\007🔔 "; export ANSI_BELL
-    ANSI_RESET="${ANSI_CODE_START}0${ANSI_CODE_END}"; export ANSI_RESET
-
-    ANSI_COLOR_SUCCESS="$(get_ansi_code '1' '32' '34')"; export ANSI_COLOR_SUCCESS          # bright green/blue
-    ANSI_COLOR_FATAL="$(get_ansi_code '1' '31')"; export ANSI_COLOR_FATAL                   # bright red
-    ANSI_COLOR_ERROR="$(get_ansi_code '0' '31')"; export ANSI_COLOR_ERROR                   # darkred
-    ANSI_COLOR_WARNING="$(get_ansi_code '1' '33')"; export ANSI_COLOR_WARNING               # bright yellow
-    ANSI_COLOR_HEADER="$(get_ansi_code '1;4' '36')"; export ANSI_COLOR_HEADER               # bright cyan, underlined
-    ANSI_COLOR_FOOTER="$(get_ansi_code '0' '36')"; export ANSI_COLOR_FOOTER                 # bright darkcyan
-    ANSI_COLOR_INFO="$(get_ansi_code '1' '37')"; export ANSI_COLOR_INFO                     # bright white
-    ANSI_COLOR_DEBUG="$(get_ansi_code '0' '37')"; export ANSI_COLOR_DEBUG                   # lightgrey
-    ANSI_COLOR_SUPERDEBUG="$(get_ansi_code '1' '30')"; export ANSI_COLOR_SUPERDEBUG         # grey
-    ANSI_COLOR_ULTRADEBUG="$(get_ansi_code '0' '35' '33')"; export ANSI_COLOR_ULTRADEBUG    # darkmagenta/darkyellow
-
-    ANSI_SUCCESS="${ANSI_COLOR_SUCCESS}SUCCESS: "; export ANSI_SUCCESS
-    ANSI_FATAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 FATAL: "; export ANSI_FATAL
-    ANSI_ERROR="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ ERROR: "; export ANSI_ERROR
-    ANSI_WARNING="${ANSI_COLOR_WARNING}⚠️ WARNING: "; export ANSI_WARNING
-    ANSI_HEADER="${ANSI_COLOR_HEADER}"; export ANSI_HEADER
-    ANSI_FOOTER="${ANSI_COLOR_FOOTER}"; export ANSI_FOOTER
-    ANSI_INFO="${ANSI_COLOR_INFO}INFO: "; export ANSI_INFO
-    ANSI_CONSOLE="${ANSI_COLOR_INFO}"; export ANSI_CONSOLE
-    ANSI_DEBUG="${ANSI_COLOR_DEBUG}DEBUG: "; export ANSI_DEBUG
-    ANSI_SUPERDEBUG="${ANSI_COLOR_SUPERDEBUG}SUPERDEBUG: "; export ANSI_SUPERDEBUG
-    ANSI_ULTRADEBUG="${ANSI_COLOR_ULTRADEBUG}ULTRADEBUG: "; export ANSI_ULTRADEBUG
-    ANSI_FILE="${ANSI_COLOR_ULTRADEBUG}"; export ANSI_FILE
-
-    ANSI_INFO_IMPORTANT="${ANSI_COLOR_WARNING}INFO: "; export ANSI_INFO_IMPORTANT
-    ANSI_INFO_NO_PREFIX="${ANSI_COLOR_INFO}"; export ANSI_INFO_NO_PREFIX
-
-    ANSI_SUCCESS_FINAL="${ANSI_COLOR_SUCCESS}${ANSI_BELL}✅ SUCCESS: "; export ANSI_SUCCESS_FINAL
-    ANSI_FATAL_FINAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 FATAL: "; export ANSI_FATAL_FINAL
-    ANSI_ERROR_FINAL="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ ERROR: "; export ANSI_ERROR_FINAL
-    ANSI_WARNING_FINAL="${ANSI_COLOR_WARNING}${ANSI_BELL}⚠️ WARNING: "; export ANSI_WARNING_FINAL
-}
-set_ansi_code_constants
-
-#endregion Colorized Output Constants
-#===============================================================================
-
-#===============================================================================
-#region Logging Helpers
-
-LOG_LEVEL_SUCCESS=-5; export LOG_LEVEL_SUCCESS
-LOG_LEVEL_FATAL=-4; export LOG_LEVEL_FATAL
-LOG_LEVEL_ERROR=-3; export LOG_LEVEL_ERROR
-LOG_LEVEL_WARNING=-2; export LOG_LEVEL_WARNING
-LOG_LEVEL_HEADER=-1; export LOG_LEVEL_HEADER
-LOG_LEVEL_FOOTER=0; export LOG_LEVEL_FOOTER
-LOG_LEVEL_INFO=1; export LOG_LEVEL_INFO
-LOG_LEVEL_DEBUG=2; export LOG_LEVEL_DEBUG
-LOG_LEVEL_SUPERDEBUG=3; export LOG_LEVEL_SUPERDEBUG
-LOG_LEVEL_ULTRADEBUG=4; export LOG_LEVEL_ULTRADEBUG
-
-LOG_LEVEL_CONSOLE=-99; export LOG_LEVEL_CONSOLE
-LOG_LEVEL_FILE=-99; export LOG_LEVEL_FILE
-
-LOG_LEVEL_INFO_IMPORTANT=${LOG_LEVEL_INFO}; export LOG_LEVEL_INFO_IMPORTANT
-LOG_LEVEL_INFO_NO_PREFIX=${LOG_LEVEL_INFO}; export LOG_LEVEL_INFO_NO_PREFIX
-
-LOG_LEVEL_SUCCESS_FINAL=${LOG_LEVEL_SUCCESS}; export LOG_LEVEL_SUCCESS_FINAL
-LOG_LEVEL_FATAL_FINAL=${LOG_LEVEL_FATAL}; export LOG_LEVEL_FATAL_FINAL
-LOG_LEVEL_ERROR_FINAL=${LOG_LEVEL_ERROR}; export LOG_LEVEL_ERROR_FINAL
-LOG_LEVEL_WARNING_FINAL=${LOG_LEVEL_WARNING}; export LOG_LEVEL_WARNING_FINAL
-
-#-------------------------------------------------------------------------------
-def; create_fifo() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        n=0
-        until
-            fifo=$1.$$.$n
-            mkfifo -m 600 -- "$fifo" 2> /dev/null
-        do
-            n=$((n + 1))
-            # give up after 20 attempts as it could be a permanent condition
-            # that prevents us from creating fifos. You'd need to raise that
-            # limit if you intend to create (and use at the same time)
-            # more than 20 fifos in your script
-            [ "$n" -lt 20 ] || exit "${RET_ERROR_FAILED_TO_CREATE_FIFO}"
-        done
-        command printf '%s\n' "$fifo"
-        exit "${RET_SUCCESS}"
-    )
-    exit_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $exit_ret
-}
-
-#-------------------------------------------------------------------------------
-def; cleanup_fifo() {
-    rm -f -- "$1"
-}
-
-#-------------------------------------------------------------------------------
-def; teetty_G() {
-    if [ "${my_tempdir}" = "" ]; then
-        ensure_my_tempdir_G
-    fi
-
-    # create fifos for subprocess to output to
-    _stdout_fifo="$(create_fifo "${my_tempdir}/stdout_fifo")"
-    teetty_ret=$?
-    if [ $teetty_ret -ne 0 ]; then
-        return $teetty_ret
-    fi
-    _stderr_fifo="$(create_fifo "${my_tempdir}/stderr_fifo")"
-    teetty_ret=$?
-    if [ $teetty_ret -ne 0 ]; then
-        return $teetty_ret
-    fi
-
+    PLATFORM_IS_WSL=false
     if \
-        { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
-        [ "${OMEGA_DEBUG:-}" = true ] ||
-        [ "${OMEGA_DEBUG:-}" = "all" ]
+        [ "$(uname -a | grep '\(microsoft\|Microsoft\|WSL\)')" != "" ] ||
+        [ "$(echo "${REAL_PLATFORM}" | grep -e 'MINGW64_NT' )" != "" ] ||
+        [ "${WSL_DISTRO_NAME}" != "" ]
     then
-        # output from fifo to console streams + files (in background processes)
-        # shellcheck disable=SC2002
-        ( cat "${_stdout_fifo}" | tee -a "${FULL_LOG}" & )
-        _stdout_bg_task=$!
-        # shellcheck disable=SC2002
-        ( cat "${_stderr_fifo}" | tee -a "${ERROR_LOG}" "${ERROR_AND_FATAL_LOG}" >&2 & )
-        _stderr_bg_task=$!
-    else
-        # output from fifo to files (in background processes)
-        # shellcheck disable=SC2002
-        ( cat "${_stdout_fifo}" | tee -a "${FULL_LOG}" >/dev/null & )
-        _stdout_bg_task=$!
-        # shellcheck disable=SC2002
-        ( cat "${_stderr_fifo}" | tee -a "${ERROR_LOG}" "${ERROR_AND_FATAL_LOG}" >/dev/null & )
-        _stderr_bg_task=$!
+        PLATFORM_IS_WSL=true
     fi
+    export PLATFORM_IS_WSL;
 
-    # escapes command so we can use it in eval
-    esceval() {
-        command printf '%s ' "$@" | sed "s/'/'\\\\''/g"
+    #endregion Platform Constants
+    #===============================================================================
+
+    #===============================================================================
+    #region Calculated "Constants"
+
+    def; set_calculated_constants() {
+        # CONDA_BASE_DIR_FULLPATH="$(dirname "$(dirname "${CONDA_EXE}")")"
+        # export CONDA_BASE_DIR_FULLPATH
+        true
+    }
+    call set_calculated_constants
+
+    #endregion Calculated "Constants"
+    #===============================================================================
+
+    #===============================================================================
+    #region Colorized Output Constants & Helper Functions
+
+    ANSI_CODE_START="\033["; export ANSI_CODE_START
+    ANSI_CODE_END="m"; export ANSI_CODE_END
+
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code() {
+        # $1 = mode
+        # $2 = default color
+        # $3 = alternate color
+        # $4 = override trailing character
+
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            mode_sep=";"
+            if [ "$1" = "" ]; then
+                mode_sep=""
+            fi
+
+            ending="$4"
+            if [ "${ending}" = "" ]; then
+                ending="${ANSI_CODE_END}"
+            fi
+            tput_colors=16
+            if [ "$TERM" != "" ]; then
+                tput_colors="$(tput colors 2>/dev/null)"
+                if [ "${tput_colors}" = "" ]; then
+                    tput_colors=16
+                fi
+            fi
+            # because "colorize_output" may or may not exist
+            # shellcheck disable=SC2154
+            if {
+                [ "$ending" = "m" ] &&
+                {
+                    [ "$(command echo "$TERM" | grep 'mono')" != "" ] ||
+                    [ "${tput_colors}" -lt 16 ] ||
+                    [ "${NO_COLOR}" != "" ] ||
+                    [ "${colorized_output}" = false ]
+                }
+            }; then
+                # mode/color in monocolor terminal
+                if [ "$1" != "" ]; then
+                    # mode specified
+                    command printf "${ANSI_CODE_START}$1${ending}"
+                else
+                    # no mode specified
+                    command printf ""
+                fi
+            else
+                # 16+ color terminal or not a color/mode
+                if [ "$ending" = "m" ] && [ "${colorized_output}" = "alt" ] && [ "$3" != "" ]; then
+                    # a color or mode in alt-color w/ alt-value specified
+                    command printf "${ANSI_CODE_START}$1${mode_sep}$3${ending}"
+                elif [ "$2" != "" ]; then
+                    # anything in color w/ value specified
+                    command printf "${ANSI_CODE_START}$1${mode_sep}$2${ending}"
+                elif [ "$1" != "" ]; then
+                    # only a mode specified (no value specified)
+                    command printf "${ANSI_CODE_START}$1${ending}"
+                else
+                    # nothing specified
+                    command printf ""
+                fi
+            fi
+
+            exit 0
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $exit_ret
     }
 
-    # run the subprocess outputingg to the fifos
-    eval "$(esceval "$@")" > "${_stdout_fifo}" 2> "${_stderr_fifo}"
-    teetty_ret=$?
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor() {
+        call get_ansi_code '' "$1" '' "$2"
+    }
 
-    # process has ended, if the fifos background processes
-    # have not ended, end them
-    kill -9 "${_stdout_bg_task}" 2>/dev/null
-    kill -9 "${_stderr_bg_task}" 2>/dev/null
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor_up() {
+        call get_ansi_code_cursor "$1" 'A'
+    }
 
-    # remove the fifo files
-    cleanup_fifo "${_stdout_fifo}"
-    cleanup_fifo "${_stderr_fifo}"
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor_down() {
+        call get_ansi_code_cursor "$1" 'B'
+    }
 
-    # Return the status code of the subprocess
-    return $teetty_ret
-}
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor_right() {
+        call get_ansi_code_cursor "$1" 'C'
+    }
 
-#-------------------------------------------------------------------------------
-def; format_log_message() {
-    # $1 = prefix
-    # $2 = suffix
-    # $3 = string or format
-    # ... = string
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor_left() {
+        call get_ansi_code_cursor "$1" 'D'
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor_nextline() {
+        call get_ansi_code_cursor "$1" 'E'
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor_prevline() {
+        call get_ansi_code_cursor "$1" 'F'
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor_col() {
+        call get_ansi_code_cursor "$1" 'G'
+    }
+
+    #-------------------------------------------------------------------------------
+    def; get_ansi_code_cursor_pos() {
+        call get_ansi_code_cursor "$1;$2" 'H'
+    }
+
+    #-------------------------------------------------------------------------------
+    def; set_ansi_code_color_constants() {
+        ANSI_FG_BLACK="$(call get_ansi_code '0' '30')"; export ANSI_FG_BLACK
+        ANSI_FG_RED="$(call get_ansi_code '0' '31')"; export ANSI_FG_RED
+        ANSI_FG_GREEN="$(call get_ansi_code '0' '32')"; export ANSI_FG_GREEN
+        ANSI_FG_YELLOW="$(call get_ansi_code '0' '33')"; export ANSI_FG_YELLOW
+        ANSI_FG_BLUE="$(call get_ansi_code '0' '34')"; export ANSI_FG_BLUE
+        ANSI_FG_MAGENTA="$(call get_ansi_code '0' '35')"; export ANSI_FG_MAGENTA
+        ANSI_FG_CYAN="$(call get_ansi_code '0' '36')"; export ANSI_FG_CYAN
+        ANSI_FG_WHITE="$(call get_ansi_code '0' '37')"; export ANSI_FG_WHITE
+
+        ANSI_BLACK="${ANSI_FG_BLACK}"; export ANSI_BLACK
+        ANSI_RED="${ANSI_FG_RED}"; export ANSI_RED
+        ANSI_GREEN="${ANSI_FG_GREEN}"; export ANSI_GREEN
+        ANSI_YELLOW="${ANSI_FG_YELLOW}"; export ANSI_YELLOW
+        ANSI_BLUE="${ANSI_FG_BLUE}"; export ANSI_BLUE
+        ANSI_MAGENTA="${ANSI_FG_MAGENTA}"; export ANSI_MAGENTA
+        ANSI_CYAN="${ANSI_FG_CYAN}"; export ANSI_CYAN
+        ANSI_WHITE="${ANSI_FG_WHITE}"; export ANSI_WHITE
+
+        ANSI_FG_BOLD_BLACK="$(call get_ansi_code '1' '30')"; export ANSI_FG_BOLD_BLACK
+        ANSI_FG_BOLD_RED="$(call get_ansi_code '1' '31')"; export ANSI_FG_BOLD_RED
+        ANSI_FG_BOLD_GREEN="$(call get_ansi_code '1' '32')"; export ANSI_FG_BOLD_GREEN
+        ANSI_FG_BOLD_YELLOW="$(call get_ansi_code '1' '33')"; export ANSI_FG_BOLD_YELLOW
+        ANSI_FG_BOLD_BLUE="$(call get_ansi_code '1' '34')"; export ANSI_FG_BOLD_BLUE
+        ANSI_FG_BOLD_MAGENTA="$(call get_ansi_code '1' '35')"; export ANSI_FG_BOLD_MAGENTA
+        ANSI_FG_BOLD_CYAN="$(call get_ansi_code '1' '36')"; export ANSI_FG_BOLD_CYAN
+        ANSI_FG_BOLD_WHITE="$(call get_ansi_code '1' '37')"; export ANSI_FG_BOLD_WHITE
+
+        ANSI_BOLD_BLACK="${ANSI_FG_BOLD_BLACK}"; export ANSI_BOLD_BLACK
+        ANSI_BOLD_RED="${ANSI_FG_BOLD_RED}"; export ANSI_BOLD_RED
+        ANSI_BOLD_GREEN="${ANSI_FG_BOLD_GREEN}"; export ANSI_BOLD_GREEN
+        ANSI_BOLD_YELLOW="${ANSI_FG_BOLD_YELLOW}"; export ANSI_BOLD_YELLOW
+        ANSI_BOLD_BLUE="${ANSI_FG_BOLD_BLUE}"; export ANSI_BOLD_BLUE
+        ANSI_BOLD_MAGENTA="${ANSI_FG_BOLD_MAGENTA}"; export ANSI_BOLD_MAGENTA
+        ANSI_BOLD_CYAN="${ANSI_FG_BOLD_CYAN}"; export ANSI_BOLD_CYAN
+        ANSI_BOLD_WHITE="${ANSI_FG_BOLD_WHITE}"; export ANSI_BOLD_WHITE
+
+        # NOTE: backgrounds do not use the mode arg
+        ANSI_BG_BLACK="$(call get_ansi_code '' '0;40')"; export ANSI_BG_BLACK
+        ANSI_BG_RED="$(call get_ansi_code '' '0;41')"; export ANSI_BG_RED
+        ANSI_BG_GREEN="$(call get_ansi_code '' '0;42')"; export ANSI_BG_GREEN
+        ANSI_BG_YELLOW="$(call get_ansi_code '' '0;43')"; export ANSI_BG_YELLOW
+        ANSI_BG_BLUE="$(call get_ansi_code '' '0;44')"; export ANSI_BG_BLUE
+        ANSI_BG_MAGENTA="$(call get_ansi_code '' '0;45')"; export ANSI_BG_MAGENTA
+        ANSI_BG_CYAN="$(call get_ansi_code '' '0;46')"; export ANSI_BG_CYAN
+        ANSI_BG_WHITE="$(call get_ansi_code '' '0;47')"; export ANSI_BG_WHITE
+
+        # NOTE: backgrounds do not use the mode arg
+        ANSI_BG_BOLD_BLACK="$(call get_ansi_code '' '1;40')"; export ANSI_BG_BOLD_BLACK
+        ANSI_BG_BOLD_RED="$(call get_ansi_code '' '1;41')"; export ANSI_BG_BOLD_RED
+        ANSI_BG_BOLD_GREEN="$(call get_ansi_code '' '1;42')"; export ANSI_BG_BOLD_GREEN
+        ANSI_BG_BOLD_YELLOW="$(call get_ansi_code '' '1;43')"; export ANSI_BG_BOLD_YELLOW
+        ANSI_BG_BOLD_BLUE="$(call get_ansi_code '' '1;44')"; export ANSI_BG_BOLD_BLUE
+        ANSI_BG_BOLD_MAGENTA="$(call get_ansi_code '' '1;45')"; export ANSI_BG_BOLD_MAGENTA
+        ANSI_BG_BOLD_CYAN="$(call get_ansi_code '' '1;46')"; export ANSI_BG_BOLD_CYAN
+        ANSI_BG_BOLD_WHITE="$(call get_ansi_code '' '1;47')"; export ANSI_BG_BOLD_WHITE
+
+        ANSI_FG_UNDERLINE_BLACK="$(call get_ansi_code '0;4' '30')"; export ANSI_FG_UNDERLINE_BLACK
+        ANSI_FG_UNDERLINE_RED="$(call get_ansi_code '0;4' '31')"; export ANSI_FG_UNDERLINE_RED
+        ANSI_FG_UNDERLINE_GREEN="$(call get_ansi_code '0;4' '32')"; export ANSI_FG_UNDERLINE_GREEN
+        ANSI_FG_UNDERLINE_YELLOW="$(call get_ansi_code '0;4' '33')"; export ANSI_FG_UNDERLINE_YELLOW
+        ANSI_FG_UNDERLINE_BLUE="$(call get_ansi_code '0;4' '34')"; export ANSI_FG_UNDERLINE_BLUE
+        ANSI_FG_UNDERLINE_MAGENTA="$(call get_ansi_code '0;4' '35')"; export ANSI_FG_UNDERLINE_MAGENTA
+        ANSI_FG_UNDERLINE_CYAN="$(call get_ansi_code '0;4' '36')"; export ANSI_FG_UNDERLINE_CYAN
+        ANSI_FG_UNDERLINE_WHITE="$(call get_ansi_code '0;4' '37')"; export ANSI_FG_UNDERLINE_WHITE
+
+        ANSI_FG_BOLD_UNDERLINE_BLACK="$(call get_ansi_code '1;4' '30')"; export ANSI_FG_BOLD_UNDERLINE_BLACK
+        ANSI_FG_BOLD_UNDERLINE_RED="$(call get_ansi_code '1;4' '31')"; export ANSI_FG_BOLD_UNDERLINE_RED
+        ANSI_FG_BOLD_UNDERLINE_GREEN="$(call get_ansi_code '1;4' '32')"; export ANSI_FG_BOLD_UNDERLINE_GREEN
+        ANSI_FG_BOLD_UNDERLINE_YELLOW="$(call get_ansi_code '1;4' '33')"; export ANSI_FG_BOLD_UNDERLINE_YELLOW
+        ANSI_FG_BOLD_UNDERLINE_BLUE="$(call get_ansi_code '1;4' '34')"; export ANSI_FG_BOLD_UNDERLINE_BLUE
+        ANSI_FG_BOLD_UNDERLINE_MAGENTA="$(call get_ansi_code '1;4' '35')"; export ANSI_FG_BOLD_UNDERLINE_MAGENTA
+        ANSI_FG_BOLD_UNDERLINE_CYAN="$(call get_ansi_code '1;4' '36')"; export ANSI_FG_BOLD_UNDERLINE_CYAN
+        ANSI_FG_BOLD_UNDERLINE_WHITE="$(call get_ansi_code '1;4' '37')"; export ANSI_FG_BOLD_UNDERLINE_WHITE
+
+        ANSI_COLOR_SUCCESS="$(call get_ansi_code '1' '32' '34')"; export ANSI_COLOR_SUCCESS          # bright green/blue
+        ANSI_COLOR_FATAL="$(call get_ansi_code '1' '31')"; export ANSI_COLOR_FATAL                   # bright red
+        ANSI_COLOR_ERROR="$(call get_ansi_code '0' '31')"; export ANSI_COLOR_ERROR                   # darkred
+        ANSI_COLOR_WARNING="$(call get_ansi_code '1' '33')"; export ANSI_COLOR_WARNING               # bright yellow
+        ANSI_COLOR_HEADER="$(call get_ansi_code '1;4' '36')"; export ANSI_COLOR_HEADER               # bright cyan, underlined
+        ANSI_COLOR_FOOTER="$(call get_ansi_code '0' '36')"; export ANSI_COLOR_FOOTER                 # bright darkcyan
+        ANSI_COLOR_INFO="$(call get_ansi_code '1' '37')"; export ANSI_COLOR_INFO                     # bright white
+        ANSI_COLOR_DEBUG="$(call get_ansi_code '0' '37')"; export ANSI_COLOR_DEBUG                   # lightgrey
+        ANSI_COLOR_SUPERDEBUG="$(call get_ansi_code '1' '30')"; export ANSI_COLOR_SUPERDEBUG         # grey
+        ANSI_COLOR_ULTRADEBUG="$(call get_ansi_code '0' '35' '33')"; export ANSI_COLOR_ULTRADEBUG    # darkmagenta/darkyellow
+
+        ANSI_SUCCESS="${ANSI_COLOR_SUCCESS}SUCCESS: "; export ANSI_SUCCESS
+        ANSI_FATAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 FATAL: "; export ANSI_FATAL
+        ANSI_ERROR="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ ERROR: "; export ANSI_ERROR
+        ANSI_WARNING="${ANSI_COLOR_WARNING}⚠️ WARNING: "; export ANSI_WARNING
+        ANSI_HEADER="${ANSI_COLOR_HEADER}"; export ANSI_HEADER
+        ANSI_FOOTER="${ANSI_COLOR_FOOTER}"; export ANSI_FOOTER
+        ANSI_INFO="${ANSI_COLOR_INFO}INFO: "; export ANSI_INFO
+        ANSI_CONSOLE="${ANSI_COLOR_INFO}"; export ANSI_CONSOLE
+        ANSI_DEBUG="${ANSI_COLOR_DEBUG}DEBUG: "; export ANSI_DEBUG
+        ANSI_SUPERDEBUG="${ANSI_COLOR_SUPERDEBUG}SUPERDEBUG: "; export ANSI_SUPERDEBUG
+        ANSI_ULTRADEBUG="${ANSI_COLOR_ULTRADEBUG}ULTRADEBUG: "; export ANSI_ULTRADEBUG
+        ANSI_FILE="${ANSI_COLOR_ULTRADEBUG}"; export ANSI_FILE
+
+        ANSI_INFO_IMPORTANT="${ANSI_COLOR_WARNING}INFO: "; export ANSI_INFO_IMPORTANT
+        ANSI_INFO_NO_PREFIX="${ANSI_COLOR_INFO}"; export ANSI_INFO_NO_PREFIX
+
+        ANSI_SUCCESS_FINAL="${ANSI_COLOR_SUCCESS}${ANSI_BELL}✅ SUCCESS: "; export ANSI_SUCCESS_FINAL
+        ANSI_FATAL_FINAL="${ANSI_COLOR_FATAL}${ANSI_BELL}💀 FATAL: "; export ANSI_FATAL_FINAL
+        ANSI_ERROR_FINAL="${ANSI_COLOR_ERROR}${ANSI_BELL}❌ ERROR: "; export ANSI_ERROR_FINAL
+        ANSI_WARNING_FINAL="${ANSI_COLOR_WARNING}${ANSI_BELL}⚠️ WARNING: "; export ANSI_WARNING_FINAL
+    }
+
+    ANSI_RESET="${ANSI_CODE_START}0${ANSI_CODE_END}"; export ANSI_RESET
+
+    ANSI_UNDERLINE="$(call get_ansi_code '4' '')"; export ANSI_UNDERLINE
+    ANSI_UNDERLINE_OFF="$(call get_ansi_code '24' '')"; export ANSI_UNDERLINE_OFF
+
+    ANSI_CLEAR_LINE="$(call get_ansi_code '' '2' '' 'K')"; export ANSI_CLEAR_LINE
+    ANSI_RESET_LINE="$(call get_ansi_code '' '2' '' 'K')$(call get_ansi_code '1' '' 'G')"; export ANSI_RESET_LINE
+
+    ANSI_CLEAR_SCREEN="$(call get_ansi_code '' '2' '' 'J')"; export ANSI_CLEAR_SCREEN
+    ANSI_RESET_SCREEN="$(call get_ansi_code '' '2' '' 'J')$(call get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_SCREEN
+
+    ANSI_CLEAR_HISTORY="$(call get_ansi_code '' '3' '' 'J')"; export ANSI_CLEAR_HISTORY
+    ANSI_RESET_HISTORY="$(call get_ansi_code '' '3' '' 'J')$(call get_ansi_code '1;1' '' 'H')"; export ANSI_RESET_HISTORY
+
+    ANSI_RESET_CURSOR_LINE="$(call get_ansi_code '' '1' '' 'G')"; export ANSI_RESET_CURSOR_LINE
+    ANSI_RESET_CURSOR_SCREEN="$(call get_ansi_code '' '1;1' '' 'H')"; export ANSI_RESET_CURSOR_SCREEN
+
+    ANSI_CURSOR_UP="$(call get_ansi_code_cursor_up '1')"; export ANSI_CURSOR_UP
+    ANSI_CURSOR_DOWN="$(call get_ansi_code_cursor_down '1')"; export ANSI_CURSOR_DOWN
+    ANSI_CURSOR_RIGHT="$(call get_ansi_code_cursor_right '1')"; export ANSI_CURSOR_RIGHT
+    ANSI_CURSOR_LEFT="$(call get_ansi_code_cursor_left '1')"; export ANSI_CURSOR_LEFT
+    ANSI_CURSOR_NEXTLINE="$(call get_ansi_code_cursor_nextline '1')"; export ANSI_CURSOR_NEXTLINE
+    ANSI_CURSOR_PREVLINE="$(call get_ansi_code_cursor_prevline '1')"; export ANSI_CURSOR_PREVLINE
+
+    ANSI_BELL="\007🔔 "; export ANSI_BELL
+
+    call set_ansi_code_color_constants
+
+    #endregion Colorized Output Constants
+    #===============================================================================
+
+    #===============================================================================
+    #region Logging Helpers
+
+    LOG_LEVEL_SUCCESS=-5; export LOG_LEVEL_SUCCESS
+    LOG_LEVEL_FATAL=-4; export LOG_LEVEL_FATAL
+    LOG_LEVEL_ERROR=-3; export LOG_LEVEL_ERROR
+    LOG_LEVEL_WARNING=-2; export LOG_LEVEL_WARNING
+    LOG_LEVEL_HEADER=-1; export LOG_LEVEL_HEADER
+    LOG_LEVEL_FOOTER=0; export LOG_LEVEL_FOOTER
+    LOG_LEVEL_INFO=1; export LOG_LEVEL_INFO
+    LOG_LEVEL_DEBUG=2; export LOG_LEVEL_DEBUG
+    LOG_LEVEL_SUPERDEBUG=3; export LOG_LEVEL_SUPERDEBUG
+    LOG_LEVEL_ULTRADEBUG=4; export LOG_LEVEL_ULTRADEBUG
+
+    LOG_LEVEL_CONSOLE=-99; export LOG_LEVEL_CONSOLE
+    LOG_LEVEL_FILE=-99; export LOG_LEVEL_FILE
+
+    LOG_LEVEL_INFO_IMPORTANT=${LOG_LEVEL_INFO}; export LOG_LEVEL_INFO_IMPORTANT
+    LOG_LEVEL_INFO_NO_PREFIX=${LOG_LEVEL_INFO}; export LOG_LEVEL_INFO_NO_PREFIX
+
+    LOG_LEVEL_SUCCESS_FINAL=${LOG_LEVEL_SUCCESS}; export LOG_LEVEL_SUCCESS_FINAL
+    LOG_LEVEL_FATAL_FINAL=${LOG_LEVEL_FATAL}; export LOG_LEVEL_FATAL_FINAL
+    LOG_LEVEL_ERROR_FINAL=${LOG_LEVEL_ERROR}; export LOG_LEVEL_ERROR_FINAL
+    LOG_LEVEL_WARNING_FINAL=${LOG_LEVEL_WARNING}; export LOG_LEVEL_WARNING_FINAL
+
+    #-------------------------------------------------------------------------------
+    def; create_fifo() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-        prefix="$1"
-        suffix="$2"
-        shift 2
-
-        # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        inner_text="$(command printf -- "$@"; command echo EOL)"
-        command printf -- "%s %s%s%s\n" "$(get_datetime_stamp_human_formatted)" "${prefix}" "${inner_text%EOL}" "${suffix}"
-
-        exit "${RET_SUCCESS}"
-    )
-    log_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $log_ret
-}
-
-def; log_() {
-    # $1 = type e.g. SUCCESS, FATAL, ERROR, WARNING, etc
-    # $2 = string or format string
-    # ... = variables to be used in format string
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
+            n=0
+            until
+                fifo=$1.$$.$n
+                mkfifo -m 600 -- "$fifo" 2> /dev/null
+            do
+                n=$((n + 1))
+                # give up after 20 attempts as it could be a permanent condition
+                # that prevents us from creating fifos. You'd need to raise that
+                # limit if you intend to create (and use at the same time)
+                # more than 20 fifos in your script
+                [ "$n" -lt 20 ] || exit "${RET_ERROR_FAILED_TO_CREATE_FIFO}"
+            done
+            command printf '%s\n' "$fifo"
+            exit "${RET_SUCCESS}"
+        )
+        exit_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
+        return $exit_ret
+    }
 
-        log_type="$1"
-        shift
+    #-------------------------------------------------------------------------------
+    def; cleanup_fifo() {
+        rm -f -- "$1"
+    }
 
-        output_to_stderr=false
-        if {
-            [ "$(echo "${log_type}" | grep -e 'FATAL')" != "" ] ||
-            [ "$(echo "${log_type}" | grep -e 'ERROR')" != "" ] ||
-            [ "$(echo "${log_type}" | grep -e 'WARNING')" != "" ]
-        }; then
-            output_to_stderr=true
+    #-------------------------------------------------------------------------------
+    def; teetty_G() {
+        if [ "${my_tempdir}" = "" ]; then
+            call ensure_my_tempdir_G
         fi
 
-        # NOTE: we echo EOL and then remove it when we call format_log_message
-        #   to keep trailing whitespace
-        prefix="$(eval echo "\${ANSI_${log_type}}EOL")"
-        # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
-        message="$(format_log_message "${prefix%EOL}" "${ANSI_RESET}" "$@"; command echo EOL)"
-        required_verbosity="$(eval echo "\${LOG_LEVEL_${log_type}}")"
-        if [ "$required_verbosity" = "" ]; then
-            log_error "Invalid Log Type Specified: %s" "$log_type"
-            required_verbosity="${LOG_LEVEL_INFO}"
+        # create fifos for subprocess to output to
+        _stdout_fifo="$(call create_fifo "${my_tempdir}/stdout_fifo")"
+        teetty_ret=$?
+        if [ $teetty_ret -ne 0 ]; then
+            return $teetty_ret
         fi
+        _stderr_fifo="$(call create_fifo "${my_tempdir}/stderr_fifo")"
+        teetty_ret=$?
+        if [ $teetty_ret -ne 0 ]; then
+            return $teetty_ret
+        fi
+
         if \
-            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${required_verbosity}" ]  ;} ||
+            { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${LOG_LEVEL_INFO}" ] ;} ||
             [ "${OMEGA_DEBUG:-}" = true ] ||
             [ "${OMEGA_DEBUG:-}" = "all" ]
         then
-            if [ "${log_type}" != "FILE" ]; then
-                if [ "${output_to_stderr}" = true ]; then
-                    >&2 command printf -- "${message%EOL}"
-                else
-                    command printf -- "${message%EOL}"
-                fi
-            fi
-        fi
-
-        if {
-            [ "${log_type}" != "CONSOLE" ] &&
-            [ "${FULL_LOG}" != "" ]
-        }; then
-            >>"${FULL_LOG}" command printf -- "${message%EOL}"
-        fi
-
-        if {
-            [ "$(echo "${log_type}" | grep -e 'FATAL')" != "" ] ||
-            [ "$(echo "${log_type}" | grep -e 'ERROR')" != "" ]
-        }; then
-            >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
-        fi
-
-        if {
-            [ "$(echo "${log_type}" | grep -e 'FATAL')" != "" ]
-        }; then
-            >>"${FATAL_LOG}" command printf -- "${message%EOL}"
-        fi
-
-        if {
-            [ "$(echo "${log_type}" | grep -e 'ERROR')" != "" ]
-        }; then
-            >>"${ERROR_LOG}" command printf -- "${message%EOL}"
-        fi
-
-        if {
-            [ "$(echo "${log_type}" | grep -e 'WARNING')" != "" ]
-        }; then
-            >>"${WARNING_LOG}" command printf -- "${message%EOL}"
-        fi
-
-        exit "${RET_SUCCESS}"
-    )
-    log_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $log_ret
-}
-
-#-------------------------------------------------------------------------------
-def; log_console() {
-    log_ CONSOLE "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_success() {
-    log_ SUCCESS "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_success_final() {
-    log_ SUCCESS_FINAL "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_fatal() {
-    log_ FATAL "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_fatal_final() {
-    log_ FATAL_FINAL "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_error() {
-    log_ ERROR "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_error_final() {
-    log_ ERROR_FINAL "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_warning() {
-    log_ WARNING "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_warning_final() {
-    log_ WARNING_FINAL "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_header() {
-    log_ HEADER "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_footer() {
-    log_ FOOTER "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_info_important() {
-    log_ INFO_IMPORTANT "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_info() {
-    log_ INFO "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_info_no_prefix() {
-    log_ INFO_NO_PREFIX "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_debug() {
-    log_ DEBUG "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_superdebug() {
-    log_ SUPERDEBUG "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_ultradebug() {
-    log_ ULTRADEBUG "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; log_file() {
-    log_ FILE "$@"
-    return $?
-}
-
-#-------------------------------------------------------------------------------
-def; report_() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
-        SHELL_SESSION_FILE=""
-        export SHELL_SESSION_FILE
-
-        report_name="$1"
-        report_log="$2"
-        should_print="$3"
-
-        if [ "${should_print}" = "" ]; then
-            should_print=true
-        fi
-
-        prefix="$(eval echo "\${ANSI_COLOR_$(echo "${report_name}" | tr "[:lower:]" "[:upper:]")}EOL")"
-
-        if [ "${should_print}" = true ]; then
-            if [ "$(wc -c <"${report_log}")" -gt 0 ]; then
-                message="${prefix%EOL}The following ${report_name}(s) occurred:${ANSI_RESET}\n"
-                >&2 command printf -- "${message}"
-                >>"${FULL_LOG}" command printf -- "${message}"
-
-                >&2 command sed 's/^/\t/' "${report_log}"
-                >>"${FULL_LOG}" command sed 's/^/\t/' "${report_log}"
-            fi
+            # output from fifo to console streams + files (in background processes)
+            # shellcheck disable=SC2002
+            ( cat "${_stdout_fifo}" | tee -a "${FULL_LOG}" & )
+            _stdout_bg_task=$!
+            # shellcheck disable=SC2002
+            ( cat "${_stderr_fifo}" | tee -a "${ERROR_LOG}" "${ERROR_AND_FATAL_LOG}" >&2 & )
+            _stderr_bg_task=$!
         else
-            log_ultradebug "Skipping ${report_name} Report b/c should_print is '%s'." "${should_print}"
+            # output from fifo to files (in background processes)
+            # shellcheck disable=SC2002
+            ( cat "${_stdout_fifo}" | tee -a "${FULL_LOG}" >/dev/null & )
+            _stdout_bg_task=$!
+            # shellcheck disable=SC2002
+            ( cat "${_stderr_fifo}" | tee -a "${ERROR_LOG}" "${ERROR_AND_FATAL_LOG}" >/dev/null & )
+            _stderr_bg_task=$!
         fi
 
-        exit "${RET_SUCCESS}"
-    )
-    report_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $report_ret
-}
+        # escapes command so we can use it in eval
+        esceval() {
+            command printf '%s ' "$@" | sed "s/'/'\\\\''/g"
+        }
 
-#-------------------------------------------------------------------------------
-def; report_errors() {
-    report_ "Error" "${ERROR_AND_FATAL_LOG}" "$1"
-}
+        # run the subprocess outputingg to the fifos
+        eval "$(esceval "$@")" > "${_stdout_fifo}" 2> "${_stderr_fifo}"
+        teetty_ret=$?
 
-#-------------------------------------------------------------------------------
-def; report_warnings() {
-    report_ "Warning" "${WARNING_LOG}" "$1"
-}
+        # process has ended, if the fifos background processes
+        # have not ended, end them
+        kill -9 "${_stdout_bg_task}" 2>/dev/null
+        kill -9 "${_stderr_bg_task}" 2>/dev/null
 
-#-------------------------------------------------------------------------------
-def; report_final_status() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
+        # remove the fifo files
+        call cleanup_fifo "${_stdout_fifo}"
+        call cleanup_fifo "${_stderr_fifo}"
+
+        # Return the status code of the subprocess
+        return $teetty_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; format_log_message() {
+        # $1 = prefix
+        # $2 = suffix
+        # $3 = string or format
+        # ... = string
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-        ret="$1"
-        should_print="$2"
-        shift 2
-        message="$(command printf -- "$@"; command echo EOL)"
+            prefix="$1"
+            suffix="$2"
+            shift 2
 
-        LOG_FATAL_COUNT="$(wc -l <"${FATAL_LOG}")"
-        LOG_ERROR_COUNT="$(wc -l <"${ERROR_LOG}")"
-        LOG_WARNING_COUNT="$(wc -l <"${WARNING_LOG}")"
+            # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
+            inner_text="$(command printf -- "$@"; command echo EOL)"
+            command printf -- "%s %s%s%s\n" "$(call get_datetime_stamp_human_formatted)" "${prefix}" "${inner_text%EOL}" "${suffix}"
 
-        # fixup return code in case it is wrong
-        if [ "$ret" -eq 0 ]; then
-            if [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
-                ret="${RET_ERROR_UNKNOWN}"
-            elif [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
-                ret="${RET_ERROR_UNKNOWN}"
-            elif [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
-                if [ "${LOG_WARNING_COUNT}" -gt 1 ]; then
-                    ret="${RET_WARNING_MULTIPLE}"
-                else
-                    ret="${RET_WARNING_UNKNOWN}"
-                fi
-            fi
-        fi
+            exit "${RET_SUCCESS}"
+        )
+        log_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $log_ret
+    }
 
-        if [ "${should_print}" = true ]; then
-            fatal_text=""
-            plural=""
-            if [ "${LOG_FATAL_COUNT}" -gt 1 ]; then
-                plural="s"
-            fi
-            if [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
-                fatal_text="$(command printf "%d Fatal Error%s" "${LOG_FATAL_COUNT}" "${plural}")"
-            fi
+    def; log_() {
+        # $1 = type e.g. SUCCESS, FATAL, ERROR, WARNING, etc
+        # $2 = string or format string
+        # ... = variables to be used in format string
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-            error_text=""
-            plural=""
-            if [ "${LOG_ERROR_COUNT}" -gt 1 ]; then
-                plural="s"
-            fi
-            if [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
-                error_text="$(command printf "%d Error%s" "${LOG_ERROR_COUNT}" "${plural}")"
-            fi
+            log_type="$1"
+            shift
 
-            warning_text=""
-            plural=""
-            if [ "${LOG_WARNING_COUNT}" -gt 1 ]; then
-                plural="s"
-            fi
-            if [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
-                warning_text="$(command printf "%d Warning%s" "${LOG_WARNING_COUNT}" "${plural}")"
-            fi
-
-            before_error_text=""
-            before_warning_text=""
+            output_to_stderr=false
             if {
-                [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
-                [ "${LOG_ERROR_COUNT}" -gt 0 ] &&
-                [ "${LOG_WARNING_COUNT}" -gt 0 ]
+                [ "$(echo "${log_type}" | grep -e 'FATAL')" != "" ] ||
+                [ "$(echo "${log_type}" | grep -e 'ERROR')" != "" ] ||
+                [ "$(echo "${log_type}" | grep -e 'WARNING')" != "" ]
             }; then
-                before_error_text=", "
-                before_warning_text=", and "
-            elif {
-                [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
-                [ "${LOG_WARNING_COUNT}" -gt 0 ]
-            }; then
-                before_warning_text=" and "
-            elif {
-                [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
-                [ "${LOG_ERROR_COUNT}" -gt 0 ]
-            }; then
-                before_error_text=" and "
-            elif {
-                [ "${LOG_ERROR_COUNT}" -gt 0 ] &&
-                [ "${LOG_WARNING_COUNT}" -gt 0 ]
-            }; then
-                before_warning_text=" and "
+                output_to_stderr=true
             fi
 
-            stored_ret=$ret
-            log_info "%s exiting with return code: %d" "${message%EOL}"  "$ret"
-            if [ "$stored_ret" -eq 0 ]; then
-                log_success_final "%s Completed Successfully." "${message%EOL}"
-            elif [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
-                log_fatal_final "%s Had %s%s%s%s%s." "${message%EOL}" "${fatal_text}" "${before_error_text}" "${error_text}" "${before_warning_text}" "${warning_text}"
-            elif [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
-                log_error_final "%s Had %s%s%s." "${message%EOL}" "${error_text}" "${before_warning_text}" "${warning_text}"
-            elif [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
-                log_warning_final "%s Had %s." "${message%EOL}" "${warning_text}"
+            # NOTE: we echo EOL and then remove it when we call format_log_message
+            #   to keep trailing whitespace
+            prefix="$(eval echo "\${ANSI_${log_type}}EOL")"
+            # NOTE: we echo 'EOL' and then remove it during printf in order to keep trailing newlines
+            message="$(call format_log_message "${prefix%EOL}" "${ANSI_RESET}" "$@"; command echo EOL)"
+            required_verbosity="$(eval echo "\${LOG_LEVEL_${log_type}}")"
+            if [ "$required_verbosity" = "" ]; then
+                call log_error "Invalid Log Type Specified: %s" "$log_type"
+                required_verbosity="${LOG_LEVEL_INFO}"
             fi
-        else
-            log_ultradebug "Skipping Final Report b/c should_print is '%s'." "${should_print}"
-        fi
+            if \
+                { [ "${quiet:-}" != true ] && [ "${verbosity:-0}" -ge "${required_verbosity}" ]  ;} ||
+                [ "${OMEGA_DEBUG:-}" = true ] ||
+                [ "${OMEGA_DEBUG:-}" = "all" ]
+            then
+                if [ "${log_type}" != "FILE" ]; then
+                    if [ "${output_to_stderr}" = true ]; then
+                        >&2 command printf -- "${message%EOL}"
+                    else
+                        command printf -- "${message%EOL}"
+                    fi
+                fi
+            fi
 
-        exit "$ret"
-    )
-    report_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $report_ret
-}
+            if {
+                [ "${log_type}" != "CONSOLE" ] &&
+                [ "${FULL_LOG}" != "" ]
+            }; then
+                >>"${FULL_LOG}" command printf -- "${message%EOL}"
+            fi
 
-#-------------------------------------------------------------------------------
-def; report_all() {
-    PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
-    SHELL_SESSION_FILE=""
-    export SHELL_SESSION_FILE
-    (
+            if {
+                [ "$(echo "${log_type}" | grep -e 'FATAL')" != "" ] ||
+                [ "$(echo "${log_type}" | grep -e 'ERROR')" != "" ]
+            }; then
+                >>"${ERROR_AND_FATAL_LOG}" command printf -- "${message%EOL}"
+            fi
+
+            if {
+                [ "$(echo "${log_type}" | grep -e 'FATAL')" != "" ]
+            }; then
+                >>"${FATAL_LOG}" command printf -- "${message%EOL}"
+            fi
+
+            if {
+                [ "$(echo "${log_type}" | grep -e 'ERROR')" != "" ]
+            }; then
+                >>"${ERROR_LOG}" command printf -- "${message%EOL}"
+            fi
+
+            if {
+                [ "$(echo "${log_type}" | grep -e 'WARNING')" != "" ]
+            }; then
+                >>"${WARNING_LOG}" command printf -- "${message%EOL}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        log_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $log_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_console() {
+        call log_ CONSOLE "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_success() {
+        call log_ SUCCESS "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_success_final() {
+        call log_ SUCCESS_FINAL "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_fatal() {
+        call log_ FATAL "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_fatal_final() {
+        call log_ FATAL_FINAL "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_error() {
+        call log_ ERROR "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_error_final() {
+        call log_ ERROR_FINAL "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_warning() {
+        call log_ WARNING "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_warning_final() {
+        call log_ WARNING_FINAL "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_header() {
+        call log_ HEADER "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_footer() {
+        call log_ FOOTER "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_info_important() {
+        call log_ INFO_IMPORTANT "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_info() {
+        call log_ INFO "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_info_no_prefix() {
+        call log_ INFO_NO_PREFIX "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_debug() {
+        call log_ DEBUG "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_superdebug() {
+        call log_ SUPERDEBUG "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_ultradebug() {
+        call log_ ULTRADEBUG "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; log_file() {
+        call log_ FILE "$@"
+        return $?
+    }
+
+    #-------------------------------------------------------------------------------
+    def; report_() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
         SHELL_SESSION_FILE=""
         export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
 
-        input_ret="$1"
-        should_print="$2"
-        program_name="$3"
+            report_name="$1"
+            report_log="$2"
+            should_print="$3"
 
-        if [ "${should_print}" = true ]; then
-            log_header "Report:"
-        else
-            log_ultradebug "Skipping Report header b/c should_print is '%s'." "${should_print}"
-        fi
+            if [ "${should_print}" = "" ]; then
+                should_print=true
+            fi
 
-        report_warnings "${should_print}"
-        report_errors "${should_print}"
-        report_final_status "${input_ret}" "${should_print}" "${program_name}"
-        ret=$?
-        if [ "${should_print}" = true ]; then
-            message="$(command printf "Fully detailed log is available at '%s'\n" "${FULL_LOG}")"
-            >&2 command printf "${message}\n"
-            >>"${FULL_LOG}" command printf "${message}\n"
-        else
-            log_ultradebug "Skipping Full Report b/c should_print is '%s'." "${should_print}"
-        fi
-        exit $ret
-    )
-    report_ret=$?
-    SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
-    export SHELL_SESSION_FILE
-    return $report_ret
-}
+            prefix="$(eval echo "\${ANSI_COLOR_$(echo "${report_name}" | tr "[:lower:]" "[:upper:]")}EOL")"
 
-#-------------------------------------------------------------------------------
-# need to make sure these are the REAL paths, so we can compare them
-if [ "${CONSTANTS_TEMP_DIR}" != "" ]; then
-    CONSTANTS_TEMP_DIR="$(rreadlink "${CONSTANTS_TEMP_DIR}")"
-fi
-if [ "${my_tempdir}" != "" ]; then
-    my_tempdir="$(rreadlink "${my_tempdir}")"
-fi
+            if [ "${should_print}" = true ]; then
+                if [ "$(wc -c <"${report_log}")" -gt 0 ]; then
+                    message="${prefix%EOL}The following ${report_name}(s) occurred:${ANSI_RESET}\n"
+                    >&2 command printf -- "${message}"
+                    >>"${FULL_LOG}" command printf -- "${message}"
 
-if {
-    [ "${CONSTANTS_TEMP_DIR}" = "" ] ||
-    # if we are directly included by the top level file,
-    # we do not want to inherit the tempdir or logs from
-    # whatever may have invoked that top level file
-    [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    # if my_tempdir was changed, we want to use the new
-    # tempdir for everything
-    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
-} then
-    ensure_my_tempdir_G
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        exit $ret
+                    >&2 command sed 's/^/\t/' "${report_log}"
+                    >>"${FULL_LOG}" command sed 's/^/\t/' "${report_log}"
+                fi
+            else
+                call log_ultradebug "Skipping ${report_name} Report b/c should_print is '%s'." "${should_print}"
+            fi
+
+            exit "${RET_SUCCESS}"
+        )
+        report_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $report_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; report_errors() {
+        call report_ "Error" "${ERROR_AND_FATAL_LOG}" "$1"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; report_warnings() {
+        call report_ "Warning" "${WARNING_LOG}" "$1"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; report_final_status() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            ret="$1"
+            should_print="$2"
+            shift 2
+            message="$(command printf -- "$@"; command echo EOL)"
+
+            LOG_FATAL_COUNT="$(wc -l <"${FATAL_LOG}")"
+            LOG_ERROR_COUNT="$(wc -l <"${ERROR_LOG}")"
+            LOG_WARNING_COUNT="$(wc -l <"${WARNING_LOG}")"
+
+            # fixup return code in case it is wrong
+            if [ "$ret" -eq 0 ]; then
+                if [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
+                    ret="${RET_ERROR_UNKNOWN}"
+                elif [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
+                    ret="${RET_ERROR_UNKNOWN}"
+                elif [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
+                    if [ "${LOG_WARNING_COUNT}" -gt 1 ]; then
+                        ret="${RET_WARNING_MULTIPLE}"
+                    else
+                        ret="${RET_WARNING_UNKNOWN}"
+                    fi
+                fi
+            fi
+
+            if [ "${should_print}" = true ]; then
+                fatal_text=""
+                plural=""
+                if [ "${LOG_FATAL_COUNT}" -gt 1 ]; then
+                    plural="s"
+                fi
+                if [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
+                    fatal_text="$(command printf "%d Fatal Error%s" "${LOG_FATAL_COUNT}" "${plural}")"
+                fi
+
+                error_text=""
+                plural=""
+                if [ "${LOG_ERROR_COUNT}" -gt 1 ]; then
+                    plural="s"
+                fi
+                if [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
+                    error_text="$(command printf "%d Error%s" "${LOG_ERROR_COUNT}" "${plural}")"
+                fi
+
+                warning_text=""
+                plural=""
+                if [ "${LOG_WARNING_COUNT}" -gt 1 ]; then
+                    plural="s"
+                fi
+                if [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
+                    warning_text="$(command printf "%d Warning%s" "${LOG_WARNING_COUNT}" "${plural}")"
+                fi
+
+                before_error_text=""
+                before_warning_text=""
+                if {
+                    [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
+                    [ "${LOG_ERROR_COUNT}" -gt 0 ] &&
+                    [ "${LOG_WARNING_COUNT}" -gt 0 ]
+                }; then
+                    before_error_text=", "
+                    before_warning_text=", and "
+                elif {
+                    [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
+                    [ "${LOG_WARNING_COUNT}" -gt 0 ]
+                }; then
+                    before_warning_text=" and "
+                elif {
+                    [ "${LOG_FATAL_COUNT}" -gt 0 ] &&
+                    [ "${LOG_ERROR_COUNT}" -gt 0 ]
+                }; then
+                    before_error_text=" and "
+                elif {
+                    [ "${LOG_ERROR_COUNT}" -gt 0 ] &&
+                    [ "${LOG_WARNING_COUNT}" -gt 0 ]
+                }; then
+                    before_warning_text=" and "
+                fi
+
+                stored_ret=$ret
+                call log_info "%s exiting with return code: %d" "${message%EOL}"  "$ret"
+                if [ "$stored_ret" -eq 0 ]; then
+                    call log_success_final "%s Completed Successfully." "${message%EOL}"
+                elif [ "${LOG_FATAL_COUNT}" -gt 0 ]; then
+                    call log_fatal_final "%s Had %s%s%s%s%s." "${message%EOL}" "${fatal_text}" "${before_error_text}" "${error_text}" "${before_warning_text}" "${warning_text}"
+                elif [ "${LOG_ERROR_COUNT}" -gt 0 ]; then
+                    call log_error_final "%s Had %s%s%s." "${message%EOL}" "${error_text}" "${before_warning_text}" "${warning_text}"
+                elif [ "${LOG_WARNING_COUNT}" -gt 0 ]; then
+                    call log_warning_final "%s Had %s." "${message%EOL}" "${warning_text}"
+                fi
+            else
+                call log_ultradebug "Skipping Final Report b/c should_print is '%s'." "${should_print}"
+            fi
+
+            exit "$ret"
+        )
+        report_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $report_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    def; report_all() {
+        PSHELL_SESSION_FILE="${SHELL_SESSION_FILE}"
+        SHELL_SESSION_FILE=""
+        export SHELL_SESSION_FILE
+        (
+            SHELL_SESSION_FILE=""
+            export SHELL_SESSION_FILE
+
+            input_ret="$1"
+            should_print="$2"
+            program_name="$3"
+
+            if [ "${should_print}" = true ]; then
+                call log_header "Report:"
+            else
+                call log_ultradebug "Skipping Report header b/c should_print is '%s'." "${should_print}"
+            fi
+
+            call report_warnings "${should_print}"
+            call report_errors "${should_print}"
+            call report_final_status "${input_ret}" "${should_print}" "${program_name}"
+            ret=$?
+            if [ "${should_print}" = true ]; then
+                message="$(command printf "Fully detailed log is available at '%s'\n" "${FULL_LOG}")"
+                >&2 command printf "${message}\n"
+                >>"${FULL_LOG}" command printf "${message}\n"
+            else
+                call log_ultradebug "Skipping Full Report b/c should_print is '%s'." "${should_print}"
+            fi
+            exit $ret
+        )
+        report_ret=$?
+        SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
+        export SHELL_SESSION_FILE
+        return $report_ret
+    }
+
+    #-------------------------------------------------------------------------------
+    # need to make sure these are the REAL paths, so we can compare them
+    if [ "${CONSTANTS_TEMP_DIR}" != "" ]; then
+        CONSTANTS_TEMP_DIR="$(call rreadlink "${CONSTANTS_TEMP_DIR}")"
+    fi
+    if [ "${my_tempdir}" != "" ]; then
+        my_tempdir="$(call rreadlink "${my_tempdir}")"
     fi
 
-    CONSTANTS_TEMP_DIR="${my_tempdir}"
-    export CONSTANTS_TEMP_DIR
-
-    CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_DIR}"/log
-
-    if [ "${CI}" = true ]; then
-        CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_LOG_DIR}"/$(get_datetime_stamp_filename_formatted)_$$
-    fi
-
-    ensure_dir "${CONSTANTS_TEMP_LOG_DIR}"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        exit $ret
-    fi
-    export CONSTANTS_TEMP_LOG_DIR
-fi
-if {
-    [ "${FATAL_LOG}" = "" ] ||
-    # if we are directly included by the top level file,
-    # we do not want to inherit the tempdir or logs from
-    # whatever may have invoked that top level file
-    [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    # if my_tempdir was changed, we want to use the new
-    # tempdir for everything
-    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
-} then
-    FATAL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/fatal_only.txt
-    export FATAL_LOG
-    command printf '' >"${FATAL_LOG}"
-fi
-if {
-    [ "${ERROR_LOG}" = "" ] ||
-    # if we are directly included by the top level file,
-    # we do not want to inherit the tempdir or logs from
-    # whatever may have invoked that top level file
-    [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    # if my_tempdir was changed, we want to use the new
-    # tempdir for everything
-    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
-} then
-    ERROR_LOG="${CONSTANTS_TEMP_LOG_DIR}"/errors_only.txt
-    export ERROR_LOG
-    command printf '' >"${ERROR_LOG}"
-fi
-if {
-    [ "${ERROR_AND_FATAL_LOG}" = "" ] ||
-    # if we are directly included by the top level file,
-    # we do not want to inherit the tempdir or logs from
-    # whatever may have invoked that top level file
-    [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    # if my_tempdir was changed, we want to use the new
-    # tempdir for everything
-    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
-} then
-    ERROR_AND_FATAL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/errors_and_fatals_only.txt
-    export ERROR_AND_FATAL_LOG
-    command printf '' >"${ERROR_AND_FATAL_LOG}"
-fi
-if {
-    [ "${WARNING_LOG}" = "" ] ||
-    # if we are directly included by the top level file,
-    # we do not want to inherit the tempdir or logs from
-    # whatever may have invoked that top level file
-    [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    # if my_tempdir was changed, we want to use the new
-    # tempdir for everything
-    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
-} then
-    WARNING_LOG="${CONSTANTS_TEMP_LOG_DIR}"/warnings_only.txt
-    export WARNING_LOG
-    command printf '' >"${WARNING_LOG}"
-fi
-if {
-    [ "${FULL_LOG}" = "" ] ||
-    # if we are directly included by the top level file,
-    # we do not want to inherit the tempdir or logs from
-    # whatever may have invoked that top level file
-    [ "$(array_get_length WAS_SOURCED)" -le 2 ] ||
-    # if my_tempdir was changed, we want to use the new
-    # tempdir for everything
-    [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
-} then
-    FULL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/log.txt
-    export FULL_LOG
-    command printf '' >"${FULL_LOG}"
-fi
-
-log_ultradebug "CONSTANTS_TEMP_LOG_DIR=%s" "${CONSTANTS_TEMP_LOG_DIR}"
-log_ultradebug "FULL_LOG=%s" "${FULL_LOG}"
-log_ultradebug "ERROR_AND_FATAL_LOG=%s" "${ERROR_AND_FATAL_LOG}"
-log_ultradebug "FATAL_LOG=%s" "${FATAL_LOG}"
-log_ultradebug "ERROR_LOG=%s" "${ERROR_LOG}"
-log_ultradebug "WARNING_LOG=%s" "${WARNING_LOG}"
-
-#endregion Logging Helpers
-#===============================================================================
-
-#===============================================================================
-#region Conda Helpers
-
-#-------------------------------------------------------------------------------
-def; conda_init_G() {
-    # intentionally no local scope so it modify globals
-
-    if [ "$1" != "quiet" ]; then
-        log_header "Initializing Conda..."
-    else
-        log_ultradebug "Initializing Conda..."
-    fi
-
-    # shellcheck disable=SC1091
-    include_G "${CONDA_INSTALL_PATH}/etc/profile.d/conda.sh"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "'. conda.sh' failed with error code: %d" "$ret"
-        return "${RET_ERROR_CONDA_INIT_FAILED}"
-    fi
-    PATH="${CONDA_INSTALL_PATH}/bin:$PATH"
-    export PATH
-
-    teetty_G "type conda | head -n 1"
-    teetty_G conda --version
-
-    if [ "$1" != "quiet" ]; then
-        log_footer "Conda Initialized."
-    else
-        log_ultradebug "Conda Initialized."
-    fi
-
-    return "${RET_SUCCESS}"
-}
-
-#-------------------------------------------------------------------------------
-def; conda_full_deactivate_G() {
-    # intentionally no local scope so it modify globals
-
-    if [ "$1" != "quiet" ]; then
-        log_header "Deactivating Current Conda Environments..."
-    else
-        log_ultradebug "Deactivating Current Conda Environments..."
-    fi
-
-    while [ "${CONDA_SHLVL}" -gt 0 ]; do
-        teetty_G conda deactivate
+    if {
+        [ "${CONSTANTS_TEMP_DIR}" = "" ] ||
+        # if we are directly included by the top level file,
+        # we do not want to inherit the tempdir or logs from
+        # whatever may have invoked that top level file
+        [ "$(call array_get_length WAS_SOURCED)" -le 2 ] ||
+        # if my_tempdir was changed, we want to use the new
+        # tempdir for everything
+        [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+    } then
+        call ensure_my_tempdir_G
         ret=$?
         if [ $ret -ne 0 ]; then
-            log_fatal "'conda deactivate' exited with error code: %d" "$ret"
-            return "${RET_ERROR_CONDA_DEACTIVATE_FAILED}"
+            exit $ret
         fi
-    done
 
-    if [ "$1" != "quiet" ]; then
-        log_footer "Conda Environments Deactivated."
-    else
-        log_ultradebug "Conda Environments Deactivated."
+        CONSTANTS_TEMP_DIR="${my_tempdir}"
+        export CONSTANTS_TEMP_DIR
+
+        CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_DIR}"/log
+
+        if [ "${CI}" = true ]; then
+            CONSTANTS_TEMP_LOG_DIR="${CONSTANTS_TEMP_LOG_DIR}"/$(call get_datetime_stamp_filename_formatted)_$$
+        fi
+
+        call ensure_dir "${CONSTANTS_TEMP_LOG_DIR}"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            exit $ret
+        fi
+        export CONSTANTS_TEMP_LOG_DIR
+    fi
+    if {
+        [ "${FATAL_LOG}" = "" ] ||
+        # if we are directly included by the top level file,
+        # we do not want to inherit the tempdir or logs from
+        # whatever may have invoked that top level file
+        [ "$(call array_get_length WAS_SOURCED)" -le 2 ] ||
+        # if my_tempdir was changed, we want to use the new
+        # tempdir for everything
+        [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+    } then
+        FATAL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/fatal_only.txt
+        export FATAL_LOG
+        command printf '' >"${FATAL_LOG}"
+    fi
+    if {
+        [ "${ERROR_LOG}" = "" ] ||
+        # if we are directly included by the top level file,
+        # we do not want to inherit the tempdir or logs from
+        # whatever may have invoked that top level file
+        [ "$(call array_get_length WAS_SOURCED)" -le 2 ] ||
+        # if my_tempdir was changed, we want to use the new
+        # tempdir for everything
+        [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+    } then
+        ERROR_LOG="${CONSTANTS_TEMP_LOG_DIR}"/errors_only.txt
+        export ERROR_LOG
+        command printf '' >"${ERROR_LOG}"
+    fi
+    if {
+        [ "${ERROR_AND_FATAL_LOG}" = "" ] ||
+        # if we are directly included by the top level file,
+        # we do not want to inherit the tempdir or logs from
+        # whatever may have invoked that top level file
+        [ "$(call array_get_length WAS_SOURCED)" -le 2 ] ||
+        # if my_tempdir was changed, we want to use the new
+        # tempdir for everything
+        [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+    } then
+        ERROR_AND_FATAL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/errors_and_fatals_only.txt
+        export ERROR_AND_FATAL_LOG
+        command printf '' >"${ERROR_AND_FATAL_LOG}"
+    fi
+    if {
+        [ "${WARNING_LOG}" = "" ] ||
+        # if we are directly included by the top level file,
+        # we do not want to inherit the tempdir or logs from
+        # whatever may have invoked that top level file
+        [ "$(call array_get_length WAS_SOURCED)" -le 2 ] ||
+        # if my_tempdir was changed, we want to use the new
+        # tempdir for everything
+        [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+    } then
+        WARNING_LOG="${CONSTANTS_TEMP_LOG_DIR}"/warnings_only.txt
+        export WARNING_LOG
+        command printf '' >"${WARNING_LOG}"
+    fi
+    if {
+        [ "${FULL_LOG}" = "" ] ||
+        # if we are directly included by the top level file,
+        # we do not want to inherit the tempdir or logs from
+        # whatever may have invoked that top level file
+        [ "$(call array_get_length WAS_SOURCED)" -le 2 ] ||
+        # if my_tempdir was changed, we want to use the new
+        # tempdir for everything
+        [ "${CONSTANTS_TEMP_DIR}" = "${my_tempdir}" ]
+    } then
+        FULL_LOG="${CONSTANTS_TEMP_LOG_DIR}"/log.txt
+        export FULL_LOG
+        command printf '' >"${FULL_LOG}"
     fi
 
-    return "${RET_SUCCESS}"
-}
+    call log_ultradebug "CONSTANTS_TEMP_LOG_DIR=%s" "${CONSTANTS_TEMP_LOG_DIR}"
+    call log_ultradebug "FULL_LOG=%s" "${FULL_LOG}"
+    call log_ultradebug "ERROR_AND_FATAL_LOG=%s" "${ERROR_AND_FATAL_LOG}"
+    call log_ultradebug "FATAL_LOG=%s" "${FATAL_LOG}"
+    call log_ultradebug "ERROR_LOG=%s" "${ERROR_LOG}"
+    call log_ultradebug "WARNING_LOG=%s" "${WARNING_LOG}"
 
-#-------------------------------------------------------------------------------
-def; conda_activate_env_G() {
-    if [ "$2" != "quiet" ]; then
-        log_header "Activating %s Conda Environment..." "$1"
-    else
-        log_ultradebug "Activating %s Conda Environment..." "$1"
-    fi
+    #endregion Logging Helpers
+    #===============================================================================
 
-    teetty_G conda activate "$1"
-    ret=$?
-    if [ $ret -ne 0 ]; then
-        log_fatal "'conda activate \"%s\"' exited with error code: %d" "$1" "$ret"
-        return "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
-    fi
+    #===============================================================================
+    #region Conda Helpers
 
-    if [ "$2" != "quiet" ]; then
-        log_footer "%s Conda Environment Activated." "$1"
-    else
-        log_ultradebug "%s Conda Environment Activated." "$1"
-    fi
+    #-------------------------------------------------------------------------------
+    def; conda_init_G() {
+        # intentionally no local scope so it modify globals
 
-    return "${RET_SUCCESS}"
-}
+        if [ "$1" != "quiet" ]; then
+            call log_header "Initializing Conda..."
+        else
+            call log_ultradebug "Initializing Conda..."
+        fi
 
-#endregion Conda Helpers
-#===============================================================================
+        # shellcheck disable=SC1091
+        call include_G "${CONDA_INSTALL_PATH}/etc/profile.d/conda.sh"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            call log_fatal "'. conda.sh' failed with error code: %d" "$ret"
+            return "${RET_ERROR_CONDA_INIT_FAILED}"
+        fi
+        PATH="${CONDA_INSTALL_PATH}/bin:$PATH"
+        export PATH
+
+        call teetty_G "type conda | head -n 1"
+        call teetty_G conda --version
+
+        if [ "$1" != "quiet" ]; then
+            call log_footer "Conda Initialized."
+        else
+            call log_ultradebug "Conda Initialized."
+        fi
+
+        return "${RET_SUCCESS}"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; conda_full_deactivate_G() {
+        # intentionally no local scope so it modify globals
+
+        if [ "$1" != "quiet" ]; then
+            call log_header "Deactivating Current Conda Environments..."
+        else
+            call log_ultradebug "Deactivating Current Conda Environments..."
+        fi
+
+        while [ "${CONDA_SHLVL}" -gt 0 ]; do
+            call teetty_G conda deactivate
+            ret=$?
+            if [ $ret -ne 0 ]; then
+                call log_fatal "'conda deactivate' exited with error code: %d" "$ret"
+                return "${RET_ERROR_CONDA_DEACTIVATE_FAILED}"
+            fi
+        done
+
+        if [ "$1" != "quiet" ]; then
+            call log_footer "Conda Environments Deactivated."
+        else
+            call log_ultradebug "Conda Environments Deactivated."
+        fi
+
+        return "${RET_SUCCESS}"
+    }
+
+    #-------------------------------------------------------------------------------
+    def; conda_activate_env_G() {
+        if [ "$2" != "quiet" ]; then
+            call log_header "Activating %s Conda Environment..." "$1"
+        else
+            call log_ultradebug "Activating %s Conda Environment..." "$1"
+        fi
+
+        call teetty_G conda activate "$1"
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            call log_fatal "'conda activate \"%s\"' exited with error code: %d" "$1" "$ret"
+            return "${RET_ERROR_CONDA_ACTIVATE_FAILED}"
+        fi
+
+        if [ "$2" != "quiet" ]; then
+            call log_footer "%s Conda Environment Activated." "$1"
+        else
+            call log_ultradebug "%s Conda Environment Activated." "$1"
+        fi
+
+        return "${RET_SUCCESS}"
+    }
+
+    #endregion Conda Helpers
+    #===============================================================================
+
+fi
 
 #endregion Public *
 ################################################################################
@@ -2714,7 +4080,7 @@ export SHELL_SESSION_FILE
 
     #---------------------------------------------------------------------------
     def; __main() {
-        log_fatal "$(get_my_real_basename) must be sourced"
+        call log_fatal "$(call get_my_real_basename) must be sourced"
         return "${RET_ERROR_SCRIPT_WAS_NOT_SOURCED}"
     }
 
@@ -2736,23 +4102,23 @@ export SHELL_SESSION_FILE
         type inject_monkeypatch >/dev/null 2>&1
         monkeypatch_ret=$?
         if [ $monkeypatch_ret -eq 0 ]; then
-            inject_monkeypatch
+            call inject_monkeypatch
         fi
     fi
 
     if {
-        [ "$(array_get_last WAS_SOURCED)" = false ] ||
+        [ "$(call array_get_last WAS_SOURCED)" = false ] ||
         {
             [ "${_CALL_MAIN_ANYWAY}" = true ] &&
             # only if we are directly sourced from the shell,
             # or we were directly sourced by a PytestShellScriptTestHarness script
-            [ "$(array_get_length WAS_SOURCED)" -le 2 ]
+            [ "$(call array_get_length WAS_SOURCED)" -le 2 ]
         }
     } then
-        __main "$@"
+        call __main "$@"
         ret=$?
     else
-        __sourced_main "$@"
+        call __sourced_main "$@"
         ret=$?
     fi
     exit $ret
@@ -2765,7 +4131,7 @@ SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
 export SHELL_SESSION_FILE
 
 ################################################################################
-#region Postamble
+#region marximus-shell-extensions Postamble
 
 #===============================================================================
 #region PytestShellScriptTestHarness Postamble
@@ -2774,7 +4140,7 @@ if [ "${_IS_UNDER_TEST}" = "true" ]; then
     type inject_monkeypatch >/dev/null 2>&1
     monkeypatch_ret=$?
     if [ $monkeypatch_ret -eq 0 ]; then
-        inject_monkeypatch
+        call inject_monkeypatch
     fi
 fi
 
@@ -2782,24 +4148,42 @@ fi
 #===============================================================================
 
 #===============================================================================
-#region Track Sourcing
+#region Announce Ourself Ending
 
-if [ "$(array_get_last WAS_SOURCED)" = true ]; then
-    log_debug "Source Completed: $(get_my_real_fullpath) ($$)"
-else
-    log_debug "Invoke Completed: $(get_my_real_basename) ($$)"
+__announce_prefix="Source"
+if [ "$(nullcall array_get_last WAS_SOURCED)" = false ]; then
+    __announce_prefix="Invoke"
 fi
+nullcall log_debug "${__announce_prefix} Completed: $(nullcall get_my_real_fullpath) ($$) [$(nullcall get_my_puuid_basename || echo "$0")]"
+unset __announce_prefix
 
-#endregion Track Sourcing
+#endregion Announce Ourselves Ending
 #===============================================================================
 
+#===============================================================================
+#region Exit Or Return
+
 # NOTE: we have to return here if we were sourced otherwise we kill the shell
-_THIS_FILE_WAS_SOURCED="$(array_get_last WAS_SOURCED)"
-if [ "$(array_get_length WAS_SOURCED)" -eq 1 ]; then
-    array_remove_last WAS_SOURCED
-    array_remove_last SHELL_SOURCE
+_THIS_FILE_WAS_SOURCED="$(call array_get_last WAS_SOURCED)"
+# If we were the top level include we need to remove ourselves and clean up,
+# otherwise, the invoker/includer will do so via the include_G/invoke functions
+if {
+    [ "$(call array_get_length WAS_SOURCED)" -eq 1 ] &&
+    [ "${_THIS_FILE_WAS_SOURCED}" = true ]
+}; then
+    call array_remove_last WAS_SOURCED
     export WAS_SOURCED
+    call array_remove_last SHELL_SOURCE
     export SHELL_SOURCE
+    call array_remove_last SHELL_SOURCE_PUUID
+    export SHELL_SOURCE_PUUID
+    if [ "$ZSH_VERSION" != "" ]; then
+        # shellcheck disable=3041
+        set +yx "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}"
+    else
+        set +x "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}"
+    fi
+    unset __MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD
 fi
 if [ "${_THIS_FILE_WAS_SOURCED}" = false ]; then
     exit $ret
@@ -2807,5 +4191,8 @@ else
     return $ret
 fi
 
-#endregion Postamble
+#endregion Exit Or Return
+#===============================================================================
+
+#endregion marximus-shell-extensions Postamble
 ################################################################################

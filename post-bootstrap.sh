@@ -60,10 +60,10 @@ if [ $ret -ne 0 ]; then
     export OPTION_SETTRACE
 
     #-------------------------------------------------------------------------------
-    # nulldef; keyword
+    # def; keyword
     # 'true' is a command that returns 0 and is effectively a no-op command
-    # so when 'nulldef;' used to declare a function:
-    #   nulldef; foo() {}
+    # so when 'def;' used to declare a function:
+    #   def; foo() {}
     #          ^ NOTE: the semicolon
     # it will do essentially nothing (which is what we want!)
     alias nulldef="true"
@@ -87,7 +87,7 @@ if [ $ret -ne 0 ]; then
     # nullcall keyword
     # emulates how 'call' works, but does not modify shell options nor track
     # the call stack
-    nulldef; nullcall() {
+    def; nullcall() {
         "$@"
         _nullcall_ret=$?
         return $_nullcall_ret
@@ -100,7 +100,7 @@ if [ $ret -ne 0 ]; then
     #      ^ NOTE: the semicolon
     # it will track the puuid of the file where the function is declared and
     # the true line number where the function is declared in that file
-    nulldef; def_G() {
+    def; def_G() {
         __MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD="${-:+"-$-"}"
         set +x
 
@@ -168,7 +168,7 @@ if [ $ret -ne 0 ]; then
 
     #-------------------------------------------------------------------------------
     # pushes function call context onto call stack
-    nulldef; _call_stack_push_G() {
+    def; _call_stack_push_G() {
         # __call_G_source_puuid="$1"
         # __call_G_lineno="$2"
         # __call_G_funcname="$3"
@@ -188,7 +188,7 @@ if [ $ret -ne 0 ]; then
 
     #-------------------------------------------------------------------------------
     # pops function call context off of call stack
-    nulldef; _call_stack_pop_G() {
+    def; _call_stack_pop_G() {
         nullcall array_pop SHELL_CALL_STACK
         nullcall array_export SHELL_CALL_STACK
 
@@ -205,7 +205,7 @@ if [ $ret -ne 0 ]; then
     #-------------------------------------------------------------------------------
     # "call" keyword
     # calls specified function with args, tracking it via call stack
-    nulldef; call_G() {
+    def; call_G() {
         # NOTE: intentionally not using call inside this function
         __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
         set +x
@@ -265,11 +265,11 @@ if [ $ret -ne 0 ]; then
     alias call="call_G \"\$(set +x; nullcall array_peek SHELL_CALL_STACK_SOURCE_PUUID 2>/dev/null || nullcall get_my_puuid_basename 2>/dev/null || echo \$0)\" \"\$LINENO\""
 
     #-------------------------------------------------------------------------------
-    nulldef; print_call_stack() {
+    def; print_call_stack() {
         __MARXIMUS_SHELL_EXTENSIONS__print_call_stack__OPTIONS_OLD="${-:+"-$-"}"
         set +x
 
-        nulldef; _print_call_stack() {
+        def; _print_call_stack() {
             >&2 command printf -- "%s\n" "${item}"
         }
         nullcall array_for_each SHELL_CALL_STACK _print_call_stack
@@ -291,7 +291,7 @@ if [ $ret -ne 0 ]; then
     #===============================================================================
     #region Create Fence
 
-    nulldef; MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE() { true; }
+    def; MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE_FENCE() { true; }
 
     #endregion Create Fence
     #===============================================================================
@@ -320,7 +320,7 @@ if [ $ret -ne 0 ]; then
         fi
 
         #-------------------------------------------------------------------------------
-        nulldef; date() {
+        def; date() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -335,7 +335,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_console() {
+        def; log_console() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -347,7 +347,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_success_final() {
+        def; log_success_final() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -358,7 +358,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_success() {
+        def; log_success() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -371,7 +371,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_fatal() {
+        def; log_fatal() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -384,7 +384,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_error() {
+        def; log_error() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -397,7 +397,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_warning() {
+        def; log_warning() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -410,7 +410,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_header() {
+        def; log_header() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -429,7 +429,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_footer() {
+        def; log_footer() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -447,7 +447,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_info_important() {
+        def; log_info_important() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -458,7 +458,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_info() {
+        def; log_info() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -477,7 +477,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_info_no_prefix() {
+        def; log_info_no_prefix() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -495,7 +495,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_debug() {
+        def; log_debug() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -514,7 +514,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_superdebug() {
+        def; log_superdebug() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -533,7 +533,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_ultradebug() {
+        def; log_ultradebug() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -552,7 +552,7 @@ if [ $ret -ne 0 ]; then
         }
 
         #-------------------------------------------------------------------------------
-        nulldef; log_file() {
+        def; log_file() {
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD="${-:+"-$-"}"
             set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -570,7 +570,7 @@ if [ $ret -ne 0 ]; then
     #region RReadLink
 
     #-------------------------------------------------------------------------------
-    nulldef; rreadlink() {
+    def; rreadlink() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -663,7 +663,7 @@ if [ $ret -ne 0 ]; then
     #region puuid - Pseudo UUID
 
     #-------------------------------------------------------------------------------
-    nulldef; puuid() {
+    def; puuid() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -674,7 +674,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; push_puuid_for_abspath() {
+    def; push_puuid_for_abspath() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -766,13 +766,13 @@ if [ $ret -ne 0 ]; then
     _ARRAY__SEP__ESCAPED="$(command printf "\\\\\\\\t")"; export _ARRAY__SEP__ESCAPED
 
     #-------------------------------------------------------------------------------
-    nulldef; __array_escape() {
+    def; __array_escape() {
         #                                        x1234x                                  x12x1234567890123456x
         command echo "$1" | sed -e "s/${_ARRAY__SEP}/\\\\${_ARRAY__SEP__ESCAPED}/g" -e 's/\\/\\\\\\\\\\\\\\\\/g'
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; __array_unescape() {
+    def; __array_unescape() {
         # NOTE: This doesn't look like the inverse of what __array_escape does, but
         #   it works correctly, so don't try to "fix" it
         #                                           x1234x12x           x12345678x
@@ -780,7 +780,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; __array_fix_index() {
+    def; __array_fix_index() {
         __array__array_fix_index__length="$(nullcall array_get_length "$1")"
 
         __array__array_fix_index__index="$2"
@@ -793,7 +793,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_init() {
+    def; array_init() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -804,7 +804,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_destroy() {
+    def; array_destroy() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -815,7 +815,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_export() {
+    def; array_export() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -826,7 +826,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_append() {
+    def; array_append() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -844,12 +844,12 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_push() {
+    def; array_push() {
         nullcall array_append "$@"
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_append_back() {
+    def; array_append_back() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_back__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -860,7 +860,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_append_front() {
+    def; array_append_front() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append_front__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -871,7 +871,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_get_first() {
+    def; array_get_first() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -882,7 +882,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_get_last() {
+    def; array_get_last() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -893,7 +893,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_peek() {
+    def; array_peek() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -904,7 +904,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_copy() {
+    def; array_copy() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -925,7 +925,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_remove_first() {
+    def; array_remove_first() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -936,7 +936,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_remove_last() {
+    def; array_remove_last() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -947,7 +947,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_pop() {
+    def; array_pop() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -958,7 +958,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_insert_index() {
+    def; array_insert_index() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1002,7 +1002,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_remove_index() {
+    def; array_remove_index() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1032,7 +1032,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_get_length() {
+    def; array_get_length() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1051,7 +1051,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_get_at_index() {
+    def; array_get_at_index() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1088,7 +1088,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_find_index_of() {
+    def; array_find_index_of() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1115,7 +1115,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; array_contains() {
+    def; array_contains() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1139,7 +1139,7 @@ if [ $ret -ne 0 ]; then
     ## NOTE: no $ on 'the_array_name' nor 'my_func'
 
     #-------------------------------------------------------------------------------
-    nulldef; array_for_each() {
+    def; array_for_each() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1167,12 +1167,12 @@ if [ $ret -ne 0 ]; then
     #region Dict Implementation
 
     #-------------------------------------------------------------------------------
-    nulldef; __dict_hash_key() {
+    def; __dict_hash_key() {
         (printf "%s" "$1" | sha1sum 2>/dev/null; test $? = 127 && printf "%s" "$1" | shasum -a 1) | cut -d' ' -f1
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_init() {
+    def; dict_init() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1188,7 +1188,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_destroy() {
+    def; dict_destroy() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1206,7 +1206,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_export() {
+    def; dict_export() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1222,7 +1222,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_set_key() {
+    def; dict_set_key() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1244,7 +1244,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_get_key() {
+    def; dict_get_key() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1263,7 +1263,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_unset_key() {
+    def; dict_unset_key() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1288,7 +1288,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_has_key() {
+    def; dict_has_key() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1307,7 +1307,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_for_each_key() {
+    def; dict_for_each_key() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1329,7 +1329,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_for_each_value() {
+    def; dict_for_each_value() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1353,7 +1353,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_for_each_pair() {
+    def; dict_for_each_pair() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1364,7 +1364,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; dict_has_value() {
+    def; dict_has_value() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1397,7 +1397,7 @@ if [ $ret -ne 0 ]; then
     #region Reflection Info Functions
 
     #-------------------------------------------------------------------------------
-    nulldef; get_my_real_fullpath() {
+    def; get_my_real_fullpath() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1428,7 +1428,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; get_my_real_basename() {
+    def; get_my_real_basename() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1459,7 +1459,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; get_my_real_dir_fullpath() {
+    def; get_my_real_dir_fullpath() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1490,7 +1490,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; get_my_real_dir_basename() {
+    def; get_my_real_dir_basename() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1521,7 +1521,7 @@ if [ $ret -ne 0 ]; then
     }
 
     #-------------------------------------------------------------------------------
-    nulldef; get_my_puuid_basename() {
+    def; get_my_puuid_basename() {
         __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD="${-:+"-$-"}"
         set "$(set +x; [ -n "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__ENABLE_TRACE}" ] && echo -x || echo +x)"
 
@@ -1558,7 +1558,7 @@ fi
 #region Source/Invoke Check For Top Level File
 
 #-------------------------------------------------------------------------------
-nulldef; _shell_source_push_G() {
+def; _shell_source_push_G() {
     # $1 == TEMP_WAS_SOURCED
     # $2 == TEMP_FILE_NAME
 
@@ -1571,7 +1571,7 @@ nulldef; _shell_source_push_G() {
 }
 
 #-------------------------------------------------------------------------------
-nulldef; _shell_source_pop_G() {
+def; _shell_source_pop_G() {
     nullcall array_remove_last SHELL_SOURCE_PUUID
     nullcall array_export SHELL_SOURCE_PUUID
     nullcall array_remove_last SHELL_SOURCE
