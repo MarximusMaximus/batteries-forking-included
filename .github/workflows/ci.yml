@@ -55,8 +55,6 @@ jobs:
       - name: Checkout Repo
         id: checkout-repo
         uses: actions/checkout@v3.1.0
-        with:
-          path: batteries-forking-included
 
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
@@ -69,12 +67,12 @@ jobs:
       - name: batteries-forking-included
         id: batteries-forking-included
         run: |
-          batteries-forking-included/bootstrap.sh --dev
+          ./bootstrap.sh --dev
 
       - name: Build Package
         id: build-package
         run: |
-          . batteries-forking-included/activate.sh
+          . ./activate.sh
           poetry build
 
       - name: Upload BFI Logs
