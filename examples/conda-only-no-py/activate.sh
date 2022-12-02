@@ -1107,6 +1107,7 @@ if [ "${__array__SHELL_SOURCE__length}" -eq 0 ]; then
     TEMP_FILE_NAME=""
     TEMP_WAS_SOURCED="unknown"
     nullcall log_ultradebug "\$0=$0"
+    nullcall log_ultradebug "\$*=$*"
     TEMP_ARG_ZERO="$0"
     nullcall log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"

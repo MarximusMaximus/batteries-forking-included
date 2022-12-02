@@ -1107,6 +1107,7 @@ if [ "${__array__SHELL_SOURCE__length}" -eq 0 ]; then
     TEMP_FILE_NAME=""
     TEMP_WAS_SOURCED="unknown"
     nullcall log_ultradebug "\$0=$0"
+    nullcall log_ultradebug "\$*=$*"
     TEMP_ARG_ZERO="$0"
     nullcall log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"
@@ -2248,7 +2249,7 @@ if [ $ret -ne 0 ]; then
             true
         else
             # shellcheck disable=SC3028
-            if [ $UID -eq 0 ] || [ $EUID -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
+            if [ "$UID" = "0" ] || [ "$EUID" = "0" ] || [ "$(id -u)" = "0" ]; then
                 call log_fatal "$(call get_my_real_basename) should not be run as root nor with sudo"
                 if [ "$(call array_peek WAS_SOURCED)" = true ]; then
                     exit "${RET_ERROR_USER_IS_ROOT}"
@@ -2264,7 +2265,7 @@ if [ $ret -ne 0 ]; then
         # intentionally no local scope so it can exit script
 
         # shellcheck disable=SC3028
-        if [ $UID -ne 0 ] && [ $EUID -ne 0 ] && [ "$(id -u)" -ne 0 ]; then
+        if [ "$UID" != "0" ] && [ "$EUID" != "0" ] && [ "$(id -u)" != "0" ]; then
             call log_fatal "$(call get_my_real_basename) MUST be run as root or with sudo"
             if [ "$(call array_peek WAS_SOURCED)" = true ]; then
                 exit "${RET_ERROR_USER_IS_NOT_ROOT}"
