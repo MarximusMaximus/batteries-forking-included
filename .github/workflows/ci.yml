@@ -60,7 +60,7 @@ jobs:
         id: checkout-repo-pytest-shell-script-test-harness
         uses: actions/checkout@v3.0.2
         with:
-          repository: git@github.com:MarximusMaximus/pytest-shell-script-test-harness.git
+          repository: MarximusMaximus/pytest-shell-script-test-harness.git
 
       - name: batteries-forking-included
         id: batteries-forking-included
