@@ -56,9 +56,14 @@ jobs:
         id: checkout-repo
         uses: actions/checkout@v3.1.0
 
+      - name: Remove Placeholder pytest-shell-script-test-harness
+        id: remove-placeholder-pytest-shell-script-test-harness
+        run: |
+          rm pytest-shell-script-test-harness
+
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.1.0
         with:
           repository: MarximusMaximus/pytest-shell-script-test-harness.git
           ref: "main"
