@@ -1246,7 +1246,7 @@ setuptools = ">1"
 
 [package.source]
 type = "directory"
-url = "../pytest-shell-script-test-harness"
+url = "pytest-shell-script-test-harness"
 
 [[package]]
 name = "pytest-subprocess"
