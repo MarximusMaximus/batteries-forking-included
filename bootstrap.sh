@@ -45,8 +45,9 @@ if [ $ret -ne 0 ]; then
     test_LINENO_GLOBAL_OFFSET() { echo "$LINENO"; }
     LINENO_GLOBAL_OFFSET="$(test_LINENO_GLOBAL_OFFSET)"
     LINENO_IS_RELATIVE=false
-    echo "LINENO_GLOBAL_OFFSET=${LINENO_GLOBAL_OFFSET}"
-    if [ "$LINENO_GLOBAL_OFFSET" -le 1 ]; then
+    if [ "$LINENO_GLOBAL_OFFSET" = "" ]; then
+        LINENO_GLOBAL_OFFSET=0
+    elif [ "$LINENO_GLOBAL_OFFSET" -le 1 ]; then
         LINENO_IS_RELATIVE=true
     else
         LINENO_GLOBAL_OFFSET=0
