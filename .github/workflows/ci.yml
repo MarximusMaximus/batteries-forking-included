@@ -56,11 +56,11 @@ jobs:
         id: checkout-repo
         uses: actions/checkout@v3.1.0
 
+      # HACK: add fake submodule pytest-shell-script-test-harness
       - name: Remove Placeholder pytest-shell-script-test-harness
         id: remove-placeholder-pytest-shell-script-test-harness
         run: |
           rm pytest-shell-script-test-harness
-
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
         uses: actions/checkout@v3.1.0
@@ -272,6 +272,19 @@ jobs:
         id: checkout-repo
         uses: actions/checkout@v3.1.0
 
+      # HACK: add fake submodule pytest-shell-script-test-harness
+      - name: Remove Placeholder pytest-shell-script-test-harness
+        id: remove-placeholder-pytest-shell-script-test-harness
+        run: |
+          rm pytest-shell-script-test-harness
+      - name: Checkout Repo pytest-shell-script-test-harness
+        id: checkout-repo-pytest-shell-script-test-harness
+        uses: actions/checkout@v3.1.0
+        with:
+          repository: MarximusMaximus/pytest-shell-script-test-harness.git
+          ref: "main"
+          path: pytest-shell-script-test-harness
+
       - name: Override Python Version For Work Env
         id: override-python-version
         run: |
@@ -348,6 +361,19 @@ jobs:
       - name: Checkout Repo
         id: checkout-repo
         uses: actions/checkout@v3.1.0
+
+      # HACK: add fake submodule pytest-shell-script-test-harness
+      - name: Remove Placeholder pytest-shell-script-test-harness
+        id: remove-placeholder-pytest-shell-script-test-harness
+        run: |
+          rm pytest-shell-script-test-harness
+      - name: Checkout Repo pytest-shell-script-test-harness
+        id: checkout-repo-pytest-shell-script-test-harness
+        uses: actions/checkout@v3.1.0
+        with:
+          repository: MarximusMaximus/pytest-shell-script-test-harness.git
+          ref: "main"
+          path: pytest-shell-script-test-harness
 
       - name: batteries-forking-included
         id: batteries-forking-included
@@ -437,6 +463,19 @@ jobs:
       - name: Checkout Repo
         id: checkout-repo
         uses: actions/checkout@v3.1.0
+
+      # HACK: add fake submodule pytest-shell-script-test-harness
+      - name: Remove Placeholder pytest-shell-script-test-harness
+        id: remove-placeholder-pytest-shell-script-test-harness
+        run: |
+          rm pytest-shell-script-test-harness
+      - name: Checkout Repo pytest-shell-script-test-harness
+        id: checkout-repo-pytest-shell-script-test-harness
+        uses: actions/checkout@v3.1.0
+        with:
+          repository: MarximusMaximus/pytest-shell-script-test-harness.git
+          ref: "main"
+          path: pytest-shell-script-test-harness
 
       - name: batteries-forking-included
         id: batteries-forking-included
