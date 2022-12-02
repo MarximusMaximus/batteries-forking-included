@@ -62,7 +62,7 @@ jobs:
         with:
           repository: MarximusMaximus/pytest-shell-script-test-harness.git
           ref: "main"
-          path: pytest-shell-script-test-harness
+          path: ../pytest-shell-script-test-harness
 
       - name: batteries-forking-included
         id: batteries-forking-included
