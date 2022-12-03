@@ -75,7 +75,10 @@ repos:
     hooks:
     - id: python-safety-dependencies-check
       files: ^pyproject\.toml
-      additional_dependencies: [safety<2]
+      args: [
+        # TODO: ignored until tox, pytest-xdist, and pytest-html remove their dependencies
+        "--ignore=51457"
+      ]
 
   - repo: local
     hooks:
