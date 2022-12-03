@@ -209,6 +209,9 @@ def _bfiExecute(
     ret = subprocess_call(cmd)  # nosec
     return ret
 
+#endregion Protected Functions
+################################################################################
+
 ################################################################################
 #region Private Functions
 
