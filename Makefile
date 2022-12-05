@@ -19,6 +19,10 @@ build: ## build wheels and sdists
 	./run.sh poetry build
 
 .PHONY:
+extract-build: build ## extract built archives into folders
+	cd dist; for x in *; do tar -xzf "$$x"; done
+
+.PHONY:
 clean: ## clean all temp, cache, and build files
 	rm -rf .mypy_cache
 	rm -rf .pytest_cache
