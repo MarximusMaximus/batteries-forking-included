@@ -4494,13 +4494,15 @@ def; compare_and_update_files() {
 
         call check_tools__require_comparible_X
 
+        needs_rerun=false
+
         # special handling for bfi-update.sh b/c we might need to rerun
         call check_and_update_file "bfi-update.sh" "false"
         ret=$?
         if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         elif [ $ret -eq "${RET_SUCCESS_SPECIAL}" ]; then
-            call rerun_update_X "$@"
+            needs_rerun=true
         fi
 
         # special handling for bfi-base.sh b/c we might need to rerun
@@ -4509,7 +4511,7 @@ def; compare_and_update_files() {
         if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         elif [ $ret -eq "${RET_SUCCESS_SPECIAL}" ]; then
-            call rerun_update_X "$@"
+            needs_rerun=true
         fi
 
         # special handling for bfi-update.sh b/c we might need to rerun
@@ -4518,6 +4520,11 @@ def; compare_and_update_files() {
         if [ "$(call return_code_is_error $ret)" = true ]; then
             exit $ret
         elif [ $ret -eq "${RET_SUCCESS_SPECIAL}" ]; then
+            needs_rerun=true
+        fi
+
+        # check if any of the above files require a rerun
+        if [ "${needs_rerun}" = true ]; then
             call rerun_update_X "$@"
         fi
 
