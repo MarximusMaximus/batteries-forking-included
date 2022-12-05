@@ -63,12 +63,10 @@ quicktest: ## run tests for latest python version
 	./run.sh tox -e py310 -- --verbose
 
 .PHONY:
-
 legacytest: ## run tests for oldest supported python version
 	./run.sh tox -e py38 -- --verbose
 
 .PHONY:
-
 coverage: ## gather coverage data
 	./run.sh tox -e coverage -- --verbose
 
