@@ -27,6 +27,7 @@
         "htmlcov",
         "isort",
         "Jenkinsfile",
+        "liccheck",
         "luacheck",
         "makepyfile",
         "makepyprojecttoml",

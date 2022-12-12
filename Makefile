@@ -20,7 +20,7 @@ build: ## build wheels and sdists
 
 .PHONY:
 extract-build: build ## extract built archives into folders
-	cd dist; for x in *; do tar -xzf "$$x"; done
+	cd dist; for x in *; do mkdir "$$x-extracted"; tar -xzf "$$x" -C "$$x-extracted"; done
 
 .PHONY:
 clean: ## clean all temp, cache, and build files

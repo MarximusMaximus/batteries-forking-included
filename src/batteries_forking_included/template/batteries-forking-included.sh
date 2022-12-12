@@ -408,7 +408,7 @@ if [ $ret -ne 0 ]; then
             echo "= ${__def_G_puuid}:${__def_G_lineno}:${__def_G_funcname}"
         fi
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS__def_G__OPTIONS_OLD}
     }
     # shellcheck disable=SC2142
     if [ "${OPTION_SETTRACE}" = true ]; then
@@ -634,7 +634,7 @@ if [ $ret -ne 0 ]; then
     #     export __array__SHELL_CALL_STACK_FUNCNAME__length
     #     # unrolled _call_stack_push_G
     #
-    #     set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+    #     set +x ${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}
     #
     #     true lies && "$@"
     #     __call_ret=$? && true lies
@@ -658,7 +658,7 @@ if [ $ret -ne 0 ]; then
     #     eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
     #     # unrolled _call_stack_pop_G
     #
-    #     set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+    #     set +x ${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}
     #
     #     true lies && return $__call_ret
     # }
@@ -723,7 +723,7 @@ if [ $ret -ne 0 ]; then
         eval "export __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
         __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length + 1 ))
         export __array__SHELL_CALL_STACK_FUNCNAME__length
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}
         true lies && "$@"
         __call_ret=$? && true lies
         true lies && __MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD="${-:+"-$-"}"
@@ -740,7 +740,7 @@ if [ $ret -ne 0 ]; then
         __array__SHELL_CALL_STACK_FUNCNAME__length=$(( __array__SHELL_CALL_STACK_FUNCNAME__length - 1 ))
         export __array__SHELL_CALL_STACK_FUNCNAME__length
         eval "unset __array__SHELL_CALL_STACK_FUNCNAME__index__${__array__SHELL_CALL_STACK_FUNCNAME__length}"
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS__call_G__OPTIONS_OLD}
         true lies && return $__call_ret
     }
     if [ "${OPTION_SETTRACE}" = true ]; then
@@ -793,7 +793,7 @@ if [ $ret -ne 0 ]; then
                 command date "$@"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__date__OPTIONS_OLD
         }
 
@@ -805,7 +805,7 @@ if [ $ret -ne 0 ]; then
             command printf -- "$@"
             command printf -- "\n"
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_console__OPTIONS_OLD
         }
 
@@ -818,7 +818,7 @@ if [ $ret -ne 0 ]; then
             command printf -- "$@"
             command printf -- "\n"
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success_final__OPTIONS_OLD
         }
 
@@ -831,7 +831,7 @@ if [ $ret -ne 0 ]; then
             command printf -- "$@"
             command printf -- "\n"
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_success__OPTIONS_OLD
         }
 
@@ -844,7 +844,7 @@ if [ $ret -ne 0 ]; then
             >&2 command printf -- "$@"
             >&2 command printf -- "\n"
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_fatal__OPTIONS_OLD
         }
 
@@ -857,7 +857,7 @@ if [ $ret -ne 0 ]; then
             >&2 command printf -- "$@"
             >&2 command printf -- "\n"
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_error__OPTIONS_OLD
         }
 
@@ -870,7 +870,7 @@ if [ $ret -ne 0 ]; then
             >&2 command printf -- "$@"
             >&2 command printf -- "\n"
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_warning__OPTIONS_OLD
         }
 
@@ -889,7 +889,7 @@ if [ $ret -ne 0 ]; then
                 command printf -- "\n"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_header__OPTIONS_OLD
         }
 
@@ -907,7 +907,7 @@ if [ $ret -ne 0 ]; then
                 command printf -- "\n"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_footer__OPTIONS_OLD
         }
 
@@ -926,7 +926,7 @@ if [ $ret -ne 0 ]; then
                 command printf -- "\n"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_important__OPTIONS_OLD
         }
 
@@ -945,7 +945,7 @@ if [ $ret -ne 0 ]; then
                 command printf -- "\n"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info__OPTIONS_OLD
         }
 
@@ -963,7 +963,7 @@ if [ $ret -ne 0 ]; then
                 command printf -- "\n"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_info_no_prefix__OPTIONS_OLD
         }
 
@@ -982,7 +982,7 @@ if [ $ret -ne 0 ]; then
                 command printf -- "\n"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_debug__OPTIONS_OLD
         }
 
@@ -1001,7 +1001,7 @@ if [ $ret -ne 0 ]; then
                 command printf -- "\n"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_superdebug__OPTIONS_OLD
         }
 
@@ -1020,7 +1020,7 @@ if [ $ret -ne 0 ]; then
                     command printf -- "\n"
             fi
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_ultradebug__OPTIONS_OLD
         }
 
@@ -1031,7 +1031,7 @@ if [ $ret -ne 0 ]; then
 
             true
 
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__log_file__OPTIONS_OLD
         }
     fi
@@ -1122,7 +1122,7 @@ if [ $ret -ne 0 ]; then
         SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__rreadlink__OPTIONS_OLD
 
         # use exit code
@@ -1225,9 +1225,6 @@ if [ "${__array__SHELL_SOURCE__length}" -eq 0 ]; then
     TEMP_WAS_SOURCED="unknown"
     nullcall log_ultradebug "\$0=$0"
     nullcall log_ultradebug "\$*=$*"
-    # HACK: for some reason we're losing the command line args, so let's store them
-    COMMANDLINE_ARGS=$(printf '%s\n' "$@")
-    export COMMANDLINE_ARGS
     TEMP_ARG_ZERO="$0"
     nullcall log_ultradebug "\${TEMP_ARG_ZERO}=${TEMP_ARG_ZERO}"
     TEMP_ARG_ZERO="${TEMP_ARG_ZERO##*[/\\]}"
@@ -1365,7 +1362,7 @@ if [ $ret -ne 0 ]; then
         }
         nullcall array_for_each SHELL_CALL_STACK _print_call_stack
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__print_call_stack__OPTIONS_OLD
     }
 
@@ -1382,7 +1379,7 @@ if [ $ret -ne 0 ]; then
 
         od -x -N 16 /dev/urandom | head -1 | awk '{OFS="-"; print $2$3,$4,$5,$6,$7$8$9}'
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__puuid__OPTIONS_OLD
     }
 
@@ -1403,7 +1400,7 @@ if [ $ret -ne 0 ]; then
         unset __puuid__basename
         unset __puuid
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__push_puuid_for_abspath__OPTIONS_OLD
     }
 
@@ -1501,7 +1498,7 @@ if [ $ret -ne 0 ]; then
         eval "__array__$1=\"__array__\""
         eval "__array__${1}__length=0"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_init__OPTIONS_OLD
     }
 
@@ -1519,7 +1516,7 @@ if [ $ret -ne 0 ]; then
         eval "unset __array__$1"
         eval "unset $1"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_destroy__OPTIONS_OLD
     }
 
@@ -1535,7 +1532,7 @@ if [ $ret -ne 0 ]; then
         eval "export __array__$1"
         eval "export $1"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_export__OPTIONS_OLD
     }
 
@@ -1549,7 +1546,7 @@ if [ $ret -ne 0 ]; then
         __array__array_append__new_length=$(eval "echo \$(( __array__${1}__length + 1 ))")
         eval "__array__${1}__length=$__array__array_append__new_length"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_append__OPTIONS_OLD
     }
 
@@ -1570,7 +1567,7 @@ if [ $ret -ne 0 ]; then
             eval "__array__${2}__index__${__array__array_copy__iterator_index}=\${__array__${1}__index__${__array__array_copy__iterator_index}}"
         done
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_copy__OPTIONS_OLD
     }
 
@@ -1602,7 +1599,7 @@ if [ $ret -ne 0 ]; then
         __array__array_insert_index__new_length=$(eval "echo \$(( __array__${1}__length + 1 ))")
         eval "__array__${1}__length=$__array__array_insert_index__new_length"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_index__OPTIONS_OLD
     }
 
@@ -1633,7 +1630,7 @@ if [ $ret -ne 0 ]; then
         eval "__array__${1}__length=${__array__array_remove_index__new_length}"
         eval "unset __array__${1}__index__${__array__array_remove_index__new_length}"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_index__OPTIONS_OLD
     }
 
@@ -1644,7 +1641,7 @@ if [ $ret -ne 0 ]; then
 
         eval "command echo \"\${__array__${1}__length}\""
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_length__OPTIONS_OLD
     }
 
@@ -1663,7 +1660,7 @@ if [ $ret -ne 0 ]; then
             __array_get_at_index_ret=0
         fi
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_at_index__OPTIONS_OLD
 
         return $__array_get_at_index_ret
@@ -1692,7 +1689,7 @@ if [ $ret -ne 0 ]; then
             done
         fi
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_find_index_of__OPTIONS_OLD
 
         return "$__array__array_find_index_of__return"
@@ -1707,7 +1704,7 @@ if [ $ret -ne 0 ]; then
         array_find_index_of "$1" "$2" >/dev/null
         __array__contains__return=$?
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_contains__OPTIONS_OLD
 
         return $__array__contains__return
@@ -1737,7 +1734,7 @@ if [ $ret -ne 0 ]; then
                 $(( __array__array_for_each__length - 1 )) \
             ); do
                 eval "item=\${__array__${__array__array_for_each__array_name}__index__${index}}"
-                set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
+                set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}
                 unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
                 eval "${__array__array_for_each__func_name}"
                 __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD="${-:+"-$-"}"
@@ -1745,7 +1742,7 @@ if [ $ret -ne 0 ]; then
             done
         fi
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_for_each__OPTIONS_OLD
     }
 
@@ -1756,7 +1753,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_append "$@"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_push__OPTIONS_OLD
     }
 
@@ -1767,7 +1764,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_remove_last "$@"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_pop__OPTIONS_OLD
     }
 
@@ -1778,7 +1775,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_get_last "$@"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_peek__OPTIONS_OLD
     }
 
@@ -1789,7 +1786,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_append "$@"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_last__OPTIONS_OLD
     }
 
@@ -1800,7 +1797,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_insert_index "$1" 0 "$2"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_insert_first__OPTIONS_OLD
     }
 
@@ -1811,7 +1808,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_get_at_index "$1" 0
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_first__OPTIONS_OLD
     }
 
@@ -1822,7 +1819,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_get_at_index "$1" -1
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_get_last__OPTIONS_OLD
     }
 
@@ -1833,7 +1830,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_remove_index "$1" 0
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_first__OPTIONS_OLD
     }
 
@@ -1844,7 +1841,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall array_remove_index "$1" -1
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__array_remove_last__OPTIONS_OLD
     }
 
@@ -1869,7 +1866,7 @@ if [ $ret -ne 0 ]; then
         eval "__dict__$1__length=0"
         nullcall array_init "__dict__$1__keys"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_init__OPTIONS_OLD
 
         return 0
@@ -1887,7 +1884,7 @@ if [ $ret -ne 0 ]; then
         eval "unset __dict__$1"
         eval "unset $1"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_destroy__OPTIONS_OLD
 
         return 0
@@ -1905,7 +1902,7 @@ if [ $ret -ne 0 ]; then
         eval "export __dict__$1"
         eval "export $1"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_export__OPTIONS_OLD
     }
 
@@ -1925,7 +1922,7 @@ if [ $ret -ne 0 ]; then
             eval "__dict__$1__length=\$(( __dict__$1__length + 1 ))"
         fi
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_set_key__OPTIONS_OLD
 
         return $__dict_set_key_ret
@@ -1944,7 +1941,7 @@ if [ $ret -ne 0 ]; then
             __dict_get_key_ret=1
         fi
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_get_key__OPTIONS_OLD
 
         return $__dict_get_key_ret
@@ -1969,7 +1966,7 @@ if [ $ret -ne 0 ]; then
             __dict_unset_key_ret=1
         fi
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_unset_key__OPTIONS_OLD
 
         return $__dict_unset_key_ret
@@ -1988,7 +1985,7 @@ if [ $ret -ne 0 ]; then
             __dict_has_key_ret=1
         fi
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_has_key__OPTIONS_OLD
 
         return $__dict_has_key_ret
@@ -2004,7 +2001,7 @@ if [ $ret -ne 0 ]; then
         __dict__dict_for_each_key__temp_storage="$(eval command echo \"\$\{__dict__"$1"__keys\}\")"
         for key in $__dict__dict_for_each_key__temp_storage; do
             key="$(nullcall __array_unescape "$key")"
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD
             eval "$2"
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD="${-:+"-$-"}"
@@ -2012,7 +2009,7 @@ if [ $ret -ne 0 ]; then
         done
         IFS="$OIFS"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_key__OPTIONS_OLD
     }
 
@@ -2028,7 +2025,7 @@ if [ $ret -ne 0 ]; then
             key="$(nullcall __array_unescape "$key")"
             # shellcheck disable=SC2034
             value="$(dict_get_key "$key")"
-            set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+            set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}
             unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
             eval "$2"
             __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD="${-:+"-$-"}"
@@ -2036,7 +2033,7 @@ if [ $ret -ne 0 ]; then
         done
         IFS="$OIFS"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
     }
 
@@ -2047,7 +2044,7 @@ if [ $ret -ne 0 ]; then
 
         nullcall dict_for_each_value "$@"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_pair__OPTIONS_OLD
     }
 
@@ -2072,7 +2069,7 @@ if [ $ret -ne 0 ]; then
         done
         IFS="$OIFS"
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__dict_for_each_value__OPTIONS_OLD
 
         return $__dict__dict_has_value__return
@@ -2109,7 +2106,7 @@ if [ $ret -ne 0 ]; then
         SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_fullpath__OPTIONS_OLD
 
         return $exit_ret
@@ -2140,7 +2137,7 @@ if [ $ret -ne 0 ]; then
         SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_basename__OPTIONS_OLD
 
         return $exit_ret
@@ -2171,7 +2168,7 @@ if [ $ret -ne 0 ]; then
         SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_fullpath__OPTIONS_OLD
 
         return $exit_ret
@@ -2202,7 +2199,7 @@ if [ $ret -ne 0 ]; then
         SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_real_dir_basename__OPTIONS_OLD
 
         return $exit_ret
@@ -2232,7 +2229,7 @@ if [ $ret -ne 0 ]; then
         SHELL_SESSION_FILE="${PSHELL_SESSION_FILE}"
         export SHELL_SESSION_FILE
 
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD}
         unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__get_my_puuid_basename__OPTIONS_OLD
 
         return $exit_ret
@@ -2263,7 +2260,7 @@ unset __announce_prefix
 #endregion Announce Ourself
 #===============================================================================
 
-set +x "${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD}"
+set +x ${__MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD}
 unset __MARXIMUS_SHELL_EXTENSIONS_BASE_PREAMBLE__OPTIONS_OLD
 
 #endregion marximus-shell-extensions Base Preamble
@@ -4869,13 +4866,6 @@ def; batteries_forking_included__update() {
         fi
     fi
 
-    # HACK: for some reason we're losing the command line args, so let's re-instate them
-    OLDIFS="$IFS"
-    IFS=$(printf "\n\t")
-    # shellcheck disable=SC2086
-    set -- $COMMANDLINE_ARGS
-    IFS="$OLDIFS"
-
     if {
         [ "$(call array_get_last WAS_SOURCED)" = false ] ||
         {
@@ -4946,7 +4936,7 @@ if {
         # shellcheck disable=3041
         set +yx "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}"
     else
-        set +x "${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}"
+        set +x ${__MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD}
     fi
     unset __MARXIMUS_SHELL_EXTENSIONS__GLOBAL__OPTIONS_OLD
 fi
