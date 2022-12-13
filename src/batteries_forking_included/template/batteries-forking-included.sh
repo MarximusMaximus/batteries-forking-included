@@ -3963,10 +3963,10 @@ def; conda_env_read_sticky_config() {
 
     call log_superdebug "dev_mode_unsticky=${dev_mode_unsticky}"
     if [ "${dev_mode_unsticky}" != true ]; then
-        call log_superdebug "doing dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\""
+        call log_superdebug "DOING 'dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\"' b/c dev_mode_unsticky is false"
         dev_mode="${BFI_DEV_MODE:-${dev_mode}}"
     else
-        call log_superdebug "SKIPPING dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\""
+        call log_superdebug "SKIPPING 'dev_mode=\"\$\{BFI_DEV_MODE:-\$\{dev_mode\}\}\"' b/c dev_mode_unsticky is true"
     fi
     export dev_mode
     call log_debug "dev_mode=%s" "${dev_mode}"
