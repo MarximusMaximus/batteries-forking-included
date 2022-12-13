@@ -57,10 +57,6 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       # HACK: add fake submodule pytest-shell-script-test-harness
-      - name: Remove Placeholder pytest-shell-script-test-harness
-        id: remove-placeholder-pytest-shell-script-test-harness
-        run: |
-          rm pytest-shell-script-test-harness
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
         uses: actions/checkout@v3.1.0
@@ -110,7 +106,7 @@ jobs:
         shell: ${{ matrix.shell || 'sh {0}' }}
     strategy:
       fail-fast: false
-      max-parallel: 4
+      # max-parallel: 4
       matrix:
         os: [
           ubuntu-latest-x64,
@@ -119,32 +115,59 @@ jobs:
           windows_opensuse-latest-x64,
           windows_ubuntu-latest-x64,
         ]
-        tox-env: [
+        py-env: [
           py38,
           py39,
           py310,
         ]
+        py-style: [
+          wheel,
+          sdist,
+        ]
         include:
           # create additional matrix entries for ubuntu & tox_env
-          - tox-env: lint
+          - py-env: py310
+            py-style: lint
             os: ubuntu-latest-x64
             python-version: "3.10"
             os-image: ubuntu-latest
             windows-wsl: not_windows
+            tox-env: lint
             tox-args: --color=always
-          - tox-env: coverage
+          - py-env: py310
+            py-style: coverage
             os: ubuntu-latest-x64
             python-version: "3.10"
             os-image: ubuntu-latest
             windows-wsl: not_windows
+            tox-env: coverage
 
           # set vars for tox-env
-          - tox-env: py38
+          - py-env: py38
+            py-style: wheel
             python-version: "3.8"
-          - tox-env: py39
+            tox-env: py38-wheel
+          - py-env: py39
+            py-style: wheel
             python-version: "3.9"
-          - tox-env: py310
+            tox-env: py39-wheel
+          - py-env: py310
+            py-style: wheel
             python-version: "3.10"
+            tox-env: py310-wheel
+
+          - py-env: py38
+            py-style: sdist
+            python-version: "3.8"
+            tox-env: py38-sdist
+          - py-env: py39
+            py-style: sdist
+            python-version: "3.9"
+            tox-env: py39-sdist
+          - py-env: py310
+            py-style: sdist
+            python-version: "3.10"
+            tox-env: py310-sdist
 
           # set vars for os & conda-forge
           - os: ubuntu-latest-x64
@@ -159,7 +182,7 @@ jobs:
             shell: "wsl-sh {0}"
           - os: windows_ubuntu-latest-x64
             os-image: windows-latest
-            windows-wsl: Ubuntu-20.04
+            windows-wsl: Ubuntu-22.04
             shell: "wsl-sh {0}"
           - os: windows_opensuse-latest-x64
             os-image: windows-latest
@@ -188,6 +211,8 @@ jobs:
             git
             git-lfs
             nodejs
+            npm
+            nodejs-doc
             curl
             wget
             ca-certificates
@@ -262,9 +287,16 @@ jobs:
           echo OS: ${{ runner.os }}
           echo ARCH: ${{ runner.arch }}
           echo matrix:
-          echo   .os: ${{ matrix.os }}
-          echo   .tox-env: ${{ matrix.tox-env }}
-          echo   .windows-wsl: ${{ matrix.windows-wsl }}
+          echo   Dimensions:
+          echo     .os: ${{ matrix.os }}
+          echo     .py-env: ${{ matrix.py-env }}
+          echo     .py-style: ${{ matrix.py-style }}
+          echo   Calculated:
+          echo     .python-version: ${{ matrix.python-version }}
+          echo     .os-image: ${{ matrix.os-image }}
+          echo     .windows-wsl: ${{ matrix.windows-wsl }}
+          echo     .tox-env: ${{ matrix.tox-env }}
+          echo     .tox-args: ${{ matrix.tox-args || '' }}
           echo which git:
           which git
           echo git version:
@@ -277,10 +309,6 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       # HACK: add fake submodule pytest-shell-script-test-harness
-      - name: Remove Placeholder pytest-shell-script-test-harness
-        id: remove-placeholder-pytest-shell-script-test-harness
-        run: |
-          rm pytest-shell-script-test-harness
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
         uses: actions/checkout@v3.1.0
@@ -302,13 +330,6 @@ jobs:
           echo ""
           echo "AFTER:"
           cat ./conda-environment.yml
-
-      - if: matrix.windows-wsl != 'not_windows' && matrix.os == 'windows_ubuntu-latest-x64'
-        name: Windows WSL Ubuntu Fix
-        id: windows-wsl-ubuntu-fix
-        continue-on-error: true
-        run: |
-          sudo apt remove python3-keyring
 
       - name: batteries-forking-included
         id: batteries-forking-included
@@ -371,10 +392,6 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       # HACK: add fake submodule pytest-shell-script-test-harness
-      - name: Remove Placeholder pytest-shell-script-test-harness
-        id: remove-placeholder-pytest-shell-script-test-harness
-        run: |
-          rm pytest-shell-script-test-harness
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
         uses: actions/checkout@v3.1.0
@@ -477,10 +494,6 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       # HACK: add fake submodule pytest-shell-script-test-harness
-      - name: Remove Placeholder pytest-shell-script-test-harness
-        id: remove-placeholder-pytest-shell-script-test-harness
-        run: |
-          rm pytest-shell-script-test-harness
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
         uses: actions/checkout@v3.1.0
