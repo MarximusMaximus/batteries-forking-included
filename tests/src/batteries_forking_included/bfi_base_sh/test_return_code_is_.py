@@ -66,7 +66,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -90,7 +95,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -114,7 +124,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -138,7 +153,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -162,7 +182,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -186,7 +211,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -210,7 +240,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -234,7 +269,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -258,7 +298,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -282,7 +327,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -306,7 +356,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -330,7 +385,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -354,7 +414,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -378,7 +443,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -402,7 +472,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -426,7 +501,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -450,7 +530,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -474,7 +559,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -498,7 +588,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -522,7 +617,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -546,7 +646,12 @@ class Test_return_code_is_error():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -570,7 +675,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -594,7 +704,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -618,7 +733,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -642,7 +762,12 @@ class Test_return_code_is_error():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -718,7 +843,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -742,7 +872,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -766,7 +901,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -790,7 +930,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -814,7 +959,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -838,7 +988,12 @@ class Test_return_code_is_warning():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -862,7 +1017,12 @@ class Test_return_code_is_warning():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -886,7 +1046,12 @@ class Test_return_code_is_warning():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -910,7 +1075,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -934,7 +1104,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -958,7 +1133,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -982,7 +1162,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1006,7 +1191,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1030,7 +1220,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1054,7 +1249,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1078,7 +1278,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1102,7 +1307,12 @@ class Test_return_code_is_warning():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -1126,7 +1336,12 @@ class Test_return_code_is_warning():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -1150,7 +1365,12 @@ class Test_return_code_is_warning():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -1174,7 +1394,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1198,7 +1423,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1222,7 +1452,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1246,7 +1481,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1270,7 +1510,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1294,7 +1539,12 @@ class Test_return_code_is_warning():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1370,7 +1620,12 @@ class Test_return_code_is_success():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -1394,7 +1649,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1418,7 +1678,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1442,7 +1707,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1466,7 +1736,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1490,7 +1765,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1514,7 +1794,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1538,7 +1823,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1562,7 +1852,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1586,7 +1881,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1610,7 +1910,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1634,7 +1939,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1658,7 +1968,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1682,7 +1997,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1706,7 +2026,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1730,7 +2055,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1754,7 +2084,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1778,7 +2113,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1802,7 +2142,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1826,7 +2171,12 @@ class Test_return_code_is_success():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: true\n",
                 ],
                 [
@@ -1850,7 +2200,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1874,7 +2229,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1898,7 +2258,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1922,7 +2287,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [
@@ -1946,7 +2316,12 @@ class Test_return_code_is_success():
                 ],
                 1,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: false\n",
                 ],
                 [

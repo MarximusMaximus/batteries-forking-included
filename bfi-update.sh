@@ -59,128 +59,132 @@ if [ $ret -ne 0 ]; then
     fi
     export OPTION_SETTRACE
 
-    # unrolled array_init & array_export begin (optimized)
-    # nullcall array_init WAS_SOURCED
-    WAS_SOURCED="__array__"
-    export WAS_SOURCED
-    __array__WAS_SOURCED="__array__"
-    export __array__WAS_SOURCED
-    __array__WAS_SOURCED__length=0
-    export __array__WAS_SOURCED__length
-    # unrolled array_init & array_export end
+    # only checking WAS_SOURCED b/c if it isn't set, none of them should be, as
+    # a runtime optimization
+    if [ "${WAS_SOURCED}" = "" ]; then
+        # unrolled array_init & array_export begin (optimized)
+        # nullcall array_init WAS_SOURCED
+        WAS_SOURCED="__array__"
+        export WAS_SOURCED
+        __array__WAS_SOURCED="__array__"
+        export __array__WAS_SOURCED
+        __array__WAS_SOURCED__length=0
+        export __array__WAS_SOURCED__length
+        # unrolled array_init & array_export end
 
-    # unrolled array_init & array_export begin (optimized)
-    # nullcall array_init SHELL_SOURCE
-    SHELL_SOURCE="__array__"
-    export SHELL_SOURCE
-    __array__SHELL_SOURCE="__array__"
-    export __array__SHELL_SOURCE
-    __array__SHELL_SOURCE__length=0
-    export __array__SHELL_SOURCE__length
-    # unrolled array_init & array_export end
+        # unrolled array_init & array_export begin (optimized)
+        # nullcall array_init SHELL_SOURCE
+        SHELL_SOURCE="__array__"
+        export SHELL_SOURCE
+        __array__SHELL_SOURCE="__array__"
+        export __array__SHELL_SOURCE
+        __array__SHELL_SOURCE__length=0
+        export __array__SHELL_SOURCE__length
+        # unrolled array_init & array_export end
 
-    # unrolled array_init & array_export begin (optimized)
-    # nullcall array_init SHELL_SOURCE_PUUID
-    SHELL_SOURCE_PUUID="__array__"
-    export SHELL_SOURCE_PUUID
-    __array__SHELL_SOURCE_PUUID="__array__"
-    export __array__SHELL_SOURCE_PUUID
-    __array__SHELL_SOURCE_PUUID__length=0
-    export __array__SHELL_SOURCE_PUUID__length
-    # unrolled array_init & array_export end
+        # unrolled array_init & array_export begin (optimized)
+        # nullcall array_init SHELL_SOURCE_PUUID
+        SHELL_SOURCE_PUUID="__array__"
+        export SHELL_SOURCE_PUUID
+        __array__SHELL_SOURCE_PUUID="__array__"
+        export __array__SHELL_SOURCE_PUUID
+        __array__SHELL_SOURCE_PUUID__length=0
+        export __array__SHELL_SOURCE_PUUID__length
+        # unrolled array_init & array_export end
 
-    # unrolled dict_init & dict_init begin (optimized)
-    # nullcall dict_init SHELL_SOURCE_PUUID_DICT
-    SHELL_SOURCE_PUUID_DICT="__dict__"
-    export SHELL_SOURCE_PUUID_DICT
-    __dict__SHELL_SOURCE_PUUID_DICT="__dict__"
-    export __dict__SHELL_SOURCE_PUUID_DICT
-    __dict__SHELL_SOURCE_PUUID_DICT__length=0
-    export __dict__SHELL_SOURCE_PUUID_DICT__length
-    __dict__SHELL_SOURCE_PUUID_DICT__keys="__array__"
-    export __dict__SHELL_SOURCE_PUUID_DICT__keys
-    __array____dict__SHELL_SOURCE_PUUID_DICT__keys="__array__"
-    export __array____dict__SHELL_SOURCE_PUUID_DICT__keys
-    __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length=0
-    export __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length
-    # unrolled dict_init & dict_init end
+        # unrolled dict_init & dict_init begin (optimized)
+        # nullcall dict_init SHELL_SOURCE_PUUID_DICT
+        SHELL_SOURCE_PUUID_DICT="__dict__"
+        export SHELL_SOURCE_PUUID_DICT
+        __dict__SHELL_SOURCE_PUUID_DICT="__dict__"
+        export __dict__SHELL_SOURCE_PUUID_DICT
+        __dict__SHELL_SOURCE_PUUID_DICT__length=0
+        export __dict__SHELL_SOURCE_PUUID_DICT__length
+        __dict__SHELL_SOURCE_PUUID_DICT__keys="__array__"
+        export __dict__SHELL_SOURCE_PUUID_DICT__keys
+        __array____dict__SHELL_SOURCE_PUUID_DICT__keys="__array__"
+        export __array____dict__SHELL_SOURCE_PUUID_DICT__keys
+        __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length=0
+        export __array____dict__SHELL_SOURCE_PUUID_DICT__keys__length
+        # unrolled dict_init & dict_init end
 
-    # unrolled dict_init & dict_init begin (optimized)
-    # nullcall dict_init SHELL_DEF_SOURCE_PUUID
-    # nullcall dict_export SHELL_DEF_SOURCE_PUUID
-    SHELL_DEF_SOURCE_PUUID="__dict__"
-    export SHELL_DEF_SOURCE_PUUID
-    __dict__SHELL_DEF_SOURCE_PUUID="__dict__"
-    export __dict__SHELL_DEF_SOURCE_PUUID
-    __dict__SHELL_DEF_SOURCE_PUUID__length=0
-    export __dict__SHELL_DEF_SOURCE_PUUID__length
-    __dict__SHELL_DEF_SOURCE_PUUID__keys="__array__"
-    export __dict__SHELL_DEF_SOURCE_PUUID__keys
-    __array____dict__SHELL_DEF_SOURCE_PUUID__keys="__array__"
-    export __array____dict__SHELL_DEF_SOURCE_PUUID__keys
-    __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length=0
-    export __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length
-    # unrolled dict_init & dict_init end
+        # unrolled dict_init & dict_init begin (optimized)
+        # nullcall dict_init SHELL_DEF_SOURCE_PUUID
+        # nullcall dict_export SHELL_DEF_SOURCE_PUUID
+        SHELL_DEF_SOURCE_PUUID="__dict__"
+        export SHELL_DEF_SOURCE_PUUID
+        __dict__SHELL_DEF_SOURCE_PUUID="__dict__"
+        export __dict__SHELL_DEF_SOURCE_PUUID
+        __dict__SHELL_DEF_SOURCE_PUUID__length=0
+        export __dict__SHELL_DEF_SOURCE_PUUID__length
+        __dict__SHELL_DEF_SOURCE_PUUID__keys="__array__"
+        export __dict__SHELL_DEF_SOURCE_PUUID__keys
+        __array____dict__SHELL_DEF_SOURCE_PUUID__keys="__array__"
+        export __array____dict__SHELL_DEF_SOURCE_PUUID__keys
+        __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length=0
+        export __array____dict__SHELL_DEF_SOURCE_PUUID__keys__length
+        # unrolled dict_init & dict_init end
 
-    # unrolled dict_init & dict_init begin (optimized)
-    # nullcall dict_init SHELL_DEF_LINENO
-    # nullcall dict_export SHELL_DEF_LINENO
-    SHELL_DEF_LINENO="__dict__"
-    export SHELL_DEF_LINENO
-    __dict__SHELL_DEF_LINENO="__dict__"
-    export __dict__SHELL_DEF_LINENO
-    __dict__SHELL_DEF_LINENO__length=0
-    export __dict__SHELL_DEF_LINENO__length
-    __dict__SHELL_DEF_LINENO__keys="__array__"
-    export __dict__SHELL_DEF_LINENO__keys
-    __array____dict__SHELL_DEF_LINENO__keys="__array__"
-    export __array____dict__SHELL_DEF_LINENO__keys
-    __array____dict__SHELL_DEF_LINENO__keys__length=0
-    export __array____dict__SHELL_DEF_LINENO__keys__length
-    # unrolled dict_init & dict_init end
+        # unrolled dict_init & dict_init begin (optimized)
+        # nullcall dict_init SHELL_DEF_LINENO
+        # nullcall dict_export SHELL_DEF_LINENO
+        SHELL_DEF_LINENO="__dict__"
+        export SHELL_DEF_LINENO
+        __dict__SHELL_DEF_LINENO="__dict__"
+        export __dict__SHELL_DEF_LINENO
+        __dict__SHELL_DEF_LINENO__length=0
+        export __dict__SHELL_DEF_LINENO__length
+        __dict__SHELL_DEF_LINENO__keys="__array__"
+        export __dict__SHELL_DEF_LINENO__keys
+        __array____dict__SHELL_DEF_LINENO__keys="__array__"
+        export __array____dict__SHELL_DEF_LINENO__keys
+        __array____dict__SHELL_DEF_LINENO__keys__length=0
+        export __array____dict__SHELL_DEF_LINENO__keys__length
+        # unrolled dict_init & dict_init end
 
-    # unrolled array_init & array_export begin (optimized)
-    # nullcall array_init SHELL_CALL_STACK
-    # nullcall array_export SHELL_CALL_STACK
-    SHELL_CALL_STACK="__array__"
-    export SHELL_CALL_STACK
-    __array__SHELL_CALL_STACK="__array__"
-    export __array__SHELL_CALL_STACK
-    __array__SHELL_CALL_STACK__length=0
-    export __array__SHELL_CALL_STACK__length
-    # unrolled array_init end
+        # unrolled array_init & array_export begin (optimized)
+        # nullcall array_init SHELL_CALL_STACK
+        # nullcall array_export SHELL_CALL_STACK
+        SHELL_CALL_STACK="__array__"
+        export SHELL_CALL_STACK
+        __array__SHELL_CALL_STACK="__array__"
+        export __array__SHELL_CALL_STACK
+        __array__SHELL_CALL_STACK__length=0
+        export __array__SHELL_CALL_STACK__length
+        # unrolled array_init end
 
-    # unrolled array_init & array_export begin (optimized)
-    # nullcall array_init SHELL_CALL_STACK_SOURCE_PUUID
-    SHELL_CALL_STACK_SOURCE_PUUID="__array__"
-    export SHELL_CALL_STACK_SOURCE_PUUID
-    __array__SHELL_CALL_STACK_SOURCE_PUUID="__array__"
-    export __array__SHELL_CALL_STACK_SOURCE_PUUID
-    __array__SHELL_CALL_STACK_SOURCE_PUUID__length=0
-    export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
-    # unrolled array_init end
+        # unrolled array_init & array_export begin (optimized)
+        # nullcall array_init SHELL_CALL_STACK_SOURCE_PUUID
+        SHELL_CALL_STACK_SOURCE_PUUID="__array__"
+        export SHELL_CALL_STACK_SOURCE_PUUID
+        __array__SHELL_CALL_STACK_SOURCE_PUUID="__array__"
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID
+        __array__SHELL_CALL_STACK_SOURCE_PUUID__length=0
+        export __array__SHELL_CALL_STACK_SOURCE_PUUID__length
+        # unrolled array_init end
 
-    # unrolled array_init & array_export begin (optimized)
-    # nullcall array_init SHELL_CALL_STACK_DEST_PUUID©
-    SHELL_CALL_STACK_DEST_PUUID="__array__"
-    export SHELL_CALL_STACK_DEST_PUUID
-    __array__SHELL_CALL_STACK_DEST_PUUID="__array__"
-    export __array__SHELL_CALL_STACK_DEST_PUUID
-    __array__SHELL_CALL_STACK_DEST_PUUID__length=0
-    export __array__SHELL_CALL_STACK_DEST_PUUID__length
-    # unrolled array_init end
+        # unrolled array_init & array_export begin (optimized)
+        # nullcall array_init SHELL_CALL_STACK_DEST_PUUID©
+        SHELL_CALL_STACK_DEST_PUUID="__array__"
+        export SHELL_CALL_STACK_DEST_PUUID
+        __array__SHELL_CALL_STACK_DEST_PUUID="__array__"
+        export __array__SHELL_CALL_STACK_DEST_PUUID
+        __array__SHELL_CALL_STACK_DEST_PUUID__length=0
+        export __array__SHELL_CALL_STACK_DEST_PUUID__length
+        # unrolled array_init end
 
-    SHELL_CALL_STACK_DEST_PUUID_peek="UNKNOWN"
+        SHELL_CALL_STACK_DEST_PUUID_peek="UNKNOWN"
 
-    # unrolled array_init & array_export begin (optimized)
-    # nullcall array_init SHELL_CALL_STACK_FUNCNAME
-    SHELL_CALL_STACK_FUNCNAME="__array__"
-    export SHELL_CALL_STACK_FUNCNAME
-    __array__SHELL_CALL_STACK_FUNCNAME="__array__"
-    export __array__SHELL_CALL_STACK_FUNCNAME
-    __array__SHELL_CALL_STACK_FUNCNAME__length=0
-    export __array__SHELL_CALL_STACK_FUNCNAME__length
-    # unrolled array_init end
+        # unrolled array_init & array_export begin (optimized)
+        # nullcall array_init SHELL_CALL_STACK_FUNCNAME
+        SHELL_CALL_STACK_FUNCNAME="__array__"
+        export SHELL_CALL_STACK_FUNCNAME
+        __array__SHELL_CALL_STACK_FUNCNAME="__array__"
+        export __array__SHELL_CALL_STACK_FUNCNAME
+        __array__SHELL_CALL_STACK_FUNCNAME__length=0
+        export __array__SHELL_CALL_STACK_FUNCNAME__length
+        # unrolled array_init end
+    fi
 
     #-------------------------------------------------------------------------------
     # def; keyword
@@ -1271,11 +1275,11 @@ unset DOLLAR_UNDER
 # TODO: create and use array_join to print these
 # sometimes shellcheck thinks log_ultradebug is only defined later, not before
 # shellcheck disable=SC2218
-nullcall log_ultradebug "WAS_SOURCED: $WAS_SOURCED"
+nullcall log_ultradebug "WAS_SOURCED:\n$(set | grep __array__WAS_SOURCED__)"
 # shellcheck disable=SC2218
-nullcall log_ultradebug "SHELL_SOURCE: $SHELL_SOURCE"
+nullcall log_ultradebug "SHELL_SOURCE:\n$(set | grep __array__SHELL_SOURCE__)"
 # shellcheck disable=SC2218
-nullcall log_ultradebug "SHELL_SOURCE_PUUID: $SHELL_SOURCE_PUUID"
+nullcall log_ultradebug "SHELL_SOURCE_PUUID:\n$(set | grep __array__SHELL_SOURCE_PUUID__)"
 
 #endregion Source/Invoke Check For Top Level File
 #===============================================================================

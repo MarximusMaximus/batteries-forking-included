@@ -10,5 +10,6 @@ dependencies:
   - setuptools
   - perl
   - shellcheck
-  - pip:
-    - poetry>=1.2.0
+  - poetry>=1.3.0
+  # - pip:
+  #   - poetry>=1.2.0

@@ -10,18 +10,11 @@ tests/conftest.py (batteries-forking-included)
 #===============================================================================
 #region stdlib
 
-from os import (
-    mkdir                           as os_mkdir,
-    symlink                         as os_symlink,
-)
 from os.path import (
-    abspath                         as os_path_abspath,
     dirname                         as os_path_dirname,
-    exists                          as os_path_exists,
     join                            as os_path_join,
 )
 from shutil import (
-    copy2                           as shutil_copy2,
     copytree                        as shutil_copytree,
 )
 
@@ -32,11 +25,11 @@ from shutil import (
 #region third party
 
 import pytest
-from pytest import (
-    FixtureRequest                  as pytest_FixtureRequest,
-    MonkeyPatch                     as pytest_MonkeyPatch,
-    TempPathFactory                 as pytest_TempPathFactory,
-)
+# from pytest import (
+#     FixtureRequest                  as pytest_FixtureRequest,
+#     MonkeyPatch                     as pytest_MonkeyPatch,
+#     TempPathFactory                 as pytest_TempPathFactory,
+# )
 
 #endregion third party
 #===============================================================================
@@ -55,12 +48,17 @@ import batteries_forking_included
 ################################################################################
 #region Fixtures
 
+@pytest.fixture(scope="class")
+def class_fixture() -> str:
+    return "class_fixture"
+
 #-------------------------------------------------------------------------------
 @pytest.fixture
 def mock_repo(
-    monkeypatch: pytest_MonkeyPatch,
-    request: pytest_FixtureRequest,
-    tmp_path_factory: pytest_TempPathFactory,
+    mock_repo: str,  # pylint: disable=redefined-outer-name
+    # monkeypatch: pytest_MonkeyPatch,
+    # request: pytest_FixtureRequest,
+    # tmp_path_factory: pytest_TempPathFactory,
 ) -> str:
     """
     Create a mock repo to use that looks like a repo that uses
@@ -74,29 +72,7 @@ def mock_repo(
     Returns:
         str: path of mock repo
     """
-    # node_safe_name = request.node.name\
-    #     .replace("[", "-")\
-    #     .replace("]", "-")
-
-    # tempdir = tmp_path_factory.mktemp(node_safe_name, numbered=True)
-
-    tempdir = tmp_path_factory.mktemp("test-temp", numbered=True)
-    monkeypatch.chdir(tempdir)
-
-    mock_repo_fullpath = "batteries-forking-included"
-    mock_repo_fullpath = os_path_abspath(mock_repo_fullpath)
-
-    os_mkdir(mock_repo_fullpath)
-    monkeypatch.chdir(mock_repo_fullpath)
-
-    # write a pyproject.toml for the mock repo
-    with open("pyproject.toml", "w", encoding="utf-8") as f:
-        _ = f.write("""\
-                name = "template_project"
-                version = "0.0.0"
-                description = "A template project."
-            """)
-        f.flush()
+    mock_repo_fullpath = mock_repo
 
     bfi_src_mod_fullpath = os_path_dirname(batteries_forking_included.__file__)
 
@@ -110,47 +86,6 @@ def mock_repo(
         mock_repo_fullpath,
         dirs_exist_ok=True,
     )
-
-    # copy src/** from bfi into mock repo
-    mock_src_mod_fullpath = os_path_join(
-        mock_repo_fullpath,
-        "src",
-        "batteries_forking_included",
-    )
-    shutil_copytree(
-        bfi_src_mod_fullpath,
-        mock_src_mod_fullpath,
-        dirs_exist_ok=True,
-    )
-
-    # copy bin/** from bfi into mock repo
-    mock_bin_fullpath = os_path_join(
-        mock_repo_fullpath,
-        "bin",
-    )
-    os_mkdir(mock_bin_fullpath)
-    os_symlink(
-        os_path_join(
-            mock_src_mod_fullpath,
-            "bin",
-            "batteries-forking-included.py",
-        ),
-        os_path_join(
-            mock_bin_fullpath,
-            "batteries-forking-included.py",
-        ),
-    )
-
-    # copy test_source.sh into mock repo
-    shell_harness_path = os_path_join(
-        request.node.fspath.dirname,
-        f"{request.node.fspath.purebasename}.sh",
-    )
-    if os_path_exists(shell_harness_path):
-        shutil_copy2(
-            shell_harness_path,
-            mock_repo_fullpath,
-        )
 
     return mock_repo_fullpath
 

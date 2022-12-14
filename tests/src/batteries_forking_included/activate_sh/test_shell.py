@@ -51,7 +51,12 @@ class Test_Invoke():
         p = shell_script_test_harness.run()
 
         assert p.returncode == 151
-        assert b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n" in p.stdout
+        assert (
+            b"ULTRADEBUG: WAS_SOURCED:\n" +
+            b"__array__WAS_SOURCED__index__0=false\n" +
+            b"__array__WAS_SOURCED__index__1=false\n" +
+            b"__array__WAS_SOURCED__length=2\n"
+        ) in p.stdout
         assert b"FATAL: activate.sh should not be invoked, only sourced" in p.stderr
 
 #endregion Invoke Tests
@@ -80,7 +85,12 @@ class Test_Source():
         p = shell_script_test_harness.run()
 
         assert p.returncode == 0
-        assert b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n" in p.stdout
+        assert (
+            b"ULTRADEBUG: WAS_SOURCED:\n" +
+            b"__array__WAS_SOURCED__index__0=false\n" +
+            b"__array__WAS_SOURCED__index__1=true\n" +
+            b"__array__WAS_SOURCED__length=2\n"
+        ) in p.stdout
 
 #endregion Source Tests
 ################################################################################

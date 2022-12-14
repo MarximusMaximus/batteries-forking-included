@@ -75,7 +75,12 @@ class Test_Invoke():
                 None,
                 2,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=false\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"Conda environment is batteries-forking-included\n",
                     b"Executing: /usr/bin/env python",
                     b"usage: ./run.sh",
@@ -97,7 +102,12 @@ class Test_Invoke():
                 [],
                 2,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=false\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"Conda environment is batteries-forking-included\n",
                     b"Executing: /usr/bin/env python",
                     b"usage: ./run.sh",
@@ -119,7 +129,12 @@ class Test_Invoke():
                 ["echo", "foo"],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=false\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"Conda environment is batteries-forking-included\n",
                     b"Executing: /usr/bin/env echo foo",
                     b"\nfoo\n",
@@ -143,7 +158,12 @@ class Test_Invoke():
                 ["--version"],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\tfalse\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=false\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"Conda environment is batteries-forking-included\n",
                     (
                         b"\nbatteries-forking-included " +
@@ -223,7 +243,12 @@ class Test_Source():
         p = shell_script_test_harness.run()
 
         assert p.returncode == 149
-        assert b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n" in p.stdout
+        assert (
+            b"ULTRADEBUG: WAS_SOURCED:\n" +
+            b"__array__WAS_SOURCED__index__0=false\n" +
+            b"__array__WAS_SOURCED__index__1=true\n" +
+            b"__array__WAS_SOURCED__length=2\n"
+        ) in p.stdout
 
 #endregion Source Tests
 ################################################################################

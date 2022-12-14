@@ -63,26 +63,17 @@ class Test_Invoke():
         [
             pytest_param(
                 [],
-                # RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151
-                # RET_ERROR_SHELL_PERMISSION_DENIED=126
-                (
-                    151 \
-                        if PytestShellScriptTestHarness\
-                            .isActuallyWindowsFileSystem() \
-                        else \
-                            126
-                ),
-                [
-                    b"ULTRADEBUG: WAS_SOURCED: false\n",
-                ],
+                151,  # RET_ERROR_SCRIPT_WAS_NOT_SOURCED=151
                 [
                     (
-                        b"FATAL: bfi-base.sh must be sourced" \
-                            if PytestShellScriptTestHarness\
-                                .isActuallyWindowsFileSystem() \
-                            else \
-                                b"./bfi-base.sh: Permission denied\n"
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=false\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
                     ),
+                ],
+                [
+                    b"FATAL: bfi-base.sh must be sourced",
                 ],
                 [
                     b" \x1b[1m\x07\xf0\x9f\x94\x94 \xf0\x9f\x92\x80 FATAL: "
@@ -153,7 +144,12 @@ class Test_Source():
         p = shell_script_test_harness.run()
 
         assert p.returncode == 0
-        assert b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n" in p.stdout
+        assert (
+            b"ULTRADEBUG: WAS_SOURCED:\n" +
+            b"__array__WAS_SOURCED__index__0=false\n" +
+            b"__array__WAS_SOURCED__index__1=true\n" +
+            b"__array__WAS_SOURCED__length=2\n"
+        ) in p.stdout
 
 #endregion Source Tests
 ################################################################################
@@ -182,7 +178,12 @@ class Test_Fence():
                 [],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                 ],
                 [
                     b"",

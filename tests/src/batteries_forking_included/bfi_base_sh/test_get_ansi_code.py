@@ -65,7 +65,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -89,7 +94,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -113,7 +123,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",   # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -137,7 +152,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -161,7 +181,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -185,7 +210,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -209,7 +239,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -233,7 +268,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -257,7 +297,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -281,7 +326,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -305,7 +355,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -329,7 +384,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -353,7 +413,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -377,7 +442,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -401,7 +471,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -425,7 +500,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -449,7 +529,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -473,7 +558,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -497,7 +587,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -521,7 +616,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -545,7 +645,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -569,7 +674,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -593,7 +703,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -657,7 +772,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -681,7 +801,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -705,7 +830,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -729,7 +859,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -753,7 +888,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -777,7 +917,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -801,7 +946,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -825,7 +975,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -849,7 +1004,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -873,7 +1033,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -897,7 +1062,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -921,7 +1091,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -945,7 +1120,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -969,7 +1149,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -993,7 +1178,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1017,7 +1207,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1041,7 +1236,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1065,7 +1265,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1089,7 +1294,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1113,7 +1323,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1137,7 +1352,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1161,7 +1381,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1185,7 +1410,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1249,7 +1479,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1273,7 +1508,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1297,7 +1537,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1321,7 +1566,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1345,7 +1595,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1369,7 +1624,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1393,7 +1653,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1417,7 +1682,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1441,7 +1711,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1465,7 +1740,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1489,7 +1769,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1513,7 +1798,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1537,7 +1827,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1561,7 +1856,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1585,7 +1885,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1609,7 +1914,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1633,7 +1943,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1657,7 +1972,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1681,7 +2001,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1705,7 +2030,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1729,7 +2059,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1753,7 +2088,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1777,7 +2117,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1841,7 +2186,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1865,7 +2215,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1889,7 +2244,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1913,7 +2273,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1937,7 +2302,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1961,7 +2331,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -1985,7 +2360,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2009,7 +2389,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2033,7 +2418,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2057,7 +2447,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2081,7 +2476,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2105,7 +2505,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2129,7 +2534,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2153,7 +2563,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2177,7 +2592,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2201,7 +2621,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2225,7 +2650,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2249,7 +2679,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2273,7 +2708,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2297,7 +2737,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2321,7 +2766,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2345,7 +2795,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2369,7 +2824,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2433,7 +2893,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2457,7 +2922,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2481,7 +2951,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2505,7 +2980,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2529,7 +3009,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2553,7 +3038,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2577,7 +3067,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2601,7 +3096,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2625,7 +3125,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2649,7 +3154,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2673,7 +3183,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2697,7 +3212,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2721,7 +3241,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2745,7 +3270,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2769,7 +3299,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2793,7 +3328,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2817,7 +3357,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2841,7 +3386,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2865,7 +3415,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2889,7 +3444,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2913,7 +3473,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2937,7 +3502,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -2961,7 +3531,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3025,7 +3600,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3049,7 +3629,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3073,7 +3658,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3097,7 +3687,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3121,7 +3716,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3145,7 +3745,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3169,7 +3774,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3193,7 +3803,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3217,7 +3832,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3241,7 +3861,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3265,7 +3890,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3289,7 +3919,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3313,7 +3948,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3337,7 +3977,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3361,7 +4006,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3385,7 +4035,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3409,7 +4064,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3433,7 +4093,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3457,7 +4122,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3481,7 +4151,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3505,7 +4180,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3529,7 +4209,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3553,7 +4238,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3617,7 +4307,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3641,7 +4336,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3665,7 +4365,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3689,7 +4394,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3713,7 +4423,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3737,7 +4452,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3761,7 +4481,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3785,7 +4510,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3809,7 +4539,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3833,7 +4568,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3857,7 +4597,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3881,7 +4626,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3905,7 +4655,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3929,7 +4684,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3953,7 +4713,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -3977,7 +4742,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4001,7 +4771,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4025,7 +4800,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4049,7 +4829,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4073,7 +4858,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4097,7 +4887,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4121,7 +4916,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4145,7 +4945,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4209,7 +5014,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4233,7 +5043,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4257,7 +5072,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4281,7 +5101,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4305,7 +5130,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4329,7 +5159,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4353,7 +5188,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4377,7 +5217,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4401,7 +5246,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4425,7 +5275,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4449,7 +5304,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4473,7 +5333,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4497,7 +5362,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4521,7 +5391,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4545,7 +5420,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4569,7 +5449,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4593,7 +5478,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4617,7 +5507,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4641,7 +5536,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4665,7 +5565,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4689,7 +5594,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4713,7 +5623,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4737,7 +5652,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4801,7 +5721,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4825,7 +5750,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4849,7 +5779,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4873,7 +5808,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4897,7 +5837,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4921,7 +5866,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4945,7 +5895,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4969,7 +5924,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -4993,7 +5953,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5017,7 +5982,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5041,7 +6011,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5065,7 +6040,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5089,7 +6069,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5113,7 +6098,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5137,7 +6127,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5161,7 +6156,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5185,7 +6185,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5209,7 +6214,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5233,7 +6243,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5257,7 +6272,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5281,7 +6301,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5305,7 +6330,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5329,7 +6359,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5393,7 +6428,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5417,7 +6457,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5441,7 +6486,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5465,7 +6515,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5489,7 +6544,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5513,7 +6573,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5537,7 +6602,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5561,7 +6631,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5585,7 +6660,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5609,7 +6689,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5633,7 +6718,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5657,7 +6747,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5681,7 +6776,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5705,7 +6805,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5729,7 +6834,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5753,7 +6863,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5777,7 +6892,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5801,7 +6921,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5825,7 +6950,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5849,7 +6979,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5873,7 +7008,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5897,7 +7037,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5921,7 +7066,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -5985,7 +7135,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6009,7 +7164,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6033,7 +7193,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6057,7 +7222,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6081,7 +7251,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6105,7 +7280,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6129,7 +7309,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6153,7 +7338,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6177,7 +7367,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6201,7 +7396,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6225,7 +7425,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6249,7 +7454,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6273,7 +7483,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6297,7 +7512,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6321,7 +7541,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6345,7 +7570,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6369,7 +7599,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6393,7 +7628,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6417,7 +7657,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6441,7 +7686,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6465,7 +7715,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6489,7 +7744,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6513,7 +7773,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6577,7 +7842,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6601,7 +7871,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6625,7 +7900,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6649,7 +7929,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6673,7 +7958,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6697,7 +7987,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6721,7 +8016,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6745,7 +8045,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6769,7 +8074,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6793,7 +8103,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6817,7 +8132,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6841,7 +8161,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6865,7 +8190,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6889,7 +8219,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6913,7 +8248,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6937,7 +8277,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6961,7 +8306,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -6985,7 +8335,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7009,7 +8364,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7033,7 +8393,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7057,7 +8422,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7081,7 +8451,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7105,7 +8480,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7169,7 +8549,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7193,7 +8578,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7217,7 +8607,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7241,7 +8636,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7265,7 +8665,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7289,7 +8694,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7313,7 +8723,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7337,7 +8752,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7361,7 +8781,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[barm\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7385,7 +8810,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[barm\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7409,7 +8839,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7433,7 +8868,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7457,7 +8897,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7481,7 +8926,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7505,7 +8955,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7529,7 +8984,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7553,7 +9013,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7577,7 +9042,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7601,7 +9071,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;foom\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7625,7 +9100,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;barm\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7649,7 +9129,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;barm\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7673,7 +9158,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7697,7 +9187,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7761,7 +9256,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7785,7 +9285,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7809,7 +9314,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7833,7 +9343,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7857,7 +9372,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7881,7 +9401,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7905,7 +9430,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7929,7 +9459,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7953,7 +9488,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -7977,7 +9517,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8001,7 +9546,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8025,7 +9575,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8049,7 +9604,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8073,7 +9633,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8097,7 +9662,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8121,7 +9691,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8145,7 +9720,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8169,7 +9749,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8193,7 +9778,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8217,7 +9807,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8241,7 +9836,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0m\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8265,7 +9865,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
@@ -8289,7 +9894,12 @@ class Test_get_ansi_code():
                 ],
                 0,
                 [
-                    b"ULTRADEBUG: WAS_SOURCED: false\ttrue\n",  # cspell:disable-line  # noqa: E501,W505,B950
+                    (
+                        b"ULTRADEBUG: WAS_SOURCED:\n" +
+                        b"__array__WAS_SOURCED__index__0=false\n" +
+                        b"__array__WAS_SOURCED__index__1=true\n" +
+                        b"__array__WAS_SOURCED__length=2\n"
+                    ),
                     b"PytestShellScriptTestHarness: \033[0;fooA\n",  # cspell:disable-line  # noqa: E501,W505,B950
                 ],
                 [
