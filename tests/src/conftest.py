@@ -48,10 +48,6 @@ import batteries_forking_included
 ################################################################################
 #region Fixtures
 
-@pytest.fixture(scope="class")
-def class_fixture() -> str:
-    return "class_fixture"
-
 #-------------------------------------------------------------------------------
 @pytest.fixture
 def mock_repo(

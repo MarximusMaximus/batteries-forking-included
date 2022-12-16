@@ -181,7 +181,6 @@ class Test_report_errors():
         additional_args_2: List[Union[str, int]],
         shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
-        class_fixture: str,
     ) -> None:
         r"""
         Check that report_errors returns properly based on args and environment
@@ -378,7 +377,6 @@ class Test_report_warnings():
         additional_args_2: List[Union[str, int]],
         shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
-        class_fixture: str,
     ) -> None:
         r"""
         Check that report_warnings returns properly based on args and environment
@@ -1362,7 +1360,6 @@ class Test_report_final_status():
         expected_stdout: List[bytes],
         shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
-        class_fixture: str,
     ) -> None:
         r"""
         Check that report_final_status returns properly based on args and environment
@@ -1616,7 +1613,6 @@ class Test_report_all():
         expected_not_stderr: List[bytes],
         shell_script_test_harness: PytestShellScriptTestHarness,
         monkeypatch: pytest_MonkeyPatch,
-        class_fixture: str,
     ) -> None:
         r"""
         Check that report_all returns properly based on args and environment
