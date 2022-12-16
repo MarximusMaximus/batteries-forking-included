@@ -70,11 +70,11 @@ repos:
   #     - id: poetry-check
       # - id: poetry-lock
 
-  - repo: https://github.com/dhatim/python-license-check
-    rev: 0.7.3
-    hooks:
-    - id: liccheck
-      language: system
+  # - repo: https://github.com/dhatim/python-license-check
+  #   rev: 0.7.3
+  #   hooks:
+  #   - id: liccheck
+  #     language: system
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
     rev: "v1.3.0"
