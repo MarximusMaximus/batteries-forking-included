@@ -210,9 +210,6 @@ jobs:
           additional-packages:
             git
             git-lfs
-            nodejs
-            npm
-            nodejs-doc
             curl
             wget
             ca-certificates
