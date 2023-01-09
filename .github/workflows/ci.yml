@@ -83,7 +83,7 @@ jobs:
       - name: Upload BFI Logs
         id: upload-bfi-logs
         if: always()
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: bfi-logs-build
           if-no-files-found: error
@@ -92,7 +92,7 @@ jobs:
 
       - name: Upload Build Products
         id: upload-build-products
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: build-products
           if-no-files-found: error
@@ -342,7 +342,7 @@ jobs:
       - name: Upload BFI Logs
         id: upload-bfi-logs
         if: always()
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
           if-no-files-found: error
@@ -352,7 +352,7 @@ jobs:
       - name: Upload Test Report Artifacts
         id: upload-test-report-artifacts
         if: matrix.tox-env != 'lint'
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: test-report-${{ matrix.os }}-${{ matrix.tox-env }}
           if-no-files-found: error
@@ -363,7 +363,7 @@ jobs:
       - name: Upload Coverage Artifacts
         id: upload-coverage-artifacts
         if: matrix.tox-env == 'coverage'
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: code-coverage-report
           if-no-files-found: error
@@ -465,7 +465,7 @@ jobs:
       - name: Upload BFI Logs
         id: upload-bfi-logs
         if: always()
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
           if-no-files-found: error
@@ -526,7 +526,7 @@ jobs:
       - name: Upload BFI Logs
         id: upload-bfi-logs
         if: always()
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: bfi-logs-${{ matrix.os }}-${{ matrix.tox-env }}
           if-no-files-found: error
