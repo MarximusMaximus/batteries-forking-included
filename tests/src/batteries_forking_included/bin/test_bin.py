@@ -1,7 +1,7 @@
 #! false
 # pylint: disable=duplicate-code
 """
-tests/bin/test_batteries_dash_forking_dash_included.py (batteries-forking-included)
+tests/batteries_forking_included/bin/test_bin.py (batteries-forking-included)
 """
 
 ################################################################################
