@@ -448,7 +448,7 @@ jobs:
 
       - name: Download Build Products
         id: download-build-products
-        uses: actions/download-artifact@v3.0.1
+        uses: actions/download-artifact@v3.0.2
         with:
           name: build-products
           path: dist
@@ -514,7 +514,7 @@ jobs:
 
       - name: Download Build Products
         id: download-build-products
-        uses: actions/download-artifact@v3.0.1
+        uses: actions/download-artifact@v3.0.2
         with:
           name: build-products
           path: dist
