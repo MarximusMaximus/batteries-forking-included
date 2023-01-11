@@ -4,16 +4,18 @@
 
 by Marximus Maximus (<https://marximus.com>)
 
-Single command installer for users and developers for git repos/projects. Sets up either a user environment or development environment for running or contributing to a project. There is no longer a need for a whole readme file with many steps of setup.
+A single command cross-platform all-in-one installer for users and developers for git repos/projects. Completely sets up either a user environment or development environment from scratch. No longer deal with pages of steps of setup nor dependency hell!
+
+**NOTE: Currently in Alpha Phase**
 
 ## Features
 
-- `bootstrap.sh` - Automatically downloads and installs/updates to latest miniforge, sets up/updates project env.
+- `bootstrap.sh` - Automatically downloads and installs/updates to latest miniforge, sets up/updates project's conda environment.
 - `activate.sh` - Activates conda environment for project.
-- `run.sh` - Runs command within conda environment for project. (Will try default command if first arg is not a path to an executable file.)
-- Python File Preamble - Automatically activates conda env when attempting to run python script directly. (Optional)
-- `bfi-update.sh` - Updates stub files within your project to latest versions
-- `post-bootstrap.sh` - Any additional commands to run after main environment setup provided by conda, pip, or poetry. (Optional)
+- `run.sh` - Runs specified command within project's conda environment. (Will try default command if first arg is not a path to an executable file nor script.)
+- Python File Preamble - Automatically activates project's conda environment when attempting to run python script directly. (Optional)
+- `bfi-update.sh` - Updates batteries-forking-included files within your project to latest versions
+- `post-bootstrap.sh` - Any additional commands to run after environment setup provided by supported package managers (currently: conda, poetry, & pip).
 
 Additional Files:
 
@@ -50,34 +52,44 @@ dependencies:
   - poetry
 ```
 
-2. Copy latest `bfi-update.sh` to your project root.
-3. Run `bfi-update.sh` from within your project root.
+3. Copy latest `bfi-update.sh` to your project root.
+4. Run `bfi-update.sh` from within your project root.
    1. `cd YOUR_PROJECT_ROOT_FOLDER`
    2. `./bfi-update.sh`
-5. (Optional) Modify `conda-environment.yml` and `pip-*.txt` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
-6. (Optional) Modify `post-bootstrap.sh` with any additional commands you wish to run during bootstrapping an environment (such as creating additional conda envs or running npm commands.)
-7. Run `bootstrap.sh --dev` to create environment.
+6. (Optional) Modify `conda-environment.yml` and `pip-*.txt` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
+7. Remove the line `# TODO: do additional setup/update things here; if nothing to do, just delete this line` from `post-bootstrap.sh`.
+8. (Optional) Modify `post-bootstrap.sh` with any additional commands you wish to run during bootstrapping an environment (such as creating additional conda envs or running npm commands.)
+9. Run `bootstrap.sh --dev` to create development environment.
 
 ### Initial Setup for New Developer
 
-1. Run `bootstrap.sh --dev` to create environment.
+1. Developer clones or otherwise acquires project repo.
+2. Run `bootstrap.sh --dev` to create development environment.
 
 ### Update batteries-forking-included Stubs
 
 1. Run `bfi-update.sh` from within your project root.
 2. Run `bootstrap.sh --dev` to update environment.
+    - (`--dev` here is optional if you already have a development environment)
 
 ### Update Project Environment
 
 1. (Optional) Modify `conda-environment.yaml` and `pip-*` directly and/or `pyproject.toml` (via `poetry` commands) as desired.
    1. NOTE: If using `poetry`, remember to run `poetry update` if you want your dependencies' pinned versions updated!
-2. Run `bootstrap.sh --dev` to create environment.
+2. Run `bootstrap.sh --dev` to update environment.
+    - (`--dev` here is optional if you already have a development environment)
 
 ### Raw Deployments (i.e. Direct To Metal)
+
+**NOT YET IMPLEMENTED**
 
 1. Clone or otherwise acquire your project to its destination.
 2. Run `bootstrap.sh --deploy` to create environment.
 3. Setup your favorite supervisor software to run `run.sh` with a current working directory of your project root.
+
+### Docker Deployments
+
+**TBD**
 
 ## Bug Reports / Feature Requests
 
