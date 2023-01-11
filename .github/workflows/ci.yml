@@ -58,12 +58,12 @@ jobs:
 
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
 
       # HACK: add fake submodule pytest-shell-script-test-harness
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
         with:
           repository: MarximusMaximus/pytest-shell-script-test-harness.git
           ref: "main"
@@ -307,12 +307,12 @@ jobs:
 
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
 
       # HACK: add fake submodule pytest-shell-script-test-harness
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
         with:
           repository: MarximusMaximus/pytest-shell-script-test-harness.git
           ref: "main"
@@ -390,12 +390,12 @@ jobs:
 
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
 
       # HACK: add fake submodule pytest-shell-script-test-harness
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
         with:
           repository: MarximusMaximus/pytest-shell-script-test-harness.git
           ref: "main"
@@ -492,12 +492,12 @@ jobs:
 
       - name: Checkout Repo
         id: checkout-repo
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
 
       # HACK: add fake submodule pytest-shell-script-test-harness
       - name: Checkout Repo pytest-shell-script-test-harness
         id: checkout-repo-pytest-shell-script-test-harness
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
         with:
           repository: MarximusMaximus/pytest-shell-script-test-harness.git
           ref: "main"
